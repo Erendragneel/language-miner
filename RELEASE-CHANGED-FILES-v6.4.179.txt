@@ -1,0 +1,19 @@
+Language Miner v6.4.179 changed/new files
+
+ADMIN-UPDATE-GUARDIAN-SETUP.md
+GRANULAR-ADMIN-PERMISSIONS-SETUP.md
+LEGAL-READINESS-DEPLOYMENT.md
+OWNER-MASTER-CONTROLS-SETUP.md
+README.md
+RELEASE-CHANGED-FILES-v6.4.179.txt
+cloud-auth.js
+game-6460.js
+index.html
+owner-admin-controls.css
+owner-admin-controls.js
+preview.html
+supabase/functions/admin-release-deploy/index.ts
+supabase/migrations/202608240004_granular_admin_permissions.sql
+sw.js
+update-guardian.js
+v6.js

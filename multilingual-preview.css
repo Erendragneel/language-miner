@@ -93,8 +93,10 @@
 .lm-course-question{padding:17px;border:1px solid #45658d;border-radius:17px;background:linear-gradient(145deg,#142640,#0d192c)}
 .lm-question-kicker{color:#6fe1c0;font-size:12px;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
 .lm-course-question h3{margin:8px 0 12px;font-size:clamp(20px,3vw,28px)}
-.lm-question-actions{display:flex;justify-content:flex-end;margin-bottom:10px}
+.lm-question-actions{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .lm-speak-button{border:1px solid #5c78a0;background:#273e63;color:#fff}
+.lm-speak-button.is-playing{border-color:#70f1c8;background:#205f58;box-shadow:0 0 0 3px rgba(112,241,200,.18)}
+.lm-speech-replay-status{flex-basis:100%;min-height:1.2em;color:#9ff6d9;font-size:12px;font-weight:800;text-align:right}
 .lm-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .lm-answer-grid button,.lm-speak-button,.lm-next-course-question{min-height:48px;padding:10px 14px;border-radius:13px;font-weight:900;cursor:pointer}
 .lm-answer-grid button{border:1px solid #48628a;background:#203552;color:#fff;font-size:18px}
@@ -197,11 +199,17 @@
 .lm-placement-question{padding:18px;border:1px solid #47638b;border-radius:18px;background:linear-gradient(145deg,#142640,#0d192c)}
 .lm-placement-question h3{margin:8px 0 14px;font-size:clamp(21px,3vw,29px)}
 .lm-placement-question .lm-speak-button{margin-bottom:12px}
+.lm-placement-level{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:11px;padding:9px 11px;border:1px solid #55739e;border-radius:12px;background:#192d4c;color:#dce8fb}
+.lm-placement-level span{padding:4px 7px;border-radius:999px;background:#2d4f7e;color:#9ff5d8;font-size:11px;font-weight:950;letter-spacing:.07em;text-transform:uppercase}
+.lm-placement-level strong{font-size:14px}.lm-placement-level small{margin-left:auto;color:#b8c8df;font-weight:800}
+.lm-placement-skip-question{display:block;width:100%;min-height:45px;margin-top:11px;border:1px solid #6b7fa1;border-radius:12px;background:#263956;color:#dce5f4;font-weight:900;cursor:pointer}
+.lm-placement-skip-question:disabled{opacity:.55;cursor:not-allowed}
 .lm-placement-result{display:grid;justify-items:center;gap:10px;padding:24px;border:1px solid #58d8b2;border-radius:20px;background:linear-gradient(145deg,#173b3a,#172347);text-align:center}
 .lm-placement-result>span{color:#84efd0;font-size:12px;font-weight:950;letter-spacing:.1em;text-transform:uppercase}
 .lm-placement-result>strong{font-size:clamp(50px,9vw,84px);line-height:1;color:#ffe17a}
 .lm-placement-result h3{margin:4px 0 0;font-size:clamp(24px,4vw,34px)}
 .lm-placement-result p{margin:0;color:#c9d2e5}
+.lm-placement-result .placement-score-grid{width:100%;grid-template-columns:repeat(4,minmax(0,1fr))}
 .lm-placement-recommendation{margin-top:5px;padding:12px 15px;border-radius:13px;background:#0d182d;color:#dce6fa}
 .lm-placement-recommendation b{color:#ffe17a}
 .lm-post-guide{display:grid;gap:13px}
@@ -217,7 +225,7 @@
 .lesson-preview-head>div{flex:1;min-width:0}
 .lesson-preview-skip{align-self:center;flex:0 0 auto;min-height:48px;margin-left:auto;padding:11px 16px;border:1px solid #f1c85c;border-radius:14px;background:linear-gradient(145deg,#4b3d20,#2b304b);color:#fff0a6;font-weight:900;box-shadow:0 8px 20px #070b1666;cursor:pointer}
 .lesson-preview-skip:hover{border-color:#ffe482;background:linear-gradient(145deg,#655027,#374063);color:#fff}
-@media(max-width:760px){.app>header{min-height:310px;padding:10px;background-position:center;background-size:auto 100%}.app>header>.account-chip{gap:6px;padding:7px}.app>header>.account-chip button{padding:7px 8px}.lm-multilingual-overlay{align-items:stretch;padding:0}.lm-multilingual-card{width:100%;max-height:100dvh;border-radius:0;padding:19px 15px}.lm-language-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-language-dropdown-screen{padding-top:0}.lm-language-dropdown-block{padding:15px}.lm-language-select-wrap select{min-height:58px;font-size:15px}.lm-guide-grid,.lm-placement-options{grid-template-columns:1fr}.lm-title-row{gap:7px}.lm-course-indicator,.lm-change-language{font-size:12px}.lm-flow-actions{flex-direction:column-reverse}.lm-flow-actions button{width:100%}.lm-answer-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.app>header{min-height:310px;padding:10px;background-position:center;background-size:auto 100%}.app>header>.account-chip{gap:6px;padding:7px}.app>header>.account-chip button{padding:7px 8px}.lm-multilingual-overlay{align-items:stretch;padding:0}.lm-multilingual-card{width:100%;max-height:100dvh;border-radius:0;padding:19px 15px}.lm-language-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-language-dropdown-screen{padding-top:0}.lm-language-dropdown-block{padding:15px}.lm-language-select-wrap select{min-height:58px;font-size:15px}.lm-guide-grid,.lm-placement-options{grid-template-columns:1fr}.lm-title-row{gap:7px}.lm-course-indicator,.lm-change-language{font-size:12px}.lm-flow-actions{flex-direction:column-reverse}.lm-flow-actions button{width:100%}.lm-answer-grid{grid-template-columns:1fr}.lm-placement-result .placement-score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-placement-level small{width:100%;margin-left:0}}
 @media(max-width:600px){.lesson-preview-skip{align-self:stretch;width:100%;margin:0}}
 @media(max-width:600px){.lm-course-answer-actions{display:grid;grid-template-columns:1fr}.lm-course-answer-actions button{width:100%}}
 @media(max-width:600px){.lm-expedition-mine.world-region,.lm-expedition-mine.world-region:nth-of-type(even){width:100%;margin:0;padding:13px 12px;border-radius:18px}.lm-mine-summary{grid-template-columns:56px minmax(0,1fr) 44px;gap:9px}.lm-expedition-mine .region-scenery{min-width:50px;font-size:31px}.lm-expedition-mine .region-scenery small{font-size:8px}.lm-expedition-mine .region-label strong{font-size:17px}.lm-expedition-mine .region-label span{font-size:10px}.lm-mine-dropdown{width:43px;height:43px;font-size:19px}.lm-mine-lesson-grid{grid-template-columns:1fr;max-height:390px}.lm-mine-lesson{min-height:79px}}

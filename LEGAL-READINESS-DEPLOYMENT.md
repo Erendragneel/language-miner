@@ -1,6 +1,6 @@
 # Legal-readiness deployment checklist
 
-Build: v6.4.172
+Build: v6.4.183
 
 ## Implemented in source
 
@@ -14,6 +14,8 @@ Build: v6.4.172
 - Parent/Teacher gradebook reports expose only whitelisted learning summaries, assessment history, lesson mastery, active study time, and streak data.
 - Educational-framework and non-affiliation disclaimers are visible.
 - Privacy Policy, Terms, third-party notices, asset register, claims register, and preliminary mark screen are included.
+- In-game release controls require a verified `app_admins` account, keep deployment credentials server-side, accept only reviewed Git refs, and write an audit event for every release action.
+- Administrator assignment is reserved to the single server-verified owner role, prevents browser table writes and owner self-demotion, and writes a private access audit event for every successful grant or revocation.
 
 ## Required Supabase deployment
 
@@ -22,9 +24,10 @@ From the configured Supabase project directory:
 ```text
 supabase db push
 supabase functions deploy account-delete
+supabase functions deploy admin-release-deploy
 ```
 
-`supabase db push` must include both `202608180001_cross_device_parent_teacher_links.sql` and `202608200001_parent_teacher_gradebook_reports.sql`. The latter refreshes the RPC signatures and PostgREST schema cache used by the Parent/Teacher Center.
+`supabase db push` must include `202608240001_repair_cross_device_parent_teacher_linking.sql`, `202608240002_admin_release_control.sql`, and `202608240003_owner_master_admin_controls.sql`. They install repaired linking, guarded releases, and owner-only administrator assignment. See `CROSS-DEVICE-LINKING-DEPLOYMENT.md`, `ADMIN-UPDATE-GUARDIAN-SETUP.md`, and `OWNER-MASTER-CONTROLS-SETUP.md` for setup details.
 
 The deletion function requires the standard project `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets available to Supabase Edge Functions. Confirm that authenticated calls can delete only the caller's own account.
 

@@ -1,0 +1,22 @@
+Language Miner v6.4.182 — 200 Travel & Common Phrases
+
+Changed files in this release:
+
+- index.html
+- preview.html
+- travel-phrases-200.js
+- multilingual-preview.js
+- sw.js
+- v6.js
+- update-guardian.js
+- README.md
+- LEGAL-READINESS-DEPLOYMENT.md
+- RELEASE-CHANGED-FILES-v6.4.182.txt
+
+Release notes:
+
+- Expands every supported Traveling course from 60 to 200 aligned phrases.
+- Adds 140 practical travel records built from seven localized sentence patterns and the existing 17-language vocabulary bank.
+- Produces 20 lessons of 10 phrases for every learning language.
+- Updates the Expedition Hub count and category description.
+- Adds the phrase expansion to the offline app shell and Update Guardian critical-file checks.

@@ -1,4 +1,4 @@
-// Language Miner v6.4.145 - learner-approved, read-only progress sharing and complete gradebook reports.
+// Language Miner v6.4.176 - reliable cross-device learner linking and complete gradebook reports.
 (()=>{
   'use strict';
   const LINK_KEY='lm_parent_teacher_links_v1';
@@ -24,8 +24,8 @@
   const linkLabel=status=>status==='approved'?t('Approved'):status==='pending'?t('Awaiting approval'):t('Declined');
   const signedInCloudUserId=()=>String(cloud()?.getSession?.()?.user?.id||'');
   const previewCloudMode=()=>window.LANGUAGE_MINER_PREVIEW===true&&!String(current()?.cloudUserId||'')&&!signedInCloudUserId();
-  const currentCloudUserId=()=>String(current()?.cloudUserId||signedInCloudUserId()||(previewCloudMode()?'preview-cloud-adult':''));
-  const cloudReady=()=>previewCloudMode()||!!(currentCloudUserId()&&cloud()?.enabled?.()&&cloud()?.listParentTeacherLinks);
+  const currentCloudUserId=()=>String(signedInCloudUserId()||current()?.cloudUserId||(previewCloudMode()?'preview-cloud-adult':''));
+  const cloudReady=()=>previewCloudMode()||!!(signedInCloudUserId()&&cloud()?.enabled?.()&&cloud()?.listParentTeacherLinks);
   function readLinks(){
     try{
       const value=JSON.parse(localStorage.getItem(LINK_KEY)||'[]');
@@ -66,14 +66,14 @@
     const count=incomingRequests().length;button.hidden=count===0;button.setAttribute('aria-label',count?`${count} ${t('student access request')}${count===1?'':'s'} ${t('awaiting your approval')}`:t('No student access requests'));button.innerHTML=`<span aria-hidden="true">🔔</span> ${esc(t('Requests'))}<b>${count}</b>`;
   }
   function cloudTime(value){if(!value)return t('Not synced yet');try{return new Date(value).toLocaleString(locale(),{dateStyle:'medium',timeStyle:'short'});}catch{return new Date(value).toLocaleString();}}
-  function friendlyCloudError(error){const message=String(error?.message||error||t('Cloud learner data is temporarily unavailable.'));if(/list_parent_teacher_links|load_linked_learner_progress|schema cache/i.test(message))return t('Teacher linking is not installed on this cloud project yet. Deploy the included Parent/Teacher Supabase migrations, then refresh this page.');return message;}
+  function friendlyCloudError(error){const message=String(error?.message||error||t('Cloud learner data is temporarily unavailable.'));if(/parent_teacher|student_link|linked_learner|schema cache|PGRST202/i.test(message))return t('Cross-device linking is not installed on this cloud project yet. Deploy the included Supabase linking repair migration, then refresh this page.');return message;}
   async function syncCloudData(announce=false){
     if(!cloudReady()){cloudLinks=[];cloudSummaries=new Map();cloudError='';syncRequestNotification();if(centerOpen())render();return false;}
     if(previewCloudMode()){cloudError='';cloudLastSync=Date.now();syncRequestNotification();if(announce)window.setMessage?.(t('Preview cross-device progress refreshed.'),'correct');if(centerOpen())render();return true;}
     if(cloudBusy)return false;cloudBusy=true;cloudError='';if(centerOpen())render();
     try{
-      await window.languageMinerPushCloudSave?.();
       const rows=await cloud().listParentTeacherLinks();cloudLinks=rows.map(normalizeCloudLink);
+      try{Promise.resolve(window.languageMinerPushCloudSave?.()).catch(error=>console.warn('Learner-link refresh continued even though the current cloud save could not be pushed.',error));}catch(error){console.warn('Learner-link refresh continued even though the current cloud save could not be pushed.',error);}
       const approved=cloudLinks.filter(link=>isAdult(link)&&link.status==='approved'),summaries=new Map();
       await Promise.all(approved.map(async link=>{const record=await cloud().loadLinkedLearnerProgress(link.studentUserId);const summary=bridge()?.cloudLearnerSummary?.(record);if(summary)summaries.set(link.studentProfileId,summary);}));
       cloudSummaries=summaries;cloudLastSync=Date.now();
@@ -82,7 +82,7 @@
     }catch(error){cloudError=friendlyCloudError(error);if(announce)window.setMessage?.(cloudError,'wrong');return false;}
     finally{cloudBusy=false;const learners=approvedLearners();if(!selectedLearnerId||!learners.some(item=>item.id===selectedLearnerId))selectedLearnerId=learners[0]?.id||'';syncRequestNotification();if(centerOpen())render();}
   }
-  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(!document.hidden&&cloudReady())syncCloudData(false);},30000);}
+  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(!document.hidden&&cloudReady())syncCloudData(false);},15000);}
   function seedPreviewAccess(){
     if(window.LANGUAGE_MINER_PREVIEW!==true)return;
     const adult=current();if(!adult||!['codex-preview','codex-preview-player'].includes(adult.id))return;const candidates=profiles().filter(profile=>profile.id!==adult.id&&profile.id.startsWith('preview-player-')).slice(0,2);if(!candidates.length)return;
@@ -175,8 +175,8 @@
       const cloudId=String(id).slice(6);if(!cloudId||!cloudReady())return;
       if(previewCloudMode()){const index=cloudLinks.findIndex(link=>link.cloudId===cloudId);if(index<0)return;if(action==='remove'||action==='revoke')cloudLinks.splice(index,1);else if(action==='approve'||action==='decline'){cloudLinks[index].status=action==='approve'?'approved':'declined';cloudLinks[index].respondedAt=Date.now();}cloudLastSync=Date.now();render();return;}
       try{
-        if(action==='approve'||action==='decline')await cloud().respondStudentLink(cloudId,action==='approve');
-        else if(action==='revoke'||action==='remove')await cloud().removeStudentLink(cloudId);
+        if(action==='approve'||action==='decline'){const response=await cloud().respondStudentLink(cloudId,action==='approve'),link=cloudLinks.find(item=>item.cloudId===cloudId);if(link){link.status=String(response?.status||(action==='approve'?'approved':'declined'));link.respondedAt=Date.parse(String(response?.responded_at||''))||Date.now();}}
+        else if(action==='revoke'||action==='remove'){await cloud().removeStudentLink(cloudId);cloudLinks=cloudLinks.filter(item=>item.cloudId!==cloudId);}
         else return;
         await syncCloudData(true);
       }catch(error){cloudError=String(error?.message||error);window.setMessage?.(cloudError,'wrong');render();}
@@ -199,7 +199,7 @@
       cloudLastSync=Date.now();activeView='manage';window.setMessage?.(t('Preview request created. Production requests go to the learner’s signed-in account.'),'correct');render();return;
     }
     cloudBusy=true;cloudError='';render();
-      try{const request=await cloud().requestStudentLink(email);if(!request?.id)throw new Error(t('The server did not confirm the access request. Please try again.'));activeView='manage';window.setMessage?.(t('Cross-device access request sent. The learner will see a notification after signing in.'),'correct');}
+      try{const request=await cloud().requestStudentLink(email);if(!request?.id||!request?.student_user_id)throw new Error(t('The server did not confirm the access request. Please try again.'));const normalized=normalizeCloudLink({...request,adult_display_name:current()?.name||t('Parent or teacher'),adult_email:current()?.email||'',student_display_name:email.split('@')[0]||t('Learner'),student_email:email});cloudLinks=cloudLinks.filter(link=>link.cloudId!==normalized.cloudId);cloudLinks.unshift(normalized);cloudLastSync=Date.now();activeView='manage';window.setMessage?.(t('Cross-device access request sent. The learner will see it after signing in or refreshing the Parent/Teacher Center.'),'correct');}
     catch(error){cloudError=friendlyCloudError(error);window.setMessage?.(cloudError,'wrong');}
     finally{cloudBusy=false;await syncCloudData(false);if(centerOpen())render();}
   }
@@ -226,6 +226,7 @@
   window.addEventListener('jm-profile-loaded',()=>{selectedLearnerId='';activeTab='overview';activeView='dashboard';cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;setTimeout(init,0);});
   window.addEventListener('jm-profile-logged-out',()=>{clearInterval(cloudTimer);cloudTimer=0;cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;});
   window.addEventListener('lm-cloud-session-changed',()=>{startCloudRefresh();syncCloudData(false);});
+  window.addEventListener('online',()=>{if(cloudReady())syncCloudData(false);});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cloudReady())syncCloudData(false);});
   window.addEventListener('lm-interface-language-changed',()=>{ensureShell();addMenuItem();if(document.getElementById('parentTeacherCenter')?.classList.contains('open'))render();});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

@@ -1,4 +1,100 @@
-# Language Miner v6.4.172
+# Language Miner v6.4.183
+
+## v6.4.183 Known-Language Cultural Events
+
+- Replaced the single Japanese-themed seasonal card with cultural calendars selected from the player’s known-language setting.
+- Added 51 featured observances across all 17 supported known languages, with three events per language and native-language explanations of their history and significance.
+- Event cards remain readable year-round and clearly identify whether an observance is active, upcoming, or earlier in the current year.
+- Added an identity note explaining that language does not determine a person’s identity and that traditions vary by family and region.
+- During an active event, five correct answers unlock a one-time Culture Explorer boost for that event and year. The boost adds 15% Player XP to correct answers and expires automatically when the event window ends.
+- Event claims and temporary reward expiry are stored in the normal gameplay save, including cloud saves, without permanently stacking the bonus.
+- Updated the phone layout, offline app shell, build version, and Update Guardian critical-file checks.
+
+## v6.4.182 200 Travel & Common Phrases
+
+- Expanded the travel-purpose course from 60 to 200 aligned phrases for all 17 supported learning languages.
+- The course now contains 20 replayable lessons with 10 phrases each, using the same progress and completion system in every language.
+- Added practical coverage for destinations, transportation, dining requests, shopping and essentials, health needs, hotels, and lost-property help.
+- New phrases reuse the verified multilingual vocabulary bank and natural language-specific sentence frames, keeping translations synchronized without displaying untranslated placeholders.
+- Updated the Expedition Hub description, offline app shell, build version, and cache key so installed copies receive the full phrase expansion.
+
+## v6.4.181 Strict Stroke-Order Writing
+
+- Writing Practice now accepts one pen-down stroke at a time and keeps each accepted stroke locked in sequence.
+- Exact numbered models validate the required starting point, initial direction, and proximity to the displayed character before accepting a stroke.
+- Latin letters and their supported accent marks now have ordered start markers and directional stroke models.
+- Hiragana and Katakana now use per-character direction sequences; Greek, Cyrillic, and Hangul practice enforce the expected number of separate strokes. All supported scripts reject strokes drawn away from the character guide.
+- The next required stroke is highlighted on the canvas, completed strokes receive check marks, and incorrect strokes are removed immediately with a specific retry message.
+- Check & Next remains disabled until the required ordered stroke sequence has been completed.
+- Updated cache keys ensure browsers, phones, tablets, and installed PWA copies receive the stricter writing system.
+
+## v6.4.180 Free Beta Tester Title
+
+- Added a permanent **Beta Tester** player title for everyone playing Language Miner, including free accounts with no Patreon connection.
+- The title appears at the top of **Player Center → Achievements** in a new Free Player Titles section.
+- Equipping it requires no achievement, Player Level, Nuggets, administrator grant, or supporter tier.
+- Existing achievement titles retain their current Tier 1 supporter rules.
+- The equipped Beta Tester title is saved to the player's existing local and cloud gameplay state and appears on the character nameplate.
+
+## v6.4.179 Granular Administrator Privileges
+
+- The master owner can now configure each administrator independently instead of granting one all-or-nothing admin role.
+- Eight selectable privileges cover Economy, Hearts & Health, Course Progression, Cosmetics & Supplies, Save & Profile Resets, Player Management, Game Updates, and Privacy Requests.
+- Newly granted administrators begin with only the privileges explicitly checked by the owner. Existing administrators retain their current controls when the migration is first installed, and the owner can reduce them afterward.
+- Unassigned control groups disappear from that administrator's panel, and direct button actions are denied as a second client-side guard.
+- Player-account operations, privacy workflows, release-history access, and the release Edge Function now verify their specific privilege again in Supabase; hiding a button is not the security boundary.
+- Every grant, revoke, and permission change is recorded in the protected administrator-access audit history.
+- See [GRANULAR-ADMIN-PERMISSIONS-SETUP.md](GRANULAR-ADMIN-PERMISSIONS-SETUP.md) for the one-time Supabase migration and Edge Function redeployment.
+
+## v6.4.178 Owner Master Controls
+
+- Activated the existing protected `owner` role as a separate authority above ordinary administrators.
+- Exactly one master owner receives all administrator features plus an exclusive Owner Master Controls panel for searching registered accounts and granting or revoking administrator access.
+- Ordinary administrators cannot assign privileges, create another owner, demote the owner, or view the owner panel.
+- Changed the database default for newly created `app_admins` rows from owner to admin and safely preserves the earliest existing owner as the one master account.
+- Added server-side owner verification to every account search, grant, revoke, and audit-history request; direct browser writes to `app_admins` remain forbidden.
+- Added a private audit record for every successful administrator grant and revocation.
+- See [OWNER-MASTER-CONTROLS-SETUP.md](OWNER-MASTER-CONTROLS-SETUP.md) for the one-time migration and ownership verification.
+
+## v6.4.177 Update Guardian and protected admin releases
+
+- Added staged app-shell validation, last-known-good browser caching, repeated-boot-failure detection, local rollback, and malformed-save recovery without copying authentication tokens.
+- Updates wait for a restart instead of replacing files inside an active quiz or test.
+- Added an Admin Update Center for every verified `app_admins` account to deploy reviewed Git branches/tags/commits, publish flat non-executable feature flags, mark a build stable, or redeploy the previous approved release.
+- Added a protected Supabase Edge Function, release-control migration, audit history, and GitHub Pages validation/deployment workflow. Deployment credentials remain server-side.
+- Raw code, HTML, SQL, files, and secrets cannot be submitted from inside the game. New features must be reviewed and committed to Git before an admin can publish them.
+- See [ADMIN-UPDATE-GUARDIAN-SETUP.md](ADMIN-UPDATE-GUARDIAN-SETUP.md) for the one-time Supabase and GitHub setup.
+
+## v6.4.176 cross-device account-linking repair
+
+- Added an idempotent Supabase repair migration that installs the missing request, list, approve/decline, remove, and read-only learner-report functions and explicitly refreshes the PostgREST schema cache.
+- Made the authenticated Supabase session the source of truth when deciding whether a cloud request belongs to the adult or learner, preventing stale local profile identifiers from hiding valid links.
+- Incoming link requests now load before attempting an unrelated cloud-save push, so a save conflict or temporary save failure can no longer block the learner's pending-request list.
+- A sent request appears immediately in the adult's requested-learners list, approvals and removals update immediately, foreground/network recovery triggers a refresh, and background polling now checks every 15 seconds.
+- Added clear deployment-specific errors instead of allowing an unavailable cloud function to resemble a successfully sent request.
+
+## v6.4.175 progressive placement-test parity
+
+- Standardized every supported language placement test to the Japanese exam's 40-question, seven-level structure: 6 alphabet questions, 6 second-level questions, 12 third-level questions, then 4 questions at each of the four advanced levels.
+- Kept every language aligned to its own course framework and writing system, including CEFR-oriented, TOPIK-oriented, HSK-oriented, JLPT, and language-specific advanced course labels.
+- Placement questions now remain ordered from foundation through advanced instead of globally shuffling difficulty; questions and answer choices are still randomized inside each level.
+- Non-Japanese tests now draw vocabulary, grammar, and sentence questions from the matching mine's lesson pool, use the same sequential pass thresholds as Japanese, and produce seven per-level scores.
+- Placement results now unlock the appropriate starting mine, preserve all earlier mines for review, award the matching placement tier, record the full 40-question result for learning reports, and provide a skip option on every question.
+
+## v6.4.174 pronunciation replay control repair
+
+- Repaired the lesson **Replay pronunciation clue** button through the permanent shared course controller, so interface refreshes can no longer leave a visible but disconnected button.
+- A learner's direct replay click now starts the pronunciation even when automatic voice playback is turned off; silent quizzes and tests remain silent.
+- Added clear playing, ready, unavailable-voice, and browser-audio error feedback so the control never fails without an explanation.
+- Applied the repair to every non-Japanese language course through the shared native-language pronunciation engine, without changing Japanese course behavior.
+
+## v6.4.173 completed-mine lesson replay repair
+
+- Permanent Guardian and mine-completion records now keep every older Japanese mine open even if later practice changes its current mastery score.
+- Clicking a lesson in a completed Japanese mine now switches to that exact mine first and opens the selected lesson ready to replay, without repeating first-time preview gates or deleting saved completion.
+- Completed Hiragana and Katakana family lessons remain selectable from the Expedition Hub, including saves whose permanent completion is stored in Guardian results.
+- Every non-Japanese course now treats a defeated mine Guardian as an explicit replay pass for every lesson in that mine, while current unfinished mines still follow their normal progression rules.
+- Replaying old lessons preserves completion records and one-time completion rewards while continuing to record ordinary practice progress.
 
 ## v6.4.172 hearing-syllable progression repair
 
