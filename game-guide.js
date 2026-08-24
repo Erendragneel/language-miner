@@ -50,10 +50,10 @@ const TOPICS=[
  ],note:'Lesson progress is saved after answered questions, not merely by opening a lesson.',actions:[['course','Open Course'],['mine','Go to the Mine']]},
  {id:'writing-practice',category:'learning',icon:'✍️',title:'Alphabet and character writing practice',summary:'Trace and write the selected course’s alphabet, script, Kana, Kanji, Hangul, Hanzi, or other characters in short saved lessons.',path:'Menu → Explore → Writing Practice',steps:[
   'Writing Practice automatically follows the learning language shown at the top of the game.',
-  'Choose a writing set and lesson, select a character, then trace the faint guide on the writing pad.',
-  'Hide the guide and write the character again from memory. Clear removes the page, while Undo removes only the most recent stroke.',
-  'Complete & Next saves that character to the current player and advances through the lesson. Every language keeps its own writing record.'
- ],note:'Writing completion is practice progress; it does not spend hearts, supplies, or Nuggets.',actions:[['writing','Open Writing Practice']]},
+  'Choose a writing set and lesson, select a character, and watch its numbered stroke-order model before starting.',
+  'Draw one stroke at a time. A stroke is accepted only when it begins in the required area, follows the shown direction, and stays on the character guide; an incorrect stroke is removed for another try.',
+  'Check & Next unlocks after the required stroke sequence is complete. Hide Guide lets you repeat it from memory, Clear removes the page, and Undo returns to the previous accepted stroke.'
+ ],note:'Every language keeps a separate writing record. Writing practice does not spend hearts, supplies, or Nuggets.',actions:[['writing','Open Writing Practice']]},
  {id:'question-controls',category:'learning',icon:'⛏️',title:'Answering questions and using study controls',summary:'Understand the normal question loop, optional help, and correction controls.',path:'Menu → Explore → Mine · Home screen → mine rock',steps:[
   'Tap the rock or New Question to load a question from the active course route.',
   'Use the optional audio control when you want pronunciation. Reading support and furigana can be adjusted without changing the language course.',

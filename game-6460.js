@@ -1475,15 +1475,25 @@ function deliverLanguageMinerSpeech(request,mayWait=true){
   const utterance=configureLanguageMinerUtterance(new SpeechSynthesisUtterance(request.text),profile.tag,request.rate,nativeVoice);
   lastLanguageMinerSpeechRequest={text:request.text,language:profile.base,requestedTag:profile.tag,resolvedTag:utterance.lang,voice:nativeVoice.name||'',voiceLanguage:nativeVoice.lang||'',rate:utterance.rate,pitch:utterance.pitch,status:'native'};
   document.documentElement.dataset.lmSpeechStatus='native';document.documentElement.dataset.lmSpeechRequested=profile.tag;document.documentElement.dataset.lmSpeechLanguage=utterance.lang;document.documentElement.dataset.lmSpeechVoice=nativeVoice.name||'';document.documentElement.dataset.lmSpeechText=request.text;
-  speechSynthesis.cancel();speechSynthesis.speak(utterance);return true;
+  utterance.onstart=()=>{document.documentElement.dataset.lmSpeechStatus='native-speaking';window.dispatchEvent(new CustomEvent('language-miner-speech-started',{detail:{language:profile.base,tag:profile.tag,text:request.text,manual:request.manual===true}}));};
+  utterance.onend=()=>{document.documentElement.dataset.lmSpeechStatus='native-complete';window.dispatchEvent(new CustomEvent('language-miner-speech-ended',{detail:{language:profile.base,tag:profile.tag,text:request.text,manual:request.manual===true}}));};
+  utterance.onerror=event=>{const error=String(event?.error||'unknown');if(error==='canceled'||error==='interrupted')return;document.documentElement.dataset.lmSpeechStatus='native-error';setMessage(`The ${profile.label} pronunciation could not start. Check this browser's audio permission and the ${profile.tag} device voice, then try again.`,'wrong');window.dispatchEvent(new CustomEvent('language-miner-speech-error',{detail:{language:profile.base,tag:profile.tag,text:request.text,error}}));};
+  speechSynthesis.cancel();speechSynthesis.resume?.();speechSynthesis.speak(utterance);speechSynthesis.resume?.();return true;
 }
 function flushPendingLanguageMinerSpeech(){const request=pendingLanguageMinerSpeech;if(!request)return false;pendingLanguageMinerSpeech=null;return deliverLanguageMinerSpeech(request,false);}
-function speakLanguageMinerText(text,languageTag='ja-JP',rate=state.voiceRate){
-  if(silentTestingActive()||!state.voiceEnabled)return false;if(!('speechSynthesis'in window)){setMessage('Speech is not supported in this browser.','wrong');return false;}const clean=stripMarkup(text).trim();if(!clean)return false;return deliverLanguageMinerSpeech({text:clean,languageTag,rate});
+function speakLanguageMinerText(text,languageTag='ja-JP',rate=state.voiceRate,options={}){
+  const manual=options?.manual===true;
+  if(silentTestingActive())return false;
+  if(!state.voiceEnabled&&!manual)return false;
+  if(!('speechSynthesis'in window)){setMessage('Speech is not supported in this browser.','wrong');return false;}
+  const clean=stripMarkup(text).trim();if(!clean)return false;
+  return deliverLanguageMinerSpeech({text:clean,languageTag,rate,manual});
 }
+function replayLanguageMinerText(text,languageTag='ja-JP',rate=state.voiceRate){return speakLanguageMinerText(text,languageTag,rate,{manual:true});}
 window.LanguageMinerSpeech=Object.freeze({
   speak:speakLanguageMinerText,
   pronounce:speakLanguageMinerText,
+  replay:replayLanguageMinerText,
   gender:()=>state.voiceGender,
   style:()=>state.voiceStyle,
   styles:()=>Object.keys(VOICE_STYLE_PRESETS),
@@ -1988,6 +1998,16 @@ function applySelectedAdminReset(){
   else if(target==="profile"){state=normalizeState(structuredClone(DEFAULT_STATE));window.LanguageMinerCourseAdmin?.resetAll?.();window.LanguageMinerCourseAdmin?.resetAllPlacements?.();}
   state=normalizeState(state);return true;
 }
+const ADMIN_ACTION_PERMISSIONS=Object.freeze({
+  'set-nuggets':'economy','add-million':'economy','add-gems':'economy',
+  'restore-hearts':'health','max-hearts':'health',
+  'set-stage':'progression','master-kana':'progression','unlock-all':'progression',
+  'unlock-pickaxes':'cosmetics','add-items':'cosmetics',
+  'copy-save':'profile_resets','export-save':'profile_resets','import-save':'profile_resets','reset-selected':'profile_resets','reset-profile':'profile_resets',
+  'reset-selected-player':'player_management'
+});
+const ADMIN_PERMISSION_NAMES=Object.freeze({economy:'Economy',health:'Hearts & Health',progression:'Course Progression',cosmetics:'Cosmetics & Supplies',profile_resets:'Save & Profile Resets',player_management:'Player Management'});
+function adminPermissionAllowed(permission){return window.languageMinerAdminAllows?.(permission)===true;}
 let selectedAdminPlayerId="",adminPlayerResultsCache=[],adminPlayerSearchRequest=0;
 function adminEscape(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));}
 function adminPlayerAccountKey(profile){return profile?.cloudUserId?`cloud:${profile.cloudUserId}`:`local:${profile?.name||"preview-player"}`;}
@@ -1997,6 +2017,7 @@ function localAdminPlayerResults(term){
 }
 async function renderAdminPlayerSearch(){
   const results=document.getElementById("adminPlayerResults"),summary=document.getElementById("adminSelectedPlayer"),resetButton=document.querySelector('[data-admin="reset-selected-player"]');if(!results||!summary||!resetButton)return;
+  if(!adminPermissionAllowed('player_management')){results.innerHTML='<div class="admin-player-empty">The master owner has not assigned Player Management to this administrator.</div>';summary.innerHTML='<span>Player Management unavailable</span><small>Ask the master owner to assign this privilege.</small>';resetButton.disabled=true;return;}
   const request=++adminPlayerSearchRequest,term=String(document.getElementById("adminPlayerSearch")?.value||"").trim().toLowerCase(),localPlayers=localAdminPlayerResults(term);results.innerHTML='<div class="admin-player-empty">Searching secure cloud accounts…</div>';
   let globalPlayers=[],cloudUnavailable=false;
   try{
@@ -2042,6 +2063,8 @@ async function resetSelectedPlayerData(){
 }
 async function runAdminAction(action){
   if(!isDeveloperSession){developerMessage("Administrator access required.",true);return;}
+  const requiredPermission=ADMIN_ACTION_PERMISSIONS[action];
+  if(requiredPermission&&!adminPermissionAllowed(requiredPermission)){developerMessage(`The master owner has not assigned the ${ADMIN_PERMISSION_NAMES[requiredPermission]||requiredPermission} privilege to this administrator.`,true);return;}
   let successMessage="Developer action applied successfully.";
   if(action==="set-nuggets") setTotalNuggets(document.getElementById("adminNuggetAmount").value);
   if(action==="add-million") addStoneChange(1000000,gemTiers.length-1);
@@ -2108,9 +2131,9 @@ document.getElementById("developerOverlay").addEventListener("click",e=>{if(e.ta
 document.querySelectorAll("[data-admin]").forEach(btn=>btn.addEventListener("click",()=>runAdminAction(btn.dataset.admin)));
 let adminPlayerSearchTimer=null;
 document.getElementById("adminPlayerSearch")?.addEventListener("input",()=>{clearTimeout(adminPlayerSearchTimer);adminPlayerSearchTimer=setTimeout(renderAdminPlayerSearch,250);});
-document.getElementById("adminPlayerResults")?.addEventListener("click",event=>{const result=event.target.closest?.("[data-admin-player-id]");if(!result||!isDeveloperSession)return;selectedAdminPlayerId=result.dataset.adminPlayerId;renderAdminPlayerSearch();});
+document.getElementById("adminPlayerResults")?.addEventListener("click",event=>{const result=event.target.closest?.("[data-admin-player-id]");if(!result||!isDeveloperSession||!adminPermissionAllowed('player_management'))return;selectedAdminPlayerId=result.dataset.adminPlayerId;renderAdminPlayerSearch();});
 document.getElementById("adminInfiniteHearts").addEventListener("change",e=>{
-  if(!isDeveloperSession)return;
+  if(!isDeveloperSession||!adminPermissionAllowed('health')){e.target.checked=!!state.developerInfiniteHearts;developerMessage("The master owner has not assigned the Hearts & Health privilege to this administrator.",true);return;}
   state.developerInfiniteHearts=e.target.checked;
   if(state.developerInfiniteHearts) state.hearts=state.maxHearts;
   save();render();developerMessage(state.developerInfiniteHearts?"Infinite hearts enabled.":"Infinite hearts disabled.");
@@ -2431,7 +2454,8 @@ function chooseBrandNew(){
   document.getElementById('beginJourneyBtn').addEventListener('click',()=>{closePlacementOnboarding();document.getElementById('rock')?.scrollIntoView({behavior:'smooth',block:'center'});});
 }
 function randomizePlacementTest(){
-  const randomized=shuffle([...PLACEMENT_TEST_QUESTIONS]);
+  const placementOrder=['hiragana','katakana','n5','n4','n3','n2','n1'];
+  const randomized=placementOrder.flatMap(section=>shuffle(PLACEMENT_TEST_QUESTIONS.filter(question=>question.section===section)));
   PLACEMENT_TEST_QUESTIONS.splice(0,PLACEMENT_TEST_QUESTIONS.length,...randomized);
   PLACEMENT_TEST_QUESTIONS.forEach(question=>{question.options=shuffle([...question.options]);});
 }
@@ -2446,7 +2470,7 @@ function renderPlacementQuestion(){
   const q=PLACEMENT_TEST_QUESTIONS[placementSession.index];
   const box=document.getElementById('placementContent');
   const pct=Math.round(placementSession.index/PLACEMENT_TEST_QUESTIONS.length*100);
-  const sectionName=q.section==='hiragana'?'Hiragana':q.section==='katakana'?'Katakana':'JLPT N5';
+  const sectionName=q.section==='hiragana'?'Hiragana':q.section==='katakana'?'Katakana':`JLPT ${q.section.toUpperCase()}`;
   box.innerHTML=`<div class="placement-progress-label"><span>${sectionName}</span><strong>Question ${placementSession.index+1} of ${PLACEMENT_TEST_QUESTIONS.length}</strong></div>${progressBar(pct)}
   <div class="placement-question"><h3>${v3Esc(q.prompt)}</h3><div class="jp-test">${v3Esc(q.display)}</div><div class="placement-options">${q.options.map((o,i)=>`<button type="button" data-place-answer="${i}">${v3Esc(o)}</button>`).join('')}</div><button id="placementSkipBtn" class="placement-skip" type="button">Skip — I don’t know</button><div id="placementFeedback" class="placement-feedback" aria-live="polite"></div><button id="placementNextBtn" class="placement-next primary" type="button" hidden>${placementSession.index===PLACEMENT_TEST_QUESTIONS.length-1?'See my result':'Next question'}</button></div>`;
   box.querySelectorAll('[data-place-answer]').forEach(btn=>btn.addEventListener('click',()=>answerPlacementQuestion(Number(btn.dataset.placeAnswer))));
@@ -3023,6 +3047,9 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
     {id:'kana',name:'Kana Master',title:'Kana Master',desc:'Clear Hiragana and Katakana.',test:()=>stageComplete(0)&&stageComplete(1),reward:50000},
     {id:'n5',name:'N5 Graduate',title:'N5 Graduate',desc:'Clear the JLPT N5 mine.',test:()=>stageComplete(2),reward:100000}
   ];
+  const FREE_PLAYER_TITLES=[
+    {id:'beta-tester',title:'Beta Tester',icon:'🧪',description:'Thank you for helping build and improve Language Miner during its beta.'}
+  ];
   function addNuggets(amount){addStoneChange(amount,Math.min(gemTiers.length-1,Math.max(2,selectedStageIndex()+3)));}
   function questRewardText(q){const rewards=[`${Number(q.reward||0).toLocaleString()} Nuggets`];if(q.hints)rewards.push(`${q.hints} Hint${q.hints===1?'':'s'}`);if(q.shields)rewards.push(`${q.shields} Shield${q.shields===1?'':'s'}`);return rewards.join(' + ');}
   function claimQuest(type,id){ensureV38();const list=type==='daily'?DAILY_QUESTS:WEEKLY_QUESTS;const q=list.find(x=>x.id===id),bucket=state.questData[type];if(!q||bucket['claimed_'+id]||q.metric()<q.goal)return;bucket['claimed_'+id]=true;addNuggets(q.reward);state.hints=Number(state.hints||0)+Number(q.hints||0);state.shields=Number(state.shields||0)+Number(q.shields||0);save();render();renderFeatureCenter('quests');setMessage(`${q.name} completed! ${questRewardText(q)} added.`,'correct');}
@@ -3151,7 +3178,7 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
   };
 
   function renderQuests(){const dailyClaimed=DAILY_QUESTS.filter(q=>state.questData.daily['claimed_'+q.id]).length,weeklyClaimed=WEEKLY_QUESTS.filter(q=>state.questData.weekly['claimed_'+q.id]).length,expedition=window.LanguageMinerExpeditionGoals?.markup?.()||'<div class="viz-callout">Expedition goals are loading. Reopen Goals in a moment.</div>',body=goalsView==='weekly'?`<div class="feature-section"><h3>Weekly goals</h3><p class="small">${weeklyClaimed}/${WEEKLY_QUESTS.length} claimed · refresh every Monday.</p>${WEEKLY_QUESTS.map(q=>progressCard(q,'weekly')).join('')}</div>`:goalsView==='expedition'?`<div class="feature-section">${expedition}</div>`:`<div class="feature-section"><h3>Daily goals</h3><p class="small">${dailyClaimed}/${DAILY_QUESTS.length} claimed · refresh each calendar day.</p>${DAILY_QUESTS.map(q=>progressCard(q,'daily')).join('')}</div>`;return `<div class="quest-dashboard-hero"><div><span>One objective center</span><h3>🎯 Goals</h3><p>Daily, weekly, and expedition objectives now live together in one place.</p></div><b>${dailyClaimed+weeklyClaimed}/${DAILY_QUESTS.length+WEEKLY_QUESTS.length}</b></div><nav class="notebook-tabs" aria-label="Goal types"><button data-goals-view="daily" class="${goalsView==='daily'?'primary':''}">☀️ Daily</button><button data-goals-view="weekly" class="${goalsView==='weekly'?'primary':''}">📅 Weekly</button><button data-goals-view="expedition" class="${goalsView==='expedition'?'primary':''}">⛏️ Expedition</button></nav>${body}`;}
-  function renderAchievements(){const tier=window.japaneseMinerSupporterTier?.()||0;return `<div class="achievement-grid">${ACHIEVEMENTS.map(a=>{const unlocked=state.achievements[a.id];return `<article class="achievement-card ${unlocked?'unlocked':''}"><span>${unlocked?'🏆':'🔒'}</span><div><strong>${a.name}</strong><p>${a.desc}</p><small>Reward: ${a.reward.toLocaleString()} Nuggets · Title: ${a.title}</small></div>${unlocked?`<button data-title="${a.title}" ${state.selectedTitle===a.title||tier<1?'disabled':''}>${tier<1?'🔒 Supporter title':state.selectedTitle===a.title?'Equipped':'Use title'}</button>`:''}</article>`}).join('')}</div>`;}
+  function renderAchievements(){const tier=window.japaneseMinerSupporterTier?.()||0,freeTitles=`<section class="free-player-titles"><div class="viz-callout"><strong>Free player titles</strong><br>These titles are available to every Language Miner player with no Patreon tier or Nugget cost.</div><div class="achievement-grid">${FREE_PLAYER_TITLES.map(item=>`<article class="achievement-card unlocked free-title-card"><span>${item.icon}</span><div><strong>${item.title}</strong><p>${item.description}</p><small>Free · Available to everyone</small></div><button data-title="${item.title}" data-title-free="true" ${state.selectedTitle===item.title?'disabled':''}>${state.selectedTitle===item.title?'Equipped':'Use title'}</button></article>`).join('')}</div></section>`;return `${freeTitles}<h3>Achievement titles</h3><div class="achievement-grid">${ACHIEVEMENTS.map(a=>{const unlocked=state.achievements[a.id];return `<article class="achievement-card ${unlocked?'unlocked':''}"><span>${unlocked?'🏆':'🔒'}</span><div><strong>${a.name}</strong><p>${a.desc}</p><small>Reward: ${a.reward.toLocaleString()} Nuggets · Title: ${a.title}</small></div>${unlocked?`<button data-title="${a.title}" ${state.selectedTitle===a.title||tier<1?'disabled':''}>${tier<1?'🔒 Supporter title':state.selectedTitle===a.title?'Equipped':'Use title'}</button>`:''}</article>`}).join('')}</div>`;}
   function visibleNotebookMistakes(){return state.mistakes.map((mistake,index)=>({mistake,index})).filter(({mistake})=>!mistake.resolved&&(tutorAccessGranted()||(!mistake.tutor&&!tutorQuestion(questions.find(question=>String(question.id)===String(mistake.key))))));}
   function visibleNotebookNotes(){return state.notebookNotes.filter(note=>tutorAccessGranted()||!note.tutor).sort((a,b)=>Number(b.updatedAt)-Number(a.updatedAt));}
   function notebookNoteForMistake(key){return state.notebookNotes.find(note=>note.mistakeKey&&String(note.mistakeKey)===String(key))||null;}
@@ -3227,7 +3254,7 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
     content.querySelectorAll('[data-claim-quest]').forEach(b=>b.addEventListener('click',()=>{const [type,id]=b.dataset.claimQuest.split(':');claimQuest(type,id);}));
     content.querySelectorAll('[data-goals-view]').forEach(b=>b.addEventListener('click',()=>{goalsView=['daily','weekly','expedition'].includes(b.dataset.goalsView)?b.dataset.goalsView:'daily';renderFeatureCenter('quests');}));
     if(tab==='quests'&&goalsView==='expedition')window.LanguageMinerExpeditionGoals?.bind?.(content);
-    content.querySelectorAll('[data-title]').forEach(b=>b.addEventListener('click',()=>{if((window.japaneseMinerSupporterTier?.()||0)<1)return;state.selectedTitle=b.dataset.title;save();renderFeatureCenter('achievements');render();}));
+    content.querySelectorAll('[data-title]').forEach(b=>b.addEventListener('click',()=>{const free=b.dataset.titleFree==='true';if(!free&&(window.japaneseMinerSupporterTier?.()||0)<1)return;state.selectedTitle=b.dataset.title;save();renderFeatureCenter('achievements');render();setMessage(`${state.selectedTitle} title equipped.`,'correct');}));
     content.querySelectorAll('[data-notebook-view]').forEach(b=>b.addEventListener('click',()=>{state.notebookView=['queue','review','stickies'].includes(b.dataset.notebookView)?b.dataset.notebookView:'queue';save();renderFeatureCenter('notebook');}));
     content.querySelectorAll('[data-notebook-smart-review]').forEach(b=>b.addEventListener('click',()=>{const api=window.japaneseMinerSmartReview,action=b.dataset.notebookSmartReview;if(!api)return;closeFeatureCenter();if(action==='center'){api.openCenter?.();return;}if(api.start?.()===false)api.openCenter?.();}));
     content.querySelectorAll('[data-review-word]').forEach(b=>b.addEventListener('click',()=>{const api=window.japaneseMinerSmartReview,questionId=b.dataset.reviewWord;if(!api||!questionId)return;closeFeatureCenter();if(api.start?.(questionId)===false)api.openCenter?.();}));
@@ -3382,10 +3409,14 @@ function jlptVocabularyLevelQuestions(stage,index){
   const pool=Number(stage)===2?questions.filter(question=>Number(question.stage)===2&&!tutorQuestion(question)&&jlptQuestionSection(question)==="vocabulary"):jlptSectionQuestionPool(stage,"vocabulary");
   return pool.filter(question=>keys.has(String(question.vocabularyKey||"")));
 }
+function completedJapaneseMine(stage){
+  stage=Number(stage);
+  return (Array.isArray(state.clearedStages)&&state.clearedStages.map(Number).includes(stage))||(Array.isArray(state.v5?.bossDefeated)&&state.v5.bossDefeated.map(Number).includes(stage));
+}
 function jlptVocabularyLevelUnlocked(stage,index){
   stage=Number(stage);index=Number(index);
   if(!isStageUnlocked(stage))return false;
-  if(state.clearedStages?.includes(stage)||state.v5?.bossDefeated?.includes(stage))return true;
+  if(completedJapaneseMine(stage))return true;
   if(index<=0)return true;
   return jlptVocabularyLevelMastery(stage,index-1)>=JLPT_VOCABULARY_UNLOCK_MASTERY&&(index%2!==0||jlptReviewCheckpointPassed(stage,"vocabulary",index));
 }
@@ -3523,7 +3554,10 @@ function renderVocabularyCourse(stage=academyStage){
 function openVocabularyLessonReview(stage,index){
   stage=Number(stage);index=Number(index);
   if(!isStageUnlocked(stage)||!jlptVocabularyLevelUnlocked(stage,index)){setMessage("That vocabulary lesson is still locked.","wrong");return false;}
-  openAcademy(stage);academyTab="vocabulary";academyView.lesson=index;academyView.word=null;academyView.quiz=null;academyView.preview=0;academyView.lessonPreviewComplete=false;renderAcademy();return true;
+  const replayReady=completedJapaneseMine(stage)||jlptVocabularyLevelMastery(stage,index)>=JLPT_VOCABULARY_UNLOCK_MASTERY;
+  openAcademy(stage);academyTab="vocabulary";academyView.lesson=index;academyView.word=null;academyView.quiz=null;academyView.preview=replayReady?null:0;academyView.lessonPreviewComplete=replayReady;renderAcademy();
+  if(replayReady)setMessage(`${vocabularyCourseLabel(stage)} Vocabulary Lesson ${index+1} is ready to replay. Your saved completion stays intact.`,"correct");
+  return true;
 }
 function startReviewedVocabularyLesson(stage,index){
   if(!academyView.lessonPreviewComplete){setMessage("Review every word before starting the lesson.","wrong");return false;}
@@ -3737,7 +3771,10 @@ function openJlptSectionLessonReview(stage,section,index){
   stage=Number(stage);section=String(section||"vocabulary");index=Number(index);
   if(section==="vocabulary"){const opened=openVocabularyLessonReview(stage,index);if(opened)academyView.lessonSection="vocabulary";return opened;}
   if(!isStageUnlocked(stage)||!jlptSectionLevelUnlocked(stage,section,index)){setMessage(`That ${jlptSectionSpec(section).name.toLowerCase()} lesson is still locked.`,"wrong");return false;}
-  openAcademy(stage);academyTab=section;academyView.lesson=index;academyView.lessonSection=section;academyView.sectionItem=null;academyView.word=null;academyView.quiz=null;academyView.preview=0;academyView.lessonPreviewComplete=false;renderAcademy();return true;
+  const replayReady=completedJapaneseMine(stage)||jlptSectionLevelMastery(stage,section,index)>=JLPT_VOCABULARY_UNLOCK_MASTERY;
+  openAcademy(stage);academyTab=section;academyView.lesson=index;academyView.lessonSection=section;academyView.sectionItem=null;academyView.word=null;academyView.quiz=null;academyView.preview=replayReady?null:0;academyView.lessonPreviewComplete=replayReady;renderAcademy();
+  if(replayReady)setMessage(`${vocabularyCourseLabel(stage)} ${jlptSectionSpec(section).name} Lesson ${index+1} is ready to replay. Your saved completion stays intact.`,"correct");
+  return true;
 }
 function startReviewedJlptSectionLesson(stage,section,index){
   if(!academyView.lessonPreviewComplete){setMessage("Review every item before starting the lesson.","wrong");return false;}
@@ -3817,7 +3854,7 @@ function kanaSetForStage(stage){return Number(stage)===1?kata:hira;}
 function kanaFamiliesForStage(stage){const set=kanaSetForStage(stage);return KANA_FAMILY_SPECS.map(spec=>({...spec,entries:set.slice(spec.start,spec.end),chars:set.slice(spec.start,spec.end).map(row=>row[0])}));}
 function ensureKanaFamilyState(target=state){if(!target.kanaFamilyLevel||typeof target.kanaFamilyLevel!=='object')target.kanaFamilyLevel={hiragana:0,katakana:0};for(const kind of ['hiragana','katakana'])target.kanaFamilyLevel[kind]=Math.max(0,Math.min(KANA_FAMILY_SPECS.length-1,Number(target.kanaFamilyLevel[kind])||0));return target;}
 function kanaFamilyMastery(family){if(!family.entries.length)return 0;return Math.round(family.entries.reduce((sum,[ch])=>sum+masteryScore(ch),0)/family.entries.length);}
-function kanaFamilyUnlocked(stage,index){if(index===0)return true;if(state.clearedStages?.includes(Number(stage))||Number(state.placementUnlockedThrough||0)>Number(stage))return true;const families=kanaFamiliesForStage(stage);return kanaFamilyMastery(families[index-1])>=KANA_FAMILY_UNLOCK_MASTERY;}
+function kanaFamilyUnlocked(stage,index){if(index===0)return true;if(completedJapaneseMine(stage)||Number(state.placementUnlockedThrough||0)>Number(stage))return true;const families=kanaFamiliesForStage(stage);return kanaFamilyMastery(families[index-1])>=KANA_FAMILY_UNLOCK_MASTERY;}
 function highestUnlockedKanaFamily(stage){const families=kanaFamiliesForStage(stage);let highest=0;for(let i=1;i<families.length;i++){if(kanaFamilyUnlocked(stage,i))highest=i;else break;}return highest;}
 function currentKanaFamily(stage=selectedStageIndex()){ensureKanaFamilyState();const kind=kanaKindForStage(stage),highest=highestUnlockedKanaFamily(stage);state.kanaFamilyLevel[kind]=Math.min(highest,Math.max(0,Number(state.kanaFamilyLevel[kind])||0));return kanaFamiliesForStage(stage)[state.kanaFamilyLevel[kind]];}
 function prepareKanaFamilyQuestion(question,family){if(!question)return question;const isCharacterAnswer=family.entries.some(([ch])=>ch===question.a);const values=family.entries.map(row=>row[isCharacterAnswer?0:1]);const options=shuffle([question.a,...shuffle(values.filter(value=>value!==question.a)).slice(0,3)]);return {...question,opts:[...new Set(options)]};}

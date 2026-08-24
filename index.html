@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="language-miner-version" content="6.4.183" />
 <title>Language Miner</title>
 <meta name="description" content="A multilingual learning adventure with mining, pronunciation, mastery, expeditions, guardian bosses, and collectible rewards." />
 <meta name="language-miner-share-url" content="https://erendragneel.github.io/language-miner/" />
@@ -16,22 +17,26 @@
 <link rel="icon" href="language-miner-icon-192.png" sizes="192x192" type="image/png" />
 <link rel="apple-touch-icon" sizes="180x180" href="language-miner-icon-180.png" />
 <link rel="canonical" href="https://erendragneel.github.io/language-miner/" />
-<link rel="manifest" href="manifest.webmanifest?v=6.4.172-hearing-progression-r2" />
+<link rel="manifest" href="manifest.webmanifest?v=6.4.176-cross-device-linking-r1" />
 <link rel="preload" href="language-miner-logo.png" as="image" type="image/png" />
-<link rel="stylesheet" href="styles.css?v=6.4.172-hearing-progression-r2" />
-<link rel="stylesheet" href="v5.css?v=6.4.145-gradebook-settlements" />
-<link rel="stylesheet" href="v6-6460.css?v=6.4.172-hearing-progression-r2" />
-<link rel="stylesheet" href="multilingual-preview.css?v=6.4.172-hearing-progression-r2" />
+<link rel="stylesheet" href="styles.css?v=6.4.183-cultural-events-r1" />
+<link rel="stylesheet" href="v5.css?v=6.4.183-cultural-events-r1" />
+<link rel="stylesheet" href="v6-6460.css?v=6.4.176-cross-device-linking-r1" />
+<link rel="stylesheet" href="multilingual-preview.css?v=6.4.176-cross-device-linking-r1" />
 <link rel="stylesheet" href="parent-teacher-center.css?v=6.4.145-gradebook-settlements-r2" />
-<link rel="stylesheet" href="writing-practice.css?v=6.4.172-hearing-progression-r2" />
+<link rel="stylesheet" href="writing-practice.css?v=6.4.183-cultural-events-r1" />
 <link rel="stylesheet" href="companion-wardrobe.css?v=6.4.131-companion-wardrobe" />
-<link rel="stylesheet" href="avatar-holiday-specials.css?v=6.4.172-hearing-progression-r2" />
+<link rel="stylesheet" href="avatar-holiday-specials.css?v=6.4.176-cross-device-linking-r1" />
 <link rel="stylesheet" href="settlement-village.css?v=6.4.137-settlement-village-map" />
-<link rel="stylesheet" href="character-animations.css?v=6.4.172-hearing-progression-r2" />
+<link rel="stylesheet" href="character-animations.css?v=6.4.176-cross-device-linking-r1" />
 <link rel="stylesheet" href="arcade-expansion.css?v=6.4.150-five-arcade-games" />
-<link rel="stylesheet" href="patreon-heart-videos.css?v=6.4.172-hearing-progression-r2" />
-<link rel="stylesheet" href="patreon-heart-video-media.css?v=6.4.172-hearing-progression-r2" />
+<link rel="stylesheet" href="patreon-heart-videos.css?v=6.4.176-cross-device-linking-r1" />
+<link rel="stylesheet" href="patreon-heart-video-media.css?v=6.4.176-cross-device-linking-r1" />
 <link rel="stylesheet" href="legal-compliance.css?v=6.4.138-legal-readiness" />
+<link rel="stylesheet" href="update-guardian.css?v=6.4.179-granular-admin-permissions-r1" />
+<link rel="stylesheet" href="owner-admin-controls.css?v=6.4.179-granular-admin-permissions-r1" />
+<script src="update-guardian.js?v=6.4.179-granular-admin-permissions-r1"></script>
+<style>[data-admin-permission][hidden]{display:none!important}</style>
 
 </head>
 <body class="auth-session-locked">
@@ -341,26 +346,26 @@
     </div>
     <div class="developer-status"><span>Active profile</span><strong id="developerProfileName">Erendragneel</strong><span class="badge">ADMIN</span></div>
     <div class="developer-grid">
-      <div class="developer-group">
+      <div class="developer-group" data-admin-permission="economy">
         <h3>ðŸª™ Economy</h3>
         <label>Set total Nuggets<input id="adminNuggetAmount" type="number" min="0" step="1000" value="1000000"></label>
         <div class="developer-actions"><button data-admin="set-nuggets" type="button">Set Nuggets</button><button data-admin="add-million" type="button">+1,000,000</button><button data-admin="add-gems" type="button">+100 of every gem</button></div>
       </div>
-      <div class="developer-group">
+      <div class="developer-group" data-admin-permission="health">
         <h3>â¤ï¸ Health</h3>
         <div class="developer-actions"><button data-admin="restore-hearts" type="button">Restore Hearts</button><button data-admin="max-hearts" type="button">Set 14 Max Hearts</button></div>
         <label class="admin-toggle"><input id="adminInfiniteHearts" type="checkbox"> Infinite hearts / no heart loss</label>
       </div>
-      <div class="developer-group">
+      <div class="developer-group" data-admin-permission="progression">
         <h3>ðŸ“š Progression</h3>
         <label>Jump to learning stage<select id="adminStageSelect"><option value="0">Hiragana</option><option value="1">Katakana</option><option value="2">JLPT N5</option><option value="3">JLPT N4</option><option value="4">JLPT N3</option><option value="5">JLPT N2</option><option value="6">JLPT N1</option></select></label>
         <div class="developer-actions"><button data-admin="set-stage" type="button">Apply Stage</button><button data-admin="master-kana" type="button">Master All Kana</button><button data-admin="unlock-all" type="button">Unlock Everything</button></div>
       </div>
-      <div class="developer-group">
+      <div class="developer-group" data-admin-permission="cosmetics">
         <h3>â›ï¸ Cosmetics & Inventory</h3>
         <div class="developer-actions"><button data-admin="unlock-pickaxes" type="button">Unlock All Pickaxes</button><button data-admin="add-items" type="button">+99 Hints & Shields</button></div>
       </div>
-      <div class="developer-group developer-wide admin-reset-group">
+      <div class="developer-group developer-wide admin-reset-group" data-admin-permission="profile_resets">
         <h3>Targeted Resets</h3>
         <p>Reset one language or one part of the save without wiping everything else. A confirmation appears before any reset.</p>
         <label>Choose exactly what to reset
@@ -377,7 +382,7 @@
         </label>
         <div class="developer-actions"><button data-admin="reset-selected" class="danger" type="button">Reset Selected Data</button></div>
       </div>
-      <div class="developer-group developer-wide admin-player-manager">
+      <div class="developer-group developer-wide admin-player-manager" data-admin-permission="player_management">
         <div class="admin-player-manager-head"><div><h3>Global Player Account Reset</h3><p>Securely search Supabase player accounts, select one player, then reset only the chosen cloud data. Local demo players remain available in this preview.</p></div><span>ADMIN ONLY</span></div>
         <label for="adminPlayerSearch">Search player accounts
           <input id="adminPlayerSearch" type="search" autocomplete="off" placeholder="Player name, email, profile ID, or cloud user ID">
@@ -399,7 +404,7 @@
         <div class="admin-player-warning">Every cloud reset is verified again by Supabase. It resets saved gameplay data only and never deletes the player's login account.</div>
         <div class="developer-actions"><button data-admin="reset-selected-player" class="danger" type="button" disabled>Reset Selected Player Data</button></div>
       </div>
-      <div class="developer-group developer-wide">
+      <div class="developer-group developer-wide" data-admin-permission="profile_resets">
         <h3>ðŸ’¾ Save Testing</h3>
         <div class="developer-actions"><button data-admin="export-save" type="button">Export Save File</button><button data-admin="copy-save" type="button">Show Save JSON</button><button data-admin="reset-profile" class="danger" type="button">Reset Entire Profile</button></div>
         <textarea id="adminSaveJson" rows="6" placeholder="Exported save JSON appears here. You can also paste a save here and use Import."></textarea>
@@ -410,35 +415,38 @@
   </section>
 </div>
 
-<div class="footer">Language Miner v6.4.172 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
+<div class="footer">Language Miner v6.4.183 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
 </div>
 
 <script src="patreon-config.js?v=6.4.131-companion-wardrobe" defer></script>
-<script src="cloud-auth.js?v=6.4.141-cross-device-linking" defer></script>
-<script src="auth-utilities.js?v=6.4.172-hearing-progression-r2" defer></script>
+<script src="cloud-auth.js?v=6.4.179-granular-admin-permissions-r1" defer></script>
+<script src="auth-utilities.js?v=6.4.176-cross-device-linking-r1" defer></script>
 <script src="legal-compliance.js?v=6.4.143-natural-voices" defer></script>
 <script src="n5-vocabulary-1000.js?v=6.4.131-companion-wardrobe" defer></script>
 <script src="multilingual-course-data.js?v=6.4.102-eight-new-languages" defer></script>
-<script src="game-6460.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="v5-6400.js?v=6.4.172-hearing-progression-r2" defer></script>
+<script src="travel-phrases-200.js?v=6.4.182-travel-phrases-200-r1" defer></script>
+<script src="game-6460.js?v=6.4.183-cultural-events-r1" defer></script>
+<script src="cultural-events.js?v=6.4.183-cultural-events-r1" defer></script>
+<script src="v5-6400.js?v=6.4.183-cultural-events-r1" defer></script>
 <script src="qr-code.js?v=6.4.131-companion-wardrobe" defer></script>
-<script src="v6.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="arcade-games.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="patreon-heart-videos.js?v=6.4.172-hearing-progression-r2" defer></script>
+<script src="v6.js?v=6.4.183-cultural-events-r1" defer></script>
+<script src="arcade-games.js?v=6.4.176-cross-device-linking-r1" defer></script>
+<script src="patreon-heart-videos.js?v=6.4.176-cross-device-linking-r1" defer></script>
 <script src="recovery-6460.js?v=6.4.101-admin-header-portrait-lock" defer></script>
 <script src="patreon-linking.js?v=6.4.131-companion-wardrobe" defer></script>
 <script src="additional-language-packs.js?v=6.4.102-eight-new-languages" defer></script>
 <script src="mine-cosmetic-localization.js?v=6.4.104-mine-cosmetics" defer></script>
-<script src="full-interface-localization.js?v=6.4.172-hearing-progression-r2" defer></script>
+<script src="full-interface-localization.js?v=6.4.176-cross-device-linking-r1" defer></script>
 <script src="patreon-copy-localization.js?v=6.4.131-companion-wardrobe" defer></script>
 <script src="parent-teacher-localization.js?v=6.4.131-companion-wardrobe" defer></script>
 <script src="generated-interface-localization.js?v=6.4.131-companion-wardrobe" defer></script>
-<script src="interface-localization.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="multilingual-preview.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="parent-teacher-center.js?v=6.4.145-gradebook-settlements" defer></script>
-<script src="game-guide.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="writing-practice.js?v=6.4.172-hearing-progression-r2" defer></script>
-<script src="character-animations.js?v=6.4.172-hearing-progression-r2" defer></script>
+<script src="interface-localization.js?v=6.4.176-cross-device-linking-r1" defer></script>
+<script src="multilingual-preview.js?v=6.4.183-cultural-events-r1" defer></script>
+<script src="parent-teacher-center.js?v=6.4.176-cross-device-linking-r1" defer></script>
+<script src="game-guide.js?v=6.4.176-cross-device-linking-r1" defer></script>
+<script src="writing-practice.js?v=6.4.183-cultural-events-r1" defer></script>
+<script src="character-animations.js?v=6.4.176-cross-device-linking-r1" defer></script>
+<script src="owner-admin-controls.js?v=6.4.179-granular-admin-permissions-r1" defer></script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{scope:"./",updateViaCache:"none"}).then(registration=>registration.update()).catch(()=>{}));}</script>
 
 <script>
