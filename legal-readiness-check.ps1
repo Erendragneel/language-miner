@@ -19,12 +19,14 @@ Require-Text 'supabase/migrations/202608150001_legal_privacy_controls.sql' 'crea
 Require-Text 'supabase/functions/account-delete/index.ts' 'deleteUser\(user\.id' 'The authenticated account deletion function is incomplete.'
 Require-Text 'multilingual-preview.js' 'Independent practice pathway' 'The course-framework disclaimer is missing.'
 
-foreach ($requiredDocument in @('privacy.html','terms.html','THIRD-PARTY-NOTICES.txt','ASSET-PROVENANCE.md','EDUCATIONAL-CLAIMS-REGISTER.md','TRADEMARK-PRELIMINARY-SEARCH.md','LEGAL-READINESS-DEPLOYMENT.md')) {
+foreach ($requiredDocument in @('privacy.html','terms.html','THIRD-PARTY-NOTICES.txt','ASSET-PROVENANCE.md','EDUCATIONAL-CLAIMS-REGISTER.md','TRADEMARK-PRELIMINARY-SEARCH.md','LEGAL-READINESS-DEPLOYMENT.md','ADMIN-UPDATE-GUARDIAN-SETUP.md','OWNER-MASTER-CONTROLS-SETUP.md')) {
   if (-not (Test-Path -LiteralPath (Join-Path $projectRoot $requiredDocument))) { $failures.Add("Missing $requiredDocument") }
 }
 
 $serviceWorker = Get-Content -LiteralPath (Join-Path $projectRoot 'sw.js') -Raw
-$shellReferences = [regex]::Matches($serviceWorker,"'\./([^']+)'\s*,?") | ForEach-Object { $_.Groups[1].Value }
+$appShell = [regex]::Match($serviceWorker,'const APP_SHELL=\[(?<items>[\s\S]*?)\];')
+if (-not $appShell.Success) { $failures.Add('The service-worker APP_SHELL list could not be read.') }
+$shellReferences = [regex]::Matches($appShell.Groups['items'].Value,"'\./([^']+)'\s*,?") | ForEach-Object { $_.Groups[1].Value }
 foreach ($reference in $shellReferences) {
   if (-not (Test-Path -LiteralPath (Join-Path $projectRoot $reference))) { $failures.Add("Service-worker file is missing: $reference") }
 }

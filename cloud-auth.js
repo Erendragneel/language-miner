@@ -1,4 +1,4 @@
-// Language Miner v6.4.141 - Supabase accounts, cloud saves, and learner-approved cross-device progress sharing.
+// Language Miner v6.4.179 - Supabase accounts and owner-selected administrator privileges.
 (()=>{
 "use strict";
 const CONFIG=window.JAPANESE_MINER_PATREON_CONFIG||{};
@@ -103,15 +103,24 @@ async function signOut(){
   saveSession(null);
   try{for(let index=localStorage.length-1;index>=0;index--){const key=localStorage.key(index);if(String(key||"").startsWith(LEGACY_SESSION_PREFIX))localStorage.removeItem(key);}}catch{}
 }
-async function adminStatus(candidate=session){
+const ADMIN_PERMISSION_KEYS=Object.freeze(['economy','health','progression','cosmetics','profile_resets','player_management','release_management','privacy_management']);
+function normalizeAdminPermissions(value,legacyFull=false){const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{};return Object.fromEntries(ADMIN_PERMISSION_KEYS.map(key=>[key,legacyFull||source[key]===true]));}
+async function adminIdentity(candidate=session,retried=false){
   const current=candidate?.accessToken?candidate:await validSession();
   const userId=current?.user?.id;
-  if(!userId)return false;
-  const response=await fetch(restUrl(`app_admins?user_id=eq.${encodeURIComponent(userId)}&select=user_id&limit=1`),{headers:{apikey:String(CONFIG.supabaseAnonKey||""),Authorization:`Bearer ${current.accessToken}`,Accept:"application/json"}});
-  if(!response.ok)return false;
+  if(!userId)return {role:'',permissions:normalizeAdminPermissions({})};
+  const headers={apikey:String(CONFIG.supabaseAnonKey||""),Authorization:`Bearer ${current.accessToken}`,Accept:"application/json"};
+  let response=await fetch(restUrl(`app_admins?user_id=eq.${encodeURIComponent(userId)}&select=user_id,role,permissions&limit=1`),{headers});
+  if(response.status===401&&!retried&&session?.refreshToken){const refreshed=await refresh();return adminIdentity(refreshed,true);}
+  let legacyFull=false;
+  if(!response.ok){response=await fetch(restUrl(`app_admins?user_id=eq.${encodeURIComponent(userId)}&select=user_id,role&limit=1`),{headers});legacyFull=response.ok;}
+  if(!response.ok)return {role:'',permissions:normalizeAdminPermissions({})};
   let rows=[];try{rows=await response.json();}catch{}
-  return Array.isArray(rows)&&rows.some(row=>row?.user_id===userId);
+  const row=Array.isArray(rows)?rows.find(item=>item?.user_id===userId):null,role=['owner','admin'].includes(String(row?.role||''))?String(row.role):'';
+  return {role,permissions:normalizeAdminPermissions(row?.permissions,legacyFull||role==='owner')};
 }
+async function adminRole(candidate=session){return (await adminIdentity(candidate)).role;}
+async function adminStatus(candidate=session){return !!(await adminRole(candidate));}
 
 async function rpc(name,body={},candidate=session,retried=false){
   const current=candidate?.accessToken?candidate:await validSession();
@@ -123,10 +132,37 @@ async function rpc(name,body={},candidate=session,retried=false){
   });
   if(response.status===401&&!retried&&session?.refreshToken){const refreshed=await refresh();return rpc(name,body,refreshed,true);}
   let payload=null;try{payload=await response.json();}catch{}
-  if(!response.ok)throw new Error(payload?.message||payload?.hint||payload?.details||`Cloud player request failed (${response.status})`);
+  if(!response.ok){const serverMessage=payload?.message||payload?.hint||payload?.details||`Cloud player request failed (${response.status})`;if(response.status===404&&/parent_teacher|student_link|linked_learner|schema cache|PGRST202/i.test(`${name} ${serverMessage}`))throw new Error(`Cross-device linking is not installed on this cloud project (${name}). Deploy the included Supabase linking repair migration.`);throw new Error(serverMessage);}
+  return payload;
+}
+async function publicRpc(name,body={}){
+  if(!enabled())return null;
+  const key=String(CONFIG.supabaseAnonKey||"");
+  const response=await fetch(restUrl(`rpc/${encodeURIComponent(name)}`),{
+    method:"POST",headers:{apikey:key,Authorization:`Bearer ${key}`,Accept:"application/json","Content-Type":"application/json"},body:JSON.stringify(body||{})
+  });
+  let payload=null;try{payload=await response.json();}catch{}
+  if(!response.ok){if(response.status===404)return null;throw new Error(payload?.message||payload?.hint||`Release status request failed (${response.status})`);}
+  return payload;
+}
+async function functionRequest(name,body={},candidate=session,retried=false){
+  const current=candidate?.accessToken?candidate:await validSession();
+  if(!current?.accessToken)throw new Error("Sign in to use administrator release controls.");
+  const response=await fetch(functionUrl(encodeURIComponent(name)),{
+    method:"POST",headers:{apikey:String(CONFIG.supabaseAnonKey||""),Authorization:`Bearer ${current.accessToken}`,Accept:"application/json","Content-Type":"application/json"},body:JSON.stringify(body||{})
+  });
+  if(response.status===401&&!retried&&session?.refreshToken){const refreshed=await refresh();return functionRequest(name,body,refreshed,true);}
+  let payload=null;try{payload=await response.json();}catch{}
+  if(!response.ok)throw new Error(payload?.error||payload?.message||`Administrator release request failed (${response.status})`);
   return payload;
 }
 function firstRow(payload){return Array.isArray(payload)?payload[0]||null:payload&&typeof payload==="object"?payload:null;}
+async function releaseStatus(){return firstRow(await publicRpc("get_app_release_control",{p_channel:"stable"}));}
+async function adminReleaseAction(body){return functionRequest("admin-release-deploy",body&&typeof body==="object"?body:{});}
+async function ownerSearchAccounts(search="",limit=30){const payload=await rpc("owner_search_accounts_with_permissions",{p_search:String(search||"").trim(),p_limit:Math.max(1,Math.min(100,Number(limit)||30))});return Array.isArray(payload)?payload:[];}
+async function ownerListAdmins(){const payload=await rpc("owner_list_admins_with_permissions",{});return Array.isArray(payload)?payload:[];}
+async function ownerSetAdminAccess(userId,enabled,permissions={}){return firstRow(await rpc("owner_set_admin_permissions",{p_user_id:String(userId||""),p_permissions:normalizeAdminPermissions(permissions),p_enabled:enabled===true}));}
+async function ownerListAdminEvents(limit=40){const payload=await rpc("owner_list_admin_permission_events",{p_limit:Math.max(1,Math.min(100,Number(limit)||40))});return Array.isArray(payload)?payload:[];}
 async function loadPlayerSave(candidate=session){return firstRow(await rpc("load_player_save",{},candidate));}
 async function savePlayerState(payload,candidate=session){
   return firstRow(await rpc("save_player_state",{
@@ -150,7 +186,9 @@ async function listParentTeacherLinks(){const payload=await rpc("list_parent_tea
 async function requestStudentLink(email){
   const normalized=String(email||"").trim().toLowerCase();
   if(!/^\S+@\S+\.\S+$/.test(normalized))throw new Error("Enter the email address on the learner's Language Miner account.");
-  return firstRow(await rpc("request_student_link",{p_student_email:normalized}));
+  const row=firstRow(await rpc("request_student_link",{p_student_email:normalized})),adultId=String((await validSession())?.user?.id||"");
+  if(!row?.id||!row?.student_user_id||String(row.adult_user_id||"")!==adultId)throw new Error("The cloud did not confirm the learner request for this signed-in account.");
+  return row;
 }
 async function respondStudentLink(linkId,approve){return firstRow(await rpc("respond_student_link",{p_link_id:String(linkId||""),p_approve:approve===true}));}
 async function removeStudentLink(linkId){return firstRow(await rpc("remove_parent_teacher_link",{p_link_id:String(linkId||"")}));}
@@ -170,5 +208,5 @@ async function deleteAccount(){
   saveSession(null);return payload;
 }
 
-window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
+window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,adminRole,adminIdentity,releaseStatus,adminReleaseAction,ownerSearchAccounts,ownerListAdmins,ownerSetAdminAccess,ownerListAdminEvents,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
 })();

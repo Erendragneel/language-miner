@@ -1,0 +1,72 @@
+name: Deploy reviewed Language Miner release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Reviewed Language Miner version
+        required: true
+        type: string
+      action:
+        description: Release action
+        required: true
+        type: choice
+        options:
+          - deploy
+          - rollback
+      source_ref:
+        description: Reviewed branch, tag, or commit to publish
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: language-miner-pages
+  cancel-in-progress: false
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out reviewed ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate release files and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s sw.js
+          test -s update-guardian.js
+          test -s update-guardian.css
+          test -s cloud-auth.js
+          test -s manifest.webmanifest
+          grep -F 'name="language-miner-version" content="${{ inputs.version }}"' index.html
+          grep -F "language-miner-v${{ inputs.version }}-" sw.js
+          for file in sw.js update-guardian.js cloud-auth.js game-6460.js v6.js; do node --check "$file"; done
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload verified site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy verified site
+        id: deployment
+        uses: actions/deploy-pages@v4
