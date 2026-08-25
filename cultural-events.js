@@ -1,4 +1,4 @@
-// Language Miner v6.4.183 — known-language cultural calendars and event windows.
+// Language Miner v6.4.185 — learning-language cultural calendars with known-language explanations.
 (()=>{
 'use strict';
 
@@ -24,6 +24,26 @@ const UI={
  pl:{title:'Kalendarz wydarzeń kulturalnych',intro:'Znany język wybiera odpowiedni kalendarz kulturowy. Język nie określa tożsamości, a tradycje różnią się między rodzinami i regionami.',history:'Historia',meaning:'Dlaczego jest obchodzone',annual:'Coroczny termin',active:'Trwa teraz',upcoming:'Nadchodzi',ended:'Już obchodzone w tym roku',reward:'Tymczasowa nagroda',rewardText:'Odpowiedz poprawnie na 5 pytań podczas wydarzenia, aby otrzymać +15% XP gracza do jego końca.',claim:'Odbierz premię Odkrywcy Kultury',claimed:'Premia Odkrywcy Kultury aktywna',progress:'Poprawne odpowiedzi dzisiaj',none:'Dziś nie trwa żadne wydarzenie. Historie wszystkich wydarzeń są nadal dostępne.'},
  el:{title:'Ημερολόγιο πολιτιστικών εκδηλώσεων',intro:'Η γλώσσα που γνωρίζετε επιλέγει ένα πολιτιστικό ημερολόγιο. Η γλώσσα δεν καθορίζει την ταυτότητα και οι παραδόσεις διαφέρουν ανά οικογένεια και περιοχή.',history:'Ιστορία',meaning:'Γιατί γιορτάζεται',annual:'Ετήσια περίοδος',active:'Σε εξέλιξη',upcoming:'Προσεχώς',ended:'Πραγματοποιήθηκε φέτος',reward:'Προσωρινή ανταμοιβή',rewardText:'Απαντήστε σωστά σε 5 ερωτήσεις κατά την εκδήλωση για +15% XP παίκτη μέχρι να τελειώσει.',claim:'Λήψη ενίσχυσης Εξερευνητή Πολιτισμού',claimed:'Η ενίσχυση Εξερευνητή Πολιτισμού είναι ενεργή',progress:'Σωστές απαντήσεις σήμερα',none:'Δεν υπάρχει ενεργή εκδήλωση σήμερα. Μπορείτε να διαβάσετε όλες τις ιστορίες.'},
  uk:{title:'Календар культурних подій',intro:'Відома вам мова визначає культурний календар. Мова не визначає ідентичність, а традиції можуть відрізнятися між родинами та регіонами.',history:'Історія',meaning:'Чому відзначають',annual:'Щорічний час',active:'Триває зараз',upcoming:'Незабаром',ended:'Уже відбулося цього року',reward:'Тимчасова нагорода',rewardText:'Дайте 5 правильних відповідей під час події та отримайте +15% досвіду гравця до її завершення.',claim:'Отримати підсилення «Дослідник культури»',claimed:'Підсилення «Дослідник культури» активне',progress:'Правильних відповідей сьогодні',none:'Сьогодні активних подій немає. Історії всіх подій доступні протягом року.'}
+};
+
+const LEARNING_CULTURE_INTRO={
+ en:'Events come from the culture of the language you are learning. Names, history, instructions, and rewards are translated into the language you know. Traditions can differ by family and region.',
+ es:'Los eventos provienen de la cultura del idioma que estás aprendiendo. Los nombres, la historia, las instrucciones y las recompensas están traducidos al idioma que conoces. Las tradiciones pueden variar según la familia y la región.',
+ ru:'События относятся к культуре изучаемого вами языка. Названия, история, инструкции и награды переведены на знакомый вам язык. Традиции могут различаться в разных семьях и регионах.',
+ ja:'イベントは学習中の言語の文化に基づいています。名称、歴史、説明、報酬は、あなたが理解できる言語に翻訳されます。伝統は家庭や地域によって異なる場合があります。',
+ ko:'이벤트는 학습 중인 언어의 문화를 바탕으로 합니다. 이름, 역사, 안내 및 보상은 플레이어가 아는 언어로 번역됩니다. 전통은 가정과 지역에 따라 다를 수 있습니다.',
+ zh:'活动来自你正在学习的语言所对应的文化。活动名称、历史、说明和奖励会翻译成你熟悉的语言。不同家庭和地区的传统可能有所不同。',
+ it:'Gli eventi appartengono alla cultura della lingua che stai imparando. Nomi, storia, istruzioni e ricompense sono tradotti nella lingua che conosci. Le tradizioni possono variare tra famiglie e regioni.',
+ fr:'Les événements viennent de la culture de la langue que vous apprenez. Les noms, l’histoire, les instructions et les récompenses sont traduits dans la langue que vous connaissez. Les traditions peuvent varier selon les familles et les régions.',
+ de:'Die Events stammen aus der Kultur der Sprache, die du lernst. Namen, Geschichte, Anleitungen und Belohnungen werden in die Sprache übersetzt, die du kennst. Traditionen können sich je nach Familie und Region unterscheiden.',
+ pt:'Os eventos vêm da cultura do idioma que você está aprendendo. Nomes, história, instruções e recompensas são traduzidos para o idioma que você conhece. As tradições podem variar entre famílias e regiões.',
+ vi:'Các sự kiện thuộc nền văn hóa của ngôn ngữ bạn đang học. Tên, lịch sử, hướng dẫn và phần thưởng được dịch sang ngôn ngữ bạn biết. Truyền thống có thể khác nhau theo gia đình và vùng miền.',
+ th:'กิจกรรมมาจากวัฒนธรรมของภาษาที่คุณกำลังเรียน ชื่อ ประวัติ คำแนะนำ และรางวัลจะแปลเป็นภาษาที่คุณรู้ ประเพณีอาจแตกต่างกันตามครอบครัวและภูมิภาค',
+ tr:'Etkinlikler öğrendiğiniz dilin kültüründen gelir. Adlar, tarihçe, talimatlar ve ödüller bildiğiniz dile çevrilir. Gelenekler aileye ve bölgeye göre değişebilir.',
+ id:'Acara berasal dari budaya bahasa yang sedang Anda pelajari. Nama, sejarah, petunjuk, dan hadiah diterjemahkan ke bahasa yang Anda ketahui. Tradisi dapat berbeda menurut keluarga dan wilayah.',
+ pl:'Wydarzenia pochodzą z kultury języka, którego się uczysz. Nazwy, historia, instrukcje i nagrody są tłumaczone na język, który znasz. Tradycje mogą różnić się między rodzinami i regionami.',
+ el:'Οι εκδηλώσεις προέρχονται από τον πολιτισμό της γλώσσας που μαθαίνετε. Τα ονόματα, η ιστορία, οι οδηγίες και οι ανταμοιβές μεταφράζονται στη γλώσσα που γνωρίζετε. Οι παραδόσεις μπορεί να διαφέρουν ανά οικογένεια και περιοχή.',
+ uk:'Події походять із культури мови, яку ви вивчаєте. Назви, історія, інструкції та нагороди перекладаються мовою, яку ви знаєте. Традиції можуть відрізнятися між родинами та регіонами.'
 };
 
 const fixed=(id,icon,name,month,startDay,endMonth,endDay,color,windowLabel,history,meaning)=>({id,icon,name,color,windowLabel,history,meaning,rule:{type:'fixed',month,startDay,endMonth,endDay}});
@@ -139,13 +159,22 @@ function occurrence(event,now){
  const annual=bounds(event,year);
  return{...annual,status:annual.start>now?'upcoming':'ended'};
 }
-function eventView(event,language,now){
- const timing=occurrence(event,now),locale=LOCALES[language]||LOCALES.en,format=new Intl.DateTimeFormat(locale,{month:'short',day:'numeric'});
- return Object.freeze({...event,...timing,startAt:timing.start.getTime(),endAt:timing.end.getTime(),claimKey:`${language}:${event.id}:${timing.seasonYear}`,dateLabel:`${format.format(timing.start)} – ${format.format(timing.end)}`});
+function eventView(event,cultureLanguage,knownLanguageId,now,translated={}){
+ const timing=occurrence(event,now),locale=LOCALES[knownLanguageId]||LOCALES.en,format=new Intl.DateTimeFormat(locale,{month:'short',day:'numeric'});
+ return Object.freeze({...event,...translated,nativeName:event.name,nativeWindowLabel:event.windowLabel,cultureLanguage,cultureLocale:LOCALES[cultureLanguage]||LOCALES.en,...timing,startAt:timing.start.getTime(),endAt:timing.end.getTime(),claimKey:`${cultureLanguage}:${event.id}:${timing.seasonYear}`,dateLabel:`${format.format(timing.start)} – ${format.format(timing.end)}`});
 }
 function knownLanguage(){const context=window.LanguageMinerI18n?.getContext?.();return CALENDARS[context?.known]?context.known:(CALENDARS[window.LanguageMinerI18n?.getLocale?.()]?window.LanguageMinerI18n.getLocale():'en');}
-function calendar(language=knownLanguage(),date=new Date()){const id=CALENDARS[language]?language:'en',now=date instanceof Date?date:new Date(date);return Object.freeze({language:id,languageName:LANGUAGE_NAMES[id],locale:LOCALES[id],copy:UI[id]||UI.en,events:Object.freeze(CALENDARS[id].map(event=>eventView(event,id,now)).sort((a,b)=>a.startAt-b.startAt))});}
-function active(language=knownLanguage(),date=new Date()){return calendar(language,date).events.filter(event=>event.status==='active');}
+function learningLanguage(){const context=window.LanguageMinerI18n?.getContext?.(),dataset=document.documentElement.dataset.lmLearningLanguage;return CALENDARS[context?.learning]?context.learning:(CALENDARS[dataset]?dataset:'ja');}
+function sourceCalendar(language=learningLanguage(),date=new Date()){
+ const culture=CALENDARS[language]?language:'ja',now=date instanceof Date?date:new Date(date);
+ return Object.freeze({language:culture,cultureLanguage:culture,languageName:LANGUAGE_NAMES[culture],locale:LOCALES[culture],copy:UI[culture]||UI.en,events:Object.freeze(CALENDARS[culture].map(event=>eventView(event,culture,culture,now)).sort((a,b)=>a.startAt-b.startAt))});
+}
+function calendar(language=learningLanguage(),knownOrDate=knownLanguage(),date=new Date()){
+ const culture=CALENDARS[language]?language:'ja',legacyDate=knownOrDate instanceof Date,known=legacyDate?knownLanguage():(CALENDARS[knownOrDate]?knownOrDate:knownLanguage()),now=legacyDate?knownOrDate:(date instanceof Date?date:new Date(date)),translations=window.LANGUAGE_MINER_CULTURAL_EVENT_TRANSLATIONS?.[known]||{},copy=Object.freeze({...UI[known]||UI.en,intro:LEARNING_CULTURE_INTRO[known]||LEARNING_CULTURE_INTRO.en});
+ const events=CALENDARS[culture].map(event=>eventView(event,culture,known,now,translations[`${culture}:${event.id}`]||{})).sort((a,b)=>a.startAt-b.startAt);
+ return Object.freeze({language:culture,cultureLanguage:culture,knownLanguage:known,languageName:LANGUAGE_NAMES[culture],knownLanguageName:LANGUAGE_NAMES[known],locale:LOCALES[known],copy,events:Object.freeze(events)});
+}
+function active(language=learningLanguage(),knownOrDate=knownLanguage(),date=new Date()){return calendar(language,knownOrDate,date).events.filter(event=>event.status==='active');}
 
-window.LanguageMinerCulturalEvents=Object.freeze({version:'6.4.183',rewardXpRate:.15,requiredCorrect:5,languages:Object.freeze(Object.keys(CALENDARS)),knownLanguage,calendar,active});
+window.LanguageMinerCulturalEvents=Object.freeze({version:'6.4.185',rewardXpRate:.15,requiredCorrect:5,languages:Object.freeze(Object.keys(CALENDARS)),knownLanguage,learningLanguage,sourceCalendar,calendar,active});
 })();
