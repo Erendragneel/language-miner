@@ -1,0 +1,23 @@
+Language Miner v6.4.185 — Learning-Language Cultural Events
+
+Changed and added files:
+
+cultural-events.js
+cultural-event-localization.js
+scripts/generate-cultural-event-localization.cjs
+work/cultural-event-translations.json
+v5-6400.js
+v5.css
+sw.js
+index.html
+preview.html
+v6.js
+update-guardian.js
+README.md
+RELEASE-CHANGED-FILES-v6.4.185.txt
+
+Events now come from the culture of the language being learned. Their names,
+history, meaning, instructions, dates, and reward information are displayed in
+the player's known language, while native event titles remain visible for
+learning context. All 51 events have bundled offline translations for all 17
+known-language choices.

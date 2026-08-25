@@ -1,6 +1,6 @@
 # Legal-readiness deployment checklist
 
-Build: v6.4.183
+Build: v6.4.184
 
 ## Implemented in source
 
@@ -27,7 +27,7 @@ supabase functions deploy account-delete
 supabase functions deploy admin-release-deploy
 ```
 
-`supabase db push` must include `202608240001_repair_cross_device_parent_teacher_linking.sql`, `202608240002_admin_release_control.sql`, and `202608240003_owner_master_admin_controls.sql`. They install repaired linking, guarded releases, and owner-only administrator assignment. See `CROSS-DEVICE-LINKING-DEPLOYMENT.md`, `ADMIN-UPDATE-GUARDIAN-SETUP.md`, and `OWNER-MASTER-CONTROLS-SETUP.md` for setup details.
+`supabase db push` must include `202608240001_repair_cross_device_parent_teacher_linking.sql`, `202608240002_admin_release_control.sql`, `202608240003_owner_master_admin_controls.sql`, and `202608250001_verified_parent_teacher_delivery.sql`. They install repaired linking with verified delivery, guarded releases, and owner-only administrator assignment. See `CROSS-DEVICE-LINKING-DEPLOYMENT.md`, `ADMIN-UPDATE-GUARDIAN-SETUP.md`, and `OWNER-MASTER-CONTROLS-SETUP.md` for setup details.
 
 The deletion function requires the standard project `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` secrets available to Supabase Edge Functions. Confirm that authenticated calls can delete only the caller's own account.
 

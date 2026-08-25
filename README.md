@@ -1,4 +1,22 @@
-# Language Miner v6.4.183
+# Language Miner v6.4.185
+
+## v6.4.185 Learning-Language Cultural Events
+
+- The Events calendar is now selected by the language being learned, so a German learner explores German-language cultural events even when their known language is English, Spanish, Japanese, or another supported language.
+- Event names, annual dates, history, cultural meaning, instructions, status labels, and temporary reward information are translated into the player's known language.
+- Each card also preserves the event's native title beneath its translation, giving learners a direct connection to the language and culture they selected.
+- All 51 events are bundled in 17 known-language translation packs. No online translation request is made during gameplay, including installed and offline play.
+- Active-event progress, five-answer Culture Explorer rewards, claim history, expiry times, and cloud-save compatibility remain tied to the correct learning culture and event year.
+- Added a direct Events preview route for testing any known/learning-language pair and updated the app shell, cache, build metadata, and Update Guardian checks.
+
+## v6.4.184 Verified account-link delivery and recipient alerts
+
+- The sender now receives a delivery receipt only after the new link row is written and then read back from the authenticated Supabase account. A failed or missing record can no longer be described as sent.
+- Re-sending a pending or declined request refreshes it in Supabase; an already approved pair is reported as already linked instead of creating a misleading notification expectation.
+- Incoming learner-access requests now create a persistent, highly visible in-game approval banner as well as the existing header badge.
+- Recipient polling now checks every five seconds while the game is visible, and also refreshes on focus, page restore, reconnection, and cloud-session changes.
+- Added optional installed-app/browser phone alerts. Notification taps focus Language Miner, open the Parent/Teacher Center, and preserve the learner's Approve/Decline decision boundary.
+- Added `supabase/migrations/202608250001_verified_parent_teacher_delivery.sql` and deployed the refreshed request function to the connected Supabase project.
 
 ## v6.4.183 Known-Language Cultural Events
 

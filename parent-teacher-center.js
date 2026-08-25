@@ -1,9 +1,10 @@
-// Language Miner v6.4.176 - reliable cross-device learner linking and complete gradebook reports.
+// Language Miner v6.4.184 - verified cross-device delivery and recipient alerts.
 (()=>{
   'use strict';
   const LINK_KEY='lm_parent_teacher_links_v1';
+  const NOTIFIED_KEY='lm_parent_teacher_notified_requests_v1:';
   let selectedLearnerId='',activeTab='overview',activeView='dashboard';
-  let cloudLinks=[],cloudSummaries=new Map(),cloudBusy=false,cloudError='',cloudLastSync=0,cloudTimer=0;
+  let cloudLinks=[],cloudSummaries=new Map(),cloudBusy=false,cloudError='',cloudLastSync=0,cloudTimer=0,lastDeliveryReceipt=null;
   const bridge=()=>window.LanguageMinerReadOnly;
   const cloud=()=>window.languageMinerCloudAuth;
   const current=()=>bridge()?.activeProfile?.()||null;
@@ -59,11 +60,37 @@
   }
   function incomingRequests(){return allLinks().filter(link=>isStudent(link)&&link.status==='pending');}
   function centerOpen(){return document.getElementById('parentTeacherCenter')?.classList.contains('open');}
+  function notifiedStorageKey(){return `${NOTIFIED_KEY}${currentCloudUserId()||current()?.id||'device'}`;}
+  function readNotifiedIds(){try{const value=JSON.parse(localStorage.getItem(notifiedStorageKey())||'[]');return new Set(Array.isArray(value)?value.map(String):[]);}catch{return new Set();}}
+  function writeNotifiedIds(ids){try{localStorage.setItem(notifiedStorageKey(),JSON.stringify([...ids].slice(-100)));}catch{}}
+  function phoneAlertsSupported(){return 'Notification'in window&&'serviceWorker'in navigator;}
+  function phoneAlertsEnabled(){return phoneAlertsSupported()&&Notification.permission==='granted';}
   function syncRequestNotification(){
-    const account=document.querySelector('.app>header .account-chip');if(!account)return;
+    const incoming=incomingRequests(),count=incoming.length,account=document.querySelector('.app>header .account-chip'),app=document.querySelector('.app');
+    let banner=document.getElementById('parentTeacherIncomingAlert');
+    if(app&&!banner){banner=document.createElement('button');banner.id='parentTeacherIncomingAlert';banner.className='ptc-incoming-alert';banner.type='button';banner.addEventListener('click',()=>openCenter('dashboard'));app.appendChild(banner);}
+    if(banner){banner.hidden=count===0;banner.setAttribute('aria-label',count?`${count} ${t('student access request')}${count===1?'':'s'} ${t('awaiting your approval')}`:t('No student access requests'));banner.innerHTML=`<span aria-hidden="true">🔔</span><strong>${esc(t('Requests awaiting your approval'))}</strong><b>${count}</b><small>${esc(t('Approve'))}</small>`;}
+    if(!account)return;
     let button=document.getElementById('parentTeacherRequestNotice');
     if(!button){button=document.createElement('button');button.id='parentTeacherRequestNotice';button.className='ptc-request-notice';button.type='button';button.title=t('Open student access requests');button.addEventListener('click',()=>openCenter('dashboard'));account.insertBefore(button,account.querySelector('#headerStatsBtn')||account.firstChild);}
-    const count=incomingRequests().length;button.hidden=count===0;button.setAttribute('aria-label',count?`${count} ${t('student access request')}${count===1?'':'s'} ${t('awaiting your approval')}`:t('No student access requests'));button.innerHTML=`<span aria-hidden="true">🔔</span> ${esc(t('Requests'))}<b>${count}</b>`;
+    button.hidden=count===0;button.setAttribute('aria-label',count?`${count} ${t('student access request')}${count===1?'':'s'} ${t('awaiting your approval')}`:t('No student access requests'));button.innerHTML=`<span aria-hidden="true">🔔</span> ${esc(t('Requests'))}<b>${count}</b>`;
+  }
+  async function showSystemRequestAlert(link){
+    if(!phoneAlertsEnabled())return false;
+    try{const registration=await navigator.serviceWorker.ready;await registration.showNotification(t('Requests awaiting your approval'),{body:`${profileName(link.adultProfileId)} ${t('wants read-only access to your learning summaries')}.`,icon:'./language-miner-icon-192.png',badge:'./language-miner-icon-32.png',tag:`language-miner-link-${link.cloudId||link.id}`,renotify:true,data:{url:`${location.origin}${location.pathname}`}});return true;}catch{return false;}
+  }
+  function announceNewIncomingRequests(){
+    const incoming=incomingRequests().filter(link=>link.cloud),seen=readNotifiedIds(),fresh=incoming.filter(link=>!seen.has(String(link.cloudId||link.id)));
+    if(!fresh.length)return;
+    fresh.forEach(link=>seen.add(String(link.cloudId||link.id)));writeNotifiedIds(seen);syncRequestNotification();
+    window.setMessage?.(`${fresh.length} ${t(fresh.length===1?'student access request':'student access requests')} ${t('awaiting your approval')}.`,'correct');
+    fresh.forEach(link=>showSystemRequestAlert(link));
+  }
+  async function enablePhoneAlerts(){
+    if(!phoneAlertsSupported()){window.setMessage?.('Phone alerts are not supported by this browser. The in-game request alert will remain active.','wrong');return false;}
+    let permission=Notification.permission;if(permission==='default')permission=await Notification.requestPermission();
+    if(permission==='granted'){window.setMessage?.('Phone alerts are enabled for new learner-access requests.','correct');return true;}
+    window.setMessage?.('Phone alerts are blocked. Enable notifications for Language Miner in your browser or phone settings.','wrong');return false;
   }
   function cloudTime(value){if(!value)return t('Not synced yet');try{return new Date(value).toLocaleString(locale(),{dateStyle:'medium',timeStyle:'short'});}catch{return new Date(value).toLocaleString();}}
   function friendlyCloudError(error){const message=String(error?.message||error||t('Cloud learner data is temporarily unavailable.'));if(/parent_teacher|student_link|linked_learner|schema cache|PGRST202/i.test(message))return t('Cross-device linking is not installed on this cloud project yet. Deploy the included Supabase linking repair migration, then refresh this page.');return message;}
@@ -72,7 +99,7 @@
     if(previewCloudMode()){cloudError='';cloudLastSync=Date.now();syncRequestNotification();if(announce)window.setMessage?.(t('Preview cross-device progress refreshed.'),'correct');if(centerOpen())render();return true;}
     if(cloudBusy)return false;cloudBusy=true;cloudError='';if(centerOpen())render();
     try{
-      const rows=await cloud().listParentTeacherLinks();cloudLinks=rows.map(normalizeCloudLink);
+      const rows=await cloud().listParentTeacherLinks();cloudLinks=rows.map(normalizeCloudLink);announceNewIncomingRequests();
       try{Promise.resolve(window.languageMinerPushCloudSave?.()).catch(error=>console.warn('Learner-link refresh continued even though the current cloud save could not be pushed.',error));}catch(error){console.warn('Learner-link refresh continued even though the current cloud save could not be pushed.',error);}
       const approved=cloudLinks.filter(link=>isAdult(link)&&link.status==='approved'),summaries=new Map();
       await Promise.all(approved.map(async link=>{const record=await cloud().loadLinkedLearnerProgress(link.studentUserId);const summary=bridge()?.cloudLearnerSummary?.(record);if(summary)summaries.set(link.studentProfileId,summary);}));
@@ -82,7 +109,7 @@
     }catch(error){cloudError=friendlyCloudError(error);if(announce)window.setMessage?.(cloudError,'wrong');return false;}
     finally{cloudBusy=false;const learners=approvedLearners();if(!selectedLearnerId||!learners.some(item=>item.id===selectedLearnerId))selectedLearnerId=learners[0]?.id||'';syncRequestNotification();if(centerOpen())render();}
   }
-  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(!document.hidden&&cloudReady())syncCloudData(false);},15000);}
+  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(cloudReady()&&(!document.hidden||phoneAlertsEnabled()))syncCloudData(false);},5000);}
   function seedPreviewAccess(){
     if(window.LANGUAGE_MINER_PREVIEW!==true)return;
     const adult=current();if(!adult||!['codex-preview','codex-preview-player'].includes(adult.id))return;const candidates=profiles().filter(profile=>profile.id!==adult.id&&profile.id.startsWith('preview-player-')).slice(0,2);if(!candidates.length)return;
@@ -115,12 +142,22 @@
     const incoming=incomingRequests();if(!incoming.length)return'';
     return `<section class="ptc-requests"><header><span>${esc(t('STUDENT APPROVAL REQUIRED'))}</span><h3>${esc(t('Requests awaiting your approval'))}</h3><p>${esc(t('Only this learner account can approve or decline these requests.'))}</p></header>${incoming.map(link=>`<article><div><strong>${esc(profileName(link.adultProfileId))}</strong><small>${esc(t('wants read-only access to your learning summaries'))}${link.cloud?` · ${esc(t('Cross-device request'))}`:''}</small></div><div><button type="button" data-ptc-decline="${esc(link.id)}">${esc(t('Decline'))}</button><button class="primary" type="button" data-ptc-approve="${esc(link.id)}">${esc(t('Approve'))}</button></div></article>`).join('')}</section>`;
   }
+  function phoneAlertButton(){
+    if(!phoneAlertsSupported())return'';
+    const permission=Notification.permission,label=permission==='granted'?'🔔 Phone alerts enabled':permission==='denied'?'🔕 Phone alerts blocked':'🔔 Enable phone alerts';
+    return `<button type="button" data-ptc-phone-alerts>${esc(label)}</button>`;
+  }
+  function deliveryReceipt(){
+    if(!lastDeliveryReceipt)return'';
+    const state=lastDeliveryReceipt.status==='approved'?'Already approved':'Saved in Supabase · awaiting approval';
+    return `<aside class="ptc-delivery-receipt" role="status"><span>✅</span><div><strong>Request delivery confirmed</strong><small>${esc(lastDeliveryReceipt.email)} · ${esc(state)}</small><code>${esc(String(lastDeliveryReceipt.id).slice(0,8))}</code></div></aside>`;
+  }
   function cloudStatus(){
     if(!cloudReady())return `<aside class="ptc-cloud-status offline"><span>☁️</span><div><strong>${esc(t('Cross-device linking needs an online account'))}</strong><small>${esc(t('Sign in on both devices with separate Language Miner accounts.'))}</small></div></aside>`;
     if(previewCloudMode())return `<aside class="ptc-cloud-status"><span>🧪</span><div><strong>${esc(t('Cross-device linking preview'))}</strong><small>${esc(t('Requests entered here stay inside this playable preview. The packaged build uses signed-in cloud accounts.'))}</small></div><button type="button" data-ptc-refresh>↻ ${esc(t('Refresh'))}</button></aside>`;
-    return `<aside class="ptc-cloud-status ${cloudError?'error':''}"><span>${cloudBusy?'⏳':'☁️'}</span><div><strong>${esc(cloudBusy?t('Refreshing linked progress…'):cloudError?t('Cloud refresh needs attention'):t('Cross-device progress is connected'))}</strong><small>${esc(cloudError||`${t('Last refreshed')}: ${cloudTime(cloudLastSync)}`)}</small></div><button type="button" data-ptc-refresh ${cloudBusy?'disabled':''}>↻ ${esc(t('Refresh'))}</button></aside>`;
+    return `<aside class="ptc-cloud-status ${cloudError?'error':''}"><span>${cloudBusy?'⏳':'☁️'}</span><div><strong>${esc(cloudBusy?t('Refreshing linked progress…'):cloudError?t('Cloud refresh needs attention'):t('Cross-device progress is connected'))}</strong><small>${esc(cloudError||`${t('Last refreshed')}: ${cloudTime(cloudLastSync)}`)}</small></div><div class="ptc-cloud-actions"><button type="button" data-ptc-refresh ${cloudBusy?'disabled':''}>↻ ${esc(t('Refresh'))}</button>${phoneAlertButton()}</div></aside>`;
   }
-  function centerIntro(){return `<section class="ptc-intro"><div><span>${esc(t('FAMILY & CLASSROOM VIEW'))}</span><h3>${esc(t('Complete learner gradebook'))}</h3><p>${esc(t('Review lesson-by-lesson completion, every recorded quiz and test attempt, Easy or Hard mode, daily active study time, streak health, practice accuracy, and learning alerts.'))}</p></div><div class="ptc-intro-actions"><button type="button" data-ptc-view="manage">⚙️ ${esc(t('Manage access'))}</button><button class="primary" type="button" data-ptc-view="link">＋ ${esc(t('Link student'))}</button></div></section>${cloudStatus()}`;}
+  function centerIntro(){return `<section class="ptc-intro"><div><span>${esc(t('FAMILY & CLASSROOM VIEW'))}</span><h3>${esc(t('Complete learner gradebook'))}</h3><p>${esc(t('Review lesson-by-lesson completion, every recorded quiz and test attempt, Easy or Hard mode, daily active study time, streak health, practice accuracy, and learning alerts.'))}</p></div><div class="ptc-intro-actions"><button type="button" data-ptc-view="manage">⚙️ ${esc(t('Manage access'))}</button><button class="primary" type="button" data-ptc-view="link">＋ ${esc(t('Link student'))}</button></div></section>${cloudStatus()}${deliveryReceipt()}`;}
   function learnerSwitcher(learners){
     if(!learners.length)return `<section class="ptc-empty"><span>👥</span><h3>${esc(t('No approved learners yet'))}</h3><p>${esc(t('Use Link student to send a request. The student must sign in to their own profile and approve it before any progress appears here.'))}</p><button class="primary" type="button" data-ptc-view="link">＋ ${esc(t('Link student'))}</button></section>`;
     return `<section class="ptc-switcher"><header><div><span>${esc(t('LINKED LEARNERS'))}</span><h3>${esc(t('Switch student'))}</h3></div><small>${learners.length} ${esc(t(learners.length===1?'approved learner':'approved learners'))}</small></header><div>${learners.map(profile=>`<button type="button" data-ptc-learner="${esc(profile.id)}" class="${profile.id===selectedLearnerId?'active':''}"><span>${esc(profile.name.slice(0,1).toUpperCase())}</span><strong>${esc(profile.name)}</strong><small>${esc(t(profile.id===selectedLearnerId?'Viewing now':'View progress'))}</small></button>`).join('')}</div></section>`;
@@ -162,7 +199,7 @@
   function manageView(){
     const links=allLinks(),outgoing=links.filter(link=>isAdult(link)&&link.status!=='declined'),adultAccess=links.filter(link=>isStudent(link)&&link.status==='approved'),incoming=links.filter(link=>isStudent(link)&&link.status==='pending');
     const sourceLabel=link=>link.cloud?` · ${t('Across devices')}`:'';
-    return `<button class="ptc-sub-back" type="button" data-ptc-view="dashboard">← ${esc(t('Back to Center'))}</button><section class="ptc-subhead"><span>${esc(t('CONSENT & ACCESS'))}</span><h3>⚙️ ${esc(t('Manage access'))}</h3><p>${esc(t('Review pending requests, approved learner links, and adults who can see this profile’s summaries.'))}</p></section>${cloudStatus()}${privacyBanner()}<section class="ptc-access-grid"><article><header><span>${esc(t('AS AN ADULT OR TEACHER'))}</span><h3>${esc(t('Learners you requested'))}</h3></header>${outgoing.length?outgoing.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.studentProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.studentProfileId))}</strong><small>${esc(linkLabel(link.status)+sourceLabel(link))}</small></div><button type="button" data-ptc-remove="${esc(link.id)}">${esc(t(link.status==='pending'?'Cancel request':'Remove access'))}</button></div>`).join(''):`<p class="ptc-inline-empty">${esc(t('You have not requested access to a learner.'))}</p>`}<button class="primary ptc-full-button" type="button" data-ptc-view="link">＋ ${esc(t('Link student'))}</button></article><article><header><span>${esc(t('AS A LEARNER'))}</span><h3>${esc(t('Adults with access'))}</h3></header>${adultAccess.length?adultAccess.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.adultProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.adultProfileId))}</strong><small>${esc(t('Approved read-only access')+sourceLabel(link))}</small></div><button type="button" data-ptc-revoke="${esc(link.id)}">${esc(t('Revoke'))}</button></div>`).join(''):`<p class="ptc-inline-empty">${esc(t('No adults currently have access to this profile.'))}</p>`}${incoming.length?`<h4>${esc(t('Pending requests'))}</h4>${incoming.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.adultProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.adultProfileId))}</strong><small>${esc(t('Waiting for your decision')+sourceLabel(link))}</small></div><div class="ptc-row-actions"><button type="button" data-ptc-decline="${esc(link.id)}">${esc(t('Decline'))}</button><button class="primary" type="button" data-ptc-approve="${esc(link.id)}">${esc(t('Approve'))}</button></div></div>`).join('')}`:''}</article></section>`;
+    return `<button class="ptc-sub-back" type="button" data-ptc-view="dashboard">← ${esc(t('Back to Center'))}</button><section class="ptc-subhead"><span>${esc(t('CONSENT & ACCESS'))}</span><h3>⚙️ ${esc(t('Manage access'))}</h3><p>${esc(t('Review pending requests, approved learner links, and adults who can see this profile’s summaries.'))}</p></section>${cloudStatus()}${deliveryReceipt()}${privacyBanner()}<section class="ptc-access-grid"><article><header><span>${esc(t('AS AN ADULT OR TEACHER'))}</span><h3>${esc(t('Learners you requested'))}</h3></header>${outgoing.length?outgoing.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.studentProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.studentProfileId))}</strong><small>${esc(linkLabel(link.status)+sourceLabel(link))}</small></div><button type="button" data-ptc-remove="${esc(link.id)}">${esc(t(link.status==='pending'?'Cancel request':'Remove access'))}</button></div>`).join(''):`<p class="ptc-inline-empty">${esc(t('You have not requested access to a learner.'))}</p>`}<button class="primary ptc-full-button" type="button" data-ptc-view="link">＋ ${esc(t('Link student'))}</button></article><article><header><span>${esc(t('AS A LEARNER'))}</span><h3>${esc(t('Adults with access'))}</h3></header>${adultAccess.length?adultAccess.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.adultProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.adultProfileId))}</strong><small>${esc(t('Approved read-only access')+sourceLabel(link))}</small></div><button type="button" data-ptc-revoke="${esc(link.id)}">${esc(t('Revoke'))}</button></div>`).join(''):`<p class="ptc-inline-empty">${esc(t('No adults currently have access to this profile.'))}</p>`}${incoming.length?`<h4>${esc(t('Pending requests'))}</h4>${incoming.map(link=>`<div class="ptc-access-row"><span class="ptc-person">${esc(profileName(link.adultProfileId).slice(0,1).toUpperCase())}</span><div><strong>${esc(profileName(link.adultProfileId))}</strong><small>${esc(t('Waiting for your decision')+sourceLabel(link))}</small></div><div class="ptc-row-actions"><button type="button" data-ptc-decline="${esc(link.id)}">${esc(t('Decline'))}</button><button class="primary" type="button" data-ptc-approve="${esc(link.id)}">${esc(t('Approve'))}</button></div></div>`).join('')}`:''}</article></section>`;
   }
   function linkView(){
     const me=current(),links=readLinks(),blocked=new Set(links.filter(link=>link.adultProfileId===me.id&&link.status!=='declined').map(link=>link.studentProfileId)),candidates=profiles().filter(profile=>profile.id!==me.id&&!blocked.has(profile.id));
@@ -195,11 +232,20 @@
     const input=form.querySelector('#ptcStudentEmail'),email=String(input?.value||'').trim();if(!email||cloudBusy)return;
     if(previewCloudMode()){
       const normalized=email.toLowerCase(),studentUserId=`preview-student-${normalized.replace(/[^a-z0-9]+/g,'-')}`;
-      if(!cloudLinks.some(link=>link.adultUserId===currentCloudUserId()&&link.studentEmail.toLowerCase()===normalized&&link.status!=='declined'))cloudLinks.unshift(normalizeCloudLink({id:`preview-link-${Date.now()}`,adult_user_id:currentCloudUserId(),student_user_id:studentUserId,status:'pending',requested_at:new Date().toISOString(),adult_display_name:current()?.name||'Tutor Preview',student_display_name:normalized.split('@')[0]||'Learner Preview',adult_email:current()?.email||'',student_email:normalized}));
-      cloudLastSync=Date.now();activeView='manage';window.setMessage?.(t('Preview request created. Production requests go to the learner’s signed-in account.'),'correct');render();return;
+      let pending=cloudLinks.find(link=>link.adultUserId===currentCloudUserId()&&link.studentEmail.toLowerCase()===normalized&&link.status!=='declined');
+      if(!pending){pending=normalizeCloudLink({id:`preview-link-${Date.now()}`,adult_user_id:currentCloudUserId(),student_user_id:studentUserId,status:'pending',requested_at:new Date().toISOString(),adult_display_name:current()?.name||'Tutor Preview',student_display_name:normalized.split('@')[0]||'Learner Preview',adult_email:current()?.email||'',student_email:normalized});cloudLinks.unshift(pending);}
+      cloudLastSync=Date.now();lastDeliveryReceipt={id:pending.cloudId,email,status:pending.status,at:Date.now()};activeView='manage';window.setMessage?.(t('Preview request created. Production requests go to the learner’s signed-in account.'),'correct');render();return;
     }
     cloudBusy=true;cloudError='';render();
-      try{const request=await cloud().requestStudentLink(email);if(!request?.id||!request?.student_user_id)throw new Error(t('The server did not confirm the access request. Please try again.'));const normalized=normalizeCloudLink({...request,adult_display_name:current()?.name||t('Parent or teacher'),adult_email:current()?.email||'',student_display_name:email.split('@')[0]||t('Learner'),student_email:email});cloudLinks=cloudLinks.filter(link=>link.cloudId!==normalized.cloudId);cloudLinks.unshift(normalized);cloudLastSync=Date.now();activeView='manage';window.setMessage?.(t('Cross-device access request sent. The learner will see it after signing in or refreshing the Parent/Teacher Center.'),'correct');}
+      try{
+        const previous=cloudLinks.find(link=>isAdult(link)&&link.studentEmail.toLowerCase()===email.toLowerCase()),request=await cloud().requestStudentLink(email);
+        if(!request?.id||!request?.student_user_id)throw new Error(t('The server did not confirm the access request. Please try again.'));
+        const verifiedRows=await cloud().listParentTeacherLinks(),verified=verifiedRows.find(row=>String(row?.id||'')===String(request.id));
+        if(!verified||String(verified.adult_user_id||'')!==currentCloudUserId()||!['pending','approved'].includes(String(verified.status||'')))throw new Error('Supabase did not return a recipient-visible delivery receipt. The request was not announced as sent.');
+        cloudLinks=verifiedRows.map(normalizeCloudLink);cloudLastSync=Date.now();lastDeliveryReceipt={id:String(verified.id),email,status:String(verified.status),at:Date.now()};activeView='manage';
+        const message=verified.status==='approved'?'These accounts are already linked and approved.':previous?.status==='pending'?'The pending request was refreshed and verified in Supabase. Your learner will receive the in-game alert.':'Request saved and verified in Supabase. Your learner will receive the in-game alert.';
+        window.setMessage?.(message,'correct');
+      }
     catch(error){cloudError=friendlyCloudError(error);window.setMessage?.(cloudError,'wrong');}
     finally{cloudBusy=false;await syncCloudData(false);if(centerOpen())render();}
   }
@@ -211,6 +257,7 @@
     if(button.dataset.ptcExport!=null){exportSummary(selectedSummary());return;}
     if(button.dataset.ptcPrint!=null){window.print();return;}
     if(button.dataset.ptcRefresh!=null){await syncCloudData(true);return;}
+    if(button.dataset.ptcPhoneAlerts!=null){await enablePhoneAlerts();render();return;}
     if(button.dataset.ptcApprove){await updateLink(button.dataset.ptcApprove,'approve');return;}
     if(button.dataset.ptcDecline){await updateLink(button.dataset.ptcDecline,'decline');return;}
     if(button.dataset.ptcRevoke){await updateLink(button.dataset.ptcRevoke,'revoke');return;}
@@ -223,11 +270,14 @@
   }
   function init(){ensureShell();addMenuItem();syncRequestNotification();startCloudRefresh();if(cloudReady())syncCloudData(false);}
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.getElementById('parentTeacherCenter')?.classList.contains('open'))closeCenter();});
-  window.addEventListener('jm-profile-loaded',()=>{selectedLearnerId='';activeTab='overview';activeView='dashboard';cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;setTimeout(init,0);});
+  window.addEventListener('jm-profile-loaded',()=>{selectedLearnerId='';activeTab='overview';activeView='dashboard';cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;lastDeliveryReceipt=null;setTimeout(init,0);});
   window.addEventListener('jm-profile-logged-out',()=>{clearInterval(cloudTimer);cloudTimer=0;cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;});
   window.addEventListener('lm-cloud-session-changed',()=>{startCloudRefresh();syncCloudData(false);});
   window.addEventListener('online',()=>{if(cloudReady())syncCloudData(false);});
+  window.addEventListener('focus',()=>{if(cloudReady())syncCloudData(false);});
+  window.addEventListener('pageshow',()=>{if(cloudReady())syncCloudData(false);});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&cloudReady())syncCloudData(false);});
+  navigator.serviceWorker?.addEventListener?.('message',event=>{if(event.data?.type==='LM_OPEN_PARENT_TEACHER_REQUESTS'){openCenter('dashboard');syncCloudData(false);}});
   window.addEventListener('lm-interface-language-changed',()=>{ensureShell();addMenuItem();if(document.getElementById('parentTeacherCenter')?.classList.contains('open'))render();});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
   window.openLanguageMinerParentTeacherCenter=openCenter;
