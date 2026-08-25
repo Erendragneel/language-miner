@@ -1,9 +1,9 @@
-// Language Miner v6.4.183 Update Guardian.
+// Language Miner v6.4.185 Update Guardian.
 // Keeps recovery local, validates each boot, and exposes only reviewed release
 // controls to authenticated administrators. It never evaluates pasted code.
 (()=>{
 'use strict';
-const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.183';
+const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.185';
 const STATE_KEY='lm_update_guardian_state_v1';
 const ERROR_KEY='lm_update_guardian_errors_v1';
 const DB_NAME='language-miner-update-guardian';

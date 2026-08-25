@@ -1,9 +1,9 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.183-cultural-events-r1';
-const BUILD_VERSION='6.4.183';
+const CACHE_NAME='language-miner-v6.4.185-learning-culture-events-r1';
+const BUILD_VERSION='6.4.185';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
-const CRITICAL_SHELL=['./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./update-guardian.js','./owner-admin-controls.js'];
+const CRITICAL_SHELL=['./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
 const APP_SHELL=[
   './',
   './index.html',
@@ -36,6 +36,7 @@ const APP_SHELL=[
   './parent-teacher-localization.js',
   './generated-interface-localization.js',
   './game-6460.js',
+  './cultural-event-localization.js',
   './cultural-events.js',
   './v5-6400.js',
   './qr-code.js',
@@ -255,5 +256,16 @@ self.addEventListener('fetch',event=>{
     const cached=await cacheMatch(chosen,request);
     if(cached)return cached;
     return fetch(request);
+  })());
+});
+
+self.addEventListener('notificationclick',event=>{
+  event.notification.close();
+  const requested=String(event.notification?.data?.url||new URL('./index.html',self.registration.scope).href);
+  event.waitUntil((async()=>{
+    const windows=await clients.matchAll({type:'window',includeUncontrolled:true});
+    const existing=windows.find(client=>{try{return new URL(client.url).origin===new URL(requested).origin;}catch{return false;}});
+    if(existing){await existing.focus();existing.postMessage?.({type:'LM_OPEN_PARENT_TEACHER_REQUESTS'});return;}
+    await clients.openWindow(requested);
   })());
 });
