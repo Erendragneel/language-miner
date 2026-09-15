@@ -1,6 +1,6 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.186-illustrated-r12';
-const BUILD_VERSION='6.4.186';
+const CACHE_NAME='language-miner-v6.4.187-phone-update-r13';
+const BUILD_VERSION='6.4.187';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
 const CRITICAL_SHELL=['./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
@@ -219,7 +219,11 @@ self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     try{
       const cache=await caches.open(CACHE_NAME);
-      await cache.addAll(APP_SHELL.map(path=>new Request(path,{cache:'reload'})));
+      // Optional media must never block installing a phone update.
+      const essential=[...new Set([...CRITICAL_SHELL,...APP_SHELL.filter(path=>/\.(?:js|css|html|webmanifest)$/.test(path))])];
+      for(let i=0;i<essential.length;i+=6){
+        await cache.addAll(essential.slice(i,i+6).map(path=>new Request(path,{cache:'reload'})));
+      }
       await validateShell(cache);
       await self.skipWaiting();
     }catch(error){await caches.delete(CACHE_NAME);throw error;}
@@ -232,8 +236,9 @@ self.addEventListener('activate',event=>{
     const older=keys.filter(key=>(key.startsWith(CACHE_PREFIX)||key.startsWith('japanese-miner-'))&&key!==CACHE_NAME&&key!==META_CACHE);
     const priorSelected=meta.selectedCache&&keys.includes(meta.selectedCache)?meta.selectedCache:older[0]||'';
     await writeMeta({...meta,currentCache:CACHE_NAME,candidateCache:CACHE_NAME,selectedCache:CACHE_NAME,previousCache:priorSelected||meta.previousCache||'',activatedAt:Date.now()});
-    // Existing tabs keep their current worker until they reload, preventing a
-    // live quiz from mixing files from two releases.
+    // Notify existing phone tabs; the page offers a restart rather than
+    // interrupting an in-progress answer with an automatic reload.
+    await self.clients.claim();
   })());
 });
 

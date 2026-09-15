@@ -1,9 +1,9 @@
-// Language Miner v6.4.186 Update Guardian.
+// Language Miner v6.4.187 Update Guardian.
 // Keeps recovery local, validates each boot, and exposes only reviewed release
 // controls to authenticated administrators. It never evaluates pasted code.
 (()=>{
 'use strict';
-const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.186';
+const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.187';
 const STATE_KEY='lm_update_guardian_state_v1';
 const ERROR_KEY='lm_update_guardian_errors_v1';
 const DB_NAME='language-miner-update-guardian';
@@ -195,7 +195,13 @@ window.addEventListener('lm-cloud-save-applied',()=>setTimeout(()=>createRecover
 window.addEventListener('lm-admin-permissions-changed',event=>{if(event.detail?.role&&(event.detail.role==='owner'||event.detail.permissions?.release_management===true))ensureAdminCenter();else document.getElementById('lmAdminUpdateCenter')?.remove();});
 window.addEventListener('online',()=>{forceUpdate().catch(()=>{});pollReleaseStatus();});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')createRecoverySnapshot('background');});
-navigator.serviceWorker?.addEventListener?.('controllerchange',()=>{if(healthy)showGuardianBanner('Update installed','A complete Language Miner update is ready. Restart when you are not taking a quiz or test.',[{id:'restart',label:'Restart now',run:()=>location.reload()}]);});
+async function announceReadyUpdate(){
+  const status=await guardianStatus();
+  if(status?.buildCache&&!status.buildCache.startsWith(`language-miner-v${BUILD}-`))showGuardianBanner('Game update ready','Your updated game is downloaded. Finish your question, then restart to use it. Your saved progress stays on this device.',[{id:'restart',label:'Restart updated game',run:()=>location.reload()}]);
+}
+navigator.serviceWorker?.addEventListener?.('controllerchange',()=>{announceReadyUpdate().catch(()=>{});});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')forceUpdate().then(announceReadyUpdate).catch(()=>{});});
+window.addEventListener('load',()=>{setTimeout(()=>announceReadyUpdate().catch(()=>{}),1000);});
 let adminObserver=null;
 function startAdminObserver(){
   const root=document.body||document.documentElement;
