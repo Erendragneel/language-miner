@@ -1,0 +1,744 @@
+[
+  {
+    "bank": "Japanese",
+    "id": 75,
+    "before": [
+      "きんトレ",
+      "きんトレ",
+      "workout"
+    ],
+    "after": [
+      "きんトレ",
+      "きんトレ",
+      "strength training"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 131,
+    "before": [
+      "あちら",
+      "あちら",
+      "this way (polite)"
+    ],
+    "after": [
+      "あちら",
+      "あちら",
+      "over there / that way (polite; away from both speaker and listener)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 132,
+    "before": [
+      "暑い",
+      "あつい",
+      "hot (in reference to weather), warm"
+    ],
+    "after": [
+      "暑い",
+      "あつい",
+      "hot (weather)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 134,
+    "before": [
+      "厚い",
+      "あつい",
+      "kind, warm(hearted), thick, deep"
+    ],
+    "after": [
+      "厚い",
+      "あつい",
+      "thick (objects)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 176,
+    "before": [
+      "居る",
+      "いる",
+      "(humble) to be (animate), to exist"
+    ],
+    "after": [
+      "居る",
+      "いる",
+      "to be / exist (people and animals)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 187,
+    "before": [
+      "海",
+      "うみ",
+      "sea, beach"
+    ],
+    "after": [
+      "海",
+      "うみ",
+      "sea / ocean"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 213,
+    "before": [
+      "伯父",
+      "おじさん",
+      "uncle, middle-aged man"
+    ],
+    "after": [
+      "伯父",
+      "おじ",
+      "uncle (older than one’s parent)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 264,
+    "before": [
+      "風邪",
+      "かぜ",
+      "cold, flu"
+    ],
+    "after": [
+      "風邪",
+      "かぜ",
+      "a cold (illness)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 332,
+    "before": [
+      "結婚",
+      "けっこん (する)",
+      "marriage (get married)"
+    ],
+    "after": [
+      "結婚",
+      "けっこん",
+      "marriage (get married)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 383,
+    "before": [
+      "散歩",
+      "さんぽ (する)",
+      "walk, stroll"
+    ],
+    "after": [
+      "散歩",
+      "さんぽ",
+      "walk, stroll"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 419,
+    "before": [
+      "～人",
+      "～じん",
+      "counter for people"
+    ],
+    "after": [
+      "～人",
+      "～にん",
+      "counter for people"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 451,
+    "before": [
+      "掃除",
+      "そうじ (する)",
+      "cleaning, sweeping"
+    ],
+    "after": [
+      "掃除",
+      "そうじ",
+      "cleaning, sweeping"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 453,
+    "before": [
+      "そこ",
+      "そこ",
+      "that place, there; bottom, sole"
+    ],
+    "after": [
+      "そこ",
+      "そこ",
+      "there (near the listener)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 454,
+    "before": [
+      "そちら",
+      "そちら",
+      "over there"
+    ],
+    "after": [
+      "そちら",
+      "そちら",
+      "that way / there (polite; near the listener)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 466,
+    "before": [
+      "大好き",
+      "だいすき",
+      "very like-able, like very much"
+    ],
+    "after": [
+      "大好き",
+      "だいすき",
+      "to like very much / love"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 553,
+    "before": [
+      "鳥",
+      "とり",
+      "chicken (lit., bird)"
+    ],
+    "after": [
+      "鳥",
+      "とり",
+      "bird"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 611,
+    "before": [
+      "バス",
+      "バス",
+      "bus; bath; bass"
+    ],
+    "after": [
+      "バス",
+      "バス",
+      "bus"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 674,
+    "before": [
+      "勉強",
+      "べんきょう (する)",
+      "study"
+    ],
+    "after": [
+      "勉強",
+      "べんきょう",
+      "study"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 741,
+    "before": [
+      "やる",
+      "やる",
+      "to do; to give (to pets, parents, siblings, etc.)"
+    ],
+    "after": [
+      "やる",
+      "やる",
+      "to do; to give (e.g. to animals or plants; informal)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 772,
+    "before": [
+      "練習",
+      "れんしゅう (する)",
+      "(to) practice"
+    ],
+    "after": [
+      "練習",
+      "れんしゅう",
+      "(to) practice"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 811,
+    "before": [
+      "運動",
+      "うんどうする",
+      "exercise"
+    ],
+    "after": [
+      "運動",
+      "うんどう",
+      "exercise"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 818,
+    "before": [
+      "心配",
+      "しんぱいする",
+      "worry, concern"
+    ],
+    "after": [
+      "心配",
+      "しんぱい",
+      "worry, concern"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 846,
+    "before": [
+      "複雑",
+      "ふくざつ",
+      "complexity, complication"
+    ],
+    "after": [
+      "複雑",
+      "ふくざつ",
+      "complex / complicated"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 879,
+    "before": [
+      "中学校",
+      "ちゅうがっこう",
+      "junior high school pupil"
+    ],
+    "after": [
+      "中学校",
+      "ちゅうがっこう",
+      "junior high school / middle school"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 889,
+    "before": [
+      "うそ",
+      "嘘",
+      "lie"
+    ],
+    "after": [
+      "うそ",
+      "うそ",
+      "a lie (untrue statement)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 895,
+    "before": [
+      "パート (タイム)",
+      "パート (タイム)",
+      "part time (esp. female part time employees)"
+    ],
+    "after": [
+      "パート (タイム)",
+      "パート (タイム)",
+      "part-time work / part-time worker"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 899,
+    "before": [
+      "出席",
+      "しゅっせきする",
+      "attendance"
+    ],
+    "after": [
+      "出席",
+      "しゅっせき",
+      "attendance"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 934,
+    "before": [
+      "故障",
+      "こしょうする",
+      "breakdown"
+    ],
+    "after": [
+      "故障",
+      "こしょう",
+      "breakdown"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 947,
+    "before": [
+      "準備",
+      "じゅんびする",
+      "prepare"
+    ],
+    "after": [
+      "準備",
+      "じゅんび",
+      "preparation"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 967,
+    "before": [
+      "決して",
+      "けっして",
+      "never"
+    ],
+    "after": [
+      "決して",
+      "けっして",
+      "never / by no means (used with a negative)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 979,
+    "before": [
+      "適当",
+      "てきとう",
+      "fitness, suitability"
+    ],
+    "after": [
+      "適当",
+      "てきとう",
+      "suitable / appropriate; careless (depending on context)"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 987,
+    "before": [
+      "親切",
+      "しんせつ",
+      "kindness"
+    ],
+    "after": [
+      "親切",
+      "しんせつ",
+      "kind / considerate"
+    ]
+  },
+  {
+    "bank": "Japanese",
+    "id": 990,
+    "before": [
+      "熱心",
+      "ねっしん",
+      "enthusiasm"
+    ],
+    "after": [
+      "熱心",
+      "ねっしん",
+      "enthusiastic / eager"
+    ]
+  },
+  {
+    "bank": "multilingual",
+    "id": 24,
+    "before": {
+      "en": "right",
+      "zh": "对",
+      "ko": "맞아",
+      "es": "correcto",
+      "ja": "右",
+      "fr": "à droite",
+      "de": "richtig",
+      "ru": "правильно",
+      "it": "giusto",
+      "pt": "certo",
+      "vi": "đúng",
+      "th": "ถูกต้อง",
+      "tr": "doğru",
+      "id": "benar",
+      "pl": "prawda",
+      "el": "σωστά",
+      "uk": "правильно"
+    },
+    "after": {
+      "en": "right (direction)",
+      "zh": "右边",
+      "ko": "오른쪽",
+      "es": "derecha",
+      "ja": "右",
+      "fr": "à droite",
+      "de": "rechts",
+      "ru": "справа",
+      "it": "destra",
+      "pt": "direita",
+      "vi": "bên phải",
+      "th": "ขวา",
+      "tr": "sağ",
+      "id": "kanan",
+      "pl": "prawo",
+      "el": "δεξιά",
+      "uk": "праворуч"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 135,
+    "before": {
+      "en": "kind, warm(hearted), thick, deep",
+      "zh": "善良、热情、厚重、深沉",
+      "ko": "친절한,따뜻한(마음이)두꺼운,깊은",
+      "es": "amable, cálido (de corazón), espeso, profundo",
+      "ja": "厚い",
+      "fr": "gentil, chaleureux, épais, profond",
+      "de": "freundlich, warmherzig, dick, tief",
+      "ru": "добрый, теплый (сердечный), толстый, глубокий",
+      "it": "gentile, caloroso, grosso, profondo",
+      "pt": "gentil, caloroso (coração), grosso, profundo",
+      "vi": "tốt bụng, ấm áp (trái tim), dày dặn, sâu sắc",
+      "th": "ใจดี อบอุ่น(ใจ) หนาลึก",
+      "tr": "nazik, sıcak (yürekli), kalın, derin",
+      "id": "baik hati, hangat (hati), tebal, dalam",
+      "pl": "miły, ciepły (serdeczny), gruby, głęboki",
+      "el": "ευγενικός, ζεστός (εγκάρδιος), χοντρός, βαθύς",
+      "uk": "добрий, теплий (сердечний), густий, глибокий"
+    },
+    "after": {
+      "en": "thick (objects)",
+      "zh": "厚",
+      "ko": "두껍다",
+      "es": "grueso",
+      "ja": "厚い",
+      "fr": "épais",
+      "de": "dick",
+      "ru": "толстый",
+      "it": "spesso",
+      "pt": "grosso",
+      "vi": "dày",
+      "th": "หนา",
+      "tr": "kalın",
+      "id": "tebal",
+      "pl": "gruby",
+      "el": "παχύς",
+      "uk": "товстий"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 188,
+    "before": {
+      "en": "sea, beach",
+      "zh": "大海、沙滩",
+      "ko": "바다, 해변",
+      "es": "mar, playa",
+      "ja": "海",
+      "fr": "mer, plage",
+      "de": "Meer, Strand",
+      "ru": "море, пляж",
+      "it": "mare, spiaggia",
+      "pt": "mar, praia",
+      "vi": "biển, bãi biển",
+      "th": "ทะเลชายหาด",
+      "tr": "deniz, plaj",
+      "id": "laut, pantai",
+      "pl": "morze, plaża",
+      "el": "θάλασσα, παραλία",
+      "uk": "море, пляж"
+    },
+    "after": {
+      "en": "sea / ocean",
+      "zh": "海",
+      "ko": "바다",
+      "es": "mar",
+      "ja": "海",
+      "fr": "mer",
+      "de": "Meer",
+      "ru": "море",
+      "it": "mare",
+      "pt": "mar",
+      "vi": "biển",
+      "th": "ทะเล",
+      "tr": "deniz",
+      "id": "laut",
+      "pl": "morze",
+      "el": "θάλασσα",
+      "uk": "море"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 554,
+    "before": {
+      "en": "chicken (lit., bird)",
+      "zh": "鸡（字面意思，鸟）",
+      "ko": "닭 (점등어, 새)",
+      "es": "pollo (lit., pájaro)",
+      "ja": "鳥",
+      "fr": "poulet (lit., oiseau)",
+      "de": "Huhn (wörtlich: Vogel)",
+      "ru": "курица (букв. птица)",
+      "it": "pollo (lett. uccello)",
+      "pt": "frango (lit., pássaro)",
+      "vi": "gà (lit., chim)",
+      "th": "ไก่ (นก)",
+      "tr": "tavuk (lit., kuş)",
+      "id": "ayam (lit., burung)",
+      "pl": "kurczak (dosł. ptak)",
+      "el": "κοτόπουλο (λιτ., πουλί)",
+      "uk": "курка (букв., птах)"
+    },
+    "after": {
+      "en": "bird",
+      "zh": "鸟",
+      "ko": "새",
+      "es": "pájaro",
+      "ja": "鳥",
+      "fr": "oiseau",
+      "de": "Vogel",
+      "ru": "птица",
+      "it": "uccello",
+      "pt": "pássaro",
+      "vi": "chim",
+      "th": "นก",
+      "tr": "kuş",
+      "id": "burung",
+      "pl": "ptak",
+      "el": "πουλί",
+      "uk": "птах"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 880,
+    "before": {
+      "en": "junior high school pupil",
+      "zh": "初中生",
+      "ko": "중학생",
+      "es": "alumno de secundaria",
+      "ja": "中学校",
+      "fr": "élève du collège",
+      "de": "Schüler der Mittelstufe",
+      "ru": "ученик младшей средней школы",
+      "it": "alunno della scuola media inferiore",
+      "pt": "aluno do ensino médio",
+      "vi": "học sinh trung học cơ sở",
+      "th": "นักเรียนมัธยมต้น",
+      "tr": "ortaokul öğrencisi",
+      "id": "murid sekolah menengah pertama",
+      "pl": "uczeń gimnazjum",
+      "el": "μαθητής γυμνασίου",
+      "uk": "молодший школяр"
+    },
+    "after": {
+      "en": "junior high school / middle school",
+      "zh": "初中",
+      "ko": "중학교",
+      "es": "escuela secundaria",
+      "ja": "中学校",
+      "fr": "collège",
+      "de": "Mittelschule",
+      "ru": "средняя школа",
+      "it": "scuola media",
+      "pt": "escola secundária",
+      "vi": "trường trung học cơ sở",
+      "th": "โรงเรียนมัธยมต้น",
+      "tr": "ortaokul",
+      "id": "sekolah menengah pertama",
+      "pl": "szkoła średnia pierwszego stopnia",
+      "el": "γυμνάσιο",
+      "uk": "середня школа"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 890,
+    "before": {
+      "en": "lie",
+      "zh": "谎言",
+      "ko": "거짓말",
+      "es": "mentir",
+      "ja": "うそ",
+      "fr": "mentir",
+      "de": "Lüge",
+      "ru": "ложь",
+      "it": "mentire",
+      "pt": "mentir",
+      "vi": "nói dối",
+      "th": "โกหก",
+      "tr": "yalan söylemek",
+      "id": "berbohong",
+      "pl": "kłamać",
+      "el": "ψέμα",
+      "uk": "брехня"
+    },
+    "after": {
+      "en": "a lie (untrue statement)",
+      "zh": "谎言",
+      "ko": "거짓말",
+      "es": "mentira",
+      "ja": "うそ",
+      "fr": "mensonge",
+      "de": "Lüge",
+      "ru": "ложь",
+      "it": "bugia",
+      "pt": "mentira",
+      "vi": "lời nói dối",
+      "th": "คำโกหก",
+      "tr": "yalan",
+      "id": "kebohongan",
+      "pl": "kłamstwo",
+      "el": "ψέμα",
+      "uk": "брехня"
+    }
+  },
+  {
+    "bank": "multilingual",
+    "id": 23,
+    "language": "en",
+    "before": "left",
+    "after": "left (direction)"
+  },
+  {
+    "bank": "multilingual",
+    "id": 23,
+    "language": "ru",
+    "before": "ушел",
+    "after": "слева"
+  },
+  {
+    "bank": "multilingual",
+    "id": 5,
+    "language": "uk",
+    "before": "води",
+    "after": "вода"
+  },
+  {
+    "bank": "multilingual",
+    "id": 15,
+    "language": "uk",
+    "before": "руку",
+    "after": "рука"
+  }
+]

@@ -1,0 +1,12 @@
+.lm-music-panel{padding:16px;border:1px solid #8ca0b655;border-radius:14px;background:var(--panel,#172a40);color:var(--text,#f3f6fb);display:grid;gap:12px;grid-column:1/-1}
+.lm-music-panel h3,.lm-music-panel p{margin:0}
+.lm-music-panel label{display:grid;gap:7px;font-size:inherit}
+.lm-music-panel .lm-music-switch{display:flex;align-items:center;gap:10px}
+.lm-music-panel select{width:100%;min-height:44px;border:1px solid #8ca0b6;border-radius:8px;padding:8px;background:#20354c;color:#fff;font:inherit}
+.lm-music-panel input[type=range]{width:100%;min-height:36px;accent-color:#e6b965}
+.lm-music-panel input[type=checkbox]{width:20px;height:20px;accent-color:#e6b965}
+.lm-music-panel output{font-variant-numeric:tabular-nums}
+.lm-music-panel small,.lm-music-panel p{font-size:.85rem;line-height:1.5}
+.lm-music-panel :focus-visible{outline:3px solid #ffd184;outline-offset:3px}
+#v6MusicPanel{grid-column:1/-1;min-width:0}
+.v6-settings-grid .lm-music-panel label{padding:0;border:0;border-radius:0;background:transparent}

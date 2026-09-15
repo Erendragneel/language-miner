@@ -1,0 +1,5 @@
+Built-in image generation. Saved asset: picture-assets/onigiri-o.png.
+
+Prompt: Create a polished educational game illustration, landscape 1536x1024. Subject: Japanese onigiri rice balls, two clearly triangular white rice balls with rectangular dark nori seaweed wraps, on a small ceramic plate on a dark navy blue tabletop. One rice ball dominant center-right, detailed soft rice texture, warm soft light, high quality painted 3D game art, inviting tasteful restrained palette matching navy blue learning game interface. Left third mostly uncluttered dark navy negative space for a Japanese character overlay. The rice balls must be instantly identifiable as onigiri, no sushi rolls, no other foods, no lettering, no characters, no symbols, no text. This is a sound mnemonic for Japanese お, the first sound of onigiri; do not draw any text.
+
+This is a first-sound mnemonic: おにぎり (onigiri) begins with お (o). It is not a claim that the character means rice ball. Unmapped items now show no image instead of unrelated scenery.

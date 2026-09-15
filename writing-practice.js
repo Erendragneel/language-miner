@@ -62,6 +62,28 @@ const HANGUL_STROKE_COUNTS=Object.freeze({가:3,나:3,다:4,라:5,마:5,바:6,�
 const ARROW_VECTORS=Object.freeze({'→':[1,0],'←':[-1,0],'↓':[0,1],'↑':[0,-1],'↘':[.707,.707],'↙':[-.707,.707],'↗':[.707,-.707],'↖':[-.707,-.707]});
 
 let overlay=null,activeLanguage='ja',tracks=[],trackIndex=0,lessonIndex=0,itemIndex=0,guideVisible=true,directionPreview=true,strokes=[],drawing=null,statusMessage='',statusWrong=false,rejectedStroke=false;
+let strokeGrades=[],lastResult=null,rejectedPath=null,attemptRetries=0,activePointer=null;
+const modelCache=new Map(),glyphCache=new Map();
+Object.assign(COPY.en,{checkWriting:'Check writing',strictInstructions:'Trace the highlighted stroke from its numbered start. Green strokes are accepted; amber strokes need another try.',allStrokesReady:'All {total} strokes checked. Review your writing grade.',traceMode:'Guided tracing',memoryMode:'From memory',shapeOnly:'Shape practice: stroke-order grading is not available for this character.',strokeShort:'Complete the whole highlighted stroke; part of its path is missing.',strokeEnd:'Carry the stroke to its end marker.',strokeExtra:'Use one clean stroke without retracing or extra loops.',strokePath:'Stay closer to the highlighted curve.',strokeStart:'Begin at the numbered start marker.',strokeReverse:'Follow the direction shown; this stroke went backwards.',greatWriting:'Excellent writing',goodWriting:'Good writing',keepPracticing:'Keep practicing',tryAgain:'Try again',continueWriting:'Continue',retryStroke:'Retry stroke {current}',gradeShape:'Shape',gradeCoverage:'Completeness',gradePlacement:'Placement',gradeDirection:'Direction',writingScore:'Writing score',practiceSaved:'Practice saved',memoryInstructions:'Write the character without the guide. Use Guided tracing if you need a reminder.'});
+function resetAttempt(){strokes=[];strokeGrades=[];lastResult=null;rejectedPath=null;attemptRetries=0;drawing=null;activePointer=null;statusMessage='';statusWrong=false;rejectedStroke=false;}
+function strokeModel(item=currentItem()){
+ const symbol=item?.symbol;if(activeLanguage!=='ja')return null;
+ const entry=window.LanguageMinerStrokeData?.characters?.[symbol];if(!entry)return null;
+ if(modelCache.has(symbol))return modelCache.get(symbol);
+ const models=entry.paths.map(d=>{const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',d);const length=path.getTotalLength(),count=Math.max(24,Math.ceil(length*1.5));return Array.from({length:count},(_,i)=>{const p=path.getPointAtLength(length*i/(count-1));return{x:.10+.80*p.x/109,y:.10+.80*p.y/109};});});
+ const value={paths:entry.paths,models};modelCache.set(symbol,value);return value;
+}
+function modelMarkup(model,preview=false){
+ if(!model)return '';
+ const visible=preview||guideVisible,active=strokes.length;
+ return `<svg class="writing-model ${preview?'model-demo':''}" viewBox="0 0 109 109" aria-hidden="true"><g transform="translate(10.9 10.9) scale(.8)" fill="none" stroke-linecap="round" stroke-linejoin="round">${model.paths.map((d,i)=>`<path d="${escapeHtml(d)}" stroke="${i===active&&!preview?'#b2a1ff':'#7794b6'}" stroke-width="${i===active&&!preview?3.3:2.5}" opacity="${visible?(i===active&&!preview?'.8':'.25'):'0'}"/>${preview?`<path d="${escapeHtml(d)}" stroke="#79efd1" stroke-width="3" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" from="1" to="0" begin="${i*1.25}s" dur="1.1s" fill="freeze"/></path>`:''}`).join('')}${!preview&&visible&&model.models[active]?`<circle cx="${(model.models[active].at(-1).x-.1)*109/.8}" cy="${(model.models[active].at(-1).y-.1)*109/.8}" r="2.2" fill="#b2a1ff"/>`:''}</g></svg>`;
+}
+function correction(result,index){const key={short:'strokeShort',end:'strokeEnd',extra:'strokeExtra',path:'strokePath',start:'strokeStart',direction:'strokeReverse',placement:'strokePath'}[result.reason]||'strokePath';return `${c('strokeProgress').replace('{current}',index+1).replace('{total}',directionGuide(currentItem()).expectedCount||'—')}: ${c(key)}`;}
+function resultMarkup(){
+ if(!lastResult)return '';
+ const score=lastResult.score,excellent=score>=90&&Object.values(lastResult.metrics).every(value=>value>=85),stars=lastResult.pass?(excellent?3:score>=75?2:1):0,title=lastResult.pass?(excellent?c('greatWriting'):c('goodWriting')):c('keepPracticing');
+ return `<section class="writing-grade-card ${lastResult.pass?'passed':'needs-practice'}" aria-label="${escapeHtml(c('writingScore'))}" tabindex="-1"><div class="writing-grade-heading"><div><small>${escapeHtml(guideVisible?c('traceMode'):c('memoryMode'))}</small><h4>${escapeHtml(title)}</h4><span aria-label="${stars} / 3">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span></div><strong>${score}<small>/100</small></strong></div><div class="writing-grade-metrics">${Object.entries(lastResult.metrics).filter(([key])=>['shape','coverage','placement','direction'].includes(key)).map(([key,value])=>`<div><span>${escapeHtml(c('grade'+key[0].toUpperCase()+key.slice(1)))}</span><b>${value}%</b><meter min="0" max="100" value="${value}" aria-label="${escapeHtml(c('grade'+key[0].toUpperCase()+key.slice(1)))}"></meter></div>`).join('')}</div><p>${escapeHtml(lastResult.pass?`${c('practiceSaved')} · ${attemptRetries} stroke retries`:lastResult.message||c('strokePath'))}</p><div class="writing-grade-actions"><button type="button" data-writing-retry>${escapeHtml(!lastResult.pass&&strokeModel()?cf('retryStroke',{current:lastResult.weakest+1}):c('tryAgain'))}</button>${lastResult.pass?`<button type="button" class="primary" data-writing-next>${escapeHtml(c('continueWriting'))} →</button>`:''}</div></section>`;
+}
 const escapeHtml=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 function locale(){const context=window.LanguageMinerI18n?.getContext?.();return context?.known||window.LanguageMinerI18n?.getLocale?.()||'en';}
 function c(key){const table=COPY[locale()]||COPY.en;return table[key]||COPY.en[key]||key;}
@@ -72,7 +94,7 @@ function entries(source){return source.split('|').map((part,index)=>{const [symb
 function alphabetEntries(system){return (system?.units||[]).map((unit,index)=>({id:String(index),symbol:String(unit.symbol||''),name:String(unit.name||unit.symbol||''),spoken:String(unit.spoken||unit.name||unit.symbol||'')})).filter(item=>item.symbol);}
 function hanEntries(target){
  const rows=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.vocabulary||[],known=locale(),seen=new Set(),result=[];
- for(const row of rows){const value=String(row?.forms?.[target]||'');for(const symbol of Array.from(value)){if(!/\p{Script=Han}/u.test(symbol)||seen.has(symbol))continue;seen.add(symbol);result.push({id:String(result.length),symbol,name:String(row.forms?.[known]||row.forms?.en||symbol),spoken:symbol});if(result.length>=96)return result;}}
+ for(const row of rows){if(window.LanguageMinerVocabulary?.available(row)===false)continue;const value=String(row?.forms?.[target]||'');if(!/^\p{Script=Han}$/u.test(value))continue;for(const symbol of Array.from(value)){if(!/\p{Script=Han}/u.test(symbol)||seen.has(symbol))continue;seen.add(symbol);result.push({id:String(result.length),symbol,name:String(row.forms?.[known]||row.forms?.en||symbol),spoken:symbol});if(result.length>=96)return result;}}
  return result.length?result:entries(FALLBACK_HAN);
 }
 function buildTracks(language){
@@ -120,12 +142,13 @@ function expectedStrokeCount(symbol){
  return KANA_STROKE_COUNTS[symbol]||KATAKANA_STROKE_COUNTS[symbol]||GREEK_STROKE_COUNTS[symbol]||CYRILLIC_STROKE_COUNTS[symbol]||HANGUL_STROKE_COUNTS[symbol]||null;
 }
 function directionGuide(item){
- const symbol=String(item?.symbol||''),exact=CHARACTER_STROKE_GUIDES[symbol]||latinGuide(symbol),kana=kanaGuide(symbol),expectedCount=expectedStrokeCount(symbol);
- if(exact)return{specific:true,strict:true,steps:exact,expectedCount:exact.length};
- if(kana)return{specific:true,strict:true,validateStart:false,pathThreshold:.34,steps:kana,expectedCount:kana.length};
- return{specific:false,strict:false,expectedCount,steps:[{x:22,y:18,arrow:'↓',text:c('directionRuleOne')},{x:68,y:43,arrow:'→',text:c('directionRuleTwo')},{x:64,y:72,arrow:'↘',text:c('directionRuleThree')}]};
+ const model=strokeModel(item);
+ if(model){const steps=model.models.map((points,index)=>{const a=points[0],b=points[Math.max(1,Math.floor(points.length*.12))],angle=Math.atan2(b.y-a.y,b.x-a.x),arrows=['→','↘','↓','↙','←','↖','↑','↗'],arrow=arrows[(Math.round(angle/(Math.PI/4))+8)%8];return{x:a.x*100,y:a.y*100,arrow,text:`${index+1}. ${arrow}`};});return{specific:true,strict:true,model,steps,expectedCount:steps.length};}
+ return{specific:false,strict:false,expectedCount:null,steps:[]};
 }
 function directionGuideMarkup(item,guide){
+ if(guide.model)return `<div class="writing-direction-guide-heading"><strong>${escapeHtml(c('watchDirections'))}</strong><small>${escapeHtml(cf('modelCount',{total:guide.expectedCount}))} · ${escapeHtml(item?.symbol||'')}</small></div><div class="writing-demo-square">${modelMarkup(guide.model,true)}</div><p>${escapeHtml(c('strictInstructions'))}</p>`;
+ if(!guide.strict)return `<div class="writing-direction-guide-heading"><strong>${escapeHtml(c('watchDirections'))}</strong></div><div class="writing-direction-glyph"><span>${escapeHtml(item?.symbol||'')}</span></div><p>${escapeHtml(c('shapeOnly'))}</p>`;
  const markers=guide.steps.map((step,index)=>`<i class="stroke-arrow" style="--stroke-x:${Number(step.x)||50}%;--stroke-y:${Number(step.y)||50}%;--stroke-delay:${(index*.22).toFixed(2)}s">${STROKE_NUMBERS[index]||index+1} ${escapeHtml(step.arrow)}</i>`).join('');
  const steps=guide.steps.map(step=>`<li>${escapeHtml(step.text)}</li>`).join('');
  const countLabel=guide.expectedCount?cf('modelCount',{total:guide.expectedCount}):'Guided stroke sequence';
@@ -134,8 +157,8 @@ function directionGuideMarkup(item,guide){
 function sequenceComplete(guide=directionGuide(currentItem())){return guide.expectedCount?strokes.length===guide.expectedCount:strokes.length>0;}
 function strokeCoachMarkup(guide){
  const total=guide.expectedCount,current=Math.min(strokes.length+1,total||strokes.length+1),done=Boolean(total&&strokes.length>=total),step=guide.strict&&!done?guide.steps[strokes.length]:null;
- const marker=step?`<div class="writing-next-stroke-marker" style="--next-x:${Number(step.x)||50}%;--next-y:${Number(step.y)||50}%"><b>${strokes.length+1}</b><i>${escapeHtml(step.arrow||'')}</i></div>`:'';
- const label=total?(done?cf('allStrokesReady',{total}):cf('strokeProgress',{current,total})):'Follow the guide one stroke at a time';
+ const marker=step&&guideVisible?`<div class="writing-next-stroke-marker" style="--next-x:${Number(step.x)||50}%;--next-y:${Number(step.y)||50}%"><b>${strokes.length+1}</b><i>${escapeHtml(step.arrow||'')}</i></div>`:'';
+ const label=total?(done?cf('allStrokesReady',{total}):cf('strokeProgress',{current,total})):c('shapeOnly');
  const dots=total?`<div class="writing-stroke-sequence" aria-hidden="true">${Array.from({length:total},(_,index)=>`<i class="${index<strokes.length?'done':index===strokes.length?'current':''}">${index<strokes.length?'✓':index+1}</i>`).join('')}</div>`:'';
  return `${marker}<div class="writing-stroke-coach ${done?'complete':''}"><strong>${escapeHtml(label)}</strong>${dots}</div>`;
 }
@@ -164,73 +187,112 @@ function render(){
    </aside>
    <main class="writing-practice-workspace">
     <div class="writing-current-character"><div><small>${escapeHtml(track.name)} · ${escapeHtml(c('lesson'))} ${lessonIndex+1}</small><h3>${escapeHtml(item?.symbol||'')}</h3><p>${escapeHtml(item?.name||'')}</p></div><button type="button" data-writing-listen>🔊 ${escapeHtml(c('listen'))}</button></div>
-    <p class="writing-instructions">${escapeHtml(c('strictInstructions'))}</p>
-    <div class="writing-pad ${guideVisible?'guide-visible':'guide-hidden'} ${directionPreview?'direction-preview-active':''} ${rejectedStroke?'stroke-rejected':''}"><div class="writing-grid-lines"></div><div class="writing-guide-glyph" aria-hidden="true">${escapeHtml(item?.symbol||'')}</div><canvas id="writingPracticeCanvas" aria-label="${escapeHtml(c('title'))}"></canvas>${directionPreview?`<div class="writing-direction-preview" role="dialog" aria-label="${escapeHtml(c('watchDirections'))}">${directionGuideMarkup(item,guide)}<button type="button" data-writing-start>${escapeHtml(c('startWriting'))}</button></div>`:strokeCoachMarkup(guide)}</div>
-    <div class="writing-practice-actions"><button type="button" data-writing-directions>↻ ${escapeHtml(c('showDirections'))}</button><button type="button" data-writing-guide>${escapeHtml(guideVisible?c('hideGuide'):c('showGuide'))}</button><button type="button" data-writing-undo ${strokes.length?'':'disabled'}>↶ ${escapeHtml(c('undo'))}</button><button type="button" data-writing-clear ${strokes.length?'':'disabled'}>✕ ${escapeHtml(c('clear'))}</button><button class="primary" type="button" data-writing-complete ${directionPreview||!sequenceComplete(guide)?'disabled':''}>✓ ${escapeHtml(c('complete'))}</button></div>
+    <div class="writing-modes" role="group" aria-label="Practice mode"><button type="button" data-writing-mode="trace" aria-pressed="${guideVisible}">${escapeHtml(c('traceMode'))}</button><button type="button" data-writing-mode="memory" aria-pressed="${!guideVisible}">${escapeHtml(c('memoryMode'))}</button></div>
+    <p class="writing-instructions">${escapeHtml(guide.model?(guideVisible?c('strictInstructions'):c('memoryInstructions')):c('shapeOnly'))}</p>
+    <div class="writing-pad ${guideVisible?'guide-visible':'guide-hidden'} ${directionPreview?'direction-preview-active':''} ${rejectedStroke?'stroke-rejected':''}"><div class="writing-grid-lines"></div>${modelMarkup(guide.model)}<canvas id="writingPracticeCanvas" aria-label="${escapeHtml(c('title'))}"></canvas>${directionPreview?`<div class="writing-direction-preview" role="dialog" aria-label="${escapeHtml(c('watchDirections'))}">${directionGuideMarkup(item,guide)}<button type="button" data-writing-start>${escapeHtml(c('startWriting'))}</button></div>`:strokeCoachMarkup(guide)}</div>
+    <div class="writing-practice-actions"><button type="button" data-writing-directions>↻ ${escapeHtml(c('showDirections'))}</button><button type="button" data-writing-guide>${escapeHtml(guideVisible?c('hideGuide'):c('showGuide'))}</button><button type="button" data-writing-undo ${strokes.length?'':'disabled'}>↶ ${escapeHtml(c('undo'))}</button><button type="button" data-writing-clear ${strokes.length?'':'disabled'}>✕ ${escapeHtml(c('clear'))}</button><button class="primary" type="button" data-writing-complete ${directionPreview||lastResult||!sequenceComplete(guide)?'disabled':''}>✓ ${escapeHtml(c('checkWriting'))}</button></div>
+    ${resultMarkup()}
+    ${guide.model?'<p class="writing-model-credit">Stroke models: <a href="https://kanjivg.tagaini.net/" target="_blank" rel="noopener">KanjiVG</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></p>':''}
     <div class="writing-practice-status ${statusMessage?'show':''} ${statusWrong?'wrong':''}" aria-live="polite">${escapeHtml(statusMessage)}</div>
    </main>
   </div>`;
  content.querySelectorAll('[data-writing-close]').forEach(button=>button.onclick=close);
- content.querySelectorAll('[data-writing-track]').forEach(button=>button.onclick=()=>{trackIndex=Number(button.dataset.writingTrack);lessonIndex=0;itemIndex=0;strokes=[];statusMessage='';statusWrong=false;rejectedStroke=false;directionPreview=true;savePosition();render();});
- content.querySelectorAll('[data-writing-lesson]').forEach(button=>button.onclick=()=>{lessonIndex=Number(button.dataset.writingLesson);itemIndex=0;strokes=[];statusMessage='';statusWrong=false;rejectedStroke=false;directionPreview=true;savePosition();render();});
- content.querySelectorAll('[data-writing-item]').forEach(button=>button.onclick=()=>{itemIndex=Number(button.dataset.writingItem);strokes=[];statusMessage='';statusWrong=false;rejectedStroke=false;directionPreview=true;savePosition();render();});
+ content.querySelectorAll('[data-writing-track]').forEach(button=>button.onclick=()=>{trackIndex=Number(button.dataset.writingTrack);lessonIndex=0;itemIndex=0;resetAttempt();directionPreview=true;savePosition();render();});
+ content.querySelectorAll('[data-writing-lesson]').forEach(button=>button.onclick=()=>{lessonIndex=Number(button.dataset.writingLesson);itemIndex=0;resetAttempt();directionPreview=true;savePosition();render();});
+ content.querySelectorAll('[data-writing-item]').forEach(button=>button.onclick=()=>{itemIndex=Number(button.dataset.writingItem);resetAttempt();directionPreview=true;savePosition();render();});
  content.querySelector('[data-writing-listen]').onclick=listen;
  content.querySelector('[data-writing-start]')?.addEventListener('click',()=>{directionPreview=false;statusMessage=guide.expectedCount?cf('strokeReady',{current:1,total:guide.expectedCount}):'';statusWrong=false;rejectedStroke=false;render();});
- content.querySelector('[data-writing-directions]').onclick=()=>{directionPreview=true;strokes=[];statusMessage='';statusWrong=false;rejectedStroke=false;render();};
- content.querySelector('[data-writing-guide]').onclick=()=>{guideVisible=!guideVisible;statusMessage='';statusWrong=false;render();};
- content.querySelector('[data-writing-undo]').onclick=()=>{strokes.pop();statusMessage=guide.expectedCount?cf('strokeReady',{current:strokes.length+1,total:guide.expectedCount}):'';statusWrong=false;rejectedStroke=false;render();};
- content.querySelector('[data-writing-clear]').onclick=()=>{strokes=[];statusMessage=guide.expectedCount?cf('strokeReady',{current:1,total:guide.expectedCount}):'';statusWrong=false;rejectedStroke=false;render();};
+ content.querySelector('[data-writing-directions]').onclick=()=>{resetAttempt();directionPreview=true;render();};
+ content.querySelector('[data-writing-guide]').onclick=()=>{resetAttempt();guideVisible=!guideVisible;directionPreview=false;render();};
+ content.querySelector('[data-writing-undo]').onclick=()=>{strokes.pop();strokeGrades.pop();lastResult=null;rejectedPath=null;statusMessage=guide.expectedCount?cf('strokeReady',{current:strokes.length+1,total:guide.expectedCount}):'';statusWrong=false;rejectedStroke=false;render();};
+ content.querySelector('[data-writing-clear]').onclick=()=>{resetAttempt();statusMessage=guide.expectedCount?cf('strokeReady',{current:1,total:guide.expectedCount}):'';statusWrong=false;rejectedStroke=false;render();};
  content.querySelector('[data-writing-complete]').onclick=completeCurrent;
+ content.querySelectorAll('[data-writing-mode]').forEach(button=>button.onclick=()=>{resetAttempt();guideVisible=button.dataset.writingMode==='trace';directionPreview=false;render();});
+ content.querySelector('[data-writing-next]')?.addEventListener('click',advanceWriting);
+ content.querySelector('[data-writing-retry]')?.addEventListener('click',()=>{if(lastResult&&!lastResult.pass&&strokeModel()){const index=lastResult.weakest;strokes=strokes.slice(0,index);strokeGrades=strokeGrades.slice(0,index);lastResult=null;rejectedPath=null;statusMessage='';statusWrong=false;}else resetAttempt();directionPreview=false;render();});
  setupCanvas();
 }
 function canvas(){return document.getElementById('writingPracticeCanvas');}
 function strokeLength(stroke){let length=0;for(let index=1;index<stroke.length;index++)length+=Math.hypot(stroke[index].x-stroke[index-1].x,stroke[index].y-stroke[index-1].y);return length;}
 function arrowVector(arrow){for(const character of Array.from(String(arrow||'')))if(ARROW_VECTORS[character])return ARROW_VECTORS[character];return null;}
 function validateStroke(stroke,index,guide){
- const total=guide.expectedCount,current=index+1;if(total&&current>total)return{pass:false,message:cf('allStrokesReady',{total})};
- const step=guide.strict?guide.steps[index]:null,length=strokeLength(stroke),isDot=/dot|mark/i.test(step?.text||'');if(length<(isDot ? .008 : .025))return{pass:false,message:cf('strokePathWrong',{current})};
- const reference=referenceGlyphMask(currentItem()?.symbol||''),sampled=stroke.filter((point,sampleIndex)=>sampleIndex===0||sampleIndex===stroke.length-1||sampleIndex%Math.max(1,Math.floor(stroke.length/18))===0),near=sampled.filter(point=>pointNearMask(reference,point,20)).length;
- if(sampled.length&&near/sampled.length<(guide.pathThreshold||.42))return{pass:false,message:cf('strokePathWrong',{current})};
- if(step){const start=stroke[0],distance=Math.hypot(start.x-Number(step.x)/100,start.y-Number(step.y)/100);if(guide.validateStart!==false&&distance>.22)return{pass:false,message:cf('strokeStartWrong',{current})};
-  const expected=arrowVector(step.arrow);if(expected&&!isDot){let end=stroke[Math.min(stroke.length-1,Math.max(1,Math.floor(stroke.length*.28)))],dx=end.x-start.x,dy=end.y-start.y,magnitude=Math.hypot(dx,dy);if(magnitude<.035){end=stroke.at(-1);dx=end.x-start.x;dy=end.y-start.y;magnitude=Math.hypot(dx,dy);}if(magnitude>.02&&(dx/magnitude*expected[0]+dy/magnitude*expected[1])<.18)return{pass:false,message:cf('strokeDirectionWrong',{current})};}
- }
- return{pass:true,message:total?(current>=total?cf('allStrokesReady',{total}):cf('strokeAccepted',{current,next:current+1})):''};
+ if(guide.model){const result=window.LanguageMinerWritingGrader.gradeStroke(stroke,guide.model.models[index]||[],{memory:!guideVisible});return{...result,message:result.pass?`${cf('strokeProgress',{current:index+1,total:guide.expectedCount})} · ${result.score}/100 ✓`:correction(result,index)};}
+ const reference=referenceGlyphMask(currentItem()?.symbol||''),samples=window.LanguageMinerWritingGrader.resample(stroke,64);
+ const near=samples.filter(point=>pointNearMask(reference,point,guideVisible?10:13)).length/Math.max(1,samples.length);
+ return{pass:stroke.length>1&&near>=.80,score:Math.round(near*100),message:near>=.80?'✓':c('strokePath')};
 }
 function setupCanvas(){
  const element=canvas();if(!element)return;resizeCanvas();
- const point=event=>{const rect=element.getBoundingClientRect();return {x:(event.clientX-rect.left)/rect.width,y:(event.clientY-rect.top)/rect.height};};
- element.onpointerdown=event=>{if(directionPreview)return;const guide=directionGuide(currentItem());if(guide.expectedCount&&strokes.length>=guide.expectedCount){statusMessage=cf('allStrokesReady',{total:guide.expectedCount});statusWrong=false;syncStatus();return;}event.preventDefault();element.setPointerCapture?.(event.pointerId);drawing=[point(event)];strokes.push(drawing);statusMessage='';statusWrong=false;rejectedStroke=false;syncStatus();drawCanvas();};
- element.onpointermove=event=>{if(!drawing)return;event.preventDefault();drawing.push(point(event));drawCanvas();};
- const finish=()=>{if(!drawing)return;const stroke=drawing,index=strokes.length-1,guide=directionGuide(currentItem()),result=validateStroke(stroke,index,guide);drawing=null;if(!result.pass){strokes.pop();rejectedStroke=true;const practice=profilePractice();practice.wrong=Number(practice.wrong||0)+1;persist();}statusMessage=result.message;statusWrong=!result.pass;render();};element.onpointerup=finish;element.onpointercancel=finish;element.onpointerleave=event=>{if(event.buttons===0)finish();};
+ const point=event=>{const rect=element.getBoundingClientRect();return{x:(event.clientX-rect.left)/rect.width,y:(event.clientY-rect.top)/rect.height};};
+ element.onpointerdown=event=>{
+  if(directionPreview||lastResult||drawing||event.isPrimary===false||event.button!==0)return;
+  const guide=directionGuide(currentItem());if(guide.expectedCount&&strokes.length>=guide.expectedCount)return;
+  event.preventDefault();activePointer=event.pointerId;element.setPointerCapture?.(activePointer);drawing=[point(event)];strokes.push(drawing);statusMessage='';statusWrong=false;rejectedStroke=false;rejectedPath=null;syncStatus();drawCanvas();
+ };
+ element.onpointermove=event=>{if(!drawing||event.pointerId!==activePointer)return;event.preventDefault();const events=event.getCoalescedEvents?.()||[];for(const e of events.length?events:[event]){const p=point(e);if(Math.hypot(p.x-drawing.at(-1).x,p.y-drawing.at(-1).y)>.001)drawing.push(p);}drawCanvas();};
+ element.onpointerup=event=>{
+  if(!drawing||event.pointerId!==activePointer)return;drawing.push(point(event));
+  const stroke=drawing,index=strokes.length-1,guide=directionGuide(currentItem()),result=validateStroke(stroke,index,guide);drawing=null;activePointer=null;
+  if(!result.pass){strokes.pop();rejectedPath=stroke;rejectedStroke=true;attemptRetries++;const practice=profilePractice();practice.wrong=Number(practice.wrong||0)+1;persist();}else strokeGrades.push(result);
+  statusMessage=result.message;statusWrong=!result.pass;render();
+ };
+ const cancel=event=>{if(!drawing||event.pointerId!==activePointer)return;strokes.pop();drawing=null;activePointer=null;statusMessage='Stroke interrupted. Try it again.';statusWrong=false;render();};
+ element.onpointercancel=cancel;element.onlostpointercapture=cancel;
 }
 function resizeCanvas(){const element=canvas();if(!element)return;const rect=element.getBoundingClientRect(),ratio=Math.min(3,window.devicePixelRatio||1);element.width=Math.max(1,Math.round(rect.width*ratio));element.height=Math.max(1,Math.round(rect.height*ratio));element.dataset.ratio=ratio;drawCanvas();}
 function drawCanvas(){
- const element=canvas();if(!element)return;const rect=element.getBoundingClientRect(),ratio=Number(element.dataset.ratio)||1,context=element.getContext('2d');context.setTransform(ratio,0,0,ratio,0,0);context.clearRect(0,0,rect.width,rect.height);context.strokeStyle='#f8fafc';context.lineWidth=Math.max(5,rect.width*.018);context.lineCap='round';context.lineJoin='round';context.shadowColor='rgba(91,227,204,.28)';context.shadowBlur=8;
- for(const stroke of strokes){if(!stroke.length)continue;context.beginPath();context.moveTo(stroke[0].x*rect.width,stroke[0].y*rect.height);if(stroke.length===1)context.lineTo(stroke[0].x*rect.width+.01,stroke[0].y*rect.height+.01);else for(let index=1;index<stroke.length;index++)context.lineTo(stroke[index].x*rect.width,stroke[index].y*rect.height);context.stroke();}
+ const element=canvas();if(!element)return;const rect=element.getBoundingClientRect(),ratio=Number(element.dataset.ratio)||1,context=element.getContext('2d');context.setTransform(ratio,0,0,ratio,0,0);context.clearRect(0,0,rect.width,rect.height);
+ if(!strokeModel()&&guideVisible&&!directionPreview){context.globalAlpha=.26;context.drawImage(referenceGlyphMask(currentItem()?.symbol||'').surface,0,0,rect.width,rect.height);context.globalAlpha=1;}
+ context.lineWidth=Math.max(4,rect.width*.016);context.lineCap='round';context.lineJoin='round';
+ const paint=(stroke,color,dashed=false)=>{if(!stroke?.length)return;context.strokeStyle=color;context.setLineDash(dashed?[6,5]:[]);context.beginPath();context.moveTo(stroke[0].x*rect.width,stroke[0].y*rect.height);if(stroke.length===1)context.lineTo(stroke[0].x*rect.width+.01,stroke[0].y*rect.height+.01);else for(let i=1;i<stroke.length;i++)context.lineTo(stroke[i].x*rect.width,stroke[i].y*rect.height);context.stroke();};
+ for(let i=0;i<strokes.length;i++)paint(strokes[i],strokes[i]===drawing?'#f8fafc':'#79efd1');
+ paint(rejectedPath,'#ffb879',true);context.setLineDash([]);
 }
 function syncActionButtons(){const undo=overlay?.querySelector('[data-writing-undo]'),clear=overlay?.querySelector('[data-writing-clear]');if(undo)undo.disabled=!strokes.length;if(clear)clear.disabled=!strokes.length;syncStatus();}
 function syncStatus(){const element=overlay?.querySelector('.writing-practice-status');if(!element)return;element.textContent=statusMessage;element.classList.toggle('show',!!statusMessage);element.classList.toggle('wrong',statusWrong);}
 function writingBounds(points){if(!points.length)return null;const xs=points.map(point=>point.x),ys=points.map(point=>point.y);return{left:Math.min(...xs),right:Math.max(...xs),top:Math.min(...ys),bottom:Math.max(...ys),width:Math.max(...xs)-Math.min(...xs),height:Math.max(...ys)-Math.min(...ys)};}
-function referenceGlyphMask(symbol,size=256){const surface=document.createElement('canvas');surface.width=size;surface.height=size;const context=surface.getContext('2d',{willReadFrequently:true});let fontSize=size*.82;context.font=`900 ${fontSize}px "Noto Sans JP","Noto Sans SC","Noto Sans KR",system-ui,sans-serif`;const width=context.measureText(symbol).width;if(width>size*.82)fontSize*=size*.82/width;context.font=`900 ${fontSize}px "Noto Sans JP","Noto Sans SC","Noto Sans KR",system-ui,sans-serif`;context.textAlign='center';context.textBaseline='middle';context.fillStyle='#fff';context.fillText(symbol,size/2,size*.51);const image=context.getImageData(0,0,size,size),mask=new Uint8Array(size*size);let left=size,right=0,top=size,bottom=0;for(let y=0;y<size;y++)for(let x=0;x<size;x++){if(image.data[(y*size+x)*4+3]<32)continue;mask[y*size+x]=1;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}return{mask,size,bounds:{left:left/size,right:right/size,top:top/size,bottom:bottom/size,width:(right-left)/size,height:(bottom-top)/size}};}
+function referenceGlyphMask(symbol,size=256){
+ const key=symbol+':'+size;if(glyphCache.has(key))return glyphCache.get(key);
+ const surface=document.createElement('canvas');surface.width=size;surface.height=size;const context=surface.getContext('2d',{willReadFrequently:true});let fontSize=size*.72;
+ context.font=`500 ${fontSize}px "Noto Sans JP","Noto Sans SC","Noto Sans KR",system-ui,sans-serif`;
+ const width=context.measureText(symbol).width;if(width>size*.78)fontSize*=size*.78/width;
+ context.font=`500 ${fontSize}px "Noto Sans JP","Noto Sans SC","Noto Sans KR",system-ui,sans-serif`;context.textAlign='center';context.textBaseline='middle';context.fillStyle='#a9bed9';context.fillText(symbol,size/2,size*.51);
+ const image=context.getImageData(0,0,size,size),mask=new Uint8Array(size*size),points=[];let left=size,right=0,top=size,bottom=0,ink=0;
+ for(let y=0;y<size;y++)for(let x=0;x<size;x++){if(image.data[(y*size+x)*4+3]<32)continue;mask[y*size+x]=1;ink++;if(x%2===0&&y%2===0)points.push({x:x/size,y:y/size});left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}
+ const visited=new Uint8Array(mask.length),components=[];
+ for(let seed=0;seed<mask.length;seed++){if(!mask[seed]||visited[seed])continue;const queue=[seed],part=[];visited[seed]=1;let count=0;
+  for(let at=0;at<queue.length;at++){const pixel=queue[at],x=pixel%size,y=Math.floor(pixel/size);count++;if(x%2===0&&y%2===0)part.push({x:x/size,y:y/size});for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy,n=ny*size+nx;if(nx>=0&&nx<size&&ny>=0&&ny<size&&mask[n]&&!visited[n]){visited[n]=1;queue.push(n);}}}
+  if(count>=6)components.push(part.length?part:[{x:(seed%size)/size,y:Math.floor(seed/size)/size}]);
+ }
+ const value={surface,mask,size,points,components,inkArea:ink/(size*size),bounds:{left:left/size,right:right/size,top:top/size,bottom:bottom/size,width:(right-left)/size,height:(bottom-top)/size}};glyphCache.set(key,value);return value;
+}
 function pointNearMask(reference,point,radius=14){const centerX=Math.round(point.x*reference.size),centerY=Math.round(point.y*reference.size),r=Math.max(1,Math.round(radius));for(let y=Math.max(0,centerY-r);y<=Math.min(reference.size-1,centerY+r);y++)for(let x=Math.max(0,centerX-r);x<=Math.min(reference.size-1,centerX+r);x++){if((x-centerX)**2+(y-centerY)**2<=r*r&&reference.mask[y*reference.size+x])return true;}return false;}
 function evaluateWriting(){
- const guide=directionGuide(currentItem());if(guide.expectedCount&&strokes.length!==guide.expectedCount)return{pass:false,message:cf('completeSequence',{total:guide.expectedCount})};
- const drawn=strokes.filter(stroke=>stroke.length>1),points=drawn.flat();if(!points.length)return{pass:false,message:c('drawFirst')};let length=0;for(const stroke of drawn)length+=strokeLength(stroke);
- const bounds=writingBounds(points),reference=referenceGlyphMask(currentItem()?.symbol||''),near=points.filter((point,index)=>index%2===0&&pointNearMask(reference,point)).length,sampled=Math.ceil(points.length/2),proximity=sampled?near/sampled:0,widthNeed=reference.bounds.width<.14?0:Math.min(.32,reference.bounds.width*.5),heightNeed=reference.bounds.height<.14?0:Math.min(.32,reference.bounds.height*.5);if(length<.22||bounds.width<widthNeed||bounds.height<heightNeed)return{pass:false,message:c('tooSmall')};if(proximity<.48)return{pass:false,message:c('strokeWrong')};return{pass:true,message:c('saved')};
+ const guide=directionGuide(currentItem()),grader=window.LanguageMinerWritingGrader;
+ if(guide.model){const result=grader.gradeCharacter(strokes,guide.model.models,{memory:!guideVisible});result.message=result.pass?'':correction(result.results[result.weakest],result.weakest);return result;}
+ const result=grader.gradeShape(strokes,referenceGlyphMask(currentItem()?.symbol||''),{memory:!guideVisible});result.message=result.pass?'':c({short:'strokeShort',extra:'strokeExtra',placement:'strokePath',path:'strokePath'}[result.reason]||'strokePath');return result;
 }
 function completeCurrent(){
- const result=evaluateWriting();if(!result.pass){const practice=profilePractice();practice.wrong=Number(practice.wrong||0)+1;statusMessage=`✕ ${result.message}`;statusWrong=true;persist();syncStatus();return;}
- const track=currentTrack(),item=currentItem(),practice=profilePractice();practice.completed=practice.completed||{};practice.completed[itemKey(track,item)]=Date.now();
- const lesson=lessonEntries();if(itemIndex<lesson.length-1)itemIndex++;else if(lessonIndex<lessonCount(track)-1){lessonIndex++;itemIndex=0;}else if(trackIndex<tracks.length-1){trackIndex++;lessonIndex=0;itemIndex=0;}
- strokes=[];statusMessage=c('saved');statusWrong=false;rejectedStroke=false;directionPreview=true;practice.last={track:currentTrack().id,lesson:lessonIndex,item:itemIndex};persist();render();
+ if(lastResult||drawing)return;
+ const result=evaluateWriting(),track=currentTrack(),item=currentItem(),practice=profilePractice(),key=itemKey(track,item),mode=guideVisible?'trace':'memory';lastResult=result;
+ practice.grades=practice.grades||{};const record=practice.grades[key]=practice.grades[key]||{};
+ const stats=record[mode]=record[mode]||{attempts:0,best:0,passed:0};stats.attempts++;stats.latest=result.score;stats.best=Math.max(stats.best,result.score);stats.lastAt=Date.now();stats.retries=attemptRetries;
+ if(result.pass){stats.passed++;practice.completed=practice.completed||{};practice.completed[key]=Date.now();}
+ else practice.wrong=Number(practice.wrong||0)+1;
+ statusMessage='';statusWrong=false;persist();render();overlay.querySelector('.writing-grade-card')?.focus({preventScroll:true});overlay.querySelector('.writing-grade-card')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-function listen(){const item=currentItem(),language=VOICES[activeLanguage]||activeLanguage,text=item?.spoken||item?.symbol;if(!text)return;if(window.LanguageMinerSpeech?.pronounce){window.LanguageMinerSpeech.pronounce(text,language);return;}if(window.LanguageMinerSpeech?.speak)window.LanguageMinerSpeech.speak(text,language);}
+function advanceWriting(){
+ if(!lastResult?.pass)return;
+ const track=currentTrack(),lesson=lessonEntries();if(itemIndex<lesson.length-1)itemIndex++;else if(lessonIndex<lessonCount(track)-1){lessonIndex++;itemIndex=0;}else if(trackIndex<tracks.length-1){trackIndex++;lessonIndex=0;itemIndex=0;}
+ resetAttempt();directionPreview=true;const practice=profilePractice();practice.last={track:currentTrack().id,lesson:lessonIndex,item:itemIndex};persist();render();
+}
+function listen(){const item=currentItem(),language=VOICES[activeLanguage]||activeLanguage,text=item?.spoken||item?.symbol;if(!text)return;if(window.LanguageMinerSpeech?.replay){window.LanguageMinerSpeech.replay(text,language);return;}if(window.LanguageMinerSpeech?.pronounce){window.LanguageMinerSpeech.pronounce(text,language);return;}if(window.LanguageMinerSpeech?.speak)window.LanguageMinerSpeech.speak(text,language);}
 function open(){
  makeShell();document.getElementById('gameMenuOverlay')?.classList.remove('open');document.getElementById('gameMenuOverlay')?.setAttribute('aria-hidden','true');
- activeLanguage=languageId();tracks=buildTracks(activeLanguage);guideVisible=true;directionPreview=true;strokes=[];drawing=null;statusMessage='';statusWrong=false;rejectedStroke=false;restoreSelection();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');render();window.syncJapaneseMinerPageScroll?.();setTimeout(resizeCanvas,30);
+ activeLanguage=languageId();tracks=buildTracks(activeLanguage);guideVisible=true;directionPreview=true;resetAttempt();restoreSelection();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');render();window.syncJapaneseMinerPageScroll?.();setTimeout(resizeCanvas,30);
 }
-function close(){if(!overlay)return;window.speechSynthesis?.cancel?.();overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');strokes=[];drawing=null;rejectedStroke=false;window.syncJapaneseMinerPageScroll?.();}
-function refresh(){addMenuButton();if(overlay?.classList.contains('open')){const next=languageId();if(next!==activeLanguage){activeLanguage=next;tracks=buildTracks(activeLanguage);restoreSelection();}render();}}
+function close(){if(!overlay)return;window.LanguageMinerSpeech?.cancel?.();window.speechSynthesis?.cancel?.();overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');resetAttempt();window.syncJapaneseMinerPageScroll?.();}
+function refresh(){addMenuButton();if(overlay?.classList.contains('open')){const next=languageId();if(next!==activeLanguage){resetAttempt();activeLanguage=next;tracks=buildTracks(activeLanguage);restoreSelection();}render();}}
 function install(){makeShell();addMenuButton();setTimeout(addMenuButton,300);setTimeout(addMenuButton,1200);}
 document.addEventListener('DOMContentLoaded',install,{once:true});
 window.addEventListener('resize',()=>{if(overlay?.classList.contains('open'))resizeCanvas();});

@@ -1,10 +1,35 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.185-learning-culture-events-r1';
-const BUILD_VERSION='6.4.185';
+const CACHE_NAME='language-miner-v6.4.186-illustrated-r12';
+const BUILD_VERSION='6.4.186';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
-const CRITICAL_SHELL=['./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
+const CRITICAL_SHELL=['./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
 const APP_SHELL=[
+ './picture-catalog.js',
+ './picture-assets/person.webp',
+ './picture-assets/ant-a.webp',
+ './picture-assets/dog-i.webp',
+ './picture-assets/rabbit-u.webp',
+ './picture-assets/pencil-e.webp',
+ './picture-assets/onigiri-o.webp',
+ './flashcards.js',
+ './flashcards.css',
+ './illustrated-learning.js',
+ './illustrated-learning.css',
+ './picture-assets/sun-v2.webp',
+ './picture-assets/moon-v2.webp',
+  './vocabulary-safety.js',
+  './vocabulary-sense-fixes.js',
+  './pronunciation-pack.js',
+  './picture-pronunciation.js',
+  './native-pronunciation.js',
+  './writing-stroke-data.js',
+  './writing-grader.js',
+  './background-music.js',
+  './background-music.css',
+  './audio/crystal-garden.ogg',
+  './audio/lantern-village.ogg',
+  './audio/starlight-library.ogg',
   './',
   './index.html',
   './styles.css',
@@ -194,7 +219,7 @@ self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     try{
       const cache=await caches.open(CACHE_NAME);
-      await cache.addAll(APP_SHELL);
+      await cache.addAll(APP_SHELL.map(path=>new Request(path,{cache:'reload'})));
       await validateShell(cache);
       await self.skipWaiting();
     }catch(error){await caches.delete(CACHE_NAME);throw error;}
@@ -238,9 +263,32 @@ self.addEventListener('message',event=>{
 
 self.addEventListener('fetch',event=>{
   const request=event.request;
-  if(request.method!=='GET'||request.headers.has('range'))return;
+  if(request.method!=='GET')return;
   const url=new URL(request.url);
   if(url.origin!==self.location.origin)return;
+  if(url.pathname.includes('/picture-assets/')){
+    event.respondWith((async()=>{
+      const cache=await caches.open('lm-picture-assets-v1');
+      const cached=await cache.match(request);if(cached)return cached;
+      const response=await fetch(request);
+      if(response.ok){try{await cache.put(request,response.clone());}catch{ /* A full cache must not prevent viewing an illustration. */ }}
+      return response;
+    })());return;
+  }
+  if(url.pathname.includes('/audio/voices/')){
+    event.respondWith((async()=>{
+      const cache=await caches.open('lm-pronunciation-v1'),headers=new Headers(request.headers);headers.delete('range');
+      const fullRequest=new Request(request,{headers});let response=await cache.match(fullRequest);
+      if(!response){response=await fetch(fullRequest);if(response.status===200){try{await cache.put(fullRequest,response.clone());}catch{ /* Storage limits must not prevent playback. */ }}}
+      const range=request.headers.get('range');if(!range||response.status!==200)return response;
+      const match=/^bytes=(\d*)-(\d*)$/.exec(range);if(!match)return response;
+      const bytes=await response.arrayBuffer(),size=bytes.byteLength,start=match[1]?Number(match[1]):Math.max(0,size-Number(match[2])),end=match[1]?(match[2]?Math.min(size-1,Number(match[2])):size-1):size-1;
+      if(start>end||start>=size)return new Response(null,{status:416,headers:{'Content-Range':`bytes */${size}`}});
+      const partialHeaders=new Headers(response.headers);partialHeaders.set('Content-Range',`bytes ${start}-${end}/${size}`);partialHeaders.set('Content-Length',String(end-start+1));partialHeaders.set('Accept-Ranges','bytes');
+      return new Response(bytes.slice(start,end+1),{status:206,headers:partialHeaders});
+    })());return;
+  }
+  if(request.headers.has('range'))return;
   const isLocal=['localhost','127.0.0.1','::1'].includes(url.hostname),isPreview=/\/preview\.html$/i.test(url.pathname);
   if(isPreview)return;
   if(isLocal){

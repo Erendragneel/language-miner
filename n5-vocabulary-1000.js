@@ -383,7 +383,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "きんトレ",
   "きんトレ",
-  "workout"
+  "strength training"
  ],
  [
   "くるま",
@@ -663,12 +663,12 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "あちら",
   "あちら",
-  "this way (polite)"
+  "over there / that way (polite; away from both speaker and listener)"
  ],
  [
   "暑い",
   "あつい",
-  "hot (in reference to weather), warm"
+  "hot (weather)"
  ],
  [
   "熱い",
@@ -678,7 +678,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "厚い",
   "あつい",
-  "kind, warm(hearted), thick, deep"
+  "thick (objects)"
  ],
  [
   "あっち",
@@ -888,7 +888,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "居る",
   "いる",
-  "(humble) to be (animate), to exist"
+  "to be / exist (people and animals)"
  ],
  [
   "要る",
@@ -943,7 +943,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "海",
   "うみ",
-  "sea, beach"
+  "sea / ocean"
  ],
  [
   "売る",
@@ -1072,8 +1072,8 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "伯父",
-  "おじさん",
-  "uncle, middle-aged man"
+  "おじ",
+  "uncle (older than one’s parent)"
  ],
  [
   "おじいさん",
@@ -1328,7 +1328,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "風邪",
   "かぜ",
-  "cold, flu"
+  "a cold (illness)"
  ],
  [
   "方",
@@ -1667,7 +1667,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "結婚",
-  "けっこん (する)",
+  "けっこん",
   "marriage (get married)"
  ],
  [
@@ -1922,7 +1922,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "散歩",
-  "さんぽ (する)",
+  "さんぽ",
   "walk, stroll"
  ],
  [
@@ -2102,7 +2102,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "～人",
-  "～じん",
+  "～にん",
   "counter for people"
  ],
  [
@@ -2262,7 +2262,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "掃除",
-  "そうじ (する)",
+  "そうじ",
   "cleaning, sweeping"
  ],
  [
@@ -2273,12 +2273,12 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "そこ",
   "そこ",
-  "that place, there; bottom, sole"
+  "there (near the listener)"
  ],
  [
   "そちら",
   "そちら",
-  "over there"
+  "that way / there (polite; near the listener)"
  ],
  [
   "そっち",
@@ -2338,7 +2338,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "大好き",
   "だいすき",
-  "very like-able, like very much"
+  "to like very much / love"
  ],
  [
   "大切",
@@ -2773,7 +2773,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "鳥",
   "とり",
-  "chicken (lit., bird)"
+  "bird"
  ],
  [
   "鶏肉",
@@ -3063,7 +3063,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "バス",
   "バス",
-  "bus; bath; bass"
+  "bus"
  ],
  [
   "バター",
@@ -3377,7 +3377,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "勉強",
-  "べんきょう (する)",
+  "べんきょう",
   "study"
  ],
  [
@@ -3713,7 +3713,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "やる",
   "やる",
-  "to do; to give (to pets, parents, siblings, etc.)"
+  "to do; to give (e.g. to animals or plants; informal)"
  ],
  [
   "夕方",
@@ -3867,7 +3867,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "練習",
-  "れんしゅう (する)",
+  "れんしゅう",
   "(to) practice"
  ],
  [
@@ -4062,7 +4062,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "運動",
-  "うんどうする",
+  "うんどう",
   "exercise"
  ],
  [
@@ -4097,7 +4097,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "心配",
-  "しんぱいする",
+  "しんぱい",
   "worry, concern"
  ],
  [
@@ -4238,7 +4238,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "複雑",
   "ふくざつ",
-  "complexity, complication"
+  "complex / complicated"
  ],
  [
   "彼",
@@ -4403,7 +4403,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "中学校",
   "ちゅうがっこう",
-  "junior high school pupil"
+  "junior high school / middle school"
  ],
  [
   "ガス",
@@ -4452,8 +4452,8 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "うそ",
-  "嘘",
-  "lie"
+  "うそ",
+  "a lie (untrue statement)"
  ],
  [
   "小説",
@@ -4483,7 +4483,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "パート (タイム)",
   "パート (タイム)",
-  "part time (esp. female part time employees)"
+  "part-time work / part-time worker"
  ],
  [
   "時代",
@@ -4502,7 +4502,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "出席",
-  "しゅっせきする",
+  "しゅっせき",
   "attendance"
  ],
  [
@@ -4677,7 +4677,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "故障",
-  "こしょうする",
+  "こしょう",
   "breakdown"
  ],
  [
@@ -4742,8 +4742,8 @@ window.N5_VOCABULARY_1000=Object.freeze([
  ],
  [
   "準備",
-  "じゅんびする",
-  "prepare"
+  "じゅんび",
+  "preparation"
  ],
  [
   "世界",
@@ -4843,7 +4843,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "決して",
   "けっして",
-  "never"
+  "never / by no means (used with a negative)"
  ],
  [
   "事務所",
@@ -4903,7 +4903,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "適当",
   "てきとう",
-  "fitness, suitability"
+  "suitable / appropriate; careless (depending on context)"
  ],
  [
   "素晴らしい",
@@ -4943,7 +4943,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "親切",
   "しんせつ",
-  "kindness"
+  "kind / considerate"
  ],
  [
   "知らせる",
@@ -4958,7 +4958,7 @@ window.N5_VOCABULARY_1000=Object.freeze([
  [
   "熱心",
   "ねっしん",
-  "enthusiasm"
+  "enthusiastic / eager"
  ],
  [
   "始める",

@@ -1,5 +1,7 @@
 # Language Miner asset provenance register
 
+This is the archived register for v6.4.138. The illustrated development build now also contains generated learning illustrations, code-native diagrams, bundled neural pronunciation recordings, and original music. Consult ARTWORK-CLUE-NOTES.md, MATCHING-ARTWORK-PROMPTS.md, NATIVE-VOICES-UPDATE.md, and MUSIC-UPDATE.md for those additions. The historical inventory below does not describe the current build’s media coverage.
+
 Audit date: 2026-08-15  
 Build reviewed: v6.4.138 legal-readiness source package
 

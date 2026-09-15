@@ -1206,6 +1206,8 @@ function renderKanaChart(){
     const d=document.createElement("div"); d.className="kana-cell"+(state.lastKana&&state.lastKana.char===ch?" recent":"");
     d.title=`${ks.correct}/${ks.attempts} correct • ${score}% mastery`;
     d.innerHTML=`<div class="kana-char">${ch}</div><div class="small">${rom}</div><div class="mastery-bar"><div class="mastery-fill" style="width:${score}%"></div></div><div class="small"><strong>${score}%</strong></div><div class="kana-detail">${ks.correct}/${ks.attempts} correct</div>`;
+    const flashStage=state.kanaTab==="katakana"?1:0,flashFamily=kanaFamiliesForStage(flashStage).findIndex(f=>f.entries.some(row=>row[0]===ch));
+    if(isStageUnlocked(flashStage)&&kanaFamilyUnlocked(flashStage,flashFamily)){d.setAttribute('role','button');d.tabIndex=0;d.setAttribute('aria-label',`Practice ${ch}`);const open=()=>openJapaneseItemFlashcard('kana',flashStage,flashFamily,kanaFamiliesForStage(flashStage)[flashFamily].entries.findIndex(row=>row[0]===ch));d.onclick=open;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}};}
     grid.appendChild(d);
   });
   document.getElementById("kanaAttempts").textContent=attempts;
@@ -1386,7 +1388,7 @@ const VOICE_LANGUAGE_PROFILES={
   ru:{label:'Russian',tag:'ru-RU',preferred:['ru-RU'],rate:.94,sample:'Добро пожаловать на урок русского языка.'},
   ja:{label:'Japanese',tag:'ja-JP',preferred:['ja-JP'],rate:.90,sample:'日本語のレッスンへようこそ。'},
   ko:{label:'Korean',tag:'ko-KR',preferred:['ko-KR'],rate:.92,sample:'한국어 수업에 오신 것을 환영합니다.'},
-  zh:{label:'Mandarin Chinese',tag:'zh-CN',preferred:['zh-CN','zh-TW','zh-HK'],rate:.90,sample:'欢迎来到中文课程。'},
+  zh:{label:'Mandarin Chinese',tag:'zh-CN',preferred:['zh-CN','zh-TW'],rate:.90,sample:'欢迎来到中文课程。'},
   it:{label:'Italian',tag:'it-IT',preferred:['it-IT'],rate:.97,sample:'Benvenuto alla lezione di italiano.'},
   fr:{label:'French',tag:'fr-FR',preferred:['fr-FR','fr-CA'],rate:.96,sample:'Bienvenue à votre leçon de français.'},
   de:{label:'German',tag:'de-DE',preferred:['de-DE','de-AT','de-CH'],rate:.96,sample:'Willkommen zu deiner Deutschstunde.'},
@@ -1430,7 +1432,7 @@ function voiceQualityScore(voice){
 }
 function voiceCandidates(languageTag){
   refreshLanguageMinerVoices();const profile=voiceLanguageProfile(languageTag);
-  return languageMinerVoices.filter(voice=>normalizedVoiceTag(voice.lang).split('-')[0]===profile.base).map((voice,index)=>{
+  return languageMinerVoices.filter(voice=>normalizedVoiceTag(voice.lang).split('-')[0]===profile.base&&(profile.base!=='zh'||!/(?:^|-)(hk|mo|yue)(?:-|$)/.test(normalizedVoiceTag(voice.lang)))).map((voice,index)=>{
     const tag=normalizedVoiceTag(voice.lang),preferredIndex=profile.preferred.indexOf(tag);
     const localeScore=tag===profile.requested?300:preferredIndex>=0?240-(preferredIndex*12):150;
     return {voice,index,score:localeScore+voiceQualityScore(voice)};
@@ -1445,17 +1447,20 @@ function voiceTuning(rate=state.voiceRate,languageTag='ja-JP'){
   // Keep every pronunciation inside a narrow, accent-safe tuning range.
   // This preserves the native voice's prosody instead of making it sound like
   // an English voice whose pitch and tempo were artificially transformed.
-  const accentSafePitch=1+(stylePreset.pitch-1)*.04,accentSafeRate=1+(stylePreset.rate-1)*.16;
-  return {style,gender,language:profile.tag,pitch:Math.max(.96,Math.min(1.04,accentSafePitch)),rate:Math.max(.72,Math.min(1.12,profile.rate*userTempo*accentSafeRate)),volume:Math.max(.72,Math.min(1,stylePreset.volume))};
+  const accentSafeRate=1+(stylePreset.rate-1)*.16;
+  return {style,gender,language:profile.tag,pitch:1,rate:Math.max(.72,Math.min(1.12,profile.rate*userTempo*accentSafeRate)),volume:Math.max(.72,Math.min(1,stylePreset.volume))};
 }
 function syncVoiceTuningLabel(){
-  const label=document.getElementById('voiceTuningLabel');if(!label)return;const learningLanguage=window.LanguageMinerCourseVoice?.currentLanguage?.()||'ja',tuning=voiceTuning(state.voiceRate,learningLanguage);label.textContent=`${tuning.gender==='male'?'Male':'Female'} · ${tuning.style[0].toUpperCase()+tuning.style.slice(1)} · Pitch ${tuning.pitch.toFixed(2)} · Tempo ${tuning.rate.toFixed(2)}× · Volume ${Math.round(tuning.volume*100)}%`;
+  const label=document.getElementById('voiceTuningLabel');if(!label)return;const learningLanguage=window.LanguageMinerCourseVoice?.currentLanguage?.()||'ja',tuning=voiceTuning(state.voiceRate,learningLanguage);const speaker=window.LanguageMinerPronunciation?.voice(learningLanguage,tuning.gender);label.textContent=`${speaker?.name|| (tuning.gender==='male'?'Male':'Female')} · Natural pitch · Tempo ${tuning.rate.toFixed(2)}× · Volume ${Math.round(tuning.volume*100)}%`;
 }
 function configureLanguageMinerUtterance(utterance,languageTag,rate=state.voiceRate,nativeVoice=null){
-  const profile=voiceLanguageProfile(languageTag),tuning=voiceTuning(rate,profile.tag),voice=nativeVoice||styledVoice(voiceCandidates(profile.tag),tuning.gender,profile.tag);utterance.lang=profile.tag;utterance.rate=tuning.rate;utterance.pitch=tuning.pitch;utterance.volume=tuning.volume;if(voice)utterance.voice=voice;return utterance;
+  const profile=voiceLanguageProfile(languageTag),tuning=voiceTuning(rate,profile.tag),voice=nativeVoice||styledVoice(voiceCandidates(profile.tag),tuning.gender,profile.tag);utterance.lang=voice?.lang||profile.tag;utterance.rate=tuning.rate;utterance.pitch=tuning.pitch;utterance.volume=tuning.volume;if(voice)utterance.voice=voice;return utterance;
 }
 let lastLanguageMinerSpeechRequest=null;
 function nativeVoiceAvailability(languageTag='ja-JP'){
+  const recorded=window.LanguageMinerPronunciation?.voice(languageTag,state.voiceGender);
+  if(recorded){const p=window.LanguageMinerPronunciation.pack(languageTag);return {status:'ready',label:p.label,requestedTag:p.locale,installedVoiceCount:languageMinerVoices.length,sameLanguageVoiceCount:p.voices.length,exactLocaleVoiceCount:p.voices.length,source:'bundled-neural',selectedVoice:{name:recorded.name+' · Neural',lang:p.locale,localService:true,default:false}};}
+
   const profile=voiceLanguageProfile(languageTag),candidates=voiceCandidates(profile.tag),exact=candidates.filter(voice=>normalizedVoiceTag(voice.lang)===profile.requested),selected=styledVoice(candidates,state.voiceGender,profile.tag),status=selected?'ready':languageMinerVoiceEnumerationSettled?'missing':'loading';
   return {status,label:profile.label,requestedTag:profile.tag,installedVoiceCount:languageMinerVoices.length,sameLanguageVoiceCount:candidates.length,exactLocaleVoiceCount:exact.length,selectedVoice:selected?{name:selected.name,lang:selected.lang,localService:Boolean(selected.localService),default:Boolean(selected.default)}:null};
 }
@@ -1466,6 +1471,22 @@ function nativeVoiceUnavailable(profile,text=''){
   window.dispatchEvent(new CustomEvent('language-miner-native-voice-missing',{detail:{language:profile.base,label:profile.label,tag:profile.tag,message}}));return false;
 }
 function deliverLanguageMinerSpeech(request,mayWait=true){
+  if(silentTestingActive()||(!state.voiceEnabled&&!request.manual))return false;
+  const recordings=window.LanguageMinerPronunciation;
+  if(!request.deviceOnly&&recordings?.lookup(request.text,request.languageTag,state.voiceGender)){
+    pendingLanguageMinerSpeech=null;clearTimeout(languageMinerVoiceWaitTimer);window.speechSynthesis?.cancel();
+    const tuning=voiceTuning(request.rate,request.languageTag);
+    return recordings.play(request.text,request.languageTag,{gender:state.voiceGender,rate:tuning.rate,volume:tuning.volume,manual:request.manual,
+      onStatus:(status,clip)=>{
+        lastLanguageMinerSpeechRequest={text:request.text,language:voiceLanguageProfile(request.languageTag).base,requestedTag:request.languageTag,resolvedTag:clip.locale,voice:clip.voice.name,voiceLanguage:clip.locale,rate:tuning.rate,pitch:1,source:'bundled-neural',status};
+        Object.assign(document.documentElement.dataset,{lmSpeechStatus:'recorded-'+status,lmSpeechRequested:request.languageTag,lmSpeechLanguage:clip.locale,lmSpeechVoice:clip.voice.name,lmSpeechText:request.text});
+      },
+      onError:error=>{if(error?.name==='NotAllowedError'){setMessage('Tap Listen again to enable pronunciation audio.','wrong');return;}deliverLanguageMinerSpeech({...request,deviceOnly:true},false);}
+    });
+  }
+  recordings?.cancel();
+  if(!('speechSynthesis' in window)){return nativeVoiceUnavailable(voiceLanguageProfile(request.languageTag),request.text);}
+
   const profile=voiceLanguageProfile(request.languageTag),nativeVoice=styledVoice(voiceCandidates(profile.tag),state.voiceGender,profile.tag);
   if(!nativeVoice){
     if(mayWait&&!languageMinerVoiceEnumerationSettled){pendingLanguageMinerSpeech=request;document.documentElement.dataset.lmSpeechStatus='waiting-for-native-voice';clearTimeout(languageMinerVoiceWaitTimer);languageMinerVoiceWaitTimer=setTimeout(()=>{languageMinerVoiceEnumerationSettled=true;refreshLanguageMinerVoices();flushPendingLanguageMinerSpeech();},1800);return true;}
@@ -1485,12 +1506,12 @@ function speakLanguageMinerText(text,languageTag='ja-JP',rate=state.voiceRate,op
   const manual=options?.manual===true;
   if(silentTestingActive())return false;
   if(!state.voiceEnabled&&!manual)return false;
-  if(!('speechSynthesis'in window)){setMessage('Speech is not supported in this browser.','wrong');return false;}
   const clean=stripMarkup(text).trim();if(!clean)return false;
   return deliverLanguageMinerSpeech({text:clean,languageTag,rate,manual});
 }
 function replayLanguageMinerText(text,languageTag='ja-JP',rate=state.voiceRate){return speakLanguageMinerText(text,languageTag,rate,{manual:true});}
 window.LanguageMinerSpeech=Object.freeze({
+  cancel:()=>{pendingLanguageMinerSpeech=null;clearTimeout(languageMinerVoiceWaitTimer);window.LanguageMinerPronunciation?.cancel();window.speechSynthesis?.cancel();},
   speak:speakLanguageMinerText,
   pronounce:speakLanguageMinerText,
   replay:replayLanguageMinerText,
@@ -1504,8 +1525,10 @@ window.LanguageMinerSpeech=Object.freeze({
   refresh:refreshLanguageMinerVoices,
   settings:(languageTag='ja-JP')=>({...voiceTuning(state.voiceRate,languageTag)}),
   profile:(languageTag='ja-JP')=>{const profile=voiceLanguageProfile(languageTag);return {label:profile.label,tag:profile.tag,base:profile.base,requested:profile.requested,preferred:[...profile.preferred],rate:profile.rate,sample:profile.sample};},
-  voiceFor:(languageTag='ja-JP')=>{const profile=voiceLanguageProfile(languageTag),voice=styledVoice(voiceCandidates(profile.tag),state.voiceGender,profile.tag);return voice?{name:voice.name,lang:voice.lang,localService:Boolean(voice.localService),default:Boolean(voice.default)}:null;}
+  voiceFor:(languageTag='ja-JP')=>nativeVoiceAvailability(languageTag).selectedVoice
 });
+// A silent assessment may begin while an earlier lesson recording is playing.
+setInterval(()=>{if(window.LanguageMinerPronunciation?.isSpeaking()&&silentTestingActive())window.LanguageMinerSpeech.cancel();},100);
 function japaneseSpeechText(q=state.active){
   if(!q)return '日本語を勉強しましょう。';
   if(q.speechText)return readingSpeechText(q.speechText);
@@ -1610,6 +1633,9 @@ function mine(){
 }
 
 function questionDisplay(q){
+  window.LanguageMinerVocabulary?.refreshJapanese(q);
+  const preciseVocabulary=window.LanguageMinerVocabulary?.japaneseDisplay(q,state.quizDifficulty==='hard');
+  if(preciseVocabulary!=null)return preciseVocabulary;
   const vocabularyMeaningQuestion=Boolean(q?.vocabularyKey&&/meaning/i.test(String(q.prompt||'')));
   if(vocabularyMeaningQuestion){
     if(state.quizDifficulty==='hard')return stripMarkup(q.vocabularyKey||q.displayChallenge||q.q);
@@ -1636,6 +1662,7 @@ function showQuestion(q){
   const silentTest=silentTestingActive(q);
   const voiceTools=silentTest?'<div class="silent-test-note">🔇 Silent testing — question and answer sounds are disabled.</div>':spoken?`<div class="voice-tools"><button id="speakQuestionBtn" type="button">🔊 Hear question</button><button id="slowSpeakQuestionBtn" type="button">🐢 Slow</button><span>Question audio only</span></div>`:'';
   area.innerHTML=`<div class="question-card"><div class="question">${displayedQuestion}</div><div class="prompt">${q.prompt}</div>${voiceTools}${helpButton}${helpBox}<div class="answers" id="answers"></div></div>`;
+  window.LanguageMinerPictures?.decorateQuestion(area,q,'ja');
   document.getElementById('speakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion());
   document.getElementById('slowSpeakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(.58));
   if(showKanjiHelp){
@@ -1648,12 +1675,13 @@ function showQuestion(q){
     });
   }
   const a=document.getElementById("answers");
-  quizOptionsForDifficulty(q.opts,q.a).forEach(opt=>{
+  quizOptionsForDifficulty(window.LanguageMinerVocabulary?.japaneseOptions(q)||q.opts,q.a).forEach(opt=>{
     const b=document.createElement("button");
     b.textContent=opt;
     b.onclick=()=>answer(opt,b);
     a.appendChild(b);
   });
+  window.LanguageMinerPictures?.beginLearning(area,q);
 }
 
 function quizOptionsForDifficulty(options,answer){
@@ -1669,7 +1697,8 @@ function recordQuestionAttempt(q,correct){
 
 function answer(opt,button){
   if(state.answered || !state.active) return;
-  const correct=opt===state.active.a;
+  const correct=window.LanguageMinerVocabulary?.japaneseAccepts(state.active,opt,document.querySelector("#challengeArea .question")?.textContent)||opt===state.active.a;
+  if(window.LanguageMinerPictures?.learningAnswer(state.active,correct,button))return;
   if(state.active.smartReview===true){
     const all=[...document.querySelectorAll("#answers button")];playFeedbackSound(correct);if(correct){state.answered=true;button.style.background="#225f49";all.forEach(answerButton=>answerButton.disabled=true);}else{button.disabled=true;button.style.background="#6d2933";}save();render();return;
   }
@@ -2900,7 +2929,7 @@ renderShop=function(){
 };
 window.openJapaneseMinerArcadeShop=()=>openShop('arcade');
 function scrollToSection(id){closeGameMenu();const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-document.getElementById('voiceToggle')?.addEventListener('change',e=>{state.voiceEnabled=e.target.checked;save();});
+document.getElementById('voiceToggle')?.addEventListener('change',e=>{state.voiceEnabled=e.target.checked;if(!state.voiceEnabled)window.LanguageMinerSpeech.cancel();save();});
 document.getElementById('autoSpeakToggle')?.addEventListener('change',e=>{state.autoSpeak=e.target.checked;save();});
 document.getElementById('smartReviewToggle')?.addEventListener('change',e=>{state.smartReview=e.target.checked;save();});
 document.getElementById('voiceRate')?.addEventListener('input',e=>{state.voiceRate=Number(e.target.value);document.getElementById('voiceRateLabel').textContent=`${state.voiceRate.toFixed(2)}×`;save();});
@@ -3577,7 +3606,7 @@ function handleVocabularyCourseAction(target,stage=academyStage){
   if(target.matches("[data-vocab-review-again]")){academyView.word=null;academyView.preview=0;academyView.lessonPreviewComplete=false;renderAcademy();return true;}
   if(target.matches("[data-vocab-preview-list]")){academyView.word=null;academyView.preview=null;renderAcademy();return true;}
   if(target.matches("[data-vocab-start]")){startReviewedVocabularyLesson(stage,Number(academyView.lesson));return true;}
-  if(target.matches("[data-word-index]")){academyView.word=Number(target.dataset.wordIndex);academyView.preview=null;renderAcademy();return true;}
+  if(target.matches("[data-word-index]")){const word=jlptVocabularyWords(stage)[Number(target.dataset.wordIndex)],lesson=jlptVocabularyLevels(stage).findIndex(items=>items.some(item=>item.index===word?.index));if(lesson>=0)openJapaneseItemFlashcard("vocabulary",stage,lesson,jlptVocabularyLevels(stage)[lesson].findIndex(item=>item.index===word.index));return true;}
   if(target.matches("[data-word-back]")){academyView.word=null;academyView.preview=null;renderAcademy();return true;}
   if(target.matches("[data-word-speak]")){const word=jlptVocabularyWords(stage)[Number(target.dataset.wordSpeak)];if(word)speakJapanese(word.reading||word.jp);return true;}
   if(target.matches("[data-word-quiz]")){const index=Number(target.dataset.wordQuiz),words=jlptVocabularyWords(stage),word=words[index];if(!word)return true;const wrong=shuffle(words.filter((_,wordIndex)=>wordIndex!==index).map(item=>item.en)).slice(0,3);v3QuizCard(`What does ${japaneseVocabularyQuizTerm(word)} mean?`,[word.en,...wrong],word.en,good=>setVocabularyWordMastery(word,good?25:-5));return true;}
@@ -4080,3 +4109,16 @@ renderAcademy=function(){
     capabilities:deepFreeze({rawSaves:false,answers:false,economy:false,resets:false,privateNotes:false,accessSummariesOnly:true})
   });
 })();
+
+// Item-linked flashcards share existing lesson unlocks and mastery records.
+window.openJapaneseItemFlashcard=function(kind,stage,lesson,index){
+  if(!isStageUnlocked(stage))return false;
+  if(kind==='kana'){
+    if(!kanaFamilyUnlocked(stage,lesson))return false;
+    const family=kanaFamiliesForStage(stage)[lesson];if(!family)return false;
+    return window.LanguageMinerFlashcards?.open({items:family.entries.map(([symbol,name])=>({symbol,name})),index,language:'ja',title:`${stages[stage].label} · ${family.name}`,onGrade:(item,correct)=>{const previous=state.kanaStats[item.symbol]||{attempts:0,correct:0};state.kanaStats[item.symbol]={attempts:Number(previous.attempts||0)+1,correct:Number(previous.correct||0)+(correct?1:0)};save();renderKanaChart();}});
+  }
+  if(kind!=='vocabulary'||!jlptVocabularyLevelUnlocked(stage,lesson))return false;
+  const items=jlptVocabularyLevels(stage)[lesson];if(!items)return false;
+  return window.LanguageMinerFlashcards?.open({items,index,language:'ja',title:`${stages[stage].label} · Vocabulary Lesson ${lesson+1}`,onGrade:(item,correct)=>setVocabularyWordMastery(item,correct?25:-5)});
+};

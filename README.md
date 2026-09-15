@@ -1,5 +1,21 @@
 # Language Miner v6.4.185
 
+## Illustrated Expedition Hub
+
+On Windows, extract the whole package and double-click **PLAY.cmd**. The game opens at `http://127.0.0.1:8879/`. The launcher uses Windows PowerShell and .NET; a separate Python installation is not required. **STOP.cmd** stops the server started by this folder. If the port belongs to an older preview, close that server before starting this copy. Keep using the same browser and local address to retain browser-saved progress; use the game's export/import controls when moving saves.
+
+Inside an unlocked Expedition Hub lesson, click a character or vocabulary word to open its picture practice. Choose Word / character, Picture, or Listening. Answer choices contain only the answers. Normal lesson practice updates item mastery; direct preview links do not save progress.
+
+Character pictures are tied to real example words, spelling gaps, syllable components, or explicitly identified traditional letter associations. Abstract vocabulary includes a short context clue when a picture alone would be ambiguous. See [ARTWORK-CLUE-NOTES.md](ARTWORK-CLUE-NOTES.md) for those conventions and [ARTWORK-COVERAGE.json](ARTWORK-COVERAGE.json) for the current coverage report.
+
+Illustration coverage is complete for all 625 writing symbols, all 941 available shared vocabulary entries across 17 languages, and all 1,080 Japanese vocabulary entries. The 59 known invalid shared translation rows remain withheld. The separate native-language editorial review described in [VOCABULARY-REVIEW.md](VOCABULARY-REVIEW.md) is unfinished. Picture-specific questions and context are currently in English; target words and recorded answers follow the selected learning language.
+
+## Native pronunciation, writing coach, and music build
+
+This local build includes two native-language neural speakers for each of the 17 learning languages, the upgraded writing coach, and three original Boppy background tracks. Use Menu → Settings → Question support to choose a speaker and voice speed. Open `voice-preview.html` to compare the voices without changing game progress.
+
+See [NATIVE-VOICES-UPDATE.md](NATIVE-VOICES-UPDATE.md) for pronunciation coverage and audio-source details, and [WRITING-UPDATE.md](WRITING-UPDATE.md) for the writing changes.
+
 ## v6.4.185 Learning-Language Cultural Events
 
 - The Events calendar is now selected by the language being learned, so a German learner explores German-language cultural events even when their known language is English, Spanish, Japanese, or another supported language.
