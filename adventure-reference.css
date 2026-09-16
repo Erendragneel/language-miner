@@ -119,3 +119,15 @@ body:not(.adventure-signed-in) .adventure-reference-shortcuts,body:not(.adventur
 @media(max-width:700px){.app{--header-left-gutter:12px;--header-right-gutter:12px}}
 @media(min-width:1250px){.app{--header-left-gutter:180px}}
 @media(min-width:1600px){.app{--header-left-gutter:230px}}
+
+body[data-wallpaper="moonstone-cathedral"]{background-image:linear-gradient(#07131a25,#07131a55),url("wallpaper-moonstone-cathedral-v1.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+body[data-wallpaper="amethyst-crown"]{background-image:linear-gradient(#07131a25,#07131a55),url("wallpaper-amethyst-crown-v1.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+body[data-wallpaper="emerald-geode"]{background-image:linear-gradient(#07131a25,#07131a55),url("wallpaper-emerald-geode-v1.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+body[data-wallpaper="sapphire-ice"]{background-image:linear-gradient(#07131a25,#07131a55),url("wallpaper-sapphire-ice-v1.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+body[data-wallpaper="sunstone-ember"]{background-image:linear-gradient(#07131a25,#07131a55),url("wallpaper-sunstone-ember-v1.png")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+#wallpaperThemeShop{display:none!important}
