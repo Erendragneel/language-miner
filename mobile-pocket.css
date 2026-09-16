@@ -30,3 +30,5 @@
  body.pocket-question-visible #quickMineBtn{display:none!important}
 }
 @media(min-width:701px){.pocket-guide{display:none}}
+
+@media(max-width:700px){.pocket-guide>img{order:2}.pocket-guide>button{order:1}}
