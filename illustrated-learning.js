@@ -38,7 +38,7 @@ function decorateQuestion(area,q,language='ja'){
  const art=questionArt(q,language);if(!art)return;
  const answers=card.querySelector('.answers,.lm-answer-grid');if(!answers)return;
  const scene=document.createElement('div');scene.className='lm-quiz-scene';
- const img=document.createElement('img');img.className='lm-quiz-art';img.src='picture-assets/'+art.file;img.alt=art.alt||'';
+ const img=document.createElement('img');img.className='lm-quiz-art';img.src='picture-assets/'+(art.file==='pencil-e.webp'?'pencil-storybook-v1.png':art.file);img.alt=art.alt||'';
  scene.appendChild(img);
  const copy=document.createElement('div');copy.className='lm-quiz-copy';
  while(card.firstChild&&card.firstChild!==answers)copy.appendChild(card.firstChild);

@@ -1,0 +1,79 @@
+/* Reference composition: readable cream lesson, compact language pill and illustrated guide. */
+.app{margin-left:190px!important;margin-right:260px!important;padding-left:22px!important;padding-right:22px!important}
+.adventure-nav{width:190px;padding:20px 12px}
+.adventure-nav button{font-size:13px;padding:12px 9px}
+.app>header{min-height:58px!important;margin-bottom:12px!important;padding:9px 16px!important}
+.lm-title-row{justify-content:center!important}
+#lmChangeLanguageBtn{display:inline-flex;align-items:center;gap:10px;padding:7px 14px!important;min-height:36px!important;border-radius:24px!important;font-size:12px!important}
+#lmChangeLanguageBtn #lmCourseIndicator{border:0!important;background:none!important;padding:0!important;min-height:0;box-shadow:none!important;font-size:12px!important}
+.adventure-chevron{font-size:18px;color:#b9d4dc}
+.panel.mine{height:auto!important;min-height:90px!important;align-items:flex-start!important;justify-content:center!important;padding:8px 0!important;overflow:visible!important}
+.panel.mine .mine-title{font:700 30px/1.15 Georgia,serif!important;margin:0 0 9px!important;color:#fff!important}
+.panel.mine .mine-title::after{content:none!important}
+.panel.mine .mine-title{display:none!important}
+#adventureMineTitle{font:700 30px/1.15 Georgia,serif;margin:0 0 9px;color:#fff;text-align:left;text-shadow:0 2px 8px #0008}
+.panel.mine::before,.panel.mine::after{display:none!important}
+.lm-preview-toast:not(.show),#v6StoryToast:empty{display:none!important}
+#adventureLessonProgress{display:flex;align-items:center;gap:12px;font-size:12px;color:#e1e9e9}
+.adventure-lesson-dots{display:flex;gap:6px;align-items:center}
+.adventure-lesson-dots button{width:10px;height:10px;min-height:0;padding:0;border:0;border-radius:50%;background:#637079;box-shadow:none}
+.adventure-lesson-dots button.complete{background:#35b5b5}.adventure-lesson-dots button.current{background:#65dddd;outline:2px solid #b6ffff;outline-offset:2px}
+.adventure-lesson-dots button:disabled{opacity:.65;cursor:default}
+.panel:has(#challengeArea){max-width:730px!important;border-radius:12px!important;padding:20px!important;background:linear-gradient(130deg,#fffdf5,#f5efe2)!important;box-shadow:0 15px 45px #00101855!important}
+.panel:has(#challengeArea) .progress-wrap{margin-bottom:8px}
+#challengeArea .lm-quiz-scene{grid-template-columns:minmax(0,1fr) 46%!important;gap:18px;min-height:210px!important;margin:10px 0 18px!important}
+#challengeArea .lm-quiz-art{height:210px!important;object-fit:contain!important;border-radius:10px!important;background:#f6f3eb!important;border:1px solid #dad7ce!important}
+#challengeArea .lm-quiz-copy{padding:0!important}
+#challengeArea .question{font-size:clamp(23px,2.5vw,34px)!important;line-height:1.25!important;color:#101f32!important;overflow-wrap:anywhere}
+#challengeArea .question.adventure-symbol{font-size:64px!important;line-height:1.15!important;margin-bottom:8px}
+#challengeArea .lm-quiz-copy .prompt,#challengeArea .prompt{font-size:18px!important;line-height:1.4!important;font-weight:600}
+#challengeArea .lm-course-question h3,#challengeArea .lm-course-prompt{font-size:20px!important;line-height:1.4!important}
+#challengeArea .voice-tools{margin-top:12px!important;justify-content:flex-start!important}
+#challengeArea .voice-tools button{font-size:13px!important;min-height:38px!important;padding:9px 15px!important}
+#challengeArea #slowSpeakQuestionBtn,#challengeArea .voice-tools>span{display:none!important}
+#answers,.lm-answer-grid{gap:10px!important}
+#answers button,.lm-answer-grid button{min-height:58px!important;font-size:23px!important;border-radius:10px!important;background:linear-gradient(#eef8fa,#e0edf2)!important}
+.controls{justify-content:center;gap:10px!important;margin-top:18px!important}
+.controls button{border-radius:22px!important;font-weight:500!important;font-size:13px!important;min-height:38px!important;padding:9px 20px!important}
+#adventureSlow[hidden]{display:none!important}
+.adventure-reassurance{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:730px;margin:10px auto 0;padding:10px 14px;box-sizing:border-box;border:1px solid #739dab;border-radius:5px;background:#c5dce4;color:#314c5b;font:13px/1.5 'Segoe UI',sans-serif}
+.adventure-reassurance[hidden]{display:none}.adventure-reassurance>span:first-child,.adventure-reassurance>span:last-child{color:#829da9;font-size:26px}
+.adventure-today{width:232px;right:12px;top:76px;bottom:16px;padding:16px;background:#10212eef!important;border-radius:12px}
+.adventure-today h2{font:600 15px 'Segoe UI',sans-serif;margin:0 0 15px}
+.adventure-today #adventureMetrics p{font-size:12px;gap:8px;margin:10px 0}.adventure-today #adventureMetrics b{font-size:14px;min-width:47px}
+.adventure-next{margin:20px 0;padding-top:15px}.adventure-next h3{font:600 13px 'Segoe UI',sans-serif;margin:0 0 12px}
+.adventure-today .adventure-trail{display:grid;grid-template-columns:1fr auto;gap:9px;position:relative;padding:0 0 10px;background:#132634;border:1px solid #456274;border-radius:10px;text-align:left;overflow:hidden}
+.adventure-trail>img{grid-column:1/-1;width:100%;height:130px;object-fit:cover}
+.adventure-trail>strong{padding-left:10px;font-size:14px}.adventure-trail>span:last-child{padding-right:12px;font-size:22px;line-height:18px}
+#adventureTrailSign{position:absolute;right:13px;top:43px;width:64px;transform:rotate(-8deg);font:700 13px/1.1 Georgia,serif;color:#563018;text-align:center;text-shadow:0 1px #ecc48f}
+#adventureNextDetail{font-size:11px;margin:8px 0 0;line-height:1.5;color:#bdd1d8}
+.adventure-guide{display:grid;grid-template-columns:48% 52%;align-items:center;padding:10px 0 4px;margin:0;border:0;min-height:190px}
+.adventure-guide>img{width:130%;max-width:none;max-height:210px;object-fit:contain;margin-left:-16px;position:relative;z-index:1;filter:drop-shadow(0 4px 5px #0005)}
+.adventure-guide>div{border:1px solid #426273;border-radius:9px;background:linear-gradient(#29414e,#1c303c);padding:10px 8px 10px 12px}
+.adventure-guide p{font-size:12px;line-height:1.5;margin:0 0 10px;color:#edf5f6}
+.adventure-guide button{font-size:11px;padding:8px 5px;background:#d5e9f0;color:#173747;border:1px solid #a4c4d1;border-radius:8px;min-height:36px}
+.adventure-today .adventure-progress-link{font-size:12px;text-decoration:underline;background:none;border:0;padding:10px 0;text-align:right}
+.v6-coach-heading{padding-left:65px;position:relative}.v6-coach-heading::before{content:'';position:absolute;left:0;top:-12px;width:62px;height:90px;background:url('gnome-guide-v1.png') center/contain no-repeat}
+.adventure-reference-shortcuts{display:none}
+body:not(.adventure-signed-in) .adventure-reference-shortcuts,body:not(.adventure-signed-in) .adventure-reassurance{display:none}
+@media(max-width:1150px){.app{margin-right:0!important}.adventure-today{position:static;display:block;width:auto;max-width:730px;margin:20px 22px 95px 212px}.adventure-today #adventureMetrics{display:flex;gap:18px;flex-wrap:wrap}.adventure-next{float:left;width:48%;margin:0}.adventure-guide{margin-left:52%;min-height:210px}.adventure-progress-link{clear:both}.adventure-today:after{content:'';display:block;clear:both}}
+@media(max-width:700px){
+ .app{margin:0!important;padding:0 12px 20px!important}.app>header{min-height:52px!important}
+ .adventure-reference-shortcuts{display:flex;gap:8px;margin:0 0 10px}.adventure-reference-shortcuts button{background:#183c4b;border:1px solid #587d8d;border-radius:20px;color:#edf6f9;padding:8px 13px;min-height:40px;font-size:12px}
+ .panel.mine{min-height:76px!important;padding:4px 2px!important}.panel.mine .mine-title{font-size:25px!important}
+ #adventureMineTitle{font-size:25px}
+ #adventureLessonProgress{gap:9px;font-size:11px}.adventure-lesson-dots{gap:5px}.adventure-lesson-dots button{width:8px;height:8px}
+ .panel:has(#challengeArea){padding:16px!important}
+ #challengeArea .lm-quiz-scene{min-height:160px!important;gap:12px;grid-template-columns:minmax(0,1fr) 45%!important}
+ #challengeArea .lm-quiz-art{height:155px!important}
+ #challengeArea .question.adventure-symbol{font-size:52px!important}
+ #challengeArea .lm-quiz-copy .prompt,#challengeArea .prompt{font-size:15px!important}
+ #challengeArea .lm-course-question .lm-quiz-scene{grid-template-columns:1fr!important}
+ #challengeArea .lm-course-question .lm-quiz-art{height:180px!important}
+ #answers button,.lm-answer-grid button{min-height:54px!important;font-size:21px!important}
+ .adventure-reassurance{font-size:11px;margin:8px 0 0;padding:6px 10px}
+ .panel:has(#challengeArea) .controls{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important}
+ .panel:has(#challengeArea) .controls button{width:auto!important;min-width:0;padding:9px 5px!important;font-size:11px!important;min-height:42px!important}
+ .adventure-today{margin:8px 12px 100px;padding:14px;max-width:none}.adventure-today #adventureMetrics{display:block}.adventure-next{width:48%}.adventure-trail>img{height:115px}.adventure-guide{margin-left:49%;grid-template-columns:48% 52%}.adventure-guide>img{width:145%;margin-left:-15px}.adventure-guide p{font-size:11px}.adventure-guide button{font-size:10px}
+ .footer{padding:16px 0}
+}
