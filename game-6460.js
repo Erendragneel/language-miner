@@ -3144,7 +3144,7 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
     return {
       skin:art('skin',c.skin),
       hair:art('hair',c.hairColor),
-      shirt:jacket!=='none'?art('jacket',jacket):art('shirt','armor'),
+      shirt:jacket!=='none'?art('jacket',jacket):art('shirt',c.shirt),
    // Each color has its own textured, transparent pants artwork.  Do not start
    // from black and tint it: filters flatten the fabric and turn light colors
    // muddy.

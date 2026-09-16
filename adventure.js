@@ -17,8 +17,14 @@
  const mobile=document.createElement('nav');mobile.className='adventure-mobile';mobile.setAttribute('aria-label','Mobile navigation');mobile.innerHTML=[['learn','◈','Learn'],['explore','◇','Explore'],['progress','▥','Progress'],['menu','☰','Menu']].map(([id,icon,label])=>`<button data-adventure="${id}"><span aria-hidden="true">${navIcon(id,icon)}</span>${label}</button>`).join('');document.body.append(mobile);
  document.addEventListener('click',e=>{const b=e.target.closest('[data-adventure]');if(!b)return;setTimeout(()=>{if(b.dataset.adventure!=='menu')window.closeGameMenu?.();actions[b.dataset.adventure]?.();},0);});
  const next=document.createElement('button');next.id='adventureContinue';next.textContent='Next question →';next.onclick=()=>{document.getElementById('quickMineBtn')?.click();update();};document.querySelector('#challengeArea').parentElement.append(next);
+ let avatarAppearanceKey="";
  function update(){
   const profile=window.japaneseMinerActiveProfile?.();document.body.classList.toggle('adventure-signed-in',!!profile);
+  const avatarButton=nav.querySelector('.adventure-avatar-edit');
+  if(avatarButton&&window.japaneseMinerCharacterMarkup&&typeof state==='object'){
+   const key=JSON.stringify([profile?.id,state.character,state.v5?.fashion,state.v5?.holidaySpecial,window.japaneseMinerSupporterTier?.(),Object.keys(window.JM_RECOLOR_DATA||{}).length]);
+   if(key!==avatarAppearanceKey){avatarAppearanceKey=key;avatarButton.innerHTML=window.japaneseMinerCharacterMarkup('large');const avatar=avatarButton.querySelector('.miner-avatar');avatar?.setAttribute('aria-hidden','true');window.syncJapaneseMinerRenderedLayers?.(avatar);}
+  }
   const name=nav.querySelector('.adventure-avatar strong');if(name&&name.textContent!==profile?.name)name.textContent=profile?.name||'Player';
   nav.querySelector('[data-adventure="admin"]').hidden=document.getElementById('developerBtn')?.hidden!==false;
   const grid=document.querySelector('.menu-wheel,.game-menu-grid');
@@ -30,5 +36,6 @@
   const title=document.querySelector('.mine-title');const label=document.getElementById('stageName')?.textContent;if(title&&label&&title.textContent!==label)title.textContent=label;
   next.hidden=!profile;next.textContent=document.getElementById('quickMineLabel')?.textContent?.trim()||'Start or return to question';
  }
+ window.addEventListener('jm-recolors-ready',update);document.addEventListener('click',e=>{if(e.target.closest('[data-character-key],[data-avatar-fashion-key],[data-holiday-special],#randomizeCharacterBtn'))setTimeout(update,0)});
  window.addEventListener('jm-profile-loaded',update);window.addEventListener('jm-profile-logged-out',update);update();setInterval(update,3000);
 })();
