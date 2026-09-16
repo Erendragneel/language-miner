@@ -164,3 +164,5 @@ body[data-wallpaper^="scene-"]{background-image:var(--equipped-scene)!important;
 .character-preview-card>.miner-avatar.shared-pose-ready{position:relative!important;width:260px!important;max-width:100%!important;height:390px!important;min-height:390px!important;flex-shrink:0!important;transform:none!important;margin:10px auto 16px!important;animation:none!important}
 
 body[data-wallpaper^="color-"]{background-image:var(--equipped-scene)!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+body[data-wallpaper^="menu-scene-"]{background-image:var(--equipped-scene)!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
