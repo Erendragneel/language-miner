@@ -830,91 +830,91 @@ const PICKAXE_SKINS=[
     "id": "copper",
     "name": "Copper Pickaxe",
     "icon": "⛏️",
-    "cost": 10000,
+    "cost": 500000,
     "desc": "A warm copper finish for early miners."
   },
   {
     "id": "sakura",
     "name": "Sakura Pickaxe",
     "icon": "⛏️",
-    "cost": 17500,
+    "cost": 1250000,
     "desc": "A soft pink pickaxe inspired by cherry blossoms."
   },
   {
     "id": "silver",
     "name": "Silver Pickaxe",
     "icon": "⛏️",
-    "cost": 25000,
+    "cost": 3000000,
     "desc": "A polished silver tool with a cool shine."
   },
   {
     "id": "frost",
     "name": "Frost Pickaxe",
     "icon": "⛏️",
-    "cost": 32500,
+    "cost": 7750000,
     "desc": "An icy blue tool sparkling with frozen light."
   },
   {
     "id": "gold",
     "name": "Golden Pickaxe",
     "icon": "⛏️",
-    "cost": 40000,
+    "cost": 19500000,
     "desc": "A prestigious golden mining skin."
   },
   {
     "id": "neon",
     "name": "Neon Pickaxe",
     "icon": "⛏️",
-    "cost": 47500,
+    "cost": 48750000,
     "desc": "An electric cyan tool from the city mines."
   },
   {
     "id": "amethyst",
     "name": "Amethyst Pickaxe",
     "icon": "⛏️",
-    "cost": 55000,
+    "cost": 122000000,
     "desc": "A purple crystal-infused pickaxe."
   },
   {
     "id": "inferno",
     "name": "Inferno Pickaxe",
     "icon": "⛏️",
-    "cost": 62500,
+    "cost": 305250000,
     "desc": "A blazing tool forged in the flame mine."
   },
   {
     "id": "galaxy",
     "name": "Galaxy Pickaxe",
     "icon": "⛏️",
-    "cost": 70000,
+    "cost": 763000000,
     "desc": "A deep-space finish surrounded by starlight."
   },
   {
     "id": "emerald",
     "name": "Emerald Pickaxe",
     "icon": "⛏️",
-    "cost": 77500,
+    "cost": 1907250000,
     "desc": "A vivid green endgame-style tool."
   },
   {
     "id": "aurora",
     "name": "Aurora Pickaxe",
     "icon": "⛏️",
-    "cost": 85000,
+    "cost": 4768250000,
     "desc": "Shifting northern-light colors for master miners."
   },
   {
     "id": "shadow",
     "name": "Shadow Pickaxe",
     "icon": "⛏️",
-    "cost": 92500,
+    "cost": 11921000000,
     "desc": "A mysterious dark-metal pickaxe with a violet glow."
   },
   {
     "id": "red-diamond",
     "name": "Red Diamond Pickaxe",
     "icon": "⛏️",
-    "cost": 100000,
+    "cost": 29802250000,
     "desc": "The rarest and most luxurious current skin."
   }
 ];
@@ -933,35 +933,35 @@ const MINE_WALLPAPERS=[
   {
     "id": "menu-moonstone-cathedral",
     "name": "Moonstone Cathedral",
-    "cost": 20000,
+    "cost": 5000000,
     "desc": "Towering white selenite and quartz lit by warm golden rays.",
     "preview": "linear-gradient(#06091240,#06091270),url(wallpaper-moonstone-cathedral-v1.png)"
   },
   {
     "id": "menu-amethyst-crown",
     "name": "Amethyst Crown Cavern",
-    "cost": 35000,
+    "cost": 25000000,
     "desc": "A royal chamber of violet crystal spires and lavender light.",
     "preview": "linear-gradient(#08041430,#08041468),url(wallpaper-amethyst-crown-v1.png)"
   },
   {
     "id": "menu-emerald-geode",
     "name": "Emerald Geode Sanctuary",
-    "cost": 50000,
+    "cost": 125000000,
     "desc": "Ancient emerald columns glowing beneath a hidden forest cave.",
     "preview": "linear-gradient(#03100b38,#03100b70),url(wallpaper-emerald-geode-v1.png)"
   },
   {
     "id": "menu-sapphire-ice",
     "name": "Sapphire Ice Grotto",
-    "cost": 65000,
+    "cost": 625000000,
     "desc": "Frozen sapphire prisms reflected across a silent underground lake.",
     "preview": "linear-gradient(#020a1830,#020a1868),url(wallpaper-sapphire-ice-v1.png)"
   },
   {
     "id": "menu-sunstone-ember",
     "name": "Sunstone Ember Vault",
-    "cost": 80000,
+    "cost": 3125000000,
     "desc": "Amber and citrine blades burning brightly against black basalt.",
     "preview": "linear-gradient(#12070238,#12070272),url(wallpaper-sunstone-ember-v1.png)"
   }
@@ -3004,133 +3004,133 @@ const WALLPAPERS=[
   {
     "id": "menu-scene-sakura-grotto",
     "name": "Amethyst Lantern Grotto",
-    "cost": 25000,
+    "cost": 1000000,
     "desc": "A cozy violet cave alcove with tall amethyst crystals, moss-softened steps and warm brass lamps along the side walls.",
     "preview": "url(menu-wallpapers/sakura-grotto-v2.webp)"
   },
   {
     "id": "menu-scene-crystal-cathedral",
     "name": "Sapphire Arch Hall",
-    "cost": 35000,
+    "cost": 1750000,
     "desc": "Majestic geometric cobalt crystal ribs forming a vaulted underground hall, cool blue pools and tiny gold lanterns at the side edges.",
     "preview": "url(menu-wallpapers/crystal-cathedral-v2.webp)"
   },
   {
     "id": "menu-scene-bamboo-tunnel",
     "name": "Emerald Fern Refuge",
-    "cost": 45000,
+    "cost": 3250000,
     "desc": "A lush green geode shelter with ferns, roots, emerald crystal shelves and an ancient wooden footbridge around a quiet stone floor.",
     "preview": "url(menu-wallpapers/bamboo-tunnel-v2.webp)"
   },
   {
     "id": "menu-scene-sunken-mine",
     "name": "Arctic Crystal Cove",
-    "cost": 55000,
+    "cost": 5750000,
     "desc": "Translucent turquoise ice and aquamarine columns framing a quiet frozen cavern pool, frosted stone and cool soft daylight.",
     "preview": "url(menu-wallpapers/sunken-mine-v2.webp)"
   },
   {
     "id": "menu-scene-magma-forge",
     "name": "Ruby Ember Workshop",
-    "cost": 65000,
+    "cost": 10500000,
     "desc": "Red garnet cavern with a cozy abandoned smithing nook, softly glowing ember channels at the edges and dark volcanic stone flooring, inviting rather than dangerous.",
     "preview": "url(menu-wallpapers/magma-forge-v2.webp)"
   },
   {
     "id": "menu-scene-aurora-cavern",
     "name": "Amber Lantern Vault",
-    "cost": 75000,
+    "cost": 19000000,
     "desc": "Honey amber stalactites and warm golden topaz embedded in old mining timber, brass lanterns around a calm brown slate chamber.",
     "preview": "url(menu-wallpapers/aurora-cavern-v2.webp)"
   },
   {
     "id": "menu-scene-galaxy-depths",
     "name": "Rose Quartz Retreat",
-    "cost": 85000,
+    "cost": 34000000,
     "desc": "Blush-pink crystal alcove, pale rose geode walls, a serene shallow pool and weathered stepping stones, soft warm peach lantern glow.",
     "preview": "url(menu-wallpapers/galaxy-depths-v2.webp)"
   },
   {
     "id": "menu-scene-art-azure-passage",
     "name": "Azure Crystal Passage",
-    "cost": 95000,
+    "cost": 61250000,
     "desc": "A deep blue cave crossroads with cyan crystal clusters, a little wooden ore cart parked at far left and rails curving along the edge toward distant amber lamps.",
     "preview": "url(menu-wallpapers/art-azure-passage-v2.webp)"
   },
   {
     "id": "menu-scene-art-amethyst-dream",
     "name": "Amethyst Dream Grotto",
-    "cost": 105000,
+    "cost": 110250000,
     "desc": "An ethereal violet geode with immense delicate crystal fans arching overhead, floating motes and a softly glowing amethyst waterfall at far right.",
     "preview": "url(menu-wallpapers/art-amethyst-dream-v2.webp)"
   },
   {
     "id": "menu-scene-art-moonlit-ice",
     "name": "Moonlit Ice Cathedral",
-    "cost": 115000,
+    "cost": 198250000,
     "desc": "Silver-blue cathedral-like natural ice cavern with moonbeams from a tiny upper opening, faceted frozen columns at edges and dark polished slate in center.",
     "preview": "url(menu-wallpapers/art-moonlit-ice-v2.webp)"
   },
   {
     "id": "menu-scene-art-sapphire-river",
     "name": "Sapphire River Tunnel",
-    "cost": 125000,
+    "cost": 357000000,
     "desc": "A quiet underground river curving around a broad dark stone terrace, cobalt arches, rustic lantern-lit wooden walkways at side edges.",
     "preview": "url(menu-wallpapers/art-sapphire-river-v2.webp)"
   },
   {
     "id": "menu-scene-art-emerald-moss",
     "name": "Emerald Moss Geode",
-    "cost": 135000,
+    "cost": 642750000,
     "desc": "A richly textured hidden emerald cavern garden with velvety moss, ferns, tiny turquoise mushrooms, crystal outcrops and a dark quiet earth center.",
     "preview": "url(menu-wallpapers/art-emerald-moss-v2.webp)"
   },
   {
     "id": "menu-scene-art-rose-quartz",
     "name": "Rose Quartz Sanctuary",
-    "cost": 145000,
+    "cost": 1156750000,
     "desc": "Monumental rose crystal arches surrounding a peaceful ancient round stone sanctuary floor, pale pink reflective pools along edges.",
     "preview": "url(menu-wallpapers/art-rose-quartz-v2.webp)"
   },
   {
     "id": "menu-scene-art-golden-topaz",
     "name": "Golden Topaz Vault",
-    "cost": 155000,
+    "cost": 2082250000,
     "desc": "An ancient treasureless stone archive chamber with enormous golden-orange topaz prisms, brass lamps, weathered wooden rails and warm amber mineral light.",
     "preview": "url(menu-wallpapers/art-golden-topaz-v2.webp)"
   },
   {
     "id": "menu-scene-art-ruby-forge",
     "name": "Ruby Magma Forge",
-    "cost": 165000,
+    "cost": 3748250000,
     "desc": "A grand cavern foundry made from black basalt, angular ruby crystals, small safely contained glowing magma canals at outer edges, a large calm shadowed central stone floor.",
     "preview": "url(menu-wallpapers/art-ruby-forge-v2.webp)"
   },
   {
     "id": "menu-scene-art-aurora-prism",
     "name": "Aurora Prism Cavern",
-    "cost": 175000,
+    "cost": 6746750000,
     "desc": "Tall translucent opal crystal columns refracting restrained turquoise, violet and soft gold ribbons across an underground vault, dark midnight-blue floor.",
     "preview": "url(menu-wallpapers/art-aurora-prism-v2.webp)"
   },
   {
     "id": "menu-scene-art-celestial-galaxy",
     "name": "Celestial Galaxy Mine",
-    "cost": 185000,
+    "cost": 12144000000,
     "desc": "An obsidian geode mine with subtle star-like mineral specks, an opening toward a purple night sky at upper right, a suspended wooden bridge at the edge.",
     "preview": "url(menu-wallpapers/art-celestial-galaxy-v2.webp)"
   },
   {
     "id": "menu-scene-art-opal-hollow",
     "name": "Bioluminescent Opal Hollow",
-    "cost": 195000,
+    "cost": 21859000000,
     "desc": "Pearlescent crystal grotto with teal luminous mushrooms, blue pools and delicate natural mineral lights along a winding cavern rim.",
     "preview": "url(menu-wallpapers/art-opal-hollow-v2.webp)"
   },
   {
     "id": "menu-scene-art-ancient-lantern",
     "name": "Ancient Lantern Crystal Shaft",
-    "cost": 205000,
+    "cost": 39346500000,
     "desc": "A lovingly weathered old timber mine chamber, cobalt crystals, hanging brass lanterns and a winding hand-built wooden staircase at the far side.",
     "preview": "url(menu-wallpapers/art-ancient-lantern-v2.webp)"
   }
