@@ -63,34 +63,3 @@ body:not(.adventure-signed-in) .adventure-nav,body:not(.adventure-signed-in) .ad
  #challengeArea .lm-answer-grid:not(.lm-alphabet-answers){grid-template-columns:1fr!important}
  #challengeArea .lm-answer-grid button{min-height:56px!important;font-size:20px!important}
 }
-
-/* Retain the other task's compact playable mine and new shortcuts. */
-
-.panel.mine{min-height:230px!important;height:230px!important;padding:12px!important;justify-content:flex-start}
-.panel.mine #rock{width:90px;height:70px;font-size:30px;align-self:flex-start;margin:8px 12px}
-.panel.mine #pickaxeIcon{font-size:36px}
-.panel.mine .mine-title{font-size:22px;margin:6px 0;color:#fff}
-.panel.mine .mine-note{font-size:12px;max-width:65%;margin-right:auto;text-align:left}
-.panel.mine .lm-character-layout-mine{left:80%}
-.adventure-trail-art{width:100%;height:110px;object-fit:cover;border-radius:12px;border:1px solid #658393;margin:12px 0 0}
-.adventure-guide .v6-gnome{display:block;margin:0 auto 12px;position:relative}
-.adventure-tools [data-adventure="notebook"],.adventure-tools [data-adventure="family"],.adventure-tools [data-adventure="guide"],.adventure-tools [data-adventure="nextLesson"]{display:none}
-#challengeArea .lm-quiz-scene{align-items:center}
-.panel:has(#challengeArea){position:relative}
-@media(max-width:1150px){.adventure-tools [data-adventure="guide"],.adventure-tools [data-adventure="nextLesson"]{display:block}}
-@media(max-width:700px){
- .panel.mine{min-height:190px!important;height:190px!important}
- .panel.mine .mine-title{font-size:18px;max-width:65%;margin-right:auto;text-align:left}
- .panel.mine .mine-note{display:none}
- .adventure-tools [data-adventure="notebook"],.adventure-tools [data-adventure="family"]{display:block}
- #challengeArea .lm-quiz-copy .prompt{font-size:1.2rem!important}
-}
-
-.panel.mine .cave-scene,.panel.mine .lm-character-layout-mine{display:block!important}
-.panel.mine #rock{display:grid!important}
-.panel.mine .mine-title{font-size:22px!important;line-height:1.3!important}
-.panel.mine .mine-title::after{content:none}
-.adventure-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.adventure-tools button{background:#183b4b;color:#f0f8fb;border:1px solid #6e9aa9;border-radius:20px;padding:9px 15px;min-height:44px}
-body:not(.adventure-signed-in) .adventure-tools{display:none}
-@media(max-width:700px){.panel.mine .mine-title{font-size:18px!important}}
