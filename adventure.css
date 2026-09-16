@@ -46,3 +46,20 @@ button:focus-visible,a:focus-visible{outline:3px solid #f3cb78!important;outline
 body:not(.adventure-signed-in) .adventure-nav,body:not(.adventure-signed-in) .adventure-today,body:not(.adventure-signed-in) .adventure-mobile{display:none!important}
 .adventure-nav button[hidden]{display:none!important}.adventure-avatar img{object-fit:contain}
 #v6StoryToast{display:block!important}
+
+/* The multilingual renderer uses a section, not the Japanese question div. */
+#challengeArea .lm-course-question{background:transparent!important;border:0!important;padding:0!important;color:#142936!important;box-shadow:none!important}
+#challengeArea .lm-course-question h3,#challengeArea .lm-course-prompt{color:#142936!important;text-shadow:none!important;font-size:clamp(20px,2.5vw,28px)!important;line-height:1.45!important;overflow-wrap:anywhere}
+#challengeArea .lm-question-kicker{color:#17666b!important;line-height:1.5}
+#challengeArea .lm-answer-grid button{font-size:20px!important;line-height:1.5!important;padding:16px!important;word-break:normal;overflow-wrap:anywhere;min-width:0}
+#challengeArea .lm-answer-grid button.correct{background:#cfebdf!important;border-color:#388e70!important}
+#challengeArea .lm-answer-grid button.wrong{background:#f5ddd9!important;border-color:#bc6865!important}
+#challengeArea .lm-course-feedback.correct{color:#176447!important}
+#challengeArea .lm-course-feedback.wrong{color:#9b4035!important}
+@media(max-width:700px){
+ #challengeArea .lm-course-question .lm-quiz-scene{grid-template-columns:1fr!important}
+ #challengeArea .lm-course-question .lm-quiz-copy{grid-column:1;grid-row:2}
+ #challengeArea .lm-course-question .lm-quiz-art{grid-column:1;grid-row:1;height:180px!important}
+ #challengeArea .lm-answer-grid:not(.lm-alphabet-answers){grid-template-columns:1fr!important}
+ #challengeArea .lm-answer-grid button{min-height:56px!important;font-size:20px!important}
+}

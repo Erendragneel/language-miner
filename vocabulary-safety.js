@@ -2,6 +2,15 @@
 (function(){
   'use strict';
   const normalize=value=>String(value??'').normalize('NFKC').replace(/\s+/g,' ').trim();
+  // Keep IDs and lesson positions stable while withholding a Japanese-only
+  // combination of senses that is not one answer in the translated courses.
+  for(const item of window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.vocabulary||[]){
+    if(item.id===848)item.contentReview={blocked:true,reason:'Japanese pronoun and boyfriend senses require separate translated questions.'};
+    for(const [language,value] of Object.entries(item.forms||{})){
+      const parts=String(value).split(/[,，]/).map(part=>part.trim());
+      if(parts.length>1&&parts.every(part=>normalize(part)===normalize(parts[0])))item.forms[language]=parts[0];
+    }
+  }
   const rows=()=>window.N5_VOCABULARY_1000||[];
   const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const isMeaning=q=>Boolean(q?.vocabularyKey&&/choose the (?:best )?meaning/i.test(q.prompt||''));
