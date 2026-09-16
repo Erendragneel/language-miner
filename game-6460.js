@@ -342,7 +342,7 @@ const DEFAULT_STATE = {
   n5AcademyMastery:{}, academyTestBest:0, academyReviewDate:"", recentQuestionIds:[], onboardingComplete:false, placementResult:null, placementTestCompleted:false,
   gems:0, hearts:3, maxHearts:3, level:1, xp:0, streak:0, bestStreak:0, practiceStreak:0,
   hints:2, shields:1, active:null, answered:false, shieldArmed:false, lastPracticeDate:null,
-  kanaStats:{}, unlockedGemButtons:[], equippedGemButton:"Agate", gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
+  kanaStats:{}, unlockedGemButtons:[], equippedGemButton:"Coal", gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
   heartRecoveryEnd:null, patreonHeartVideoReward:{lastClaimedAt:0,lastTier:0,claims:0}, ownedPickaxeSkins:["standard"], equippedPickaxeSkin:"standard", ownedWallpapers:["midnight"], equippedWallpaper:"midnight", ownedRockSkins:["slate"], equippedRockSkin:"slate", ownedMineWallpapers:["classic"], equippedMineWallpaper:"classic", placementUnlockedThrough:0, developerInfiniteHearts:false,
   selectedStage:0, jlptSectionSelection:{}, jlptVocabularyLevel:{}, jlptReviewCheckpoints:{}, soundEnabled:true, voiceEnabled:true, autoSpeak:true, voiceRate:.85, voiceGender:"female", voiceStyle:"natural", smartReview:true, sessionGoal:20, sessionAnswered:0, sessionCorrect:0, stageXp:[0,0,0,0,0,0,0], clearedStages:[], questionStats:{}, studyTimeByDate:{}, learningReport:{assessmentAttempts:[]}
 };
@@ -480,7 +480,7 @@ function normalizeState(raw){
   next.gemCheckpointClaims=next.gemCheckpointClaims&&typeof next.gemCheckpointClaims==="object"&&!Array.isArray(next.gemCheckpointClaims)?next.gemCheckpointClaims:{};
   next.gemUnlockRewards=next.gemUnlockRewards&&typeof next.gemUnlockRewards==="object"&&!Array.isArray(next.gemUnlockRewards)?next.gemUnlockRewards:{};
   next.unlockedGemButtons=Array.isArray(next.unlockedGemButtons)?next.unlockedGemButtons.filter(name=>gemTiers.some(g=>g.name===name)):[];
-  next.equippedGemButton=gemTiers.some(g=>g.name===next.equippedGemButton)?next.equippedGemButton:"Agate";
+  next.equippedGemButton=gemTiers.some(g=>g.name===next.equippedGemButton)?next.equippedGemButton:"Coal";
   next.kanaTab=next.kanaTab||"hiragana";
   next.lastKana=next.lastKana||null;
   next.lastGem=next.lastGem||null;
@@ -1429,7 +1429,12 @@ function requestPickaxePurchase(skin,source){
 }
 
 
+function reachedAgateButtonCheckpoint(){
+  return Number(state.stageXp?.[0]||0)>=gemCheckpointThreshold(0,1)||gemCheckpointClaimed(gemCheckpointDrop('Agate'))||isStageUnlocked(1);
+}
 function syncGemButtonUnlocks(){
+  if(!reachedAgateButtonCheckpoint()){state.equippedGemButton='Coal';return;}
+
   const owned=new Set(Array.isArray(state.unlockedGemButtons)?state.unlockedGemButtons:[]);
   gemTiers.forEach(g=>{if(g.minStage===0||isStageUnlocked(g.minStage)||Number(state.gemInventory?.[g.name])>0||state.gemUnlockRewards?.[g.name]||gemCheckpointClaimed(gemCheckpointDrop(g.name)))owned.add(g.name);});
   state.unlockedGemButtons=gemTiers.filter(g=>owned.has(g.name)).map(g=>g.name);
@@ -1437,7 +1442,7 @@ function syncGemButtonUnlocks(){
 }
 function equipGemButton(name){
   syncGemButtonUnlocks();
-  if(!state.unlockedGemButtons.includes(name))return false;
+  if(!reachedAgateButtonCheckpoint()||!state.unlockedGemButtons.includes(name))return false;
   state.equippedGemButton=name;applyGemButton();save();
   if(document.getElementById('shopOverlay')?.classList.contains('open'))renderShop();
   return true;
@@ -1449,17 +1454,18 @@ function applyGemButton(){
   if(button.dataset.gem!==state.equippedGemButton){
     [...button.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.remove());
     button.querySelector('.question-gem-art')?.remove();
-    button.insertAdjacentHTML('afterbegin',window.LanguageMinerGemButtons.art(gemTiers.findIndex(g=>g.name===state.equippedGemButton),'question-gem-art'));
+    button.insertAdjacentHTML('afterbegin',window.LanguageMinerGemButtons.art(state.equippedGemButton==='Coal'?-1:gemTiers.findIndex(g=>g.name===state.equippedGemButton),'question-gem-art'));
     button.dataset.gem=state.equippedGemButton;
     button.title=state.equippedGemButton+' · Start or return to your question';
   }
 }
 function renderGemButtonChoices(grid){
   if(!grid)return;syncGemButtonUnlocks();grid.innerHTML='';
+  if(!reachedAgateButtonCheckpoint())grid.innerHTML='<article class="cosmetic-card gem-button-card equipped">'+window.LanguageMinerGemButtons.art(-1,'gem-style-preview')+'<h3>Coal Nugget</h3><p>Free starter button. Reach 20% Hiragana progress to unlock Agate.</p><button type="button" disabled>Equipped</button></article>';
   gemTiers.forEach((gem,index)=>{
-    const unlocked=state.unlockedGemButtons.includes(gem.name),equipped=state.equippedGemButton===gem.name;
+    const unlocked=reachedAgateButtonCheckpoint()&&state.unlockedGemButtons.includes(gem.name),equipped=state.equippedGemButton===gem.name;
     const card=document.createElement('article');card.className='cosmetic-card gem-button-card'+(equipped?' equipped':'')+(unlocked?'':' locked');
-    card.innerHTML=window.LanguageMinerGemButtons.art(index,'gem-style-preview')+`<h3>${gem.name}</h3><p>${unlocked?'Permanently unlocked · Free':`Unlock ${stages[gem.minStage]?.label||'the next mine'} to use this gem.`}</p><button type="button" data-equip-gem="${index}" ${!unlocked||equipped?'disabled':''}>${equipped?'Equipped':unlocked?'Use gem':'Locked'}</button>`;
+    card.innerHTML=window.LanguageMinerGemButtons.art(index,'gem-style-preview')+`<h3>${gem.name}</h3><p>${unlocked?'Permanently unlocked · Free':`${!reachedAgateButtonCheckpoint()?'Reach 20% Hiragana progress to unlock gem buttons.':`Unlock ${stages[gem.minStage]?.label||'the next mine'} to use this gem.`}`}</p><button type="button" data-equip-gem="${index}" ${!unlocked||equipped?'disabled':''}>${equipped?'Equipped':unlocked?'Use gem':'Locked'}</button>`;
     card.querySelector('button').onclick=()=>equipGemButton(gem.name);grid.append(card);
   });
 }

@@ -19,6 +19,7 @@
  ];
  let serial=0;
  function art(index,cls=''){
+  if(index===-1)return `<svg class="${cls}" viewBox="0 0 1280 1280" aria-hidden="true" focusable="false"><image href="coal-nugget-v1.png" width="1280" height="1280"/></svg>`;
   const [x,y,w,h,path]=shapes[index]||shapes[0],id='gem-silhouette-'+(++serial);
   return `<svg class="${cls}" viewBox="0 0 ${w} ${h}" aria-hidden="true" focusable="false"><defs><clipPath id="${id}" clipPathUnits="userSpaceOnUse"><path transform="scale(${w/100} ${h/100})" d="${path}"/></clipPath></defs><g clip-path="url(#${id})"><svg width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}"><image href="scientific-gem-atlas.png" width="1536" height="1024"/></svg></g></svg>`;
  }
