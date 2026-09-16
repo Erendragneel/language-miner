@@ -27,8 +27,33 @@
  .pocket-guide{display:flex;justify-content:center;align-items:center;gap:9px;margin:9px auto;color:#d9e9ec}.pocket-guide img{height:40px;width:29px;object-fit:contain}.pocket-guide button{padding:9px 14px;min-height:42px;border:1px solid #6d939e;border-radius:14px;background:#153746;color:#e6f5f6;font-size:12px}
  .adventure-mobile{padding-top:6px!important}.adventure-mobile button{font-size:11px!important;min-height:45px!important}
  .footer{font-size:9px!important;padding:12px 0!important}
- body.pocket-question-visible #quickMineBtn{display:none!important}
+
 }
 @media(min-width:701px){.pocket-guide{display:none}}
 
 @media(max-width:700px){.pocket-guide>img{order:2}.pocket-guide>button{order:1}}
+
+/* Keep the question shortcut visible and make every cosmetic category reachable on phones. */
+.pocket-cosmetic-tabs{display:none}
+@media(max-width:700px){
+ #shopOverlay .shop-head p{display:none}
+ #shopOverlay .shop-head{align-items:center;min-height:64px}
+ #shopOverlay .shop-head h2{font-size:21px}
+ .pocket-cosmetic-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 12px}
+ .pocket-cosmetic-tabs button{min-height:48px;padding:10px 8px;font-size:13px;border:1px solid #5d7f91;border-radius:12px;background:#172f42;color:#e3f3f7}
+ .pocket-cosmetic-tabs button[aria-pressed="true"]{background:#176c7b;border-color:#8ce3d4;color:white}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-hub-intro{padding:11px}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-hub-intro h3{font-size:20px}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-hub-intro p{font-size:12px}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-accordion:not([data-pocket-selected]){display:none}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-accordion>summary{cursor:default;min-height:56px}
+ #shopContent[data-pocket-cosmetics] .mine-cosmetic-accordion>summary:after{display:none}
+ #shopContent[data-pocket-cosmetics] .cosmetic-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #shopContent[data-pocket-cosmetics] .cosmetic-card{min-width:0;padding:10px;gap:8px}
+ #shopContent[data-pocket-cosmetics] .cosmetic-card h3{font-size:14px;overflow-wrap:anywhere}
+ #shopContent[data-pocket-cosmetics] .cosmetic-card p{font-size:12px;min-height:0}
+ #shopContent[data-pocket-cosmetics] .cosmetic-card button{font-size:12px;min-height:44px;padding:8px 5px;white-space:normal}
+ #shopContent[data-pocket-cosmetics] .gem-style-preview{height:88px;margin:5px auto}
+ #shopContent[data-pocket-cosmetics] .wallpaper-preview,#shopContent[data-pocket-cosmetics] .mine-wallpaper-shop-preview{height:105px}
+ #shopContent[data-pocket-cosmetics] .pickaxe-finish-preview{max-width:100%}
+}

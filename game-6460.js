@@ -2863,7 +2863,7 @@ function openGameMenu(){if(!activeProfileId)return;setStatsDrawer(false);documen
 function closeGameMenu(){document.getElementById('gameMenuOverlay')?.classList.remove('open');document.getElementById('gameMenuOverlay')?.setAttribute('aria-hidden','true');document.getElementById('gameMenuBtn')?.setAttribute('aria-expanded','false');syncPageScrollLock();}
 window.closeGameMenu=closeGameMenu;
 function returnToGameMenu(closeCurrent){if(typeof closeCurrent==='function')closeCurrent();openGameMenu();}
-function openShop(tab='mine-cosmetics'){activeShopTab=tab==='fashion'?'character':['pickaxes','wallpapers'].includes(tab)?'mine-cosmetics':tab;closeGameMenu();document.getElementById('shopOverlay')?.classList.add('open');document.getElementById('shopOverlay')?.setAttribute('aria-hidden','false');syncPageScrollLock();renderShop();}
+function openShop(tab='mine-cosmetics'){activeShopTab=tab==='fashion'?'character':['pickaxes','wallpapers'].includes(tab)?'mine-cosmetics':tab;closeGameMenu();document.getElementById('shopOverlay')?.classList.add('open');document.getElementById('shopOverlay')?.setAttribute('aria-hidden','false');syncPageScrollLock();renderShop();if(matchMedia('(max-width:700px)').matches)document.querySelector('#shopOverlay .shop-panel').scrollTop=0;}
 function closeShop(){document.getElementById('shopOverlay')?.classList.remove('open');document.getElementById('shopOverlay')?.setAttribute('aria-hidden','true');syncPageScrollLock();}
 function renderShop(){
  const balance=document.getElementById('shopNuggetBalance');if(balance)balance.textContent=totalStoneValue().toLocaleString();
@@ -2955,7 +2955,7 @@ document.getElementById('backShopToMenu')?.addEventListener('click',()=>returnTo
 document.getElementById('backAcademyToMenu')?.addEventListener('click',()=>returnToGameMenu(closeAcademy));
 document.getElementById('backDeveloperToMenu')?.addEventListener('click',()=>returnToGameMenu(closeDeveloperPanel));
 document.getElementById('shopOverlay')?.addEventListener('click',e=>{if(e.target.id==='shopOverlay')closeShop();});
-document.querySelectorAll('[data-shop-tab]').forEach(btn=>btn.addEventListener('click',()=>{activeShopTab=btn.dataset.shopTab;renderShop();}));
+document.querySelectorAll('[data-shop-tab]').forEach(btn=>btn.addEventListener('click',()=>{activeShopTab=btn.dataset.shopTab;renderShop();if(matchMedia('(max-width:700px)').matches)document.querySelector('#shopOverlay .shop-panel').scrollTop=0;}));
 const renderV36=render;
 render=function(){repairPlacementUnlocks();renderV36();applyWallpaper();if(document.getElementById('shopOverlay')?.classList.contains('open'))renderShop();};
 applyWallpaper();
