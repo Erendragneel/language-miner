@@ -25,6 +25,7 @@
  const languageButton=document.getElementById('lmChangeLanguageBtn'),indicator=document.getElementById('lmCourseIndicator');
  if(languageButton&&indicator){languageButton.replaceChildren(indicator);languageButton.insertAdjacentHTML('beforeend','<span class="adventure-chevron" aria-hidden="true">⌄</span>');languageButton.setAttribute('aria-label','Change your known and learning languages');}
  const area=document.getElementById('challengeArea'),panel=area.parentElement;
+ const playerPose=document.createElement('figure');playerPose.className='adventure-player-pose';playerPose.innerHTML='<img src="player-lesson-pose-v1.png" alt="Player miner resting a pickaxe across his shoulders">';panel.before(playerPose);
  const slow=document.createElement('button');slow.id='adventureSlow';slow.type='button';slow.dataset.reference='slow';slow.textContent='◉ Slow audio';slow.hidden=true;panel.querySelector('.controls')?.append(slow);
  const reassurance=document.createElement('div');reassurance.className='adventure-reassurance';reassurance.innerHTML='<span aria-hidden="true">◭</span><span>Take your time. You can listen again.</span><span aria-hidden="true">♠</span>';panel.after(reassurance);
  const heading=document.createElement('h2');heading.id='adventureMineTitle';document.querySelector('.panel.mine')?.append(heading);
