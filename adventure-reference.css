@@ -99,3 +99,9 @@ body:not(.adventure-signed-in) .adventure-reference-shortcuts,body:not(.adventur
 .adventure-player-pose img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 8px 9px #03101780)}
 @media(min-width:1250px){.app{position:relative;padding-left:180px!important}.adventure-player-pose{position:absolute;left:0;top:195px;width:180px;height:440px;margin:0;align-items:flex-end}.adventure-player-pose img{width:100%;height:auto;max-height:100%}}
 @media(min-width:1600px){.app{padding-left:230px!important}.adventure-player-pose{width:230px;height:490px;top:180px}}
+
+/* The equipped pose shares the original image footprint at every breakpoint. */
+.adventure-player-pose .pose-equipped-art{display:block;height:100%;width:auto;max-width:100%;overflow:visible;filter:drop-shadow(0 8px 9px #03101780)}
+@media(min-width:1250px){.adventure-player-pose .pose-equipped-art{width:100%;height:auto;max-height:100%}}
+
+.adventure-player-pose[hidden]{display:none!important}
