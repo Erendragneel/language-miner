@@ -1,0 +1,10 @@
+.pickaxe-finish-art{position:relative;display:grid;place-items:center;isolation:isolate;width:100%;min-width:0;padding:16px 12px 14px;box-sizing:border-box;border:1px solid #56727e70;border-radius:16px;background:radial-gradient(ellipse at 42% 30%,color-mix(in srgb,var(--finish-accent) 18%,transparent),transparent 65%),linear-gradient(145deg,#1c3441,#0a1822);color:#dcebf0;overflow:hidden}
+.pickaxe-finish-art svg{display:block;width:100%;height:auto;max-height:190px;filter:drop-shadow(0 8px 5px #0008)}
+.pickaxe-finish-caption{font:600 12px/1.4 'Segoe UI',sans-serif;letter-spacing:.035em;margin-top:5px;text-align:center;color:#dcebf0}
+.pickaxe-finish-swatches{display:flex;gap:5px;margin-top:8px}.pickaxe-finish-swatches i{display:block;width:20px;height:4px;border-radius:4px}
+.cosmetic-preview:has(.pickaxe-finish-art),.pickaxe-preview:has(.pickaxe-finish-art){display:block;height:auto!important;min-height:0;padding:0;background:none;font-size:inherit;overflow:visible}
+.pickaxe-preview-stage>.pickaxe-finish-art{width:min(100%,440px)}
+#pickaxeIcon:has(.pickaxe-finish-art){width:100px;filter:none!important}
+#pickaxeIcon .pickaxe-finish-art{padding:0;border:0;background:none;overflow:visible}
+#pickaxeIcon .pickaxe-finish-caption,#pickaxeIcon .pickaxe-finish-swatches{display:none}
+@media(max-width:480px){.pickaxe-finish-art{padding:12px 8px}.pickaxe-finish-art svg{max-height:150px}}

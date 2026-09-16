@@ -1253,7 +1253,7 @@ function renderPickaxeShop(){
     rock.dataset.pickaxe=current.id;
     rock.title=`Mine with ${current.name}`;
   }
-  if(icon) icon.textContent=current.icon;
+  if(icon) icon.innerHTML=window.LanguageMinerPickaxeFinishes.preview(current.id);
 
   const shop=document.getElementById("pickaxeShop");
   if(!shop) return;
@@ -1264,7 +1264,7 @@ function renderPickaxeShop(){
     const card=document.createElement("div");
     card.className="pickaxe-card"+(equipped?" equipped":"");
     const buttonText=equipped?"Equipped":owned?"Equip":`Buy — ${skin.cost.toLocaleString()} Nuggets`;
-    card.innerHTML=`<div class="pickaxe-preview"><span class="pickaxe-icon" style="${skin.id==='standard'?'':pickaxePreviewStyle(skin.id)}">${skin.icon}</span></div><div><strong>${skin.name}</strong><div class="small">${skin.desc}</div></div><button type="button" ${equipped?'disabled':''}>${buttonText}</button>`;
+    card.innerHTML=`<div class="pickaxe-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><div><strong>${skin.name}</strong><div class="small">${skin.desc}</div></div><button type="button" ${equipped?'disabled':''}>${buttonText}</button>`;
     const btn=card.querySelector("button");
     btn.addEventListener("click",()=>requestPickaxePurchase(skin,btn));
     shop.appendChild(card);
@@ -2853,7 +2853,7 @@ function renderShop(){
  if(activeShopTab==='pickaxes'){
   box.innerHTML='<div class="shop-section-heading"><span>Permanent gear</span><h3>Pickaxe skins</h3><p>Preview any pickaxe, check its exact Nugget price and your current balance, then confirm Buy &amp; Equip. Every purchased skin stays owned permanently.</p></div><div class="cosmetic-grid" id="menuPickaxeShop"></div>';
   const grid=document.getElementById('menuPickaxeShop');
-  PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id;const card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview"><span style="${skin.id==='standard'?'':pickaxePreviewStyle(skin.id)}">${skin.icon}</span></div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});grid.appendChild(card);});
+  PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id;const card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});grid.appendChild(card);});
  }else if(activeShopTab==='mine-cosmetics'){
   box.innerHTML='<div class="shop-section-heading"><span>Mine customization</span><h3>Rock skins</h3><p>Change the rock you tap without changing your equipped pickaxe. Purchased skins stay owned permanently.</p></div><div class="cosmetic-grid" id="rockSkinShop"></div><div class="shop-section-heading"><span>Mine scenery</span><h3>Mine wallpapers</h3><p>Change the cave scenery behind the rock. This is separate from the full-page wallpaper setting.</p></div><div class="cosmetic-grid" id="mineWallpaperShop"></div>';
   const rockGrid=document.getElementById('rockSkinShop');
@@ -2905,7 +2905,7 @@ renderShop=function(){
   MINE_WALLPAPERS.forEach(item=>{const owned=state.ownedMineWallpapers.includes(item.id),equipped=state.equippedMineWallpaper===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-wallpaper-shop-preview" data-preview-mine-wallpaper="${item.id}" style="background:${item.preview}"><span class="shop-rock-sample" data-rock-skin="slate"><i>⛏️</i></span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('wallpaper',item));mineWallpaperGrid.appendChild(card);});
 
   const pickaxeGrid=document.getElementById('menuPickaxeShop');
-  PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview"><span style="${skin.id==='standard'?'':pickaxePreviewStyle(skin.id)}">${skin.icon}</span></div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});pickaxeGrid.appendChild(card);});
+  PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});pickaxeGrid.appendChild(card);});
 
   const themeGrid=document.getElementById('wallpaperThemeShop');
   SHOP_COLOR_THEMES.forEach(([value,name])=>{const selected=state.colorTheme===value,button=document.createElement('button');button.type='button';button.className=selected?'selected':'';button.innerHTML=`<span class="theme-swatch theme-${value}"></span><span>${name}<small>Free</small></span>`;button.addEventListener('click',()=>{state.colorTheme=value;state.equippedWallpaper='midnight';applyWallpaper();save();render();renderShop();setMessage(`${name} game colors selected. Wallpaper cleared.`,'correct');});themeGrid.appendChild(button);});
