@@ -342,7 +342,7 @@ const DEFAULT_STATE = {
   n5AcademyMastery:{}, academyTestBest:0, academyReviewDate:"", recentQuestionIds:[], onboardingComplete:false, placementResult:null, placementTestCompleted:false,
   gems:0, hearts:3, maxHearts:3, level:1, xp:0, streak:0, bestStreak:0, practiceStreak:0,
   hints:2, shields:1, active:null, answered:false, shieldArmed:false, lastPracticeDate:null,
-  kanaStats:{}, gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
+  kanaStats:{}, unlockedGemButtons:[], equippedGemButton:"Agate", gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
   heartRecoveryEnd:null, patreonHeartVideoReward:{lastClaimedAt:0,lastTier:0,claims:0}, ownedPickaxeSkins:["standard"], equippedPickaxeSkin:"standard", ownedWallpapers:["midnight"], equippedWallpaper:"midnight", ownedRockSkins:["slate"], equippedRockSkin:"slate", ownedMineWallpapers:["classic"], equippedMineWallpaper:"classic", placementUnlockedThrough:0, developerInfiniteHearts:false,
   selectedStage:0, jlptSectionSelection:{}, jlptVocabularyLevel:{}, jlptReviewCheckpoints:{}, soundEnabled:true, voiceEnabled:true, autoSpeak:true, voiceRate:.85, voiceGender:"female", voiceStyle:"natural", smartReview:true, sessionGoal:20, sessionAnswered:0, sessionCorrect:0, stageXp:[0,0,0,0,0,0,0], clearedStages:[], questionStats:{}, studyTimeByDate:{}, learningReport:{assessmentAttempts:[]}
 };
@@ -479,6 +479,8 @@ function normalizeState(raw){
   next.gemInventory=next.gemInventory||{};
   next.gemCheckpointClaims=next.gemCheckpointClaims&&typeof next.gemCheckpointClaims==="object"&&!Array.isArray(next.gemCheckpointClaims)?next.gemCheckpointClaims:{};
   next.gemUnlockRewards=next.gemUnlockRewards&&typeof next.gemUnlockRewards==="object"&&!Array.isArray(next.gemUnlockRewards)?next.gemUnlockRewards:{};
+  next.unlockedGemButtons=Array.isArray(next.unlockedGemButtons)?next.unlockedGemButtons.filter(name=>gemTiers.some(g=>g.name===name)):[];
+  next.equippedGemButton=gemTiers.some(g=>g.name===next.equippedGemButton)?next.equippedGemButton:"Agate";
   next.kanaTab=next.kanaTab||"hiragana";
   next.lastKana=next.lastKana||null;
   next.lastGem=next.lastGem||null;
@@ -626,6 +628,7 @@ window.languageMinerPushCloudSave=pushCloudSave;
 window.addEventListener("lm-course-settings-saved",()=>scheduleCloudSave());
 function save(){
   if(!activeProfileId) return;
+  syncGemButtonUnlocks();
   try{ localStorage.setItem(profileStorageKey(activeProfileId),JSON.stringify(state)); }
   catch(err){ console.error("Language Miner save failed",err); }
   scheduleCloudSave();
@@ -813,31 +816,8 @@ const PICKAXE_SKINS = [
   {id:"red-diamond", name:"Red Diamond Pickaxe", icon:"⛏️", cost:1500000000, desc:"The rarest and most luxurious current skin."}
 ];
 
-const ROCK_SKINS=[
-  {id:"slate",name:"Classic Slate",cost:0,desc:"The dependable original mine rock."},
-  {id:"gold-ore",name:"Gold Ore",cost:50000,desc:"Dark stone threaded with bright golden ore."},
-  {id:"amethyst-geode",name:"Amethyst Geode",cost:100000,desc:"A violet geode glowing from its crystal center."},
-  {id:"sakura-quartz",name:"Sakura Quartz",cost:150000,desc:"Rose quartz with soft cherry-blossom highlights."},
-  {id:"frost-crystal",name:"Frost Crystal",cost:250000,desc:"An icy mineral coated in frozen blue light."},
-  {id:"emerald-core",name:"Emerald Core",cost:400000,desc:"Deep green stone surrounding a luminous core."},
-  {id:"magma-rock",name:"Magma Rock",cost:650000,desc:"Volcanic stone split by flowing orange magma."},
-  {id:"galaxy-meteor",name:"Galaxy Meteorite",cost:1000000,desc:"A star-speckled meteorite from the deepest mine."},
-  {id:"gem-agate",name:"Agate Strata",cost:75000,desc:"Scientific Gem Collection · Warm, naturally banded Agate layers."},
-  {id:"gem-amethyst",name:"Amethyst Cluster",cost:125000,desc:"Scientific Gem Collection · A faceted violet Amethyst crystal cluster."},
-  {id:"gem-aquamarine",name:"Aquamarine Crystal",cost:200000,desc:"Scientific Gem Collection · Clear ocean-blue Aquamarine facets."},
-  {id:"gem-citrine",name:"Citrine Facet",cost:300000,desc:"Scientific Gem Collection · A brilliant golden-yellow Citrine cut."},
-  {id:"gem-emerald",name:"Emerald Matrix",cost:450000,desc:"Scientific Gem Collection · A deep green Emerald with geometric facets."},
-  {id:"gem-garnet",name:"Garnet Boulder",cost:650000,desc:"Scientific Gem Collection · A rich crimson Garnet with fiery depth."},
-  {id:"gem-opal",name:"Opal Moonstone",cost:900000,desc:"Scientific Gem Collection · Milky Opal filled with shifting rainbow fire."},
-  {id:"gem-peridot",name:"Peridot Shard",cost:1250000,desc:"Scientific Gem Collection · A bright olive-green Peridot crystal."},
-  {id:"gem-ruby",name:"Ruby Heartstone",cost:1750000,desc:"Scientific Gem Collection · A vivid red Ruby with a glowing inner heart."},
-  {id:"gem-sapphire",name:"Sapphire Shieldstone",cost:2500000,desc:"Scientific Gem Collection · A royal-blue Sapphire with shield-like facets."},
-  {id:"gem-topaz",name:"Topaz Prism",cost:3500000,desc:"Scientific Gem Collection · A fiery orange Topaz prism."},
-  {id:"gem-alexandrite",name:"Alexandrite Orb",cost:5000000,desc:"Scientific Gem Collection · Color-shifting Alexandrite in violet and teal."},
-  {id:"gem-paraiba",name:"Paraíba Tourmaline",cost:6500000,desc:"Scientific Gem Collection · Electric turquoise Paraíba Tourmaline crystals."},
-  {id:"gem-jadeite",name:"Jadeite Carving",cost:8000000,desc:"Scientific Gem Collection · Smooth imperial-green Jadeite with carved swirls."},
-  {id:"gem-red-diamond",name:"Red Diamond Core",cost:10000000,desc:"Scientific Gem Collection · The rarest scarlet diamond in the mine."}
-];
+// Legacy ownership remains in saves; the retired rock catalog is no longer offered.
+const ROCK_SKINS=[];
 
 const MINE_WALLPAPERS=[
   {id:"classic",name:"Original Slate Mine",cost:0,desc:"The familiar blue-slate mine with its original arch, tunnel, lantern, and crystals.",preview:"radial-gradient(ellipse at 50% 48%,#264f5f 0 10%,#172f42 42%,#080d19 76%)"},
@@ -1321,10 +1301,47 @@ function requestPickaxePurchase(skin,source){
   return buyPickaxe(skin.id);
 }
 
-function activeRockSkin(){return ROCK_SKINS.find(item=>item.id===state.equippedRockSkin)||ROCK_SKINS[0];}
+
+function syncGemButtonUnlocks(){
+  const owned=new Set(Array.isArray(state.unlockedGemButtons)?state.unlockedGemButtons:[]);
+  gemTiers.forEach(g=>{if(g.minStage===0||isStageUnlocked(g.minStage)||Number(state.gemInventory?.[g.name])>0||state.gemUnlockRewards?.[g.name]||gemCheckpointClaimed(gemCheckpointDrop(g.name)))owned.add(g.name);});
+  state.unlockedGemButtons=gemTiers.filter(g=>owned.has(g.name)).map(g=>g.name);
+  if(!state.unlockedGemButtons.includes(state.equippedGemButton))state.equippedGemButton='Agate';
+}
+function equipGemButton(name){
+  syncGemButtonUnlocks();
+  if(!state.unlockedGemButtons.includes(name))return false;
+  state.equippedGemButton=name;applyGemButton();save();
+  if(document.getElementById('shopOverlay')?.classList.contains('open'))renderShop();
+  return true;
+}
+function applyGemButton(){
+  syncGemButtonUnlocks();
+  const button=document.getElementById('quickMineBtn');if(!button||!window.LanguageMinerGemButtons)return;
+  button.classList.add('gem-question-button');
+  if(button.dataset.gem!==state.equippedGemButton){
+    [...button.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.remove());
+    button.querySelector('.question-gem-art')?.remove();
+    button.insertAdjacentHTML('afterbegin',window.LanguageMinerGemButtons.art(gemTiers.findIndex(g=>g.name===state.equippedGemButton),'question-gem-art'));
+    button.dataset.gem=state.equippedGemButton;
+    button.title=state.equippedGemButton+' · Start or return to your question';
+  }
+}
+function renderGemButtonChoices(grid){
+  if(!grid)return;syncGemButtonUnlocks();grid.innerHTML='';
+  gemTiers.forEach((gem,index)=>{
+    const unlocked=state.unlockedGemButtons.includes(gem.name),equipped=state.equippedGemButton===gem.name;
+    const card=document.createElement('article');card.className='cosmetic-card gem-button-card'+(equipped?' equipped':'')+(unlocked?'':' locked');
+    card.innerHTML=window.LanguageMinerGemButtons.art(index,'gem-style-preview')+`<h3>${gem.name}</h3><p>${unlocked?'Permanently unlocked · Free':`Unlock ${stages[gem.minStage]?.label||'the next mine'} to use this gem.`}</p><button type="button" data-equip-gem="${index}" ${!unlocked||equipped?'disabled':''}>${equipped?'Equipped':unlocked?'Use gem':'Locked'}</button>`;
+    card.querySelector('button').onclick=()=>equipGemButton(gem.name);grid.append(card);
+  });
+}
+
+function activeRockSkin(){return {id:"slate",name:"Classic Slate"};}
 function activeMineWallpaper(){return MINE_WALLPAPERS.find(item=>item.id===state.equippedMineWallpaper)||MINE_WALLPAPERS[0];}
 function applyMineCosmetics(){
-  const supporter=(window.japaneseMinerSupporterTier?.()||0)>=1,rock=document.getElementById('rock'),mine=document.querySelector('.mine'),rockSkin=supporter?activeRockSkin():ROCK_SKINS[0],wallpaper=supporter?activeMineWallpaper():MINE_WALLPAPERS[0],pickaxe=activePickaxeSkin();
+  applyGemButton();
+  const supporter=(window.japaneseMinerSupporterTier?.()||0)>=1,rock=document.getElementById('rock'),mine=document.querySelector('.mine'),rockSkin=activeRockSkin(),wallpaper=supporter?activeMineWallpaper():MINE_WALLPAPERS[0],pickaxe=activePickaxeSkin();
   if(rock){rock.dataset.rockSkin=rockSkin.id;rock.title=`Mine ${rockSkin.name} with ${pickaxe.name}`;}
   // Retain the saved ownership IDs while moving this collection to the menu.
   if(mine)mine.dataset.mineWallpaper='classic';
@@ -2000,7 +2017,7 @@ function resetEconomyAndInventory(targetState=state){
   resetStateFields(["gems","gemInventory","gemCheckpointClaims","gemUnlockRewards","lastGem","stoneCurrencyMigrated","hearts","maxHearts","heartRecoveryEnd","patreonHeartVideoReward","hints","shields","shieldArmed"],targetState);
 }
 function resetCosmeticsAndCompanions(targetState=state){
-  resetStateFields(["ownedPickaxeSkins","equippedPickaxeSkin","ownedWallpapers","equippedWallpaper","ownedRockSkins","equippedRockSkin","ownedMineWallpapers","equippedMineWallpaper","colorTheme","character","ownedCosmetics","selectedTitle"],targetState);
+  resetStateFields(["ownedPickaxeSkins","equippedPickaxeSkin","ownedWallpapers","equippedWallpaper","ownedRockSkins","equippedRockSkin","equippedGemButton","ownedMineWallpapers","equippedMineWallpaper","colorTheme","character","ownedCosmetics","selectedTitle"],targetState);
   if(targetState===state){window.japaneseMinerV5Admin?.resetCosmetics?.();window.japaneseMinerV38Admin?.resetCosmetics?.();}
   else{const v=targetState.v5&&typeof targetState.v5==="object"?targetState.v5:(targetState.v5={});v.ownedCompanions=["none"];v.companion="none";v.ownedFashion=["jacket:none","gloves:none","shoes:boots"];v.fashion={jacket:"none",gloves:"none",shoes:"boots"};v.ownedHolidaySpecials=[];v.holidaySpecial="none";v.buildings={forge:0,library:0,garden:0,museum:0,home:0};}
 }
@@ -2858,9 +2875,9 @@ function renderShop(){
   const grid=document.getElementById('menuPickaxeShop');
   PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id;const card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});grid.appendChild(card);});
  }else if(activeShopTab==='mine-cosmetics'){
-  box.innerHTML='<div class="shop-section-heading"><span>Mine customization</span><h3>Rock skins</h3><p>Change the rock you tap without changing your equipped pickaxe. Purchased skins stay owned permanently.</p></div><div class="cosmetic-grid" id="rockSkinShop"></div><div class="shop-section-heading"><span>Menu scenery</span><h3>Menu wallpapers</h3><p>Change the Game Menu background. This is separate from the full-page wallpaper setting.</p></div><div class="cosmetic-grid" id="mineWallpaperShop"></div>';
+  box.innerHTML='<div class="shop-section-heading"><span>Mine customization</span><h3>Gem buttons</h3><p>Choose a Scientific Gem Collection shape for your question button. Free as you unlock each gem.</p></div><div class="cosmetic-grid" id="rockSkinShop"></div><div class="shop-section-heading"><span>Menu scenery</span><h3>Menu wallpapers</h3><p>Change the Game Menu background. This is separate from the full-page wallpaper setting.</p></div><div class="cosmetic-grid" id="mineWallpaperShop"></div>';
   const rockGrid=document.getElementById('rockSkinShop');
-  ROCK_SKINS.forEach(item=>{const owned=state.ownedRockSkins.includes(item.id),equipped=state.equippedRockSkin===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-cosmetic-preview"><span class="shop-rock-sample" data-rock-skin="${item.id}"><i>⛏️</i></span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('rock',item));rockGrid.appendChild(card);});
+  renderGemButtonChoices(rockGrid);
   const wallpaperGrid=document.getElementById('mineWallpaperShop');
   MINE_WALLPAPERS.forEach(item=>{const owned=state.ownedMineWallpapers.includes(item.id),equipped=state.equippedMineWallpaper===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-wallpaper-shop-preview" data-preview-mine-wallpaper="${item.id}" style="background:${item.preview}"><span class="menu-wallpaper-preview-label">Game Menu</span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('wallpaper',item));wallpaperGrid.appendChild(card);});
  }else if(activeShopTab==='wallpapers'){
@@ -2886,15 +2903,16 @@ renderShop=function(){
   if((window.japaneseMinerSupporterTier?.()||0)<1){
     const original=WALLPAPERS.find(w=>w.id==='midnight');
     const equipped=state.equippedWallpaper==='midnight'&&state.colorTheme==='midnight';
-    box.innerHTML=`<section><h3>Wallpapers</h3><div class="cosmetic-grid"><article class="cosmetic-card${equipped?' equipped':''}"><div class="wallpaper-preview" style="background:${original.preview};background-size:cover"></div><h3>${original.name}</h3><p>${original.desc}</p><button type="button" id="freeOriginalWallpaperBtn" ${equipped?'disabled':''}>${equipped?'Equipped':'Use free wallpaper'}</button></article></div></section>${window.japaneseMinerSupporterGate?.(1,'Additional Mine Cosmetics')||''}`;
+    box.innerHTML=`<section><h3>Gem buttons</h3><p>Free styles from your Scientific Gem Collection. Choose the shape of your question button.</p><div class="cosmetic-grid" id="rockSkinShop"></div></section><section><h3>Wallpapers</h3><div class="cosmetic-grid"><article class="cosmetic-card${equipped?' equipped':''}"><div class="wallpaper-preview" style="background:${original.preview};background-size:cover"></div><h3>${original.name}</h3><p>${original.desc}</p><button type="button" id="freeOriginalWallpaperBtn" ${equipped?'disabled':''}>${equipped?'Equipped':'Use free wallpaper'}</button></article></div></section>${window.japaneseMinerSupporterGate?.(1,'Additional Mine Cosmetics')||''}`;
+    renderGemButtonChoices(document.getElementById('rockSkinShop'));
     document.getElementById('freeOriginalWallpaperBtn').addEventListener('click',()=>{state.colorTheme='midnight';state.equippedWallpaper='midnight';applyWallpaper();save();render();renderShop();setMessage('Crystal Falls Adventure wallpaper equipped.','correct');});
     return;
   }
   const openAttribute=id=>mineCosmeticOpenSections.has(id)?' open':'';
   box.innerHTML=`
-    <section class="mine-cosmetic-hub-intro"><span>PATREON TIER 1 COLLECTION</span><h3>🪨 Mine Cosmetics</h3><p>Open a pull-down collection to preview, purchase, and equip permanent mine appearances.</p></section>
+    <section class="mine-cosmetic-hub-intro"><span>PATREON TIER 1 COLLECTION</span><h3>🪨 Mine Cosmetics</h3><p>Gem buttons unlock free with your collection. Open the other collections to preview and equip cosmetics.</p></section>
     <div class="mine-cosmetic-accordions">
-      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="rock-skins"${openAttribute('rock-skins')}><summary><span>🪨</span><strong>Rock skins</strong><small>${ROCK_SKINS.length} permanent skins</small></summary><div class="mine-cosmetic-accordion-body"><p>Change the rock you tap without changing your equipped pickaxe.</p><div class="cosmetic-grid" id="rockSkinShop"></div></div></details>
+      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="rock-skins"${openAttribute('rock-skins')}><summary><span>💎</span><strong>Gem buttons</strong><small>${gemTiers.length} collectible styles</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose the gem for your Return to Question button. Unlocked styles stay available after you spend gems.</p><div class="cosmetic-grid" id="rockSkinShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="mine-wallpapers"${openAttribute('mine-wallpapers')}><summary><span>🖼️</span><strong>Menu wallpapers</strong><small>${MINE_WALLPAPERS.length} menu backgrounds</small></summary><div class="mine-cosmetic-accordion-body"><p>Change the Game Menu background. Your full-page wallpaper stays separate.</p><div class="cosmetic-grid" id="mineWallpaperShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="pickaxe-skins"${openAttribute('pickaxe-skins')}><summary><span>⛏️</span><strong>Pickaxe skins</strong><small>${PICKAXE_SKINS.length} permanent skins</small></summary><div class="mine-cosmetic-accordion-body"><p>Preview a pickaxe, check its Nugget price, and permanently equip owned skins.</p><div class="cosmetic-grid" id="menuPickaxeShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="wallpapers"${openAttribute('wallpapers')}><summary><span>🌌</span><strong>Wallpapers</strong><small>${WALLPAPERS.length} full-page wallpapers</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose your background, including the free original Crystal Falls Adventure wallpaper.</p><div class="theme-choice-grid wallpaper-theme-grid" id="wallpaperThemeShop"></div><div class="cosmetic-grid" id="wallpaperShop"></div></div></details>
@@ -2902,7 +2920,7 @@ renderShop=function(){
   box.querySelectorAll('[data-mine-cosmetic-section]').forEach(section=>section.addEventListener('toggle',()=>{if(section.open)mineCosmeticOpenSections.add(section.dataset.mineCosmeticSection);else mineCosmeticOpenSections.delete(section.dataset.mineCosmeticSection);}));
 
   const rockGrid=document.getElementById('rockSkinShop');
-  ROCK_SKINS.forEach(item=>{const owned=state.ownedRockSkins.includes(item.id),equipped=state.equippedRockSkin===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-cosmetic-preview"><span class="shop-rock-sample" data-rock-skin="${item.id}"><i>⛏️</i></span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('rock',item));rockGrid.appendChild(card);});
+  renderGemButtonChoices(rockGrid);
 
   const mineWallpaperGrid=document.getElementById('mineWallpaperShop');
   MINE_WALLPAPERS.forEach(item=>{const owned=state.ownedMineWallpapers.includes(item.id),equipped=state.equippedMineWallpaper===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-wallpaper-shop-preview" data-preview-mine-wallpaper="${item.id}" style="background:${item.preview}"><span class="menu-wallpaper-preview-label">Game Menu</span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('wallpaper',item));mineWallpaperGrid.appendChild(card);});

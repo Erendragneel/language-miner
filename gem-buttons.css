@@ -1,0 +1,11 @@
+/* A real collection specimen is the button; the caption stays readable below it. */
+body.adventure-signed-in #quickMineBtn.gem-question-button,#quickMineBtn.gem-question-button{width:152px;min-height:0;height:auto;display:flex;flex-direction:column;gap:3px;padding:5px 0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;overflow:visible;color:#fff!important;isolation:isolate}
+.gem-question-button .question-gem-art{display:block;width:78px;height:88px;overflow:visible;filter:drop-shadow(0 3px 5px #0009);transition:transform .15s ease}
+.gem-question-button:hover .question-gem-art{transform:translateY(-3px)}
+.gem-question-button:focus-visible{outline:3px solid #7ff5e1!important;outline-offset:4px;border-radius:12px!important}
+.gem-question-button #quickMineLabel{display:block;padding:6px 10px;border:1px solid #87cbd4;border-radius:10px;background:#102f3ef2;color:#fff;font-size:12px;line-height:1.25;white-space:normal;text-align:center;text-shadow:none}
+.gem-style-preview{display:block;width:100%;height:120px;margin:14px auto;filter:drop-shadow(0 5px 8px #0006)}
+.gem-button-card.locked .gem-style-preview{filter:grayscale(.85);opacity:.55}
+.gem-button-card h3{margin-top:8px}
+@media(max-width:700px){body.adventure-signed-in #quickMineBtn.gem-question-button{width:116px;bottom:calc(82px + env(safe-area-inset-bottom,0px))!important}.gem-question-button .question-gem-art{width:55px;height:61px}.gem-question-button #quickMineLabel{font-size:11px;padding:5px 8px}body.pocket-question-visible #quickMineBtn.gem-question-button{display:none!important}}
+@media(prefers-reduced-motion:reduce){.gem-question-button .question-gem-art{transition:none}}

@@ -588,9 +588,10 @@ const renderPurchasedInventoryV64104=renderPurchasedInventory;
 renderPurchasedInventory=function(){
  renderPurchasedInventoryV64104();
  const box=document.getElementById('purchasedInventory');if(!box||box.querySelector('[data-mine-cosmetic-inventory]'))return;
- const rockItems=(state.ownedRockSkins||[]).map(id=>{const item=ROCK_SKINS.find(entry=>entry.id===id);return item?inventoryItem('🪨',item.name,state.equippedRockSkin===id?'Equipped rock':'Owned'):'';}).filter(Boolean);
+ syncGemButtonUnlocks();
+ const rockItems=state.unlockedGemButtons.map(name=>inventoryItem('💎',name,state.equippedGemButton===name?'Equipped question button':'Unlocked'));
  const mineItems=(state.ownedMineWallpapers||[]).map(id=>{const item=MINE_WALLPAPERS.find(entry=>entry.id===id);return item?inventoryItem('⛏️',item.name,state.equippedMineWallpaper===id?'In use':'Owned'):'';}).filter(Boolean);
- box.insertAdjacentHTML('beforeend',`<div data-mine-cosmetic-inventory>${inventoryCategory('🪨','Rock skins',rockItems)}${inventoryCategory('🕳️','Menu wallpapers',mineItems)}</div>`);
+ box.insertAdjacentHTML('beforeend',`<div data-mine-cosmetic-inventory>${inventoryCategory('💎','Gem buttons',rockItems)}${inventoryCategory('🕳️','Menu wallpapers',mineItems)}</div>`);
  box.querySelectorAll('.owned-inventory-heading').forEach(button=>button.onclick=()=>{const category=button.closest('.owned-inventory-category'),collapsed=category.classList.toggle('collapsed');button.setAttribute('aria-expanded',String(!collapsed));});
 };
 })();
