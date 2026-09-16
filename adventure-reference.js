@@ -9,6 +9,16 @@
    const target=document.querySelector(selector);if(target&&!target.disabled)target.click();
   },120);
  }
+
+ // Visible wallet and the existing customized profile control.
+ const statusStrip=document.createElement('div');statusStrip.className='adventure-status-strip';
+ statusStrip.innerHTML='<div class="adventure-wallet" title="Your available Nuggets"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffbd3b" d="m3 9 6-7 9 2 4 10-8 8-10-5Z"/><path fill="#ffe5a2" d="m3 9 6-7 3 9-8 6Z"/><path fill="#ffda67" d="m9 2 9 2-6 7Z"/><path fill="#dc8b18" d="m12 11 10 3-8 8Z"/></svg><span id="adventureNuggets">0</span></div>';
+ document.querySelector('.app>header').append(statusStrip);
+ const walletSource=document.getElementById('stoneWealth');
+ function syncWallet(){const amount=walletSource?.textContent?.trim()||'0';const target=document.getElementById('adventureNuggets');if(target.textContent!==amount)target.textContent=amount;statusStrip.querySelector('.adventure-wallet').setAttribute('aria-label',amount+' Nuggets');const avatar=document.getElementById('headerCharacterAvatar');if(avatar&&avatar.parentElement!==statusStrip)statusStrip.append(avatar);statusStrip.hidden=!window.japaneseMinerActiveProfile?.();}
+ if(walletSource)new MutationObserver(syncWallet).observe(walletSource,{childList:true,characterData:true,subtree:true});
+ window.addEventListener('jm-profile-loaded',syncWallet);window.addEventListener('jm-profile-logged-out',syncWallet);syncWallet();setInterval(syncWallet,1500);
+
  // Extend the existing navigation without replacing any account or game state.
  const sidebar=document.querySelector('.adventure-today');
  sidebar.innerHTML='<h2>Today</h2><div id="adventureMetrics"></div><section class="adventure-next"><h3>Your next stop</h3><button type="button" data-reference="next" class="adventure-trail"><img src="lesson-trail-v1.png" alt="A lantern-lit trail through the crystal mine"><span id="adventureTrailSign" aria-hidden="true">Lesson Trail</span><strong id="adventureNextName">Explore your course</strong><span aria-hidden="true">›</span></button><p id="adventureNextDetail"></p></section><section class="adventure-guide"><img src="gnome-guide-v1.png" alt="Kōji, your friendly lantern-carrying gnome guide"><div><p>Questions?<br>I’m here to help!</p><button type="button" data-adventure="guide">Ask your guide</button></div></section><button type="button" data-adventure="progress" class="adventure-progress-link">View my progress →</button>';

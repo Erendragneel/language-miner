@@ -84,3 +84,14 @@ body:not(.adventure-signed-in) .adventure-reference-shortcuts,body:not(.adventur
 .adventure-mobile .adventure-icon{width:24px;height:24px}
 .adventure-reference-shortcuts button{display:inline-flex;align-items:center;gap:7px}
 .adventure-reference-shortcuts .adventure-icon{width:17px;height:17px}
+
+/* Reference wallet/profile strip and compact daily summary. */
+.adventure-status-strip{position:fixed;top:0;right:0;width:260px;height:60px;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#10222ef5;z-index:31;border-bottom:1px solid #66839055}
+.adventure-status-strip[hidden]{display:none}.adventure-wallet{display:flex;align-items:center;gap:7px;color:#f4cd83;font-size:14px;font-variant-numeric:tabular-nums;min-width:0}.adventure-wallet svg{width:21px;height:21px;flex:none}.adventure-wallet span{overflow-wrap:anywhere}
+.adventure-status-strip #headerCharacterAvatar{display:block!important;flex:none;width:34px!important;height:34px!important;min-height:0!important;padding:0!important;border:1px solid #b7d8df!important;border-radius:50%!important;overflow:hidden;background:#78a5b5!important}
+.adventure-status-strip #headerCharacterAvatar img{display:block;width:100%;height:100%;object-fit:cover}
+#adventureMetrics p{display:flex;align-items:center;gap:9px!important;margin:12px 0;font-size:13px!important}#adventureMetrics b{min-width:0!important;font:inherit!important;color:#dfedf0}#adventureMetrics p::before{content:'';display:block;width:19px;height:19px;flex:none;background:currentColor;color:#b4cfd8;mask:center/contain no-repeat var(--metric-icon)}
+#adventureMetrics p:nth-child(1){--metric-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M12 5v7l5 3' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E")}
+#adventureMetrics p:nth-child(2){--metric-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 4Q7 2 11 5v15q-5-3-9-1Zm20 0q-5-2-9 1v15q5-3 9-1Z'/%3E%3C/svg%3E")}
+#adventureMetrics p:nth-child(3)::before{content:'🔥';background:none;mask:none;font-size:19px;line-height:19px}
+@media(max-width:1150px){.adventure-status-strip{position:static;width:auto;min-width:110px;height:auto;background:transparent;border:0;padding:0;flex:none}.app>header{flex-wrap:wrap!important}.adventure-status-strip{margin-left:auto}}
