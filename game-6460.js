@@ -1685,7 +1685,7 @@ function showQuestion(q){
 }
 
 function quizOptionsForDifficulty(options,answer){
-  const values=[...new Set((Array.isArray(options)?options:[]).map(value=>String(value)))],correct=String(answer??''),wrong=shuffle(values.filter(value=>value!==correct)),limit=state.quizDifficulty==='hard'?4:3;
+  const values=[...new Set((Array.isArray(options)?options:[]).map(value=>String(value)))],correct=String(answer??''),wrong=shuffle(values.filter(value=>value!==correct)),limit=4;
   return shuffle([correct,...wrong.slice(0,Math.max(1,limit-1))].filter(Boolean));
 }
 
@@ -3887,7 +3887,15 @@ function kanaFamilyMastery(family){if(!family.entries.length)return 0;return Mat
 function kanaFamilyUnlocked(stage,index){if(index===0)return true;if(completedJapaneseMine(stage)||Number(state.placementUnlockedThrough||0)>Number(stage))return true;const families=kanaFamiliesForStage(stage);return kanaFamilyMastery(families[index-1])>=KANA_FAMILY_UNLOCK_MASTERY;}
 function highestUnlockedKanaFamily(stage){const families=kanaFamiliesForStage(stage);let highest=0;for(let i=1;i<families.length;i++){if(kanaFamilyUnlocked(stage,i))highest=i;else break;}return highest;}
 function currentKanaFamily(stage=selectedStageIndex()){ensureKanaFamilyState();const kind=kanaKindForStage(stage),highest=highestUnlockedKanaFamily(stage);state.kanaFamilyLevel[kind]=Math.min(highest,Math.max(0,Number(state.kanaFamilyLevel[kind])||0));return kanaFamiliesForStage(stage)[state.kanaFamilyLevel[kind]];}
-function prepareKanaFamilyQuestion(question,family){if(!question)return question;const isCharacterAnswer=family.entries.some(([ch])=>ch===question.a);const values=family.entries.map(row=>row[isCharacterAnswer?0:1]);const options=shuffle([question.a,...shuffle(values.filter(value=>value!==question.a)).slice(0,3)]);return {...question,opts:[...new Set(options)]};}
+function prepareKanaFamilyQuestion(question,family){
+  if(!question)return question;
+  const set=kanaSetForStage(question.stage),column=set.some(([ch])=>ch===question.a)?0:1;
+  const familyValues=[...new Set(family.entries.map(row=>row[column]))].filter(value=>value!==question.a);
+  const wrong=shuffle(familyValues).slice(0,3);
+  // Short families (such as ya/yu/yo or n) still need three distinct alternatives.
+  for(const value of shuffle([...new Set(set.map(row=>row[column]))])){if(wrong.length===3)break;if(value!==question.a&&!wrong.includes(value))wrong.push(value);}
+  return {...question,opts:shuffle([question.a,...wrong])};
+}
 function validKanaQuestionForSelection(question){const stage=selectedStageIndex();if(question?.smartReview===true)return true;if(stage>1)return !question||Number(question.stage)===stage;if(!question||Number(question.stage)!==stage)return false;const kana=kanaFromQuestion(question),boss=state.v5?.boss;if(boss?.status==='active'&&Number(question.bossCourseStage)===Number(boss.stage)&&Number(boss.stage)===stage)return !!kana&&kanaSetForStage(stage).some(([character])=>character===kana);return !!kana&&currentKanaFamily(stage).chars.includes(kana);}
 function repairActiveKanaQuestion(){if(!state.active)return false;if(validKanaQuestionForSelection(state.active))return false;state.active=null;state.answered=false;state.shieldArmed=false;const area=document.getElementById('challengeArea');if(area)area.innerHTML='<div class="empty">Choose a kana family, then tap the rock for an alphabet-only question.</div>';return true;}
 function selectKanaFamily(stage,index){stage=Number(stage);index=Number(index);if(stage!==selectedStageIndex()||stage>1||!kanaFamilyUnlocked(stage,index))return;ensureKanaFamilyState();state.kanaFamilyLevel[kanaKindForStage(stage)]=index;state.active=null;state.answered=false;state.shieldArmed=false;state.recentQuestionIds=[];const family=currentKanaFamily(stage);const area=document.getElementById('challengeArea');if(area)area.innerHTML=`<div class="empty"><strong>${family.name}</strong><br>${family.entries.map(([ch,rom])=>`${ch} (${rom})`).join(' · ')}<br>Tap the rock to begin.</div>`;save();render();setMessage(`${family.name} selected. Questions will use only ${family.entries.map(([ch])=>ch).join('、')}.`,'correct');}

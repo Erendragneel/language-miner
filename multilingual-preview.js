@@ -581,20 +581,20 @@
   function makeAlphabetQuestion(lesson=selectedCourseLesson){
     const system=ALPHABET_SYSTEMS[learning],units=courseSectionLessons('alphabet',selectedCourseMine)[Number(lesson)]||system.units,previous=activePreviewQuestion?.unit?.symbol,progress=languageProgress();
     const minimumMastery=Math.min(...units.map(item=>courseMasteryValue('alphabet',item,progress))),leastPracticed=units.filter(item=>courseMasteryValue('alphabet',item,progress)===minimumMastery),freshLeastPracticed=leastPracticed.filter(item=>item.symbol!==previous),voiceAvailability=targetVoiceAvailability(),audioReady=voiceAvailability.status==='ready';
-    const optionLimit=window.japaneseMinerQuizDifficulty?.()==='hard'?4:3,unit=shuffled(freshLeastPracticed.length?freshLeastPracticed:leastPracticed)[0]||units[0],options=[unit.symbol];
+    const optionLimit=4,unit=shuffled(freshLeastPracticed.length?freshLeastPracticed:leastPracticed)[0]||units[0],options=[unit.symbol];
     for(const item of shuffled(units.length>=optionLimit?units:system.units)){if(!options.includes(item.symbol))options.push(item.symbol);if(options.length===optionLimit)break;}
     return {mode:'alphabet',sourceSection:'alphabet',promptKind:audioReady?'audio-recognition':'visual-recognition',voiceStatus:voiceAvailability.status,item:unit,unit,answer:unit.symbol,label:unit.name,spoken:unit.spoken,options:shuffled(options)};
   }
   function makeMeaningQuestion(section,lesson=selectedCourseLesson){
     const sourceSection=section==='boss'?shuffled(['vocabulary','grammar','sentences'])[0]:section;
     const lessons=courseSectionLessons(sourceSection,selectedCourseMine),items=section==='boss'?lessons.flat():lessons[Number(lesson)]||[],previous=activePreviewQuestion?.item?.id;
-    const optionLimit=window.japaneseMinerQuizDifficulty?.()==='hard'?4:3,item=shuffled(items.filter(candidate=>candidate.id!==previous))[0]||items[0],answer=item?.forms?.[learning],meaning=item?.forms?.[known],options=[answer];
+    const optionLimit=4,item=shuffled(items.filter(candidate=>candidate.id!==previous))[0]||items[0],answer=item?.forms?.[learning],meaning=item?.forms?.[known],options=[answer];
     for(const candidate of shuffled(items)){const value=candidate.forms?.[learning];if(value&&!options.includes(value))options.push(value);if(options.length===optionLimit)break;}
     if(options.length<optionLimit){for(const candidate of shuffled(lessons.flat())){const value=candidate.forms?.[learning];if(value&&!options.includes(value))options.push(value);if(options.length===optionLimit)break;}}
     return {mode:section,sourceSection,item,answer,meaning,label:meaning,spoken:answer,options:shuffled(options)};
   }
   function courseBossOptions(answer,values){
-    const optionLimit=window.japaneseMinerQuizDifficulty?.()==='hard'?4:3,options=[String(answer)];
+    const optionLimit=4,options=[String(answer)];
     for(const value of shuffled(values)){const text=String(value??'');if(text&&!options.includes(text))options.push(text);if(options.length===optionLimit)break;}
     return shuffled(options);
   }
