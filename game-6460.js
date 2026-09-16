@@ -495,7 +495,16 @@ function normalizeState(raw){
   if(!next.ownedPickaxeSkins.includes(next.equippedPickaxeSkin)) next.equippedPickaxeSkin="standard";
   next.ownedWallpapers=Array.isArray(next.ownedWallpapers)?next.ownedWallpapers:["midnight"];
   if(!next.ownedWallpapers.includes("midnight"))next.ownedWallpapers.unshift("midnight");
-  const validWallpaperIds=["scene-classic", "scene-sakura-grotto", "scene-crystal-cathedral", "scene-bamboo-tunnel", "scene-sunken-mine", "scene-magma-forge", "scene-aurora-cavern", "scene-galaxy-depths", "scene-art-azure-passage", "scene-art-amethyst-dream", "scene-art-moonlit-ice", "scene-art-sapphire-river", "scene-art-emerald-moss", "scene-art-rose-quartz", "scene-art-golden-topaz", "scene-art-ruby-forge", "scene-art-aurora-prism", "scene-art-celestial-galaxy", "scene-art-opal-hollow", "scene-art-ancient-lantern"] .concat(["midnight","sakura","bamboo","sunrise","crystal","paper","galaxy","emoji","inferno","aurora","ocean","confetti","moonstone-cathedral","amethyst-crown","emerald-geode","sapphire-ice","sunstone-ember"]);
+  if(!next.wallpaperPurposeSwap227){
+    const oldPage=next.ownedWallpapers||[],oldMenu=next.ownedMineWallpapers||['classic'];
+    next.ownedWallpapers=[...new Set([...oldPage,...oldMenu.map(id=>'color-'+id)])];
+    next.ownedMineWallpapers=[...new Set([...oldMenu,...oldPage.filter(id=>id!=='midnight').map(id=>'menu-'+id)])];
+    const selectedPage=next.equippedWallpaper,selectedMenu=next.equippedMineWallpaper;
+    next.equippedWallpaper=selectedMenu?'color-'+selectedMenu:'midnight';
+    next.equippedMineWallpaper=selectedPage&&selectedPage!=='midnight'?'menu-'+selectedPage:'classic';
+    next.wallpaperPurposeSwap227=true;
+  }
+  const validWallpaperIds=["midnight", "color-classic", "color-sakura-grotto", "color-crystal-cathedral", "color-bamboo-tunnel", "color-sunken-mine", "color-magma-forge", "color-aurora-cavern", "color-galaxy-depths", "color-art-azure-passage", "color-art-amethyst-dream", "color-art-moonlit-ice", "color-art-sapphire-river", "color-art-emerald-moss", "color-art-rose-quartz", "color-art-golden-topaz", "color-art-ruby-forge", "color-art-aurora-prism", "color-art-celestial-galaxy", "color-art-opal-hollow", "color-art-ancient-lantern"];
   if(!next.illustratedWallpaperOwnershipMigrated){
     for(const id of (next.ownedMineWallpapers||['classic'])){const scene='scene-'+id;if(validWallpaperIds.includes(scene)&&!next.ownedWallpapers.includes(scene))next.ownedWallpapers.push(scene);}
     next.illustratedWallpaperOwnershipMigrated=true;
@@ -509,7 +518,7 @@ function normalizeState(raw){
   if(!next.ownedRockSkins.includes(next.equippedRockSkin))next.equippedRockSkin="slate";
   next.ownedMineWallpapers=Array.isArray(next.ownedMineWallpapers)?next.ownedMineWallpapers:["classic"];
   if(!next.ownedMineWallpapers.includes("classic"))next.ownedMineWallpapers.unshift("classic");
-  const validMineWallpaperIds=["classic","sakura-grotto","crystal-cathedral","bamboo-tunnel","sunken-mine","magma-forge","aurora-cavern","galaxy-depths","art-azure-passage","art-amethyst-dream","art-moonlit-ice","art-sapphire-river","art-emerald-moss","art-rose-quartz","art-golden-topaz","art-ruby-forge","art-aurora-prism","art-celestial-galaxy","art-opal-hollow","art-ancient-lantern"];
+  const validMineWallpaperIds=["classic", "menu-moonstone-cathedral", "menu-amethyst-crown", "menu-emerald-geode", "menu-sapphire-ice", "menu-sunstone-ember", "menu-scene-classic", "menu-scene-sakura-grotto", "menu-scene-crystal-cathedral", "menu-scene-bamboo-tunnel", "menu-scene-sunken-mine", "menu-scene-magma-forge", "menu-scene-aurora-cavern", "menu-scene-galaxy-depths", "menu-scene-art-azure-passage", "menu-scene-art-amethyst-dream", "menu-scene-art-moonlit-ice", "menu-scene-art-sapphire-river", "menu-scene-art-emerald-moss", "menu-scene-art-rose-quartz", "menu-scene-art-golden-topaz", "menu-scene-art-ruby-forge", "menu-scene-art-aurora-prism", "menu-scene-art-celestial-galaxy", "menu-scene-art-opal-hollow", "menu-scene-art-ancient-lantern"];
   next.equippedMineWallpaper=validMineWallpaperIds.includes(next.equippedMineWallpaper)?next.equippedMineWallpaper:"classic";
   if(!next.ownedMineWallpapers.includes(next.equippedMineWallpaper))next.equippedMineWallpaper="classic";
   next.placementUnlockedThrough=Math.max(0,Math.min(stages.length-1,Number(next.placementUnlockedThrough)||0));
@@ -832,137 +841,179 @@ const MINE_WALLPAPERS=[
     "preview": "linear-gradient(135deg,#294555,#0a1423)"
   },
   {
-    "id": "sakura-grotto",
-    "name": "Amethyst Menu",
-    "cost": 100000,
-    "desc": "Amethyst color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#654081,#0a1423)"
+    "id": "menu-moonstone-cathedral",
+    "name": "Moonstone Cathedral",
+    "cost": 1000000,
+    "desc": "Towering white selenite and quartz lit by warm golden rays.",
+    "preview": "linear-gradient(#06091240,#06091270),url(wallpaper-moonstone-cathedral-v1.png)"
   },
   {
-    "id": "crystal-cathedral",
-    "name": "Sapphire Menu",
-    "cost": 200000,
-    "desc": "Sapphire color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#254e86,#0a1423)"
+    "id": "menu-amethyst-crown",
+    "name": "Amethyst Crown Cavern",
+    "cost": 1250000,
+    "desc": "A royal chamber of violet crystal spires and lavender light.",
+    "preview": "linear-gradient(#08041430,#08041468),url(wallpaper-amethyst-crown-v1.png)"
   },
   {
-    "id": "bamboo-tunnel",
-    "name": "Emerald Menu",
-    "cost": 350000,
-    "desc": "Emerald color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#245f48,#0a1423)"
-  },
-  {
-    "id": "sunken-mine",
-    "name": "Arctic Menu",
-    "cost": 550000,
-    "desc": "Arctic color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#36747f,#0a1423)"
-  },
-  {
-    "id": "magma-forge",
-    "name": "Ruby Menu",
-    "cost": 800000,
-    "desc": "Ruby color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#803744,#0a1423)"
-  },
-  {
-    "id": "aurora-cavern",
-    "name": "Amber Menu",
-    "cost": 1100000,
-    "desc": "Amber color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#815b29,#0a1423)"
-  },
-  {
-    "id": "galaxy-depths",
-    "name": "Rose Menu",
+    "id": "menu-emerald-geode",
+    "name": "Emerald Geode Sanctuary",
     "cost": 1500000,
-    "desc": "Rose color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#825169,#0a1423)"
+    "desc": "Ancient emerald columns glowing beneath a hidden forest cave.",
+    "preview": "linear-gradient(#03100b38,#03100b70),url(wallpaper-emerald-geode-v1.png)"
   },
   {
-    "id": "art-azure-passage",
-    "name": "Azure Menu",
+    "id": "menu-sapphire-ice",
+    "name": "Sapphire Ice Grotto",
+    "cost": 1750000,
+    "desc": "Frozen sapphire prisms reflected across a silent underground lake.",
+    "preview": "linear-gradient(#020a1830,#020a1868),url(wallpaper-sapphire-ice-v1.png)"
+  },
+  {
+    "id": "menu-sunstone-ember",
+    "name": "Sunstone Ember Vault",
     "cost": 2000000,
-    "desc": "Azure color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#256c91,#0a1423)"
+    "desc": "Amber and citrine blades burning brightly against black basalt.",
+    "preview": "linear-gradient(#12070238,#12070272),url(wallpaper-sunstone-ember-v1.png)"
   },
   {
-    "id": "art-amethyst-dream",
-    "name": "Violet Menu",
+    "id": "menu-scene-classic",
+    "name": "Slate Lantern Hall",
+    "cost": 0,
+    "desc": "A blue-slate mining hall framed by warm brass lanterns and quiet cyan crystals.",
+    "preview": "url(menu-wallpapers/classic-v2.webp)"
+  },
+  {
+    "id": "menu-scene-sakura-grotto",
+    "name": "Amethyst Lantern Grotto",
+    "cost": 100000,
+    "desc": "A cozy violet cave alcove with tall amethyst crystals, moss-softened steps and warm brass lamps along the side walls.",
+    "preview": "url(menu-wallpapers/sakura-grotto-v2.webp)"
+  },
+  {
+    "id": "menu-scene-crystal-cathedral",
+    "name": "Sapphire Arch Hall",
+    "cost": 200000,
+    "desc": "Majestic geometric cobalt crystal ribs forming a vaulted underground hall, cool blue pools and tiny gold lanterns at the side edges.",
+    "preview": "url(menu-wallpapers/crystal-cathedral-v2.webp)"
+  },
+  {
+    "id": "menu-scene-bamboo-tunnel",
+    "name": "Emerald Fern Refuge",
+    "cost": 350000,
+    "desc": "A lush green geode shelter with ferns, roots, emerald crystal shelves and an ancient wooden footbridge around a quiet stone floor.",
+    "preview": "url(menu-wallpapers/bamboo-tunnel-v2.webp)"
+  },
+  {
+    "id": "menu-scene-sunken-mine",
+    "name": "Arctic Crystal Cove",
+    "cost": 550000,
+    "desc": "Translucent turquoise ice and aquamarine columns framing a quiet frozen cavern pool, frosted stone and cool soft daylight.",
+    "preview": "url(menu-wallpapers/sunken-mine-v2.webp)"
+  },
+  {
+    "id": "menu-scene-magma-forge",
+    "name": "Ruby Ember Workshop",
+    "cost": 800000,
+    "desc": "Red garnet cavern with a cozy abandoned smithing nook, softly glowing ember channels at the edges and dark volcanic stone flooring, inviting rather than dangerous.",
+    "preview": "url(menu-wallpapers/magma-forge-v2.webp)"
+  },
+  {
+    "id": "menu-scene-aurora-cavern",
+    "name": "Amber Lantern Vault",
+    "cost": 1100000,
+    "desc": "Honey amber stalactites and warm golden topaz embedded in old mining timber, brass lanterns around a calm brown slate chamber.",
+    "preview": "url(menu-wallpapers/aurora-cavern-v2.webp)"
+  },
+  {
+    "id": "menu-scene-galaxy-depths",
+    "name": "Rose Quartz Retreat",
+    "cost": 1500000,
+    "desc": "Blush-pink crystal alcove, pale rose geode walls, a serene shallow pool and weathered stepping stones, soft warm peach lantern glow.",
+    "preview": "url(menu-wallpapers/galaxy-depths-v2.webp)"
+  },
+  {
+    "id": "menu-scene-art-azure-passage",
+    "name": "Azure Crystal Passage",
+    "cost": 2000000,
+    "desc": "A deep blue cave crossroads with cyan crystal clusters, a little wooden ore cart parked at far left and rails curving along the edge toward distant amber lamps.",
+    "preview": "url(menu-wallpapers/art-azure-passage-v2.webp)"
+  },
+  {
+    "id": "menu-scene-art-amethyst-dream",
+    "name": "Amethyst Dream Grotto",
     "cost": 2500000,
-    "desc": "Violet color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#614b96,#0a1423)"
+    "desc": "An ethereal violet geode with immense delicate crystal fans arching overhead, floating motes and a softly glowing amethyst waterfall at far right.",
+    "preview": "url(menu-wallpapers/art-amethyst-dream-v2.webp)"
   },
   {
-    "id": "art-moonlit-ice",
-    "name": "Moonlight Menu",
+    "id": "menu-scene-art-moonlit-ice",
+    "name": "Moonlit Ice Cathedral",
     "cost": 3000000,
-    "desc": "Moonlight color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#596b83,#0a1423)"
+    "desc": "Silver-blue cathedral-like natural ice cavern with moonbeams from a tiny upper opening, faceted frozen columns at edges and dark polished slate in center.",
+    "preview": "url(menu-wallpapers/art-moonlit-ice-v2.webp)"
   },
   {
-    "id": "art-sapphire-river",
-    "name": "Ocean Menu",
+    "id": "menu-scene-art-sapphire-river",
+    "name": "Sapphire River Tunnel",
     "cost": 3500000,
-    "desc": "Ocean color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#245369,#0a1423)"
+    "desc": "A quiet underground river curving around a broad dark stone terrace, cobalt arches, rustic lantern-lit wooden walkways at side edges.",
+    "preview": "url(menu-wallpapers/art-sapphire-river-v2.webp)"
   },
   {
-    "id": "art-emerald-moss",
-    "name": "Forest Menu",
+    "id": "menu-scene-art-emerald-moss",
+    "name": "Emerald Moss Geode",
     "cost": 4000000,
-    "desc": "Forest color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#365d38,#0a1423)"
+    "desc": "A richly textured hidden emerald cavern garden with velvety moss, ferns, tiny turquoise mushrooms, crystal outcrops and a dark quiet earth center.",
+    "preview": "url(menu-wallpapers/art-emerald-moss-v2.webp)"
   },
   {
-    "id": "art-rose-quartz",
-    "name": "Blush Menu",
+    "id": "menu-scene-art-rose-quartz",
+    "name": "Rose Quartz Sanctuary",
     "cost": 4500000,
-    "desc": "Blush color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#8a5b73,#0a1423)"
+    "desc": "Monumental rose crystal arches surrounding a peaceful ancient round stone sanctuary floor, pale pink reflective pools along edges.",
+    "preview": "url(menu-wallpapers/art-rose-quartz-v2.webp)"
   },
   {
-    "id": "art-golden-topaz",
-    "name": "Topaz Menu",
+    "id": "menu-scene-art-golden-topaz",
+    "name": "Golden Topaz Vault",
     "cost": 5000000,
-    "desc": "Topaz color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#876a32,#0a1423)"
+    "desc": "An ancient treasureless stone archive chamber with enormous golden-orange topaz prisms, brass lamps, weathered wooden rails and warm amber mineral light.",
+    "preview": "url(menu-wallpapers/art-golden-topaz-v2.webp)"
   },
   {
-    "id": "art-ruby-forge",
-    "name": "Ember Menu",
+    "id": "menu-scene-art-ruby-forge",
+    "name": "Ruby Magma Forge",
     "cost": 5500000,
-    "desc": "Ember color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#864c33,#0a1423)"
+    "desc": "A grand cavern foundry made from black basalt, angular ruby crystals, small safely contained glowing magma canals at outer edges, a large calm shadowed central stone floor.",
+    "preview": "url(menu-wallpapers/art-ruby-forge-v2.webp)"
   },
   {
-    "id": "art-aurora-prism",
-    "name": "Aurora Menu",
+    "id": "menu-scene-art-aurora-prism",
+    "name": "Aurora Prism Cavern",
     "cost": 6000000,
-    "desc": "Aurora color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#367b71,#0a1423)"
+    "desc": "Tall translucent opal crystal columns refracting restrained turquoise, violet and soft gold ribbons across an underground vault, dark midnight-blue floor.",
+    "preview": "url(menu-wallpapers/art-aurora-prism-v2.webp)"
   },
   {
-    "id": "art-celestial-galaxy",
-    "name": "Galaxy Menu",
+    "id": "menu-scene-art-celestial-galaxy",
+    "name": "Celestial Galaxy Mine",
     "cost": 7000000,
-    "desc": "Galaxy color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#443f79,#0a1423)"
+    "desc": "An obsidian geode mine with subtle star-like mineral specks, an opening toward a purple night sky at upper right, a suspended wooden bridge at the edge.",
+    "preview": "url(menu-wallpapers/art-celestial-galaxy-v2.webp)"
   },
   {
-    "id": "art-opal-hollow",
-    "name": "Opal Menu",
+    "id": "menu-scene-art-opal-hollow",
+    "name": "Bioluminescent Opal Hollow",
     "cost": 8000000,
-    "desc": "Opal color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#4e747d,#0a1423)"
+    "desc": "Pearlescent crystal grotto with teal luminous mushrooms, blue pools and delicate natural mineral lights along a winding cavern rim.",
+    "preview": "url(menu-wallpapers/art-opal-hollow-v2.webp)"
   },
   {
-    "id": "art-ancient-lantern",
-    "name": "Lantern Menu",
+    "id": "menu-scene-art-ancient-lantern",
+    "name": "Ancient Lantern Crystal Shaft",
     "cost": 9000000,
-    "desc": "Lantern color background with a dark finish for readable menu controls.",
-    "preview": "linear-gradient(135deg,#6e5943,#0a1423)"
+    "desc": "A lovingly weathered old timber mine chamber, cobalt crystals, hanging brass lanterns and a winding hand-built wooden staircase at the far side.",
+    "preview": "url(menu-wallpapers/art-ancient-lantern-v2.webp)"
   }
 ];
 
@@ -2972,13 +3023,153 @@ render=function(){
 
 // v3.6 — Persistent placement bypass, centralized menu, cosmetic shop, and wallpapers.
 const WALLPAPERS=[
- {id:'midnight',name:'Crystal Falls Adventure',cost:0,desc:'Free original wallpaper. Return to the crystal cave, waterfalls, and lantern-lit bridges anytime.',preview:'url(adventure-world.png)'},
- {id:'moonstone-cathedral',name:'Moonstone Cathedral',cost:1000000,desc:'Towering white selenite and quartz lit by warm golden rays.',preview:'linear-gradient(#06091240,#06091270),url(wallpaper-moonstone-cathedral-v1.png)'},
- {id:'amethyst-crown',name:'Amethyst Crown Cavern',cost:1250000,desc:'A royal chamber of violet crystal spires and lavender light.',preview:'linear-gradient(#08041430,#08041468),url(wallpaper-amethyst-crown-v1.png)'},
- {id:'emerald-geode',name:'Emerald Geode Sanctuary',cost:1500000,desc:'Ancient emerald columns glowing beneath a hidden forest cave.',preview:'linear-gradient(#03100b38,#03100b70),url(wallpaper-emerald-geode-v1.png)'},
- {id:'sapphire-ice',name:'Sapphire Ice Grotto',cost:1750000,desc:'Frozen sapphire prisms reflected across a silent underground lake.',preview:'linear-gradient(#020a1830,#020a1868),url(wallpaper-sapphire-ice-v1.png)'},
- {id:'sunstone-ember',name:'Sunstone Ember Vault',cost:2000000,desc:'Amber and citrine blades burning brightly against black basalt.',preview:'linear-gradient(#12070238,#12070272),url(wallpaper-sunstone-ember-v1.png)'},
-{"id": "scene-classic", "name": "Slate Lantern Hall", "cost": 0, "desc": "A blue-slate mining hall framed by warm brass lanterns and quiet cyan crystals.", "preview": "url(menu-wallpapers/classic-v2.webp)"},{"id": "scene-sakura-grotto", "name": "Amethyst Lantern Grotto", "cost": 100000, "desc": "A cozy violet cave alcove with tall amethyst crystals, moss-softened steps and warm brass lamps along the side walls.", "preview": "url(menu-wallpapers/sakura-grotto-v2.webp)"},{"id": "scene-crystal-cathedral", "name": "Sapphire Arch Hall", "cost": 200000, "desc": "Majestic geometric cobalt crystal ribs forming a vaulted underground hall, cool blue pools and tiny gold lanterns at the side edges.", "preview": "url(menu-wallpapers/crystal-cathedral-v2.webp)"},{"id": "scene-bamboo-tunnel", "name": "Emerald Fern Refuge", "cost": 350000, "desc": "A lush green geode shelter with ferns, roots, emerald crystal shelves and an ancient wooden footbridge around a quiet stone floor.", "preview": "url(menu-wallpapers/bamboo-tunnel-v2.webp)"},{"id": "scene-sunken-mine", "name": "Arctic Crystal Cove", "cost": 550000, "desc": "Translucent turquoise ice and aquamarine columns framing a quiet frozen cavern pool, frosted stone and cool soft daylight.", "preview": "url(menu-wallpapers/sunken-mine-v2.webp)"},{"id": "scene-magma-forge", "name": "Ruby Ember Workshop", "cost": 800000, "desc": "Red garnet cavern with a cozy abandoned smithing nook, softly glowing ember channels at the edges and dark volcanic stone flooring, inviting rather than dangerous.", "preview": "url(menu-wallpapers/magma-forge-v2.webp)"},{"id": "scene-aurora-cavern", "name": "Amber Lantern Vault", "cost": 1100000, "desc": "Honey amber stalactites and warm golden topaz embedded in old mining timber, brass lanterns around a calm brown slate chamber.", "preview": "url(menu-wallpapers/aurora-cavern-v2.webp)"},{"id": "scene-galaxy-depths", "name": "Rose Quartz Retreat", "cost": 1500000, "desc": "Blush-pink crystal alcove, pale rose geode walls, a serene shallow pool and weathered stepping stones, soft warm peach lantern glow.", "preview": "url(menu-wallpapers/galaxy-depths-v2.webp)"},{"id": "scene-art-azure-passage", "name": "Azure Crystal Passage", "cost": 2000000, "desc": "A deep blue cave crossroads with cyan crystal clusters, a little wooden ore cart parked at far left and rails curving along the edge toward distant amber lamps.", "preview": "url(menu-wallpapers/art-azure-passage-v2.webp)"},{"id": "scene-art-amethyst-dream", "name": "Amethyst Dream Grotto", "cost": 2500000, "desc": "An ethereal violet geode with immense delicate crystal fans arching overhead, floating motes and a softly glowing amethyst waterfall at far right.", "preview": "url(menu-wallpapers/art-amethyst-dream-v2.webp)"},{"id": "scene-art-moonlit-ice", "name": "Moonlit Ice Cathedral", "cost": 3000000, "desc": "Silver-blue cathedral-like natural ice cavern with moonbeams from a tiny upper opening, faceted frozen columns at edges and dark polished slate in center.", "preview": "url(menu-wallpapers/art-moonlit-ice-v2.webp)"},{"id": "scene-art-sapphire-river", "name": "Sapphire River Tunnel", "cost": 3500000, "desc": "A quiet underground river curving around a broad dark stone terrace, cobalt arches, rustic lantern-lit wooden walkways at side edges.", "preview": "url(menu-wallpapers/art-sapphire-river-v2.webp)"},{"id": "scene-art-emerald-moss", "name": "Emerald Moss Geode", "cost": 4000000, "desc": "A richly textured hidden emerald cavern garden with velvety moss, ferns, tiny turquoise mushrooms, crystal outcrops and a dark quiet earth center.", "preview": "url(menu-wallpapers/art-emerald-moss-v2.webp)"},{"id": "scene-art-rose-quartz", "name": "Rose Quartz Sanctuary", "cost": 4500000, "desc": "Monumental rose crystal arches surrounding a peaceful ancient round stone sanctuary floor, pale pink reflective pools along edges.", "preview": "url(menu-wallpapers/art-rose-quartz-v2.webp)"},{"id": "scene-art-golden-topaz", "name": "Golden Topaz Vault", "cost": 5000000, "desc": "An ancient treasureless stone archive chamber with enormous golden-orange topaz prisms, brass lamps, weathered wooden rails and warm amber mineral light.", "preview": "url(menu-wallpapers/art-golden-topaz-v2.webp)"},{"id": "scene-art-ruby-forge", "name": "Ruby Magma Forge", "cost": 5500000, "desc": "A grand cavern foundry made from black basalt, angular ruby crystals, small safely contained glowing magma canals at outer edges, a large calm shadowed central stone floor.", "preview": "url(menu-wallpapers/art-ruby-forge-v2.webp)"},{"id": "scene-art-aurora-prism", "name": "Aurora Prism Cavern", "cost": 6000000, "desc": "Tall translucent opal crystal columns refracting restrained turquoise, violet and soft gold ribbons across an underground vault, dark midnight-blue floor.", "preview": "url(menu-wallpapers/art-aurora-prism-v2.webp)"},{"id": "scene-art-celestial-galaxy", "name": "Celestial Galaxy Mine", "cost": 7000000, "desc": "An obsidian geode mine with subtle star-like mineral specks, an opening toward a purple night sky at upper right, a suspended wooden bridge at the edge.", "preview": "url(menu-wallpapers/art-celestial-galaxy-v2.webp)"},{"id": "scene-art-opal-hollow", "name": "Bioluminescent Opal Hollow", "cost": 8000000, "desc": "Pearlescent crystal grotto with teal luminous mushrooms, blue pools and delicate natural mineral lights along a winding cavern rim.", "preview": "url(menu-wallpapers/art-opal-hollow-v2.webp)"},{"id": "scene-art-ancient-lantern", "name": "Ancient Lantern Crystal Shaft", "cost": 9000000, "desc": "A lovingly weathered old timber mine chamber, cobalt crystals, hanging brass lanterns and a winding hand-built wooden staircase at the far side.", "preview": "url(menu-wallpapers/art-ancient-lantern-v2.webp)"},
+  {
+    "id": "midnight",
+    "name": "Crystal Falls Adventure",
+    "cost": 0,
+    "desc": "Free original wallpaper. Return to the crystal cave, waterfalls, and lantern-lit bridges anytime.",
+    "preview": "url(adventure-world.png)"
+  },
+  {
+    "id": "color-classic",
+    "name": "Slate",
+    "cost": 0,
+    "desc": "Slate color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#294555,#0a1423)"
+  },
+  {
+    "id": "color-sakura-grotto",
+    "name": "Amethyst",
+    "cost": 100000,
+    "desc": "Amethyst color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#654081,#0a1423)"
+  },
+  {
+    "id": "color-crystal-cathedral",
+    "name": "Sapphire",
+    "cost": 200000,
+    "desc": "Sapphire color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#254e86,#0a1423)"
+  },
+  {
+    "id": "color-bamboo-tunnel",
+    "name": "Emerald",
+    "cost": 350000,
+    "desc": "Emerald color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#245f48,#0a1423)"
+  },
+  {
+    "id": "color-sunken-mine",
+    "name": "Arctic",
+    "cost": 550000,
+    "desc": "Arctic color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#36747f,#0a1423)"
+  },
+  {
+    "id": "color-magma-forge",
+    "name": "Ruby",
+    "cost": 800000,
+    "desc": "Ruby color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#803744,#0a1423)"
+  },
+  {
+    "id": "color-aurora-cavern",
+    "name": "Amber",
+    "cost": 1100000,
+    "desc": "Amber color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#815b29,#0a1423)"
+  },
+  {
+    "id": "color-galaxy-depths",
+    "name": "Rose",
+    "cost": 1500000,
+    "desc": "Rose color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#825169,#0a1423)"
+  },
+  {
+    "id": "color-art-azure-passage",
+    "name": "Azure",
+    "cost": 2000000,
+    "desc": "Azure color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#256c91,#0a1423)"
+  },
+  {
+    "id": "color-art-amethyst-dream",
+    "name": "Violet",
+    "cost": 2500000,
+    "desc": "Violet color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#614b96,#0a1423)"
+  },
+  {
+    "id": "color-art-moonlit-ice",
+    "name": "Moonlight",
+    "cost": 3000000,
+    "desc": "Moonlight color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#596b83,#0a1423)"
+  },
+  {
+    "id": "color-art-sapphire-river",
+    "name": "Ocean",
+    "cost": 3500000,
+    "desc": "Ocean color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#245369,#0a1423)"
+  },
+  {
+    "id": "color-art-emerald-moss",
+    "name": "Forest",
+    "cost": 4000000,
+    "desc": "Forest color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#365d38,#0a1423)"
+  },
+  {
+    "id": "color-art-rose-quartz",
+    "name": "Blush",
+    "cost": 4500000,
+    "desc": "Blush color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#8a5b73,#0a1423)"
+  },
+  {
+    "id": "color-art-golden-topaz",
+    "name": "Topaz",
+    "cost": 5000000,
+    "desc": "Topaz color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#876a32,#0a1423)"
+  },
+  {
+    "id": "color-art-ruby-forge",
+    "name": "Ember",
+    "cost": 5500000,
+    "desc": "Ember color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#864c33,#0a1423)"
+  },
+  {
+    "id": "color-art-aurora-prism",
+    "name": "Aurora",
+    "cost": 6000000,
+    "desc": "Aurora color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#367b71,#0a1423)"
+  },
+  {
+    "id": "color-art-celestial-galaxy",
+    "name": "Galaxy",
+    "cost": 7000000,
+    "desc": "Galaxy color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#443f79,#0a1423)"
+  },
+  {
+    "id": "color-art-opal-hollow",
+    "name": "Opal",
+    "cost": 8000000,
+    "desc": "Opal color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#4e747d,#0a1423)"
+  },
+  {
+    "id": "color-art-ancient-lantern",
+    "name": "Lantern",
+    "cost": 9000000,
+    "desc": "Lantern color background with a dark finish for readable game controls.",
+    "preview": "linear-gradient(135deg,#6e5943,#0a1423)"
+  }
 ];
 let activeShopTab='mine-cosmetics';
 const SHOP_COLOR_THEMES=[['midnight','Midnight'],['sunrise','Sunrise'],['sakura','Sakura'],['aqua','Aqua'],['candy','Candy']];
@@ -3002,7 +3193,7 @@ function renderShop(){
   const grid=document.getElementById('menuPickaxeShop');
   PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id;const card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.dataset.patreonTier=skin.id==='standard'?'0':'1';button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});grid.appendChild(card);});
  }else if(activeShopTab==='mine-cosmetics'){
-  box.innerHTML='<div class="shop-section-heading"><span>Mine customization</span><h3>Gem buttons</h3><p>Choose a Scientific Gem Collection shape for your question button. Free as you unlock each gem.</p></div><div class="cosmetic-grid" id="rockSkinShop"></div><div class="shop-section-heading"><span>Menu colors</span><h3>Menu wallpapers</h3><p>Change the Game Menu background. This is separate from the full-page wallpaper setting.</p></div><div class="cosmetic-grid" id="mineWallpaperShop"></div>';
+  box.innerHTML='<div class="shop-section-heading"><span>Mine customization</span><h3>Gem buttons</h3><p>Choose a Scientific Gem Collection shape for your question button. Free as you unlock each gem.</p></div><div class="cosmetic-grid" id="rockSkinShop"></div><div class="shop-section-heading"><span>Menu scenery</span><h3>Menu wallpapers</h3><p>Change the Game Menu background. This is separate from the full-page wallpaper setting.</p></div><div class="cosmetic-grid" id="mineWallpaperShop"></div>';
   const rockGrid=document.getElementById('rockSkinShop');
   renderGemButtonChoices(rockGrid);
   const wallpaperGrid=document.getElementById('mineWallpaperShop');
