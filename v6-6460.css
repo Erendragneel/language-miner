@@ -427,13 +427,10 @@ input,select,textarea{font:inherit;font-size:16px}
 .supporter-tier-list{display:grid;gap:18px}.supporter-tier-list .supporter-tier{display:grid;grid-template-columns:minmax(230px,340px) minmax(0,1fr);align-items:center;gap:22px;padding:16px;border-radius:22px;box-shadow:0 14px 32px #02081666;overflow:hidden}.supporter-tier-copy{min-width:0;padding:8px 12px 8px 0}.supporter-tier-copy>span{display:inline-block;font-size:.74rem;font-weight:900;letter-spacing:.1em;line-height:1.4}.supporter-tier-list .supporter-tier h3,.supporter-tier-list .supporter-tier p{margin:8px 0}.supporter-tier-list .supporter-tier h3{font-size:clamp(1.2rem,2.5vw,1.55rem);line-height:1.15}.supporter-tier-list .supporter-tier p{line-height:1.58}.supporter-tier-list .supporter-tier.tier-one{background:linear-gradient(120deg,#12332866,#14213a 55%)}.supporter-tier-list .supporter-tier.tier-one .supporter-tier-copy>span{color:#8ee9b1}.supporter-tier-list .supporter-tier.tier-two{background:linear-gradient(120deg,#132f4d66,#14213a 55%)}.supporter-tier-list .supporter-tier.tier-two .supporter-tier-copy>span{color:#96c7ff}.supporter-tier-list .supporter-tier.tier-three{background:linear-gradient(120deg,#493d1766,#14213a 55%)}.supporter-tier-list .supporter-tier.tier-three .supporter-tier-copy>span{color:#ffe381}.supporter-tier-media{align-self:stretch;display:grid;place-items:center}.supporter-tier-media>img{display:block;width:100%;height:auto;aspect-ratio:1;border:1px solid #536a91;border-radius:15px;background:#0d1729;object-fit:cover;object-position:center;box-shadow:0 8px 22px #0008}.supporter-tier-list .supporter-link-note{margin:1px auto 0;max-width:650px;line-height:1.45}
 @media(max-width:720px){.supporter-tier-list .supporter-tier{grid-template-columns:1fr;gap:12px;padding:13px}.supporter-tier-media>img{width:min(100%,440px);margin:auto}.supporter-tier-copy{padding:3px 6px 7px}.supporter-tier-copy>span{font-size:.7rem}.supporter-tier-list .supporter-tier h3{font-size:1.26rem}.supporter-tier-list .supporter-tier p{font-size:.95rem;line-height:1.52}}
 
-/* v6.4.43 one shared jacket cut for every top; only the color changes. */
-.miner-avatar[data-shirt="miner"] .native-shirt-layer{filter:hue-rotate(225deg) saturate(1.7) brightness(1.16)!important}
-.miner-avatar[data-shirt="academy"] .native-shirt-layer{filter:hue-rotate(42deg) saturate(1.35) brightness(.98)!important}
-.miner-avatar[data-shirt="hoodie"] .native-shirt-layer{filter:hue-rotate(88deg) saturate(1.32) brightness(1.02)!important}
-.miner-avatar[data-shirt="festival"] .native-shirt-layer{filter:hue-rotate(150deg) saturate(1.8) brightness(1.13)!important}
-.miner-avatar[data-shirt="armor"] .native-shirt-layer{filter:hue-rotate(180deg) saturate(1.8) brightness(1.04)!important}
-.miner-avatar[data-shirt="casual"] .native-shirt-layer{filter:hue-rotate(300deg) saturate(1.28) brightness(.92)!important}
+/* Each selected top now has colored artwork; do not tint it twice.
+   The legacy armor source is teal and needs the red conversion only without an outer jacket. */
+.miner-avatar .native-shirt-layer{filter:none!important}
+.miner-avatar[data-shirt="armor"][data-jacket="none"] .native-shirt-layer{filter:hue-rotate(180deg) saturate(1.8) brightness(1.04)!important}
 
 /* v6.4.48 one textured denim source for all bottoms; only its color changes. */
 
