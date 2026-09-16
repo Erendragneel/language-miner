@@ -1,0 +1,14 @@
+
+[data-patreon-locked]{position:relative;cursor:zoom-in!important}
+.patreon-preview-badge{display:block!important;grid-column:1/-1;padding:6px 8px!important;margin:5px 0 0!important;border-radius:8px;color:#f9dfa5!important;background:#263444!important;font-size:12px!important;line-height:1.3!important}
+.patreon-item-preview{position:fixed;inset:0;z-index:2147483000;background:#031019df;display:flex;align-items:center;justify-content:center;padding:16px;overscroll-behavior:contain}
+.patreon-item-preview>section{position:relative;width:min(640px,100%);max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;border:1px solid #7297a8;border-radius:22px;padding:28px;background:#162939;color:#edf6fa;box-shadow:0 16px 80px #0009}
+.catalog-preview-close{position:absolute;right:10px;top:10px;min-width:44px;min-height:44px;font-size:28px}
+.catalog-preview-kicker{font-size:12px;letter-spacing:.1em;color:#8ee4d6}.patreon-item-preview h2{padding-right:35px;font-size:23px}
+.catalog-preview-visual>article{width:auto;margin:0}.catalog-preview-visual .cosmetic-card{background:transparent;border:0}.catalog-preview-visual .wallpaper-preview,.catalog-preview-visual .mine-wallpaper-shop-preview{height:250px;background-size:cover;background-position:center;border-radius:14px}.catalog-preview-visual .choice-avatar-preview{height:320px;overflow:hidden}.catalog-preview-visual .miner-avatar.large{margin:auto}.catalog-preview-visual .companion-portrait{margin:auto}.catalog-preview-visual .theme-swatch{display:block;height:180px;width:100%;border-radius:18px}
+.catalog-preview-requirement{color:#ffdc91;font-weight:700}.catalog-preview-actions{display:flex;gap:10px;flex-wrap:wrap}.catalog-preview-actions button{min-height:44px;flex:1}.catalog-preview-actions [data-catalog-membership]{background:#177d8a;color:#fff}
+@media(max-width:700px){.patreon-item-preview{padding:10px}.patreon-item-preview>section{max-height:calc(100dvh - 20px);padding:22px 16px}.catalog-preview-visual .wallpaper-preview{height:190px}.catalog-preview-actions{flex-direction:column}}
+
+.catalog-preview-visual .choice-avatar-preview{position:relative;width:100%!important;height:310px;margin:0;overflow:hidden}
+.catalog-preview-visual .choice-avatar-preview .miner-avatar.large{position:absolute!important;left:50%!important;top:0!important;width:250px!important;height:455px!important;margin:0!important;transform:translateX(-50%) scale(.66)!important;transform-origin:top center!important}
+.catalog-choice-preview>span{display:block;text-align:center;padding:10px}.catalog-choice-preview>span small{display:block;margin-top:6px;color:#c8dbe3}
