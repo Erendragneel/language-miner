@@ -44,41 +44,35 @@ function decorateQuestion(area,q,language='ja'){
  while(card.firstChild&&card.firstChild!==answers)copy.appendChild(card.firstChild);
  scene.appendChild(copy);card.insertBefore(scene,answers);
 }
-let lesson=null;
-function beginLearning(area,q){
- lesson=null;document.body.classList.remove('lm-child-lesson');
- if(!q||![0,1].includes(q.stage)||q.silentTesting||q.smartReview||(typeof silentTestingActive==='function'&&silentTestingActive(q)))return;
- const symbol=typeof kanaFromQuestion==='function'?kanaFromQuestion(q):q.kana;
- const art=imageFor({symbol},{language:'ja'});if(!art)return;
- const card=area.querySelector('.question-card'),answers=card?.querySelector('.answers');if(!answers)return;
- const scene=card.querySelector('.lm-quiz-scene');
- const panel=document.createElement('section');panel.className='lm-child-panel';panel.setAttribute('aria-label','Learning steps');
- const steps=document.createElement('p');steps.className='lm-child-steps';
- const instruction=document.createElement('p');instruction.setAttribute('role','status');
- const action=document.createElement('button');action.type='button';
- const example=document.createElement('button');example.type='button';example.textContent='Hear the pictured word';
- example.hidden=!art.clueSpeech;example.onclick=()=>window.LanguageMinerSpeech?.pronounce?.(art.clueSpeech,'ja-JP');
- const exit=document.createElement('button');exit.type='button';exit.className='lm-child-exit';exit.textContent='Use regular practice';
- panel.append(steps,instruction,example,action,exit);card.insertBefore(panel,scene||answers);
- lesson={q,phase:'learn',panel,instruction,steps,action,answers,scene,art,symbol,example};
- const vowels={'あ':'a','ア':'a','い':'i','イ':'i','う':'u','ウ':'u','え':'e','エ':'e','お':'o','オ':'o'};
- const explanation=vowels[symbol]?`Look at the ${art.label}. Its Japanese name is ${art.clueSpeech}. Listen for “${vowels[symbol]}” at the start. This is how we write that sound: ${symbol}.`:art.explanation||`${symbol} is connected to the pictured example ${art.exampleText||art.clueSpeech||art.label}.`;
- function phase(value){lesson.phase=value;steps.textContent=value==='learn'?'1 · Learn together':value==='guided'?'2 · Try with help':'3 · Try on your own';instruction.textContent=value==='learn'?`${explanation} The answer to this question is ${q.a}.`:value==='guided'?`Find ${q.a}. You can look at the picture and listen again.`:'Choose the answer from memory. It is okay to try again.';answers.hidden=value==='learn';action.hidden=value!=='learn';action.textContent='Let’s practice';scene?.classList.toggle('lm-child-recall',value==='recall');example.hidden=value==='recall'||!art.clueSpeech;}
- action.onclick=()=>phase('guided');lesson.setPhase=phase;
- exit.onclick=()=>{answers.hidden=false;scene?.classList.remove('lm-child-recall');panel.remove();lesson=null;document.body.classList.remove('lm-child-lesson');};
- document.body.classList.add('lm-child-lesson');phase('learn');
+// Guided study is optional and contained entirely within the Notebook.
+function beginLearning(area){
+ document.body.classList.remove('lm-child-lesson');
+ area?.querySelectorAll('.lm-child-panel').forEach(panel=>panel.remove());
+ area?.querySelectorAll('.answers').forEach(answers=>answers.hidden=false);
 }
-function learningAnswer(q,correct,button){
- if(!lesson||lesson.q!==q)return false;
- if(lesson.phase==='learn')return true;
- if(!correct){lesson.instruction.textContent=`Let’s look again. ${lesson.art.explanation||`The answer is ${q.a}.`} Try another answer.`;button.disabled=true;lesson.scene?.classList.remove('lm-child-recall');return true;}
- if(lesson.phase==='guided'){
-  lesson.setPhase('recall');
-  // Reorder answers so recall cannot be solved by repeating the same position.
-  const buttons=[...lesson.answers.children];buttons.forEach(b=>b.disabled=false);buttons.reverse().forEach(b=>lesson.answers.appendChild(b));
-  return true;
+function learningAnswer(){return false;}
+function notebookMarkup(){return '<section class="lm-notebook-learning"><h3>Learn together</h3><p>Optional picture and sound practice. Your regular questions are ready to answer at any time.</p><label>Choose a character <select id="lmNotebookCharacter"></select></label><div id="lmNotebookLesson"></div></section>';}
+function bindNotebook(root){
+ const select=root.querySelector('#lmNotebookCharacter'),host=root.querySelector('#lmNotebookLesson');if(!select||!host)return;
+ const current=typeof state==='object'?state.active:null;
+ if(current&&(current.silentTesting||(typeof silentTestingActive==='function'&&silentTestingActive(current)))){select.disabled=true;host.textContent='Learn together is available after your test.';return;}
+ const pool=typeof questions!=='undefined'?questions:[],seen=new Set(),items=[];
+ for(const q of pool){if(![0,1].includes(q.stage)||q.silentTesting||q.smartReview)continue;const symbol=typeof kanaFromQuestion==='function'?kanaFromQuestion(q):q.kana||q.q;const art=imageFor({symbol},{language:'ja'});if(!symbol||!art||seen.has(symbol))continue;seen.add(symbol);items.push({q,symbol,art});}
+ if(!items.length){select.disabled=true;host.textContent='Illustrated character study will appear here when available.';return;}
+ select.innerHTML=items.map((item,i)=>`<option value="${i}">${esc(item.symbol)} · ${esc(item.art.label||item.art.clueSpeech||'Japanese')}</option>`).join('');
+ const symbol=current&&(typeof kanaFromQuestion==='function'?kanaFromQuestion(current):current.kana||current.q),index=items.findIndex(item=>item.symbol===symbol);if(index>=0&&current)items[index].q=current;select.value=String(Math.max(0,index));
+ function draw(){
+  const {q,symbol,art}=items[Number(select.value)||0];let phase='learn';
+  const explanation=art.explanation||`${symbol} is connected to ${art.clueSpeech||art.exampleText||art.label}.`;
+  host.innerHTML=`<div class="lm-child-panel"><p class="lm-child-steps">1 · Learn together</p><p class="lm-notebook-instruction" role="status"></p><img class="lm-notebook-art" src="picture-assets/${esc(art.file==='pencil-e.webp'?'pencil-storybook-v1.png':art.file)}" alt="${esc(art.alt||art.label)}"><p class="lm-notebook-prompt">${esc(q.q||symbol)} ${esc(q.prompt||'Choose the correct answer.')}</p><button type="button" class="lm-notebook-speak">Hear the pictured word</button><button type="button" class="lm-notebook-practice">Let’s practice</button><div class="lm-notebook-answers" hidden></div><button type="button" class="lm-notebook-return">Return to question</button></div>`;
+  const status=host.querySelector('.lm-notebook-instruction'),heading=host.querySelector('.lm-child-steps'),answers=host.querySelector('.lm-notebook-answers'),practice=host.querySelector('.lm-notebook-practice'),picture=host.querySelector('.lm-notebook-art'),speak=host.querySelector('.lm-notebook-speak');
+  status.textContent=`${explanation} The answer to this question is ${q.a}.`;
+  speak.hidden=!art.clueSpeech;speak.onclick=()=>window.LanguageMinerSpeech?.pronounce?.(art.clueSpeech,'ja-JP');
+  function options(){answers.replaceChildren();for(const option of [...new Set([...(q.opts||[]),q.a])]){const b=document.createElement('button');b.type='button';b.textContent=option;b.onclick=()=>{if(option!==q.a){status.textContent='Try again. '+explanation;b.disabled=true;picture.hidden=false;return;}if(phase==='guided'){phase='recall';heading.textContent='3 · Try on your own';status.textContent='Choose the answer from memory.';picture.hidden=true;speak.hidden=true;options();[...answers.children].reverse().forEach(x=>answers.append(x));}else{heading.textContent='Well done!';status.textContent='You finished this study step. Return to your question whenever you’re ready.';answers.querySelectorAll('button').forEach(x=>x.disabled=true);picture.hidden=false;}};answers.append(b);}}
+  practice.onclick=()=>{phase='guided';heading.textContent='2 · Try with help';status.textContent=`Find ${q.a}. Look at the picture and listen again.`;practice.hidden=true;answers.hidden=false;options();};
+  host.querySelector('.lm-notebook-return').onclick=()=>document.getElementById('closeFeatureCenter')?.click();
  }
- lesson.steps.textContent='Well done!';lesson.instruction.textContent='You finished this learning step. Tap the rock for the next one.';return false;
+ select.onchange=draw;draw();
 }
-window.LanguageMinerPictures=Object.freeze({markup,imageFor,questionArt,decorateQuestion,beginLearning,learningAnswer});
+window.LanguageMinerPictures=Object.freeze({markup,imageFor,questionArt,decorateQuestion,beginLearning,learningAnswer,notebookMarkup,bindNotebook});
 })();
