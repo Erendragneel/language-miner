@@ -3,7 +3,7 @@
   'use strict';
   const LINK_KEY='lm_parent_teacher_links_v1';
   const NOTIFIED_KEY='lm_parent_teacher_notified_requests_v1:';
-  let selectedLearnerId='',activeTab='overview',activeView='dashboard';
+  let selectedLearnerId='',activeTab='overview',activeView='dashboard',studentEmailDraft='';
   let cloudLinks=[],cloudSummaries=new Map(),cloudBusy=false,cloudError='',cloudLastSync=0,cloudTimer=0,lastDeliveryReceipt=null;
   const bridge=()=>window.LanguageMinerReadOnly;
   const cloud=()=>window.languageMinerCloudAuth;
@@ -95,6 +95,7 @@
   function cloudTime(value){if(!value)return t('Not synced yet');try{return new Date(value).toLocaleString(locale(),{dateStyle:'medium',timeStyle:'short'});}catch{return new Date(value).toLocaleString();}}
   function friendlyCloudError(error){const message=String(error?.message||error||t('Cloud learner data is temporarily unavailable.'));if(/parent_teacher|student_link|linked_learner|schema cache|PGRST202/i.test(message))return t('Cross-device linking is not installed on this cloud project yet. Deploy the included Supabase linking repair migration, then refresh this page.');return message;}
   async function syncCloudData(announce=false){
+    if(!announce&&centerOpen()&&activeView==='link')return false;
     if(!cloudReady()){cloudLinks=[];cloudSummaries=new Map();cloudError='';syncRequestNotification();if(centerOpen())render();return false;}
     if(previewCloudMode()){cloudError='';cloudLastSync=Date.now();syncRequestNotification();if(announce)window.setMessage?.(t('Preview cross-device progress refreshed.'),'correct');if(centerOpen())render();return true;}
     if(cloudBusy)return false;cloudBusy=true;cloudError='';if(centerOpen())render();
@@ -109,7 +110,7 @@
     }catch(error){cloudError=friendlyCloudError(error);if(announce)window.setMessage?.(cloudError,'wrong');return false;}
     finally{cloudBusy=false;const learners=approvedLearners();if(!selectedLearnerId||!learners.some(item=>item.id===selectedLearnerId))selectedLearnerId=learners[0]?.id||'';syncRequestNotification();if(centerOpen())render();}
   }
-  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(cloudReady()&&(!document.hidden||phoneAlertsEnabled()))syncCloudData(false);},5000);}
+  function startCloudRefresh(){clearInterval(cloudTimer);cloudTimer=setInterval(()=>{if(cloudReady()&&(!document.hidden||phoneAlertsEnabled()))syncCloudData(false);},30000);}
   function seedPreviewAccess(){
     if(window.LANGUAGE_MINER_PREVIEW!==true)return;
     const adult=current();if(!adult||!['codex-preview','codex-preview-player'].includes(adult.id))return;const candidates=profiles().filter(profile=>profile.id!==adult.id&&profile.id.startsWith('preview-player-')).slice(0,2);if(!candidates.length)return;
@@ -203,10 +204,10 @@
   }
   function linkView(){
     const me=current(),links=readLinks(),blocked=new Set(links.filter(link=>link.adultProfileId===me.id&&link.status!=='declined').map(link=>link.studentProfileId)),candidates=profiles().filter(profile=>profile.id!==me.id&&!blocked.has(profile.id));
-    const cloudForm=cloudReady()?`<section class="ptc-cloud-link"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Find the student’s account'))}</h3><p>${esc(t('Enter the exact email address they use to sign in to Language Miner.'))}</p></header><form data-ptc-cloud-form><label for="ptcStudentEmail">${esc(t('Student account email'))}</label><div><input id="ptcStudentEmail" name="studentEmail" type="email" inputmode="email" autocomplete="email" required placeholder="student@example.com"><button class="primary" type="submit" ${cloudBusy?'disabled':''}>＋ ${esc(t('Send request'))}</button></div><small>${esc(t('The learner must approve on their own account before any progress is shared.'))}</small></form></section>`:`<section class="ptc-cloud-link unavailable"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Sign in to use cross-device linking'))}</h3><p>${esc(t('Both people need separate online Language Miner accounts. After signing in, enter the learner’s account email here.'))}</p></header></section>`;
+    const cloudForm=cloudReady()?`<section class="ptc-cloud-link"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Find the student’s account'))}</h3><p>${esc(t('Enter the exact email address they use to sign in to Language Miner.'))}</p></header><form data-ptc-cloud-form><label for="ptcStudentEmail">${esc(t('Student account email'))}</label><div><input id="ptcStudentEmail" name="studentEmail" type="email" inputmode="email" autocomplete="email" required value="${esc(studentEmailDraft)}" placeholder="student@example.com"><button class="primary" type="submit" ${cloudBusy?'disabled':''}>＋ ${esc(t('Send request'))}</button></div><small>${esc(t('The learner must approve on their own account before any progress is shared.'))}</small></form></section>`:`<section class="ptc-cloud-link unavailable"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Sign in to use cross-device linking'))}</h3><p>${esc(t('Both people need separate online Language Miner accounts. After signing in, enter the learner’s account email here.'))}</p></header></section>`;
     return `<button class="ptc-sub-back" type="button" data-ptc-view="dashboard">← ${esc(t('Back to Center'))}</button><section class="ptc-subhead"><span>${esc(t('STUDENT-CONTROLLED LINKING'))}</span><h3>＋ ${esc(t('Link student'))}</h3><p>${esc(t('Send a read-only access request to the learner’s account. Nothing is shared until that learner approves it.'))}</p></section><section class="ptc-link-note"><span>1</span><p><strong>${esc(t('Send request'))}</strong><small>${esc(t('Enter the learner’s account email.'))}</small></p><i></i><span>2</span><p><strong>${esc(t('Student approves'))}</strong><small>${esc(t('They sign in on their device and open this Center.'))}</small></p><i></i><span>3</span><p><strong>${esc(t('Progress stays current'))}</strong><small>${esc(t('Their cloud-saved progress becomes visible on your device.'))}</small></p></section>${cloudForm}<section class="ptc-candidates"><header><span>${esc(t('PROFILES ON THIS DEVICE'))}</span><h3>${esc(t('Optional local linking'))}</h3></header>${candidates.length?candidates.map(profile=>`<article><span>${esc(profile.name.slice(0,1).toUpperCase())}</span><div><strong>${esc(profile.name)}</strong><small>${profile.email?esc(profile.email):esc(t('Local player profile'))}</small></div><button class="primary" type="button" data-ptc-request="${esc(profile.id)}">${esc(t('Send request'))}</button></article>`).join(''):`<div class="ptc-inline-empty">${esc(t('No additional local profiles are available. Use the account email above to link another device.'))}</div>`}</section><aside class="ptc-device-note"><strong>${esc(t('Private and read-only'))}</strong><p>${esc(t('Approved adults can see learning progress, activity, reviews, course completion, and assessment records. They cannot play as the learner, spend anything, reset progress, or read private Notebook notes. The learner can revoke access at any time.'))}</p></aside>`;
   }
-  function render(){const content=document.getElementById('ptcContent');if(!content)return;refreshHeader();content.innerHTML=activeView==='manage'?manageView():activeView==='link'?linkView():dashboard();window.LanguageMinerI18n?.localize?.(content);content.scrollTop=0;}
+  function render(){const content=document.getElementById('ptcContent');if(!content)return;refreshHeader();if(activeView==='link'&&content.querySelector('[data-ptc-cloud-form]')){const form=content.querySelector('[data-ptc-cloud-form]');form.querySelector('button[type=submit]').disabled=cloudBusy;let status=form.querySelector('[data-ptc-form-status]');if(!status){status=document.createElement('p');status.dataset.ptcFormStatus='';status.setAttribute('role','status');form.appendChild(status);}status.textContent=cloudError;return;}content.innerHTML=activeView==='manage'?manageView():activeView==='link'?linkView():dashboard();window.LanguageMinerI18n?.localize?.(content);content.scrollTop=0;}
   async function updateLink(id,action){
     if(String(id).startsWith('cloud:')){
       const cloudId=String(id).slice(6);if(!cloudId||!cloudReady())return;
@@ -234,7 +235,7 @@
       const normalized=email.toLowerCase(),studentUserId=`preview-student-${normalized.replace(/[^a-z0-9]+/g,'-')}`;
       let pending=cloudLinks.find(link=>link.adultUserId===currentCloudUserId()&&link.studentEmail.toLowerCase()===normalized&&link.status!=='declined');
       if(!pending){pending=normalizeCloudLink({id:`preview-link-${Date.now()}`,adult_user_id:currentCloudUserId(),student_user_id:studentUserId,status:'pending',requested_at:new Date().toISOString(),adult_display_name:current()?.name||'Tutor Preview',student_display_name:normalized.split('@')[0]||'Learner Preview',adult_email:current()?.email||'',student_email:normalized});cloudLinks.unshift(pending);}
-      cloudLastSync=Date.now();lastDeliveryReceipt={id:pending.cloudId,email,status:pending.status,at:Date.now()};activeView='manage';window.setMessage?.(t('Preview request created. Production requests go to the learner’s signed-in account.'),'correct');render();return;
+      cloudLastSync=Date.now();lastDeliveryReceipt={id:pending.cloudId,email,status:pending.status,at:Date.now()};studentEmailDraft='';activeView='manage';window.setMessage?.(t('Preview request created. Production requests go to the learner’s signed-in account.'),'correct');render();return;
     }
     cloudBusy=true;cloudError='';render();
       try{
@@ -242,7 +243,7 @@
         if(!request?.id||!request?.student_user_id)throw new Error(t('The server did not confirm the access request. Please try again.'));
         const verifiedRows=await cloud().listParentTeacherLinks(),verified=verifiedRows.find(row=>String(row?.id||'')===String(request.id));
         if(!verified||String(verified.adult_user_id||'')!==currentCloudUserId()||!['pending','approved'].includes(String(verified.status||'')))throw new Error('Supabase did not return a recipient-visible delivery receipt. The request was not announced as sent.');
-        cloudLinks=verifiedRows.map(normalizeCloudLink);cloudLastSync=Date.now();lastDeliveryReceipt={id:String(verified.id),email,status:String(verified.status),at:Date.now()};activeView='manage';
+        cloudLinks=verifiedRows.map(normalizeCloudLink);cloudLastSync=Date.now();lastDeliveryReceipt={id:String(verified.id),email,status:String(verified.status),at:Date.now()};studentEmailDraft='';activeView='manage';
         const message=verified.status==='approved'?'These accounts are already linked and approved.':previous?.status==='pending'?'The pending request was refreshed and verified in Supabase. Your learner will receive the in-game alert.':'Request saved and verified in Supabase. Your learner will receive the in-game alert.';
         window.setMessage?.(message,'correct');
       }
@@ -269,9 +270,10 @@
     const button=document.createElement('button');button.type='button';button.dataset.parentTeacherCenter='1';button.dataset.menuCategoryName='player';button.innerHTML='<span>🏫</span><strong>Parent/Teacher Center</strong><small>Read-only progress for approved linked learners</small>';button.onclick=()=>{window.closeGameMenu?.();openCenter();};grid.appendChild(button);const layout=grid.closest('.miner-interface-menu');if(layout)button.hidden=layout.dataset.category!=='player';window.LanguageMinerI18n?.localize?.(button);window.refreshJapaneseMinerFeatureMenu?.();
   }
   function init(){ensureShell();addMenuItem();syncRequestNotification();startCloudRefresh();if(cloudReady())syncCloudData(false);}
+  document.addEventListener('input',event=>{if(event.target.id==='ptcStudentEmail')studentEmailDraft=event.target.value;});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.getElementById('parentTeacherCenter')?.classList.contains('open'))closeCenter();});
-  window.addEventListener('jm-profile-loaded',()=>{selectedLearnerId='';activeTab='overview';activeView='dashboard';cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;lastDeliveryReceipt=null;setTimeout(init,0);});
-  window.addEventListener('jm-profile-logged-out',()=>{clearInterval(cloudTimer);cloudTimer=0;cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;});
+  window.addEventListener('jm-profile-loaded',()=>{studentEmailDraft='';selectedLearnerId='';activeTab='overview';activeView='dashboard';cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;lastDeliveryReceipt=null;setTimeout(init,0);});
+  window.addEventListener('jm-profile-logged-out',()=>{studentEmailDraft='';clearInterval(cloudTimer);cloudTimer=0;cloudLinks=[];cloudSummaries=new Map();cloudError='';cloudLastSync=0;});
   window.addEventListener('lm-cloud-session-changed',()=>{startCloudRefresh();syncCloudData(false);});
   window.addEventListener('online',()=>{if(cloudReady())syncCloudData(false);});
   window.addEventListener('focus',()=>{if(cloudReady())syncCloudData(false);});
