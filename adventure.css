@@ -82,3 +82,24 @@ body[data-high-contrast="true"] .panel:has(#challengeArea){--cream:#fff;--ink:#0
 body[data-high-contrast="true"] #challengeArea .lm-course-question h3,body[data-high-contrast="true"] #challengeArea .prompt{color:#000!important}
 body[data-high-contrast="true"] #challengeArea button{border:2px solid currentColor!important}
 @media(max-width:700px){.adventure-tools{gap:6px}.adventure-tools button{flex:1 1 auto;padding:8px 11px}#challengeArea .lm-quiz-copy .prompt{font-size:1.125rem!important}}
+
+/* Keep the working lesson front and center, with the original mine playable. */
+.panel.mine{min-height:230px!important;height:230px!important;padding:12px!important;justify-content:flex-start}
+.panel.mine #rock{width:90px;height:70px;font-size:30px;align-self:flex-start;margin:8px 12px}
+.panel.mine #pickaxeIcon{font-size:36px}
+.panel.mine .mine-title{font-size:22px;margin:6px 0;color:#fff}
+.panel.mine .mine-note{font-size:12px;max-width:65%;margin-right:auto;text-align:left}
+.panel.mine .lm-character-layout-mine{left:80%}
+.adventure-trail-art{width:100%;height:110px;object-fit:cover;border-radius:12px;border:1px solid #658393;margin:12px 0 0}
+.adventure-guide .v6-gnome{display:block;margin:0 auto 12px;position:relative}
+.adventure-tools [data-adventure="notebook"],.adventure-tools [data-adventure="family"],.adventure-tools [data-adventure="guide"],.adventure-tools [data-adventure="nextLesson"]{display:none}
+#challengeArea .lm-quiz-scene{align-items:center}
+.panel:has(#challengeArea){position:relative}
+@media(max-width:1150px){.adventure-tools [data-adventure="guide"],.adventure-tools [data-adventure="nextLesson"]{display:block}}
+@media(max-width:700px){
+ .panel.mine{min-height:190px!important;height:190px!important}
+ .panel.mine .mine-title{font-size:18px;max-width:65%;margin-right:auto;text-align:left}
+ .panel.mine .mine-note{display:none}
+ .adventure-tools [data-adventure="notebook"],.adventure-tools [data-adventure="family"]{display:block}
+ #challengeArea .lm-quiz-copy .prompt{font-size:1.2rem!important}
+}
