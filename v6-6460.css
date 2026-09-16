@@ -649,3 +649,13 @@ button:focus-visible,summary:focus-visible{outline:3px solid #8bc9ff!important;o
 @media(max-width:600px){.app>header{padding:10px!important}.app>header h1{font-size:17px!important}.lm-focused-lesson .panel.mine{height:85px!important;min-height:85px!important}.ptc-head h2{font-size:18px!important}.ptc-content{padding:14px!important}.ptc-content .ptc-metrics{grid-template-columns:1fr!important}.controls{flex-wrap:wrap}#nextBtn:not(:disabled){flex:1 0 100%}}
 
 #headerStatsBtn{display:none!important}
+
+/* Repair the inherited logo-banner dimensions after simplifying the header. */
+.app>header{min-height:0!important;height:auto!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important;gap:12px!important}
+.app>header>div:first-child{flex:1 1 240px!important;min-height:0!important;gap:8px}
+.app>header .lm-title-row{justify-content:flex-start!important}
+.app>header h1.lm-visually-hidden{position:static!important;width:auto!important;height:auto!important;margin:0!important;overflow:visible!important;clip:auto!important;white-space:normal!important;flex-basis:100%}
+.app>header>.account-chip{align-self:center!important;flex:0 0 auto!important;width:auto!important;border:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}
+.lm-focused-lesson .panel.mine{height:190px!important;min-height:190px!important}
+.lm-focused-lesson .panel.mine .lm-character-layout-mine{transform:translateX(-50%)!important;bottom:3px!important}
+@media(max-width:600px){.lm-focused-lesson .panel.mine{height:175px!important;min-height:175px!important}.app>header>div:first-child{flex-basis:240px!important}.app>header>.account-chip{margin-left:auto}}
