@@ -1724,6 +1724,14 @@ function chooseQuestion(pool){
 function quickMineAction(){
   if(!activeProfileId)return;
   if(state.active&&!state.answered){
+    // Saved questions survive reload, but their DOM and answer handlers do not.
+    // Rebuild only when missing; preserve disabled answers and hints during play.
+    const area=document.getElementById('challengeArea');
+    if(!area?.querySelector('#answers button')){
+      if(Array.isArray(state.active.opts)&&state.active.opts.length&&state.active.a!=null){
+        showQuestion(state.active);setMessage('Lesson resumed.','correct');
+      }else{state.active=null;state.answered=false;mine();}
+    }
     const target=document.getElementById("challengeArea");
     if(target) target.scrollIntoView({behavior:"smooth",block:"center"});
     return;
