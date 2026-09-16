@@ -105,3 +105,8 @@ body:not(.adventure-signed-in) .adventure-reference-shortcuts,body:not(.adventur
 @media(min-width:1250px){.adventure-player-pose .pose-equipped-art{width:100%;height:auto;max-height:100%}}
 
 .adventure-player-pose[hidden]{display:none!important}
+
+.adventure-nav .adventure-avatar-edit{display:block;width:88px;height:88px;min-height:0;padding:0;margin:0;border:0;border-radius:50%;background:transparent;cursor:pointer}
+.adventure-nav .adventure-avatar-edit img{display:block}
+.adventure-nav .adventure-avatar-edit:hover{background:#206072;box-shadow:0 0 0 3px #98e3dd66}
+.adventure-nav .adventure-avatar-edit:focus-visible{outline:3px solid #f4d091;outline-offset:4px}
