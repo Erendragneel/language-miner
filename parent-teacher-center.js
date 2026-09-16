@@ -195,9 +195,7 @@
   function selfReport(){
     const summary=selectedSummary();
     if(!summary)return `<section class="ptc-inline-empty">${esc(t('Your progress will appear here after you select a player profile.'))}</section>`;
-    const today=new Date(),key=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-    const time=summary.activity.days.find(day=>day.date===key)?.milliseconds||0;
-    return `${summaryHeader(summary)}<section class="ptc-metrics">${metric('Study time today',duration(time),'Recorded active learning','📅')}${metric('Lessons complete',`${summary.course.lessons.counts.completed}/${summary.course.lessons.counts.total}`,`${summary.course.lessons.completionPercent}% complete`,'📚')}${metric('Suggested grade',summary.grading.available?`${summary.grading.letter} · ${summary.grading.score}%`:'—',summary.grading.available?'Based on recorded learning':'Not enough data yet','📋')}</section><details class="lm-report-details"><summary>Detailed progress &amp; records</summary>${tabs()}<div class="ptc-report">${activeView==='self'&&activeTab==='practice'?(window.LanguageMinerPersonalStats?.render?.()||''):activeTab==='activity'?recentCalendar(summary):activeTab==='course'?courseReport(summary):activeTab==='assessments'?assessments(summary):overview(summary)}</div></details>`;
+    return `<section class="ptc-subhead"><span>${esc(t('MY PROGRESS & GRADES'))}</span><h3>${esc(t('See how your learning is growing'))}</h3><p>${esc(t('Your current progress on this device. Suggested grades use recorded quizzes, lesson mastery, and practice accuracy.'))}</p></section>${summaryHeader(summary)}${summaryMetrics(summary)}${tabs()}<div class="ptc-report">${activeView==='self'&&activeTab==='practice'?(window.LanguageMinerPersonalStats?.render?.()||''):activeTab==='activity'?recentCalendar(summary):activeTab==='course'?courseReport(summary):activeTab==='assessments'?assessments(summary):overview(summary)}</div>`;
   }
   function dashboard(){
     const learners=approvedLearners(),incoming=requestCards(),switcher=learnerSwitcher(learners);let report='';
@@ -219,12 +217,12 @@
     const position={top:content.scrollTop,left:content.scrollLeft};
     const selector='.ptc-table,.ptc-tabs,.ptc-switcher>div';
     const nested=sameView?[...content.querySelectorAll(selector)].map(node=>({left:node.scrollLeft,top:node.scrollTop})):[];
-    const expanded=(sameView||activeView==='self')?[...content.querySelectorAll('details')].map(node=>node.open):[];
+    const expanded=sameView?[...content.querySelectorAll('details')].map(node=>node.open):[];
     content.innerHTML=activeView==='self'?selfReport():activeView==='manage'?manageView():activeView==='link'?linkView():dashboard();
     window.LanguageMinerI18n?.localize?.(content);
     content.dataset.ptcRenderedView=viewKey;
-    content.querySelectorAll('details').forEach((node,index)=>{if(expanded[index]!==undefined)node.open=expanded[index];});
     if(sameView){
+      content.querySelectorAll('details').forEach((node,index)=>{if(expanded[index]!==undefined)node.open=expanded[index];});
       content.querySelectorAll(selector).forEach((node,index)=>{if(nested[index]){node.scrollLeft=nested[index].left;node.scrollTop=nested[index].top;}});
       content.scrollTop=position.top;content.scrollLeft=position.left;
     }else{content.scrollTop=0;content.scrollLeft=0;}

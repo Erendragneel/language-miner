@@ -4124,29 +4124,3 @@ window.openJapaneseItemFlashcard=function(kind,stage,lesson,index){
   const items=jlptVocabularyLevels(stage)[lesson];if(!items)return false;
   return window.LanguageMinerFlashcards?.open({items,index,language:'ja',title:`${stages[stage].label} · Vocabulary Lesson ${lesson+1}`,onGrade:(item,correct)=>setVocabularyWordMastery(item,correct?25:-5)});
 };
-
-// Keep the lesson focused while retaining the existing game navigation.
-(()=>{
- let queued=false;
- function tidy(){
-  queued=false;
-  const area=document.getElementById('challengeArea'),answers=area?.querySelector('#answers,.answers,.lm-main-answers');
-  document.body.classList.toggle('lm-focused-lesson',!!answers);
-  const controls=document.getElementById('hintBtn')?.parentElement,message=document.getElementById('message');
-  if(controls&&message&&controls.nextElementSibling!==message)message.before(controls);
-  const next=document.getElementById('nextBtn');if(next&&!next.disabled&&next.textContent!=='Continue')next.textContent='Continue';
-  const grid=document.querySelector('.menu-wheel,.game-menu-grid');
-  if(grid){
-   for(const id of ['headerStatsBtn','studyCalendarBtn','developerBtn','logoutBtn']){
-    const button=document.getElementById(id);if(button&&button.parentElement!==grid){button.dataset.menuCategoryName='player';grid.appendChild(button);}
-   }
-   if(!grid.querySelector('[data-clean-guide]')){
-    const button=document.createElement('button');button.type='button';button.dataset.cleanGuide='1';button.dataset.menuCategoryName='player';button.innerHTML='<span>💡</span><strong>Study guide</strong><small>Suggestions for your next practice</small>';button.onclick=()=>{window.closeGameMenu?.();setTimeout(()=>document.getElementById('v6CoachButton')?.click(),0);};grid.appendChild(button);
-   }
-   const layout=grid.closest('.miner-interface-menu');if(layout)for(const button of grid.querySelectorAll('#headerStatsBtn,#studyCalendarBtn,#logoutBtn,[data-clean-guide]'))button.hidden=layout.dataset.category!=='player';
-  }
- }
- const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(tidy);}};
- new MutationObserver(schedule).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['disabled','data-category']});
- schedule();
-})();
