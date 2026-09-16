@@ -1,9 +1,9 @@
-// Language Miner v6.4.232 Update Guardian.
+// Language Miner v6.4.233 Update Guardian.
 // Keeps recovery local, validates each boot, and exposes only reviewed release
 // controls to authenticated administrators. It never evaluates pasted code.
 (()=>{
 'use strict';
-const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.232';
+const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.233';
 const STATE_KEY='lm_update_guardian_state_v1';
 const ERROR_KEY='lm_update_guardian_errors_v1';
 const DB_NAME='language-miner-update-guardian';
@@ -143,7 +143,11 @@ async function recordBootFailure(report){
   else showGuardianBanner('Game health check needs attention','A required game component did not start. Reload once; repeated failures automatically offer the previous stable version.',[{id:'reload',label:'Reload',run:()=>location.reload()}]);
 }
 async function markHealthy(){
+  const expected=sessionStorage.getItem('lm_expected_update_build');
+  if(expected&&expected!==BUILD){showGuardianBanner('Update needs another attempt','The browser reopened an older build. Your saved progress is safe.',[{id:'complete-update',label:'Install latest game',run:restartWithCompleteUpdate}]);return false;}
+
   const report=criticalHealth();if(!report.ok){await recordBootFailure(report);return false;}
+  sessionStorage.removeItem('lm_expected_update_build');
   healthy=true;bootFailures=0;guardianState={...guardianState,bootFailures:0,lastGoodBuild:BUILD,lastHealthyAt:Date.now(),boot:{...guardianState.boot,phase:'healthy',updatedAt:Date.now()}};writeJson(STATE_KEY,guardianState);
   await swCommand('LM_MARK_HEALTHY',{build:BUILD});await repairCorruptStorage();await createRecoverySnapshot('healthy-boot');
   document.documentElement.dataset.lmGuardian='healthy';window.dispatchEvent(new CustomEvent('lm-update-guardian-ready',{detail:{build:BUILD}}));return true;
@@ -195,9 +199,14 @@ window.addEventListener('lm-cloud-save-applied',()=>setTimeout(()=>createRecover
 window.addEventListener('lm-admin-permissions-changed',event=>{if(event.detail?.role&&(event.detail.role==='owner'||event.detail.permissions?.release_management===true))ensureAdminCenter();else document.getElementById('lmAdminUpdateCenter')?.remove();});
 window.addEventListener('online',()=>{forceUpdate().catch(()=>{});pollReleaseStatus();});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')createRecoverySnapshot('background');});
+async function restartWithCompleteUpdate(){
+  try{if(typeof save==='function')save();await createRecoverySnapshot('before-complete-update');}
+  catch(error){logError('update-save',error?.message||error);}
+  const target=new URL('update/preview.html',document.baseURI);target.searchParams.set('auto','1');target.searchParams.set('from',BUILD);target.searchParams.set('check',Date.now());location.assign(target.href);
+}
 async function announceReadyUpdate(){
   const status=await guardianStatus();
-  if(status?.buildCache&&!status.buildCache.startsWith(`language-miner-v${BUILD}-`))showGuardianBanner('Game update ready','Your updated game is downloaded. Finish your question, then restart to use it. Your saved progress stays on this device.',[{id:'restart',label:'Restart updated game',run:()=>location.reload()}]);
+  if(status?.buildCache&&!status.buildCache.startsWith(`language-miner-v${BUILD}-`))showGuardianBanner('Game update ready','Your updated game is downloaded. Finish your question, then restart to use it. Your saved progress stays on this device.',[{id:'restart',label:'Restart updated game',run:restartWithCompleteUpdate}]);
 }
 navigator.serviceWorker?.addEventListener?.('controllerchange',()=>{announceReadyUpdate().catch(()=>{});});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')forceUpdate().then(announceReadyUpdate).catch(()=>{});});
@@ -215,5 +224,5 @@ setInterval(()=>createRecoverySnapshot('interval'),SNAPSHOT_INTERVAL_MS);
 setInterval(()=>pollReleaseStatus(),RELEASE_INTERVAL_MS);
 setTimeout(()=>pollReleaseStatus(),12000);
 
-window.LanguageMinerUpdateGuardian=Object.freeze({build:BUILD,status:guardianStatus,forceUpdate,rollbackDevice,createSnapshot:createRecoverySnapshot,errors:()=>readJson(ERROR_KEY,[]).map(row=>({...row})),release:()=>latestRelease?{...latestRelease}:null,featureFlags:()=>({...window.LANGUAGE_MINER_FEATURE_FLAGS})});
+window.LanguageMinerUpdateGuardian=Object.freeze({build:BUILD,restart:restartWithCompleteUpdate,status:guardianStatus,forceUpdate,rollbackDevice,createSnapshot:createRecoverySnapshot,errors:()=>readJson(ERROR_KEY,[]).map(row=>({...row})),release:()=>latestRelease?{...latestRelease}:null,featureFlags:()=>({...window.LANGUAGE_MINER_FEATURE_FLAGS})});
 })();

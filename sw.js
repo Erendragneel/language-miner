@@ -1,6 +1,6 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.232-resume-lesson-r58';
-const BUILD_VERSION='6.4.232';
+const CACHE_NAME='language-miner-v6.4.233-complete-update-r59';
+const BUILD_VERSION='6.4.233';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
 const CRITICAL_SHELL=['./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
@@ -185,6 +185,11 @@ async function writeMeta(next){
 }
 
 async function validateShell(cache){
+  const page=await cache.match('./index.html',{ignoreSearch:true});
+  const html=page?.ok?await page.clone().text():'';
+  const version=html.match(/<meta\s+name="language-miner-version"\s+content="([^"]+)"/i)?.[1];
+  if(version!==BUILD_VERSION)throw new Error('The hosted release is still publishing. Please retry shortly.');
+
   for(const path of CRITICAL_SHELL){
     const response=await cache.match(path,{ignoreSearch:true});
     if(!response?.ok)throw new Error(`Update validation failed: ${path}`);
@@ -253,6 +258,13 @@ self.addEventListener('message',event=>{
   event.waitUntil((async()=>{
     try{
       if(data.type==='LM_GUARDIAN_STATUS'){reply(await statusPayload());return;}
+      if(data.type==='LM_APPLY_COMPLETE_UPDATE'){
+        if(data.build!==BUILD_VERSION)throw new Error('Waiting for the latest worker.');
+        await validateShell(await caches.open(CACHE_NAME));
+        const meta=await readMeta();
+        await writeMeta({...meta,currentCache:CACHE_NAME,selectedCache:CACHE_NAME,candidateCache:CACHE_NAME,badCaches:(meta.badCaches||[]).filter(key=>key!==CACHE_NAME)});
+        reply({ok:true,build:BUILD_VERSION,selectedCache:CACHE_NAME});return;
+      }
       if(data.type==='LM_SKIP_WAITING'){await self.skipWaiting();reply({ok:true});return;}
       if(data.type==='LM_MARK_BAD'){const selected=await choosePrevious(data.reason||'boot-failure');reply({ok:true,selectedCache:selected,rollbackAvailable:true});return;}
       if(data.type==='LM_ROLLBACK'){const selected=await choosePrevious(data.reason||'manual');reply({ok:true,selectedCache:selected,rolledBack:true,reload:true});return;}
