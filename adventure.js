@@ -28,7 +28,7 @@
   const name=nav.querySelector('.adventure-avatar strong');if(name&&name.textContent!==profile?.name)name.textContent=profile?.name||'Player';
   nav.querySelector('[data-adventure="admin"]').hidden=document.getElementById('developerBtn')?.hidden!==false;
   const grid=document.querySelector('.menu-wheel,.game-menu-grid');
-  if(grid&&!grid.querySelector('[data-adventure="logout"]'))for(const [id,label] of [['account','Account & Support'],['logout','Log out'],['admin','Admin'],['guide','Study guide']]){const b=document.createElement('button');b.type='button';b.dataset.adventure=id;b.dataset.menuCategoryName='player';b.textContent=label;grid.appendChild(b);}
+  if(grid&&!grid.querySelector('[data-adventure="logout"]'))for(const [id,label] of [['account','Account & Support'],['logout','Log out'],['admin','Admin']]){const b=document.createElement('button');b.type='button';b.dataset.adventure=id;b.dataset.menuCategoryName='player';b.textContent=label;grid.appendChild(b);}
   if(grid)for(const b of grid.querySelectorAll('[data-adventure]')){const layout=grid.closest('.miner-interface-menu');b.hidden=(layout&&layout.dataset.category!=='player')||(b.dataset.adventure==='admin'&&document.getElementById('developerBtn')?.hidden!==false);}
 
   const summary=window.LanguageMinerReadOnly?.learnerSummary?.(window.japaneseMinerActiveProfile?.()?.id);
