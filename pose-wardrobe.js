@@ -48,6 +48,18 @@
   if(gloves[o.gloves][1]){defs+=filter('pose-glove-color',gloves[o.gloves][1],3.4);body+=image(upper,'clip-path="url(#pose-gloves)" filter="url(#pose-glove-color)"');}
   return {assets:[upper,lower],label:[o.jacket==='none'?tops[o.top][0]+' top':jackets[o.jacket],pants[o.pants][0]+' pants',gloves[o.gloves][0],shoes[o.shoes]].join(', '),body:`<defs>${defs}</defs>${body}${pickaxeLayer(upper,o.pickaxe)}`};
  }
+ async function buildOutfit(o){
+   const head=await headLayers(o);if(!head)throw Error('Character layers not ready');
+   const art=await markup(o);
+   const upper=holidays[o.holiday]?DIR+'holiday-'+o.holiday+'.png':o.jacket==='none'?BASE:DIR+'jacket-'+o.jacket+'.png';
+   const skinMask=await window.LanguageMinerPoseTextures.materialMask(upper,'skin');
+   const skinColor={light:'#f5bd92',warm:'#bf8259',tan:'#98613f',deep:'#643e2d'}[o.skin];
+   const skinLayer=`<defs><mask id="pose-skin-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536">${image(skinMask)}</mask><clipPath id="pose-exposed-skin"><path d="M214 535 L308 525 L354 576 L492 576 L492 688 L310 688 Z M681 263 L793 264 L816 483 L739 499 L716 377 Z"/></clipPath>${filter('pose-skin-color',skinColor,1.2)}<clipPath id="pose-shaft"><path d="M267 209 L917 320 Q931 338 917 356 L268 250 Z"/></clipPath></defs><g mask="url(#pose-skin-mask)">${image(upper,'clip-path="url(#pose-exposed-skin)" filter="url(#pose-skin-color)"')}</g>`;
+   art.assets.push(...head.assets);art.body=`<defs>${head.defs}</defs><g mask="url(#pose-without-head)">${art.body}</g>${image(upper,'clip-path="url(#pose-shaft)"')}${skinLayer}${head.front}`;
+   art.label+=`, ${o.hairColor} ${o.hairStyle} hair, ${o.accessories.join(', ')||'no accessories'}`;
+   await Promise.all([...new Set(art.assets)].map(load));
+return {label:art.label,svg:`<svg class="pose-equipped-art" viewBox="0 0 1024 1536" role="img" aria-label="${esc('Your miner wearing '+art.label+', holding a pickaxe across the shoulders')}">${art.body}</svg>`};
+ }
  async function refresh(){
   const source=window.getJapaneseMinerPoseOutfit?.();if(!source)return;if(!source.profile){host.hidden=true;wanted='';revision++;return;}host.hidden=false;
   const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,source.shirt,'miner'),pants:known(pants,source.pants,'denim'),jacket:known(jackets,source.jacket,'none'),gloves:known(gloves,source.gloves,'none'),shoes:known(shoes,source.shoes,'boots'),holiday:known(holidays,source.holidaySpecial,'none'),hairStyle:known(heads,source.hairStyle,'short'),hairColor:hairColors.includes(source.hairColor)?source.hairColor:'brown',skin:skins.includes(source.skin)?source.skin:'warm',accessories:(source.accessories||[]).filter(id=>accessories.includes(id))};
@@ -56,20 +68,32 @@
   if(host.dataset.profile!==String(o.profile||'')){host.innerHTML='';host.dataset.profile=String(o.profile||'');}
   host.dataset.wardrobeStatus='loading';
   try{
-   const head=await headLayers(o);if(!head){wanted='';return;}
-   const art=await markup(o);if(token!==revision)return;
-   const upper=holidays[o.holiday]?DIR+'holiday-'+o.holiday+'.png':o.jacket==='none'?BASE:DIR+'jacket-'+o.jacket+'.png';
-   const skinMask=await window.LanguageMinerPoseTextures.materialMask(upper,'skin');
-   const skinColor={light:'#f5bd92',warm:'#bf8259',tan:'#98613f',deep:'#643e2d'}[o.skin];
-   const skinLayer=`<defs><mask id="pose-skin-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536">${image(skinMask)}</mask><clipPath id="pose-exposed-skin"><path d="M214 535 L308 525 L354 576 L492 576 L492 688 L310 688 Z M681 263 L793 264 L816 483 L739 499 L716 377 Z"/></clipPath>${filter('pose-skin-color',skinColor,1.2)}<clipPath id="pose-shaft"><path d="M267 209 L917 320 Q931 338 917 356 L268 250 Z"/></clipPath></defs><g mask="url(#pose-skin-mask)">${image(upper,'clip-path="url(#pose-exposed-skin)" filter="url(#pose-skin-color)"')}</g>`;
-   art.assets.push(...head.assets);art.body=`<defs>${head.defs}</defs><g mask="url(#pose-without-head)">${art.body}</g>${image(upper,'clip-path="url(#pose-shaft)"')}${skinLayer}${head.front}`;
-   art.label+=`, ${o.hairColor} ${o.hairStyle} hair, ${o.accessories.join(', ')||'no accessories'}`;
-   await Promise.all([...new Set(art.assets)].map(load));if(token!==revision)return;
-   host.innerHTML=`<svg class="pose-equipped-art" viewBox="0 0 1024 1536" role="img" aria-label="${esc('Your miner wearing '+art.label+', holding a pickaxe across the shoulders')}">${art.body}</svg>`;
+   const art=await buildOutfit(o);if(token!==revision)return;
+   host.innerHTML=art.svg;
    Object.assign(host.dataset,{wardrobeStatus:'ready',outfit:key});host.title='Equipped: '+art.label;
   }catch(error){if(token!==revision)return;host.dataset.wardrobeStatus='error';host.title='Outfit artwork could not load. Reconnecting will retry.';wanted='';}
  }
- window.LanguageMinerPoseWardrobe=Object.freeze({refresh});
+ let avatarSerial=0;
+ const avatarCache=new Map();
+ async function syncAvatar(avatar){
+  const source=window.getJapaneseMinerPoseOutfit?.();if(!source?.profile)return;
+  const d=avatar.dataset;
+  const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,d.shirt,'miner'),pants:known(pants,d.pants,'denim'),jacket:known(jackets,d.jacket,'none'),gloves:known(gloves,d.gloves,'none'),shoes:known(shoes,d.shoes,'boots'),holiday:known(holidays,d.holidaySpecial,'none'),hairStyle:known(heads,d.hairStyle,'spiky'),hairColor:hairColors.includes(d.hairColor)?d.hairColor:'brown',skin:skins.includes(d.skin)?d.skin:'warm',accessories:[...avatar.querySelectorAll('.portrait-accessory-image')].flatMap(img=>accessories.filter(a=>img.classList.contains(a)))};
+  const key=JSON.stringify(o);if(avatar._poseKey===key)return;avatar._poseKey=key;
+  try{
+   if(!avatarCache.has(key)){const task=buildOutfit(o);avatarCache.set(key,task);task.catch(()=>avatarCache.delete(key));while(avatarCache.size>80)avatarCache.delete(avatarCache.keys().next().value);}
+   const art=await avatarCache.get(key);if(!avatar.isConnected||avatar._poseKey!==key)return;
+   const prefix='avatar-pose-'+(++avatarSerial)+'-';
+   const layer=document.createElement('div');layer.className='shared-pose-preview';
+   layer.innerHTML=art.svg.replace(/id="([^"]+)"/g,(_,id)=>'id="'+prefix+id+'"').replace(/url\(#([^)]+)\)/g,(_,id)=>'url(#'+prefix+id+')');
+   avatar.querySelector('.shared-pose-preview')?.remove();avatar.appendChild(layer);avatar.classList.add('shared-pose-ready');
+  }catch(error){avatar._poseKey='';}
+ }
+ function syncPreviews(){document.querySelectorAll('.miner-avatar').forEach(syncAvatar);}
+ window.LanguageMinerPoseWardrobe=Object.freeze({refresh,syncAvatar});
+ new MutationObserver(syncPreviews).observe(document.body,{childList:true,subtree:true});
+ window.addEventListener('jm-recolors-ready',syncPreviews);
+ setInterval(syncPreviews,1500);syncPreviews();
  for(const name of ['jm-profile-loaded','jm-profile-logged-out','jm-recolors-ready'])window.addEventListener(name,refresh);
  document.addEventListener('click',event=>{if(event.target.closest('[data-character-key],[data-avatar-fashion-key],[data-holiday-special],#randomizeCharacterBtn'))setTimeout(refresh,0)});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});

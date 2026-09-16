@@ -154,3 +154,11 @@ body.adventure-signed-in #quickMineBtn{display:inline-flex!important;position:fi
 #mineWallpaperShop .mine-wallpaper-shop-preview{position:relative;height:174px;background-size:cover!important;background-position:center!important;box-shadow:inset 0 -40px 34px -16px #07111fcc}
 #mineWallpaperShop .menu-wallpaper-preview-label{position:absolute;bottom:8px;left:8px;padding:5px 9px;font-size:11px;background:#081a2dcc}
 @media(max-width:700px){#gameMenuOverlay .game-menu-panel[data-menu-wallpaper]{background-position:50% 50%}#gameMenuOverlay .game-menu-panel[data-menu-wallpaper] .game-menu-head{border-radius:0}#shopContent[data-pocket-cosmetics] #mineWallpaperShop .mine-wallpaper-shop-preview{height:112px}}
+
+body[data-wallpaper^="scene-"]{background-image:var(--equipped-scene)!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+
+.miner-avatar.shared-pose-ready> :not(.shared-pose-preview){visibility:hidden!important}
+.miner-avatar>.shared-pose-preview{position:absolute!important;inset:0!important;display:flex!important;align-items:center;justify-content:center;transform:none!important;pointer-events:none}
+.miner-avatar>.shared-pose-preview>svg{display:block;width:100%;height:100%;overflow:visible;filter:none!important}
+
+.character-preview-card>.miner-avatar.shared-pose-ready{position:relative!important;width:260px!important;max-width:100%!important;height:390px!important;min-height:390px!important;flex-shrink:0!important;transform:none!important;margin:10px auto 16px!important;animation:none!important}
