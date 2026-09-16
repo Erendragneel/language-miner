@@ -504,7 +504,7 @@ function normalizeState(raw){
     next.equippedMineWallpaper=selectedPage&&selectedPage!=='midnight'?'menu-'+selectedPage:'classic';
     next.wallpaperPurposeSwap227=true;
   }
-  const validWallpaperIds=["midnight", "color-classic", "color-sakura-grotto", "color-crystal-cathedral", "color-bamboo-tunnel", "color-sunken-mine", "color-magma-forge", "color-aurora-cavern", "color-galaxy-depths", "color-art-azure-passage", "color-art-amethyst-dream", "color-art-moonlit-ice", "color-art-sapphire-river", "color-art-emerald-moss", "color-art-rose-quartz", "color-art-golden-topaz", "color-art-ruby-forge", "color-art-aurora-prism", "color-art-celestial-galaxy", "color-art-opal-hollow", "color-art-ancient-lantern"];
+  const validWallpaperIds=["midnight"];
   if(!next.illustratedWallpaperOwnershipMigrated){
     for(const id of (next.ownedMineWallpapers||['classic'])){const scene='scene-'+id;if(validWallpaperIds.includes(scene)&&!next.ownedWallpapers.includes(scene))next.ownedWallpapers.push(scene);}
     next.illustratedWallpaperOwnershipMigrated=true;
@@ -3022,155 +3022,7 @@ render=function(){
 
 
 // v3.6 — Persistent placement bypass, centralized menu, cosmetic shop, and wallpapers.
-const WALLPAPERS=[
-  {
-    "id": "midnight",
-    "name": "Crystal Falls Adventure",
-    "cost": 0,
-    "desc": "Free original wallpaper. Return to the crystal cave, waterfalls, and lantern-lit bridges anytime.",
-    "preview": "url(adventure-world.png)"
-  },
-  {
-    "id": "color-classic",
-    "name": "Slate",
-    "cost": 0,
-    "desc": "Slate color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#294555,#0a1423)"
-  },
-  {
-    "id": "color-sakura-grotto",
-    "name": "Amethyst",
-    "cost": 100000,
-    "desc": "Amethyst color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#654081,#0a1423)"
-  },
-  {
-    "id": "color-crystal-cathedral",
-    "name": "Sapphire",
-    "cost": 200000,
-    "desc": "Sapphire color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#254e86,#0a1423)"
-  },
-  {
-    "id": "color-bamboo-tunnel",
-    "name": "Emerald",
-    "cost": 350000,
-    "desc": "Emerald color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#245f48,#0a1423)"
-  },
-  {
-    "id": "color-sunken-mine",
-    "name": "Arctic",
-    "cost": 550000,
-    "desc": "Arctic color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#36747f,#0a1423)"
-  },
-  {
-    "id": "color-magma-forge",
-    "name": "Ruby",
-    "cost": 800000,
-    "desc": "Ruby color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#803744,#0a1423)"
-  },
-  {
-    "id": "color-aurora-cavern",
-    "name": "Amber",
-    "cost": 1100000,
-    "desc": "Amber color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#815b29,#0a1423)"
-  },
-  {
-    "id": "color-galaxy-depths",
-    "name": "Rose",
-    "cost": 1500000,
-    "desc": "Rose color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#825169,#0a1423)"
-  },
-  {
-    "id": "color-art-azure-passage",
-    "name": "Azure",
-    "cost": 2000000,
-    "desc": "Azure color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#256c91,#0a1423)"
-  },
-  {
-    "id": "color-art-amethyst-dream",
-    "name": "Violet",
-    "cost": 2500000,
-    "desc": "Violet color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#614b96,#0a1423)"
-  },
-  {
-    "id": "color-art-moonlit-ice",
-    "name": "Moonlight",
-    "cost": 3000000,
-    "desc": "Moonlight color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#596b83,#0a1423)"
-  },
-  {
-    "id": "color-art-sapphire-river",
-    "name": "Ocean",
-    "cost": 3500000,
-    "desc": "Ocean color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#245369,#0a1423)"
-  },
-  {
-    "id": "color-art-emerald-moss",
-    "name": "Forest",
-    "cost": 4000000,
-    "desc": "Forest color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#365d38,#0a1423)"
-  },
-  {
-    "id": "color-art-rose-quartz",
-    "name": "Blush",
-    "cost": 4500000,
-    "desc": "Blush color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#8a5b73,#0a1423)"
-  },
-  {
-    "id": "color-art-golden-topaz",
-    "name": "Topaz",
-    "cost": 5000000,
-    "desc": "Topaz color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#876a32,#0a1423)"
-  },
-  {
-    "id": "color-art-ruby-forge",
-    "name": "Ember",
-    "cost": 5500000,
-    "desc": "Ember color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#864c33,#0a1423)"
-  },
-  {
-    "id": "color-art-aurora-prism",
-    "name": "Aurora",
-    "cost": 6000000,
-    "desc": "Aurora color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#367b71,#0a1423)"
-  },
-  {
-    "id": "color-art-celestial-galaxy",
-    "name": "Galaxy",
-    "cost": 7000000,
-    "desc": "Galaxy color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#443f79,#0a1423)"
-  },
-  {
-    "id": "color-art-opal-hollow",
-    "name": "Opal",
-    "cost": 8000000,
-    "desc": "Opal color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#4e747d,#0a1423)"
-  },
-  {
-    "id": "color-art-ancient-lantern",
-    "name": "Lantern",
-    "cost": 9000000,
-    "desc": "Lantern color background with a dark finish for readable game controls.",
-    "preview": "linear-gradient(135deg,#6e5943,#0a1423)"
-  }
-];
+const WALLPAPERS=[{id:'midnight',name:'Crystal Falls Adventure',cost:0,desc:'Free original wallpaper. Return to the crystal cave, waterfalls, and lantern-lit bridges anytime.',preview:'url(adventure-world.png)'}];
 let activeShopTab='mine-cosmetics';
 const SHOP_COLOR_THEMES=[['midnight','Midnight'],['sunrise','Sunrise'],['sakura','Sakura'],['aqua','Aqua'],['candy','Candy']];
 function shopText(key,values={}){return window.LanguageMinerI18n?.t?.(key,values)||String(key);}
@@ -3199,9 +3051,8 @@ function renderShop(){
   const wallpaperGrid=document.getElementById('mineWallpaperShop');
   MINE_WALLPAPERS.forEach(item=>{const owned=state.ownedMineWallpapers.includes(item.id),equipped=state.equippedMineWallpaper===item.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="mine-wallpaper-shop-preview" data-preview-mine-wallpaper="${item.id}" style="background:${item.preview}"><span class="menu-wallpaper-preview-label">Game Menu</span></div><h3>${item.name}</h3><p>${item.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':shopText('buyEquipNuggets',{value:item.cost.toLocaleString()})}</button>`;card.querySelector('button').addEventListener('click',()=>buyOrEquipMineCosmetic('wallpaper',item));wallpaperGrid.appendChild(card);});
  }else if(activeShopTab==='wallpapers'){
-  box.innerHTML='<div class="shop-section-heading"><span>Free appearance</span><h3>Bright game colors</h3><p>Choose one free color treatment or one wallpaper. Selecting either automatically turns the other off.</p></div><div class="theme-choice-grid wallpaper-theme-grid" id="wallpaperThemeShop"></div><div class="shop-section-heading"><span>Permanent collection</span><h3>Wallpapers</h3><p>Unlock a wallpaper with Nuggets, then equip it here.</p></div><div class="cosmetic-grid" id="wallpaperShop"></div>';
-  const themeGrid=document.getElementById('wallpaperThemeShop');
-  SHOP_COLOR_THEMES.forEach(([value,name])=>{const selected=state.colorTheme===value;const button=document.createElement('button');button.type='button';button.className=selected?'selected':'';button.innerHTML=`<span class="theme-swatch theme-${value}"></span><span>${name}<small>Free</small></span>`;button.addEventListener('click',()=>{if(!window.LanguageMinerPatreonPreview.allowed(1,button))return;state.colorTheme=value;state.equippedWallpaper='midnight';applyWallpaper();save();render();renderShop();setMessage(`${name} game colors selected. Wallpaper cleared.`,'correct');});themeGrid.appendChild(button);});
+  box.innerHTML='<div class="shop-section-heading"><span>Permanent collection</span><h3>Wallpapers</h3><p>Unlock a wallpaper with Nuggets, then equip it here.</p></div><div class="cosmetic-grid" id="wallpaperShop"></div>';
+
   const grid=document.getElementById('wallpaperShop');
   WALLPAPERS.forEach(w=>{const owned=state.ownedWallpapers.includes(w.id),equipped=state.colorTheme==='midnight'&&state.equippedWallpaper===w.id;const card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="wallpaper-preview" style="background:${w.preview};background-size:${w.id==='paper'?'18px 18px':'cover'}"></div><h3>${w.name}</h3><p>${w.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Use wallpaper':`Buy — ${w.cost.toLocaleString()} Nuggets`}</button>`;card.querySelector('button').addEventListener('click',()=>{if(w.id!=='midnight'&&!window.LanguageMinerPatreonPreview.allowed(1,card))return;if(owned){state.colorTheme='midnight';state.equippedWallpaper=w.id;applyWallpaper();save();render();renderShop();setMessage(`${w.name} wallpaper equipped. Bright game colors cleared.`,'correct');}else if(spendStoneValue(w.cost)){state.ownedWallpapers.push(w.id);state.colorTheme='midnight';state.equippedWallpaper=w.id;applyWallpaper();save();render();renderShop();setMessage(`${w.name} purchased and equipped!`,'correct');}else setMessage(`You need ${w.cost.toLocaleString()} Nuggets for ${w.name}.`,'wrong');});grid.appendChild(card);});
  }else{
@@ -3225,7 +3076,7 @@ renderShop=function(){
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="rock-skins"${openAttribute('rock-skins')}><summary><span>💎</span><strong>Gem buttons</strong><small>${gemTiers.length} collectible styles</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose the gem for your Return to Question button. Unlocked styles stay available after you spend gems.</p><div class="cosmetic-grid" id="rockSkinShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="mine-wallpapers"${openAttribute('mine-wallpapers')}><summary><span>🖼️</span><strong>Menu wallpapers</strong><small>${MINE_WALLPAPERS.length} menu backgrounds</small></summary><div class="mine-cosmetic-accordion-body"><p>Change the Game Menu background. Your full-page wallpaper stays separate.</p><div class="cosmetic-grid" id="mineWallpaperShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="pickaxe-skins"${openAttribute('pickaxe-skins')}><summary><span>⛏️</span><strong>Pickaxe skins</strong><small>${PICKAXE_SKINS.length} permanent skins</small></summary><div class="mine-cosmetic-accordion-body"><p>Preview a pickaxe, check its Nugget price, and permanently equip owned skins.</p><div class="cosmetic-grid" id="menuPickaxeShop"></div></div></details>
-      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="wallpapers"${openAttribute('wallpapers')}><summary><span>🌌</span><strong>Wallpapers</strong><small>${WALLPAPERS.length} full-page wallpapers</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose your background, including the free original Crystal Falls Adventure wallpaper.</p><div class="theme-choice-grid wallpaper-theme-grid" id="wallpaperThemeShop"></div><div class="cosmetic-grid" id="wallpaperShop"></div></div></details>
+      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="wallpapers"${openAttribute('wallpapers')}><summary><span>🌌</span><strong>Wallpapers</strong><small>1 full-page wallpaper</small></summary><div class="mine-cosmetic-accordion-body"><p>The free original Crystal Falls Adventure background.</p><div class="cosmetic-grid" id="wallpaperShop"></div></div></details>
     </div>`;
   box.querySelectorAll('[data-mine-cosmetic-section]').forEach(section=>section.addEventListener('toggle',()=>{if(section.open)mineCosmeticOpenSections.add(section.dataset.mineCosmeticSection);else mineCosmeticOpenSections.delete(section.dataset.mineCosmeticSection);}));
 
@@ -3238,8 +3089,7 @@ renderShop=function(){
   const pickaxeGrid=document.getElementById('menuPickaxeShop');
   PICKAXE_SKINS.forEach(skin=>{const owned=state.ownedPickaxeSkins.includes(skin.id),equipped=state.equippedPickaxeSkin===skin.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="cosmetic-preview">${window.LanguageMinerPickaxeFinishes.preview(skin.id)}</div><h3>${skin.name}</h3><p>${skin.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Equip':`Preview — ${skin.cost.toLocaleString()} Nuggets`}</button>`;const button=card.querySelector('button');button.dataset.patreonTier=skin.id==='standard'?'0':'1';button.addEventListener('click',()=>{requestPickaxePurchase(skin,button);if(owned)renderShop();});pickaxeGrid.appendChild(card);});
 
-  const themeGrid=document.getElementById('wallpaperThemeShop');
-  SHOP_COLOR_THEMES.forEach(([value,name])=>{const selected=state.colorTheme===value,button=document.createElement('button');button.type='button';button.className=selected?'selected':'';button.innerHTML=`<span class="theme-swatch theme-${value}"></span><span>${name}<small>Free</small></span>`;button.addEventListener('click',()=>{if(!window.LanguageMinerPatreonPreview.allowed(1,button))return;state.colorTheme=value;state.equippedWallpaper='midnight';applyWallpaper();save();render();renderShop();setMessage(`${name} game colors selected. Wallpaper cleared.`,'correct');});themeGrid.appendChild(button);});
+
   const pageWallpaperGrid=document.getElementById('wallpaperShop');
   WALLPAPERS.forEach(wallpaper=>{const owned=state.ownedWallpapers.includes(wallpaper.id),equipped=state.colorTheme==='midnight'&&state.equippedWallpaper===wallpaper.id,card=document.createElement('article');card.className='cosmetic-card'+(equipped?' equipped':'');card.innerHTML=`<div class="wallpaper-preview" style="background:${wallpaper.preview};background-size:${wallpaper.id==='paper'?'18px 18px':'cover'}"></div><h3>${wallpaper.name}</h3><p>${wallpaper.desc}</p><button type="button" ${equipped?'disabled':''}>${equipped?'Equipped':owned?'Use wallpaper':`Buy — ${wallpaper.cost.toLocaleString()} Nuggets`}</button>`;card.querySelector('button').addEventListener('click',()=>{if(wallpaper.id!=='midnight'&&!window.LanguageMinerPatreonPreview.allowed(1,card))return;if(owned){state.colorTheme='midnight';state.equippedWallpaper=wallpaper.id;applyWallpaper();save();render();renderShop();setMessage(`${wallpaper.name} wallpaper equipped. Bright game colors cleared.`,'correct');}else if(spendStoneValue(wallpaper.cost)){state.ownedWallpapers.push(wallpaper.id);state.colorTheme='midnight';state.equippedWallpaper=wallpaper.id;applyWallpaper();save();render();renderShop();setMessage(`${wallpaper.name} purchased and equipped!`,'correct');}else setMessage(`You need ${wallpaper.cost.toLocaleString()} Nuggets for ${wallpaper.name}.`,'wrong');});card.querySelector("button").dataset.patreonTier=wallpaper.id==='midnight'?'0':'1';pageWallpaperGrid.appendChild(card);});
 };
