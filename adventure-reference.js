@@ -19,7 +19,7 @@
  const reassurance=document.createElement('div');reassurance.className='adventure-reassurance';reassurance.innerHTML='<span aria-hidden="true">◭</span><span>Take your time. You can listen again.</span><span aria-hidden="true">♠</span>';panel.after(reassurance);
  const heading=document.createElement('h2');heading.id='adventureMineTitle';document.querySelector('.panel.mine')?.append(heading);
  const lessonProgress=document.createElement('div');lessonProgress.id='adventureLessonProgress';document.querySelector('.panel.mine')?.append(lessonProgress);
- const shortcuts=document.createElement('nav');shortcuts.className='adventure-reference-shortcuts';shortcuts.setAttribute('aria-label','Learning tools');shortcuts.innerHTML='<button type="button" data-adventure="notebook">▤ Notebook</button><button type="button" data-adventure="family">♧ Parent / Teacher</button>';document.querySelector('.app>header').after(shortcuts);
+ const shortcuts=document.createElement('nav');shortcuts.className='adventure-reference-shortcuts';shortcuts.setAttribute('aria-label','Learning tools');shortcuts.innerHTML=`<button type="button" data-adventure="notebook">${window.languageMinerNavigationIcon('notebook')} Notebook</button><button type="button" data-adventure="family">${window.languageMinerNavigationIcon('family')} Parent / Teacher</button>`;document.querySelector('.app>header').after(shortcuts);
  document.addEventListener('click',event=>{
   const dot=event.target.closest('[data-adventure-lesson]');if(dot&&!dot.disabled){openLesson({id:dot.dataset.adventureLesson});return;}
   const action=event.target.closest('[data-reference]')?.dataset.reference;
