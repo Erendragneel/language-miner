@@ -284,7 +284,7 @@ function bossGateAllowsStage(index,baseUnlocked){
  index=Number(index);const cleared=new Set((Array.isArray(state.clearedStages)?state.clearedStages:[]).map(Number)),completedMine=cleared.has(index)||state.v5.bossDefeated.includes(index),previousMineComplete=cleared.has(index-1)||state.v5.bossDefeated.includes(index-1);
  // A permanent completion record must outrank current mastery. Otherwise an
  // older mine can become locked again after later review changes its score.
- return index===0||completedMine||placementAllowsStage(index)||previousMineComplete;
+ return index===0||japaneseMineReached(index)||completedMine||placementAllowsStage(index)||previousMineComplete;
 }
 const isStageUnlockedBeforeBossGate=isStageUnlocked;
 isStageUnlocked=function(index){const baseUnlocked=isStageUnlockedBeforeBossGate(index);ensureV5();return bossGateAllowsStage(index,baseUnlocked);};

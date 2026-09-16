@@ -504,9 +504,13 @@
     const lessons=courseSectionLessons(section,mineIndex),first=Number(evenLesson)-2,second=Number(evenLesson)-1;
     return courseMineUnlocked(mineIndex)&&evenLesson>=2&&evenLesson%2===0&&!!lessons[first]&&!!lessons[second]&&courseLessonUnlocked(section,first,mineIndex)&&courseLessonUnlocked(section,second,mineIndex)&&courseLessonMastery(section,first,mineIndex)>=MULTILINGUAL_LESSON_MASTERY_REQUIREMENT&&courseLessonMastery(section,second,mineIndex)>=MULTILINGUAL_LESSON_MASTERY_REQUIREMENT;
   }
+  function courseMinePreviouslyPassed(mineIndex,progress=languageProgress()){
+    const mine=Number(mineIndex);
+    return Number(progress.placementUnlockedThrough||0)>mine||Object.entries(progress.mineXpByMine||{}).some(([index,xp])=>Number(index)>mine&&Number(xp)>0)||Array.from({length:7},(_,index)=>index).some(index=>index>=mine&&courseBossDefeated(index,progress));
+  }
   function courseLessonUnlocked(section,lesson,mineIndex=selectedCourseMine){
     lesson=Number(lesson)||0;mineIndex=Number(mineIndex)||0;if(!courseMineUnlocked(mineIndex))return false;if(lesson<=0)return true;
-    if(courseBossDefeated(mineIndex))return true;
+    if(courseMinePreviouslyPassed(mineIndex)||courseLessonMastery(section,lesson,mineIndex)>=(section==='alphabet'?MULTILINGUAL_ALPHABET_BOSS_MASTERY:MULTILINGUAL_LESSON_MASTERY_REQUIREMENT))return true;
     if(!courseLessonUnlocked(section,lesson-1,mineIndex))return false;
     const requirement=section==='alphabet'?MULTILINGUAL_ALPHABET_BOSS_MASTERY:MULTILINGUAL_LESSON_MASTERY_REQUIREMENT;
     if(courseLessonMastery(section,lesson-1,mineIndex)<requirement)return false;
@@ -547,7 +551,7 @@
   }
   function courseMineSections(mineIndex){if(travelCourseActive())return Number(mineIndex)===0?['travel']:[];return Number(mineIndex)===0?['alphabet','boss']:['vocabulary','grammar','sentences','boss'];}
   function courseMineMastery(mineIndex){const sections=courseMineSections(mineIndex);return Math.round(sections.reduce((sum,section)=>sum+courseSectionMastery(section,mineIndex),0)/sections.length);}
-  function courseMineUnlocked(mineIndex,progress=languageProgress()){mineIndex=Number(mineIndex)||0;return mineIndex===0||mineIndex<=Number(progress.placementUnlockedThrough||0)||courseBossDefeated(mineIndex,progress)||courseBossDefeated(mineIndex-1,progress);}
+  function courseMineUnlocked(mineIndex,progress=languageProgress()){mineIndex=Number(mineIndex)||0;return mineIndex===0||courseMinePreviouslyPassed(mineIndex,progress)||Object.entries(progress.mineXpByMine||{}).some(([index,xp])=>Number(index)>=mineIndex&&Number(xp)>0)||mineIndex<=Number(progress.placementUnlockedThrough||0)||courseBossDefeated(mineIndex,progress)||courseBossDefeated(mineIndex-1,progress);}
   function recordCourseSectionAnswer(progress,section,correct){section=['alphabet','vocabulary','grammar','sentences','travel'].includes(String(section))?String(section):'vocabulary';progress.sectionAnswers=progress.sectionAnswers&&typeof progress.sectionAnswers==='object'?progress.sectionAnswers:{};progress.sectionAnswers[section]=Number(progress.sectionAnswers[section]||0)+1;progress.answered=Number(progress.answered||0)+1;progress.correct=Number(progress.correct||0)+(correct?1:0);return section;}
   function recordCourseMastery(question,correct){
     if(question?.mode==='boss')return;

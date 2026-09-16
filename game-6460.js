@@ -711,7 +711,7 @@ function stageComplete(i){
 function hiraganaMastered(){ return stageMasteryComplete(0); }
 function katakanaUnlocked(){ return stageComplete(0); }
 function isStageUnlocked(i){
-  if(i===0) return true;
+  if(i===0||japaneseMineReached(i)) return true;
   const cleared=new Set((Array.isArray(state.clearedStages)?state.clearedStages:[]).map(Number));
   // Once a mine has been completed, it and the route that completion opened
   // stay available for replay even if later practice changes current mastery.
@@ -3734,20 +3734,24 @@ function jlptVocabularyLevelQuestions(stage,index){
   const pool=Number(stage)===2?questions.filter(question=>Number(question.stage)===2&&!tutorQuestion(question)&&jlptQuestionSection(question)==="vocabulary"):jlptSectionQuestionPool(stage,"vocabulary");
   return pool.filter(question=>keys.has(String(question.vocabularyKey||"")));
 }
+function japaneseMineReached(stage){
+  stage=Number(stage);
+  return stage===0||Number(state.placementUnlockedThrough||0)>=stage||state.stageXp?.some((xp,index)=>index>=stage&&Number(xp)>0)||[...(state.clearedStages||[]),...(state.v5?.bossDefeated||[])].some(index=>Number(index)>=stage-1);
+}
 function completedJapaneseMine(stage){
   stage=Number(stage);
-  return (Array.isArray(state.clearedStages)&&state.clearedStages.map(Number).includes(stage))||(Array.isArray(state.v5?.bossDefeated)&&state.v5.bossDefeated.map(Number).includes(stage));
+  return Number(state.placementUnlockedThrough||0)>stage||state.stageXp?.some((xp,index)=>index>stage&&Number(xp)>0)||[...(state.clearedStages||[]),...(state.v5?.bossDefeated||[])].some(index=>Number(index)>=stage);
 }
 function jlptVocabularyLevelUnlocked(stage,index){
   stage=Number(stage);index=Number(index);
   if(!isStageUnlocked(stage))return false;
-  if(completedJapaneseMine(stage))return true;
+  if(completedJapaneseMine(stage)||jlptVocabularyLevelMastery(stage,index)>=JLPT_VOCABULARY_UNLOCK_MASTERY)return true;
   if(index<=0)return true;
   return jlptVocabularyLevelMastery(stage,index-1)>=JLPT_VOCABULARY_UNLOCK_MASTERY&&(index%2!==0||jlptReviewCheckpointPassed(stage,"vocabulary",index));
 }
 function highestUnlockedJlptVocabularyLevel(stage){
   const levels=jlptVocabularyLevels(stage);let highest=0;
-  for(let index=1;index<levels.length;index++){if(jlptVocabularyLevelUnlocked(stage,index))highest=index;else break;}
+  for(let index=1;index<levels.length;index++){if(jlptVocabularyLevelUnlocked(stage,index))highest=index;}
   return highest;
 }
 function currentJlptVocabularyLevel(stage=selectedStageIndex()){
@@ -4001,14 +4005,14 @@ function jlptSectionLevelUnlocked(stage,section,index){
   if(section==="vocabulary")return jlptVocabularyLevelUnlocked(stage,index);
   stage=Number(stage);index=Number(index);
   if(!isStageUnlocked(stage))return false;
-  if(state.clearedStages?.includes(stage)||state.v5?.bossDefeated?.includes(stage))return true;
+  if(completedJapaneseMine(stage)||jlptSectionLevelMastery(stage,section,index)>=JLPT_VOCABULARY_UNLOCK_MASTERY)return true;
   if(index<=0)return true;
   return jlptSectionLevelMastery(stage,section,index-1)>=JLPT_VOCABULARY_UNLOCK_MASTERY&&(index%2!==0||jlptReviewCheckpointPassed(stage,section,index));
 }
 function highestUnlockedJlptSectionLevel(stage,section){
   if(section==="vocabulary")return highestUnlockedJlptVocabularyLevel(stage);
   const levels=jlptSectionLevels(stage,section);let highest=0;
-  for(let index=1;index<levels.length;index++){if(jlptSectionLevelUnlocked(stage,section,index))highest=index;else break;}
+  for(let index=1;index<levels.length;index++){if(jlptSectionLevelUnlocked(stage,section,index))highest=index;}
   return highest;
 }
 function currentJlptSectionLevel(stage=selectedStageIndex(),section=currentJlptSection(stage)){
@@ -4179,8 +4183,8 @@ function kanaSetForStage(stage){return Number(stage)===1?kata:hira;}
 function kanaFamiliesForStage(stage){const set=kanaSetForStage(stage);return KANA_FAMILY_SPECS.map(spec=>({...spec,entries:set.slice(spec.start,spec.end),chars:set.slice(spec.start,spec.end).map(row=>row[0])}));}
 function ensureKanaFamilyState(target=state){if(!target.kanaFamilyLevel||typeof target.kanaFamilyLevel!=='object')target.kanaFamilyLevel={hiragana:0,katakana:0};for(const kind of ['hiragana','katakana'])target.kanaFamilyLevel[kind]=Math.max(0,Math.min(KANA_FAMILY_SPECS.length-1,Number(target.kanaFamilyLevel[kind])||0));return target;}
 function kanaFamilyMastery(family){if(!family.entries.length)return 0;return Math.round(family.entries.reduce((sum,[ch])=>sum+masteryScore(ch),0)/family.entries.length);}
-function kanaFamilyUnlocked(stage,index){if(index===0)return true;if(completedJapaneseMine(stage)||Number(state.placementUnlockedThrough||0)>Number(stage))return true;const families=kanaFamiliesForStage(stage);return kanaFamilyMastery(families[index-1])>=KANA_FAMILY_UNLOCK_MASTERY;}
-function highestUnlockedKanaFamily(stage){const families=kanaFamiliesForStage(stage);let highest=0;for(let i=1;i<families.length;i++){if(kanaFamilyUnlocked(stage,i))highest=i;else break;}return highest;}
+function kanaFamilyUnlocked(stage,index){if(index===0)return true;if(completedJapaneseMine(stage)||Number(state.placementUnlockedThrough||0)>Number(stage))return true;const families=kanaFamiliesForStage(stage);return kanaFamilyMastery(families[index])>=KANA_FAMILY_UNLOCK_MASTERY||kanaFamilyMastery(families[index-1])>=KANA_FAMILY_UNLOCK_MASTERY;}
+function highestUnlockedKanaFamily(stage){const families=kanaFamiliesForStage(stage);let highest=0;for(let i=1;i<families.length;i++){if(kanaFamilyUnlocked(stage,i))highest=i;}return highest;}
 function currentKanaFamily(stage=selectedStageIndex()){ensureKanaFamilyState();const kind=kanaKindForStage(stage),highest=highestUnlockedKanaFamily(stage);state.kanaFamilyLevel[kind]=Math.min(highest,Math.max(0,Number(state.kanaFamilyLevel[kind])||0));return kanaFamiliesForStage(stage)[state.kanaFamilyLevel[kind]];}
 function prepareKanaFamilyQuestion(question,family){
   if(!question)return question;
