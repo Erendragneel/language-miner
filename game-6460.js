@@ -720,7 +720,7 @@ function syncSelectedStageUI(){
   const soundToggle=document.getElementById("soundToggle");
   if(quickStage) quickStage.textContent=stage.label;
   if(stageName) stageName.textContent=stage.name;
-  if(quickMineLabel) quickMineLabel.textContent=state.active&&!state.answered?"Return to Question":"New Question";
+  if(quickMineLabel) quickMineLabel.textContent=state.active&&!state.answered?"Resume":"Next";
   if(soundToggle) soundToggle.checked=state.soundEnabled!==false;
   const supportMode=document.getElementById("supportMode");
   if(supportMode) supportMode.value=state.supportMode||"guided";

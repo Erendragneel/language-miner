@@ -218,7 +218,7 @@ function syncSmartReviewControls(){
  const session=activeSmartReviewSession(),reviewQuestion=session&&state.active?.smartReview===true;
  const next=document.getElementById('nextBtn'),quick=document.getElementById('quickMineLabel'),quickButton=document.getElementById('quickMineBtn');
  if(next)next.textContent=reviewQuestion?'Next Review':'Next Mine';
- if(quick)quick.textContent=reviewQuestion?(state.answered?'Next Review':'Return to Review'):(state.active&&!state.answered?'Return to Question':'New Question');
+ if(quick)quick.textContent=state.active&&!state.answered?'Resume':'Next';
  if(quickButton)quickButton.setAttribute('aria-label',reviewQuestion?(state.answered?'Open the next Smart Review question':'Return to the current Smart Review question'):(state.active&&!state.answered?'Return to the current question':'Start a new question'));
  if(reviewQuestion)decorateSmartReviewQuestion(session);
 }
