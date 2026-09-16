@@ -2826,6 +2826,7 @@ render=function(){
 
 // v3.6 — Persistent placement bypass, centralized menu, cosmetic shop, and wallpapers.
 const WALLPAPERS=[
+ {id:'midnight',name:'Crystal Falls Adventure',cost:0,desc:'Free original wallpaper. Return to the crystal cave, waterfalls, and lantern-lit bridges anytime.',preview:'url(adventure-world.png)'},
  {id:'moonstone-cathedral',name:'Moonstone Cathedral',cost:1000000,desc:'Towering white selenite and quartz lit by warm golden rays.',preview:'linear-gradient(#06091240,#06091270),url(wallpaper-moonstone-cathedral-v1.png)'},
  {id:'amethyst-crown',name:'Amethyst Crown Cavern',cost:1250000,desc:'A royal chamber of violet crystal spires and lavender light.',preview:'linear-gradient(#08041430,#08041468),url(wallpaper-amethyst-crown-v1.png)'},
  {id:'emerald-geode',name:'Emerald Geode Sanctuary',cost:1500000,desc:'Ancient emerald columns glowing beneath a hidden forest cave.',preview:'linear-gradient(#03100b38,#03100b70),url(wallpaper-emerald-geode-v1.png)'},
@@ -2880,7 +2881,10 @@ renderShop=function(){
   document.querySelectorAll('[data-shop-tab]').forEach(button=>button.classList.toggle('primary',button.dataset.shopTab==='mine-cosmetics'));
   const box=document.getElementById('shopContent');if(!box)return;
   if((window.japaneseMinerSupporterTier?.()||0)<1){
-    box.innerHTML=window.japaneseMinerSupporterGate?.(1,'Mine Cosmetics: rock skins, mine wallpapers, pickaxe skins, and wallpapers')||'';
+    const original=WALLPAPERS.find(w=>w.id==='midnight');
+    const equipped=state.equippedWallpaper==='midnight'&&state.colorTheme==='midnight';
+    box.innerHTML=`<section><h3>Wallpapers</h3><div class="cosmetic-grid"><article class="cosmetic-card${equipped?' equipped':''}"><div class="wallpaper-preview" style="background:${original.preview};background-size:cover"></div><h3>${original.name}</h3><p>${original.desc}</p><button type="button" id="freeOriginalWallpaperBtn" ${equipped?'disabled':''}>${equipped?'Equipped':'Use free wallpaper'}</button></article></div></section>${window.japaneseMinerSupporterGate?.(1,'Additional Mine Cosmetics')||''}`;
+    document.getElementById('freeOriginalWallpaperBtn').addEventListener('click',()=>{state.colorTheme='midnight';state.equippedWallpaper='midnight';applyWallpaper();save();render();renderShop();setMessage('Crystal Falls Adventure wallpaper equipped.','correct');});
     return;
   }
   const openAttribute=id=>mineCosmeticOpenSections.has(id)?' open':'';
@@ -2890,7 +2894,7 @@ renderShop=function(){
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="rock-skins"${openAttribute('rock-skins')}><summary><span>🪨</span><strong>Rock skins</strong><small>${ROCK_SKINS.length} permanent skins</small></summary><div class="mine-cosmetic-accordion-body"><p>Change the rock you tap without changing your equipped pickaxe.</p><div class="cosmetic-grid" id="rockSkinShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="mine-wallpapers"${openAttribute('mine-wallpapers')}><summary><span>🖼️</span><strong>Mine wallpapers</strong><small>${MINE_WALLPAPERS.length} cave backgrounds</small></summary><div class="mine-cosmetic-accordion-body"><p>Change only the cave scenery behind the tappable rock.</p><div class="cosmetic-grid" id="mineWallpaperShop"></div></div></details>
       <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="pickaxe-skins"${openAttribute('pickaxe-skins')}><summary><span>⛏️</span><strong>Pickaxe skins</strong><small>${PICKAXE_SKINS.length} permanent skins</small></summary><div class="mine-cosmetic-accordion-body"><p>Preview a pickaxe, check its Nugget price, and permanently equip owned skins.</p><div class="cosmetic-grid" id="menuPickaxeShop"></div></div></details>
-      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="wallpapers"${openAttribute('wallpapers')}><summary><span>🌌</span><strong>Wallpapers</strong><small>${WALLPAPERS.length} full-page wallpapers</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose one of five illustrated backgrounds for your game.</p><div class="theme-choice-grid wallpaper-theme-grid" id="wallpaperThemeShop"></div><div class="cosmetic-grid" id="wallpaperShop"></div></div></details>
+      <details class="mine-cosmetic-accordion" data-mine-cosmetic-section="wallpapers"${openAttribute('wallpapers')}><summary><span>🌌</span><strong>Wallpapers</strong><small>${WALLPAPERS.length} full-page wallpapers</small></summary><div class="mine-cosmetic-accordion-body"><p>Choose your background, including the free original Crystal Falls Adventure wallpaper.</p><div class="theme-choice-grid wallpaper-theme-grid" id="wallpaperThemeShop"></div><div class="cosmetic-grid" id="wallpaperShop"></div></div></details>
     </div>`;
   box.querySelectorAll('[data-mine-cosmetic-section]').forEach(section=>section.addEventListener('toggle',()=>{if(section.open)mineCosmeticOpenSections.add(section.dataset.mineCosmeticSection);else mineCosmeticOpenSections.delete(section.dataset.mineCosmeticSection);}));
 
