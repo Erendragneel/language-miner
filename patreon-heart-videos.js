@@ -268,7 +268,7 @@
   }
 
   function ensureCard(){
-    const healthSection = document.getElementById('healthSection');
+    const healthSection = document.getElementById('message')?.parentElement || document.getElementById('healthSection');
     if(!healthSection) return null;
     let card = document.getElementById('patreonHeartRewardCard');
     if(!card){
@@ -276,8 +276,8 @@
       card.id = 'patreonHeartRewardCard';
       card.className = 'patreon-heart-reward-card';
       card.setAttribute('aria-live', 'polite');
-      const maxHeartButton = document.getElementById('maxHeartBtn');
-      if(maxHeartButton?.parentElement === healthSection) healthSection.insertBefore(card, maxHeartButton);
+      const feedback = document.getElementById('message');
+      if(feedback?.parentElement === healthSection) feedback.after(card);
       else healthSection.appendChild(card);
     }
     return card;
@@ -294,7 +294,7 @@
       launcher.type = 'button';
       launcher.innerHTML = '<span>▶</span><strong>Earn 1 heart</strong><small>Optional video</small>';
       launcher.addEventListener('click', openOverlay);
-      app.appendChild(launcher);
+      document.body.appendChild(launcher);
     }
     return launcher;
   }
@@ -305,7 +305,7 @@
     const status = api()?.status?.();
     if(!card || !status) return;
     const activePlayer = window.japaneseMinerActiveProfile?.();
-    const shouldShow = Boolean(activePlayer && status.hearts < status.maxHearts && !window.japaneseMinerIsDeveloperSession?.() && status.reason !== 'This optional reward is for regular player profiles.');
+    const shouldShow = Boolean(activePlayer && status.hearts < status.maxHearts && status.reason !== 'Infinite Hearts is enabled.');
     card.hidden = !shouldShow;
     if(launcher){
       launcher.hidden = !shouldShow || !status.eligible;

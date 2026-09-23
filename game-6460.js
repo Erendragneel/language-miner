@@ -1040,7 +1040,7 @@ function patreonHeartRewardStatus(now=Date.now()){
   const remainingMs=Math.max(0,Number(reward.lastClaimedAt||0)+PATREON_HEART_REWARD_COOLDOWN_MS-Number(now||Date.now()));
   let reason="";
   if(!activeProfileId)reason="Sign in to use player heart rewards.";
-  else if(isDeveloperSession||state.developerInfiniteHearts)reason="This optional reward is for regular player profiles.";
+  else if(state.developerInfiniteHearts)reason="Infinite Hearts is enabled.";
   else if(Number(state.hearts)>=Number(state.maxHearts))reason="Your hearts are already full.";
   else if(remainingMs>0)reason="The six-hour video-heart cooldown is still active.";
   return {eligible:!reason,reason,remainingMs,cooldownMs:PATREON_HEART_REWARD_COOLDOWN_MS,hearts:Number(state.hearts)||0,maxHearts:Number(state.maxHearts)||0,lastClaimedAt:Number(reward.lastClaimedAt)||0,lastTier:Number(reward.lastTier)||0,claims:Number(reward.claims)||0};
