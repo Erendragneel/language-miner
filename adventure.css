@@ -63,3 +63,5 @@ body:not(.adventure-signed-in) .adventure-nav,body:not(.adventure-signed-in) .ad
  #challengeArea .lm-answer-grid:not(.lm-alphabet-answers){grid-template-columns:1fr!important}
  #challengeArea .lm-answer-grid button{min-height:56px!important;font-size:20px!important}
 }
+
+@media(min-width:701px){.mobile-admin-menu{display:none!important}}
