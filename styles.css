@@ -653,3 +653,6 @@ body[data-wallpaper="sunstone-ember"]{background-color:#170a03;background-image:
 
 /* Free beta-era player title */
 .free-player-titles{margin-bottom:22px}.free-player-titles .viz-callout{border-left-color:#73f5d4;background:linear-gradient(135deg,#123944,#25345a)}.free-title-card{border:2px solid #73f5d4!important;background:linear-gradient(135deg,#173d42,#25335c)!important;box-shadow:inset 0 0 24px #73f5d418}.free-title-card small{color:#84ffe1;font-weight:900}
+
+/* Player identity replaces the duplicate feature navigation. */
+.feature-player-identity{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin:0 0 20px;padding:20px 24px;background:#1c2943;border:1px solid #425777;border-radius:18px;overflow-wrap:anywhere}.feature-player-identity h3{margin:0;font-size:1.5rem;color:#edf2ff}.feature-player-identity p{margin:0;font-size:1.15rem;font-weight:700;color:#ffd166}.feature-player-identity strong{font-size:1.15rem;color:#ffd166}@media(max-width:600px){.feature-player-identity{justify-content:center;text-align:center;gap:8px;padding:16px}.feature-player-identity h3{flex-basis:100%;font-size:1.3rem}.feature-player-identity p,.feature-player-identity strong{font-size:1rem}}
