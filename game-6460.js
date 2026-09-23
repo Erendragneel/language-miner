@@ -769,6 +769,7 @@ window.japaneseMinerQuizDifficulty=()=>state.quizDifficulty==='hard'?'hard':'eas
 window.setJapaneseMinerQuizDifficulty=setQuizDifficultyMode;
 
 function selectStage(index,openCourse=false){
+  if(window.LanguageMinerCourseNavigation?.active())return window.LanguageMinerCourseNavigation.select(index);
   index=Math.max(0,Math.min(stages.length-1,Number(index)||0));
   if(!isStageUnlocked(index)){
     setMessage(`${stages[index].label} is still locked.`,"wrong");
@@ -1988,6 +1989,7 @@ function resetSave(){
 }
 window.resetJapaneseMinerSave=resetSave;
 function nextMine(){
+  if(window.LanguageMinerCourseNavigation?.active())return window.LanguageMinerCourseNavigation.next();
   state.active=null; state.answered=false; state.shieldArmed=false;
   document.getElementById("challengeArea").innerHTML='<div class="small">Tap the rock to mine another challenge.</div>';
   setMessage("","");
@@ -2866,9 +2868,9 @@ function jlptSetMastery(type,index,delta,stage=academyStage){v3SetMastery(jlptMa
 function advancedCounts(stage=academyStage){const c=JLPT_COURSES[stage];const count=(type,arr)=>arr.filter((_,i)=>jlptItemMastery(type,i,stage)>=75).length;const v=count('vocab',c.vocab),k=count('kanji',c.kanji),g=count('grammar',c.grammar),r=count('reading',c.reading);return {v,k,g,r,readiness:Math.round((v/c.vocab.length*.3+k/c.kanji.length*.25+g/c.grammar.length*.25+r/c.reading.length*.2)*100)};}
 function updateAcademyChrome(){const label=academyStage===2?'N5':JLPT_COURSES[academyStage].label;const title=document.getElementById('academyTitle');if(title)title.textContent=`⛏️ JLPT ${label} Mine — Course & Progress`;const p=title?.nextElementSibling;if(p)p.textContent=`The mine and every ${label} study tool share the same progress and mastery.`;const first=document.querySelector('[data-academy-tab="overview"]');if(first)first.textContent=`${label} Hub`;}
 const openAcademyV34=openAcademy;
-openAcademy=function(stage=state.selectedStage){stage=Number(stage);if(stage<2)stage=2;if(!isStageUnlocked(stage)){setMessage(`${stages[stage].label} is still locked.`,'wrong');return;}academyStage=stage;academyTab='overview';academyView={lesson:null,word:null,grammar:null,reading:null,quiz:null,preview:null,lessonPreviewComplete:false};updateAcademyChrome();document.getElementById('academyOverlay').classList.add('open');document.getElementById('academyOverlay').setAttribute('aria-hidden','false');renderAcademy();};
+openAcademy=function(stage=state.selectedStage){if(window.LanguageMinerCourseNavigation?.active())return window.LanguageMinerCourseNavigation.open();stage=Number(stage);if(stage<2)stage=2;if(!isStageUnlocked(stage)){setMessage(`${stages[stage].label} is still locked.`,'wrong');return;}academyStage=stage;academyTab='overview';academyView={lesson:null,word:null,grammar:null,reading:null,quiz:null,preview:null,lessonPreviewComplete:false};updateAcademyChrome();document.getElementById('academyOverlay').classList.add('open');document.getElementById('academyOverlay').setAttribute('aria-hidden','false');renderAcademy();};
 const selectStageV34=selectStage;
-selectStage=function(index,openCourse=false){selectStageV34(index,false);if(openCourse&&Number(index)>=2&&isStageUnlocked(Number(index)))openAcademy(Number(index));};
+selectStage=function(index,openCourse=false){if(window.LanguageMinerCourseNavigation?.active())return window.LanguageMinerCourseNavigation.select(index);selectStageV34(index,false);if(openCourse&&Number(index)>=2&&isStageUnlocked(Number(index)))openAcademy(Number(index));};
 const renderPathV34=renderPath;
 renderPath=function(){renderPathV34();document.querySelectorAll('#path .stage').forEach((el,i)=>{if(i>=2&&!el.classList.contains('locked')){el.onclick=()=>selectStage(i,true);el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectStage(i,true);}};el.setAttribute('aria-label',`Open ${stages[i].label} mine and course`);}});};
 

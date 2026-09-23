@@ -401,7 +401,7 @@
     document.getElementById('lmPlacementBack').addEventListener('click',renderLanguages);document.getElementById('lmSkipPlacement')?.addEventListener('click',skipPlacement);document.getElementById('lmStartPlacement')?.addEventListener('click',startPlacement);document.getElementById('lmChooseTravel')?.addEventListener('click',chooseTravelCourse);document.getElementById('lmEnterCurrentCourse')?.addEventListener('click',travel?chooseTravelCourse:openPostPlacementGuide);
   }
   function placementLevelLabel(languageId,stage){return COURSE_LEVEL_LABELS[languageId]?.[Number(stage)]||`${ui('level')} ${Number(stage)+1}`;}
-  function placementMineTitle(languageId,stage){return EXPEDITION_COURSES[languageId]?.[Number(stage)]?.[0]||`${targetName(languageId)} ${placementLevelLabel(languageId,stage)}`;}
+  function placementMineTitle(languageId,stage){return languageId==='ja'?(EXPEDITION_COURSES.ja[Number(stage)]?.[0]||'Japanese'): `${targetName(languageId)} · ${placementLevelLabel(languageId,stage)}`;}
   function placementOptions(answer,values){
     const options=[String(answer)];
     for(const value of shuffled(values)){const text=String(value??'').trim();if(text&&!options.includes(text))options.push(text);if(options.length===4)break;}
@@ -577,6 +577,14 @@
   }
   function speakTarget(text,options={}){return speakLanguage(text,learning,options);}
   function targetVoiceAvailability(){return window.LanguageMinerSpeech?.availability?.((LANGUAGES[learning]||LANGUAGES.en).voice)||{status:'missing',selectedVoice:null};}
+  // Shared course controls must never enter the Japanese-only academy for another course.
+  function openCurrentCourse(){window.closeGameMenu?.();window.openJapaneseMinerV5?.('map');return true;}
+  function selectCurrentCourseMine(index){
+    index=Math.max(0,Math.min(travelCourseActive()?0:6,Number(index)||0));
+    if(!courseMineUnlocked(index)){const previous=placementMineTitle(learning,Math.max(0,index-1));window.setMessage?.(`${placementMineTitle(learning,index)} is locked. Complete the lessons and Guardian in ${previous} to unlock it.`,'wrong');return false;}
+    return startCourseLesson(courseMineSections(index).find(section=>section!=='boss'),0,index);
+  }
+  window.LanguageMinerCourseNavigation=Object.freeze({active:()=>!fullJapaneseCourse(),open:openCurrentCourse,select:selectCurrentCourseMine,next:()=>renderFoundationQuestion(),title:(language,index)=>placementMineTitle(language,index)});
   window.LanguageMinerCourseVoice=Object.freeze({test:()=>speakTarget(FOUNDATION_CONCEPTS[0].forms[learning],{manual:true}),currentLanguage:()=>learning});
   function makeFoundationQuestion(){
     const concept=shuffled(FOUNDATION_CONCEPTS.filter(item=>item.id!==activePreviewQuestion?.concept?.id))[0]||FOUNDATION_CONCEPTS[0];
@@ -721,6 +729,7 @@
     if(fullJapaneseCourse())return;
     const button=document.getElementById('quickMineBtn'),label=document.getElementById('quickMineLabel');
     if(!button)return;
+    const next=document.getElementById('nextBtn');if(next)next.disabled=Boolean(activePreviewQuestion);
     const returning=Boolean(activePreviewQuestion),copy=ui(returning?'returnToQuestion':'newQuestion');
     button.hidden=false;button.removeAttribute('hidden');button.style.removeProperty('display');button.dataset.lmCourseLanguage=learning;button.setAttribute('aria-label',copy);
     if(label)label.textContent=returning?'Resume':'Next';
@@ -858,6 +867,9 @@
   function handleCourseControls(event){
     if(fullJapaneseCourse()||overlay?.classList.contains('open'))return;
     const replayAudio=event.target.closest?.('#lmSpeakQuestion'),reviewAnswer=event.target.closest?.('[data-lm-review-answer]'),reviewAction=event.target.closest?.('[data-lm-review-action]'),reviewCheckpoint=event.target.closest?.('[data-lm-review-section]'),bossAction=event.target.closest?.('[data-lm-boss-action]'),expeditionTab=event.target.closest?.('[data-v5tab="map"]'),mineToggle=event.target.closest?.('[data-lm-mine-toggle]'),courseLesson=event.target.closest?.('[data-lm-course-section]'),rock=event.target.closest?.('#rock'),quick=event.target.closest?.('#quickMineBtn'),voiceTest=event.target.closest?.('#testVoiceBtn');
+    const courseEntry=event.target.closest?.('#openAcademyBtn,#enterN5MineBtn,[data-menu-action="course"]'),legacyNext=event.target.closest?.('#nextBtn');
+    if(courseEntry){event.preventDefault();event.stopImmediatePropagation();openCurrentCourse();return;}
+    if(legacyNext){event.preventDefault();event.stopImmediatePropagation();renderFoundationQuestion();return;}
     if(replayAudio){event.preventDefault();event.stopImmediatePropagation();replayCoursePronunciation(replayAudio);return;}
     if(reviewAnswer){event.preventDefault();event.stopImmediatePropagation();answerCourseReview(reviewAnswer);return;}
     if(reviewAction){event.preventDefault();event.stopImmediatePropagation();const action=reviewAction.dataset.lmReviewAction,quiz=multilingualReviewQuiz;if(!quiz)return;if(action==='retry')openCourseReview(quiz.mine,quiz.section,quiz.evenLesson);else if(action==='continue'){const {mine,section,evenLesson}=quiz;clearCourseReviewClock();multilingualReviewQuiz=null;startCourseLesson(section,evenLesson,mine);}else if(action==='map'){clearCourseReviewClock();multilingualReviewQuiz=null;window.openJapaneseMinerV5?.('map');setTimeout(()=>{const content=document.getElementById('v5Content');if(content){delete content.dataset.lmLearning;syncExpeditionHub();}},0);}return;}
