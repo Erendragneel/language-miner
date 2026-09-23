@@ -21,7 +21,29 @@ normalizeState=function(raw){const next=normalizeStateV643(raw);next.studyTimeBy
 const mineV643=mine;
 mine=function(){markStudyActivity();return mineV643();};
 const answerV643=answer;
-answer=function(...args){markStudyActivity();return answerV643(...args);};
+// Keep retries outside the reward/mastery wrappers: only the first answer is scored.
+answer=function(opt,button){
+ if(!state.active||state.answered||button?.disabled)return;
+ markStudyActivity();
+ const q=state.active;
+ if(silentTestingActive(q)||q.smartReview===true||q.dailyRefresher===true)return answerV643(opt,button);
+ const correct=window.LanguageMinerVocabulary?.japaneseAccepts(q,opt,document.querySelector('#challengeArea .question')?.textContent)||opt===q.a;
+ if(q.practiceFirstAnswer){
+  playFeedbackSound(correct);
+  if(button){button.disabled=true;button.style.background=correct?'#225f49':'#6d2933';}
+  if(correct){state.answered=true;document.querySelectorAll('#answers button').forEach(item=>item.disabled=true);}
+  save();render();
+  setMessage(correct?'Practiced! Your first answer remains recorded. No extra rewards or heart loss. Select Next to continue.':`Try again. The answer is ${stripMarkup(q.a)}. This retry does not affect your accuracy or hearts.`,correct?'correct':'wrong');
+  return;
+ }
+ q.practiceFirstAnswer={correct,selected:opt};
+ const result=answerV643(opt,button);
+ if(!correct&&state.active===q){
+  const message=document.getElementById('message');
+  setMessage(`${message?.textContent||''} The answer is ${stripMarkup(q.a)}. Try again for practice; your first answer is recorded and further tries cost no hearts.`,'wrong');
+ }
+ return result;
+};
 const renderStudyCalendarV643=renderStudyCalendar;
 renderStudyCalendar=function(){flushStudyTimer();renderStudyCalendarV643();ensureStudyTimeState();const year=studyCalendarMonth.getFullYear(),month=studyCalendarMonth.getMonth();const monthPrefix=`${year}-${String(month+1).padStart(2,"0")}-`;const monthMilliseconds=Object.entries(state.studyTimeByDate).filter(([key])=>key.startsWith(monthPrefix)).reduce((sum,[,value])=>sum+Number(value||0),0);const stats=document.querySelector(".study-calendar-stats");if(stats){let total=stats.querySelector("[data-study-time-total]");if(!total){const card=document.createElement("div");card.innerHTML='<span>Total study time</span><strong data-study-time-total>0m</strong>';stats.appendChild(card);total=card.querySelector("[data-study-time-total]");}total.textContent=formatStudyDuration(totalStudyMilliseconds(),{compact:true});const monthCard=document.getElementById("calendarMonthDays")?.closest("div");if(monthCard){monthCard.querySelector("span").textContent="This month";monthCard.querySelector("strong").innerHTML=`${state.studyDates.filter(d=>d.startsWith(monthPrefix)).length} days <small>${formatStudyDuration(monthMilliseconds,{compact:true})}</small>`;}}document.querySelectorAll("#studyCalendarGrid .calendar-day:not(.empty)").forEach(button=>{const day=String(button.childNodes[0]?.textContent||"").trim();const key=`${monthPrefix}${day.padStart(2,"0")}`;const milliseconds=studyMillisecondsFor(key);if(milliseconds>0){const duration=document.createElement("span");duration.className="calendar-duration";duration.textContent=formatStudyDuration(milliseconds,{compact:true});button.appendChild(duration);button.setAttribute("aria-label",`${key}: studied for ${formatStudyDuration(milliseconds)}`);}button.addEventListener("click",()=>{const detail=document.getElementById("calendarDayDetail");if(milliseconds>0&&detail){const label=new Date(key+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});detail.innerHTML=`<strong>${label}</strong><br><b>${formatStudyDuration(milliseconds)}</b> of Japanese study recorded.`;}});});};
 const logoutV643=logout;

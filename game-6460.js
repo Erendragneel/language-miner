@@ -1792,6 +1792,8 @@ function mine(){
   let q=chooseQuestion(candidates);
   if(idx===0||idx===1)q=prepareKanaFamilyQuestion(q,currentKanaFamily(idx));
   state.recentQuestionIds=[...(state.recentQuestionIds||[]),q.id].slice(-Math.min(20,Math.max(5,pool.length-1)));
+  q={...q};
+  delete q.practiceFirstAnswer;
   state.active=q;
   state.answered=false;
   state.shieldArmed=false;
@@ -2536,7 +2538,7 @@ function v3QuizCard(question,options,answer,onDone){
  academyView.quiz={question,options:quizOptionsForDifficulty(options,answer),answer,onDone};renderAcademy();
 }
 function v3RenderQuiz(){const q=academyView.quiz,mode=state.quizDifficulty==='hard'?'⛏️ Hard':'🌱 Easy';return `<section class="course-focus quiz-focus"><button class="course-back" data-course-back type="button">← Back</button><div class="course-kicker">Quick practice · ${mode}</div><h3>${v3Esc(q.question)}</h3><div class="course-answer-grid">${q.options.map(o=>`<button data-course-answer="${v3Esc(o)}" type="button">${v3Esc(o)}</button>`).join('')}</div><div id="courseQuizFeedback" class="course-feedback"></div></section>`;}
-function v3HandleQuizAnswer(value,button){const q=academyView.quiz;if(!q)return;const good=value===q.answer;document.querySelectorAll('[data-course-answer]').forEach(b=>b.disabled=true);button.classList.add(good?'answer-good':'answer-bad');const fb=document.getElementById('courseQuizFeedback');if(fb)fb.innerHTML=good?'✅ Correct! Mastery increased.':`❌ The correct answer is <strong>${v3Esc(q.answer)}</strong>. This wrong answer was added to your Notebook.`;if(!good)window.japaneseMinerRecordWrongAssessment?.({id:`academy-quick:${academyStage}:${q.question}:${q.answer}`,stage:Number(academyStage)||2,q:q.question,prompt:'Course quick practice',a:q.answer,kind:'academy-quiz'},value,'Course Quick Practice');q.onDone?.(good);setTimeout(()=>{academyView.quiz=null;renderAcademy();},850);}
+function v3HandleQuizAnswer(value,button){const q=academyView.quiz;if(!q||q.answered)return;q.answered=true;const good=value===q.answer;document.querySelectorAll('[data-course-answer]').forEach(b=>b.disabled=true);button.classList.add(good?'answer-good':'answer-bad');const fb=document.getElementById('courseQuizFeedback');if(fb)fb.innerHTML=good?'✅ Correct! Mastery increased.':`❌ The correct answer is <strong>${v3Esc(q.answer)}</strong>. This wrong answer was added to your Notebook.`;if(!good)window.japaneseMinerRecordWrongAssessment?.({id:`academy-quick:${academyStage}:${q.question}:${q.answer}`,stage:Number(academyStage)||2,q:q.question,prompt:'Course quick practice',a:q.answer,kind:'academy-quiz'},value,'Course Quick Practice');q.onDone?.(good);setTimeout(()=>{academyView.quiz=null;renderAcademy();},850);}
 function v3RenderVocabulary(){
  return renderVocabularyCourse(2);
 }

@@ -759,12 +759,23 @@
     return played;
   }
   function answerCourseQuestion(button){
-    const question=activePreviewQuestion,selected=button.dataset.lmCourseAnswer,correct=vocabularyAnswerAccepted(question,selected),buttons=[...document.querySelectorAll('[data-lm-course-answer]')];
+    const question=activePreviewQuestion;
+    if(!question||button.disabled)return;
+    const selected=button.dataset.lmCourseAnswer,correct=vocabularyAnswerAccepted(question,selected),buttons=[...document.querySelectorAll('[data-lm-course-answer]')];
+    if(question.practiceFirstAnswer){
+      button.disabled=true;button.classList.add(correct?'correct':'wrong');
+      if(correct){buttons.forEach(item=>item.disabled=true);activePreviewQuestion=null;}
+      const feedback=document.getElementById('lmCourseFeedback');
+      if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${correct?'Practiced! Your first answer remains recorded. No extra rewards or heart loss.':`Try again. The answer is ${escapeHtml(question.answer)}. This retry does not affect your accuracy or hearts.`}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button></div>`;document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);}
+      syncMultilingualQuickMineButton();return;
+    }
     if(question?.mode==='boss'){answerCourseBossQuestion(button);return;}
     buttons.forEach(item=>{item.disabled=true;if(vocabularyAnswerAccepted(question,item.dataset.lmCourseAnswer))item.classList.add('correct');else if(item===button)item.classList.add('wrong');});const economy=recordCourseMastery(question,correct);
     window.LanguageMinerPictures?.revealAfterAnswer(document.getElementById('challengeArea'));
     const feedback=document.getElementById('lmCourseFeedback'),alphabetAnswer=question.mode==='alphabet'?`${question.answer} — ${question.label}`:question.answer,lessons=courseSectionLessons(selectedCourseSection,selectedCourseMine),nextLesson=selectedCourseLesson+1,nextLessonReady=Boolean(lessons[nextLesson])&&courseLessonUnlocked(selectedCourseSection,nextLesson,selectedCourseMine),answerCopy=correct?`✓ ${escapeHtml(ui('correct'))} — <strong>${escapeHtml(alphabetAnswer)}</strong>${economy?.treasureAmount?`<span class="lm-inline-reward">🪙 +${Number(economy.treasureAmount).toLocaleString()} Nuggets</span>`:''}`:escapeHtml(ui('notQuite',{answer:alphabetAnswer}));if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${answerCopy}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button>${nextLessonReady?`<button id="lmContinueCourseLesson" class="lm-continue-course-lesson" type="button">${escapeHtml(ui('continueLesson',{lesson:nextLesson+1}))}</button>`:''}</div>`;}
-    activePreviewQuestion=null;document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);document.getElementById('lmContinueCourseLesson')?.addEventListener('click',()=>startCourseLesson(selectedCourseSection,nextLesson,selectedCourseMine));syncMultilingualQuickMineButton();if(targetVoiceAvailability().status==='ready')speakTarget(question.spoken||question.answer);
+    if(correct)activePreviewQuestion=null;
+    else{question.practiceFirstAnswer={correct:false,selected};buttons.forEach(item=>{item.disabled=item===button;item.classList.remove('correct');});if(feedback)feedback.insertAdjacentHTML('afterbegin','<p>Your first answer is recorded. Try again for practice with no extra heart loss.</p>');}
+    document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);document.getElementById('lmContinueCourseLesson')?.addEventListener('click',()=>startCourseLesson(selectedCourseSection,nextLesson,selectedCourseMine));syncMultilingualQuickMineButton();if(targetVoiceAvailability().status==='ready')speakTarget(question.spoken||question.answer);
   }
   function advanceCourseQuestion(){
     renderCourseQuestion(selectedCourseSection,selectedCourseLesson);
