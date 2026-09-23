@@ -1,6 +1,7 @@
 /* Exact meaning and language-specific sound-clue mappings. */
 (()=>{'use strict';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const modeStyle=document.createElement('style');modeStyle.textContent='#challengeArea .lm-quiz-scene.lm-hard-recall{grid-template-columns:1fr!important}';document.head.append(modeStyle);
 const assets={
 person:{file:'person.webp',alt:'An adult person standing, shown from head to feet',label:'person',question:'Choose the general word for the whole person shown.'},
 sun:{file:'sun-v2.webp',alt:'A golden sun above a green valley and river',label:'sun',question:'Which word names the bright object in the sky?'},
@@ -32,6 +33,14 @@ function questionArt(q,language='ja'){
  const jp=q.vocabularyKey||q.concealedPrompt||q.displayChallenge||q.q;
  return imageFor({jp},{language});
 }
+function applyDifficulty(area){
+ const card=area?.querySelector('.question-card,.lm-course-question');if(!card)return;
+ const hard=window.japaneseMinerQuizDifficulty?.()==='hard',reveal=card.dataset.pictureAnswered==='true';
+ card.dataset.quizDifficulty=hard?'hard':'easy';
+ card.querySelectorAll('.lm-quiz-art').forEach(img=>{img.hidden=hard&&!reveal;img.style.setProperty('display',hard&&!reveal?'none':'','important');});
+ card.querySelector('.lm-quiz-scene')?.classList.toggle('lm-hard-recall',hard&&!reveal);
+}
+function revealAfterAnswer(area){const card=area?.querySelector('.question-card,.lm-course-question');if(card)card.dataset.pictureAnswered='true';applyDifficulty(area);}
 function decorateQuestion(area,q,language='ja'){
  const card=area?.querySelector('.question-card,.lm-course-question');
  if(!card)return;
@@ -42,7 +51,7 @@ function decorateQuestion(area,q,language='ja'){
  scene.appendChild(img);
  const copy=document.createElement('div');copy.className='lm-quiz-copy';
  while(card.firstChild&&card.firstChild!==answers)copy.appendChild(card.firstChild);
- scene.appendChild(copy);card.insertBefore(scene,answers);
+ scene.appendChild(copy);card.insertBefore(scene,answers);applyDifficulty(area);
 }
 // Guided study is optional and contained entirely within the Notebook.
 function beginLearning(area){
@@ -74,5 +83,5 @@ function bindNotebook(root){
  }
  select.onchange=draw;draw();
 }
-window.LanguageMinerPictures=Object.freeze({markup,imageFor,questionArt,decorateQuestion,beginLearning,learningAnswer,notebookMarkup,bindNotebook});
+window.LanguageMinerPictures=Object.freeze({markup,imageFor,questionArt,decorateQuestion,applyDifficulty,revealAfterAnswer,beginLearning,learningAnswer,notebookMarkup,bindNotebook});
 })();

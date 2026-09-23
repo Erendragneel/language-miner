@@ -744,7 +744,7 @@ function syncSelectedStageUI(){
   const supportMode=document.getElementById("supportMode");
   if(supportMode) supportMode.value=state.supportMode||"guided";
   document.querySelectorAll('[data-quiz-difficulty]').forEach(button=>{const selected=button.dataset.quizDifficulty===(state.quizDifficulty||'easy');button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));});
-  const difficultyHint=document.getElementById('quizDifficultyHint');if(difficultyHint)difficultyHint.textContent=state.quizDifficulty==='hard'?'Hard · kanji with reduced reading aids':'Easy · kana and reading support';
+  const difficultyHint=document.getElementById('quizDifficultyHint');if(difficultyHint)difficultyHint.textContent=state.quizDifficulty==='hard'?'Hard · pictures after answering; reduced reading aids':'Easy · picture clues and reading support';
   syncOwnerTutorControls(idx);
 }
 function quizDifficultyMarkup(){
@@ -754,7 +754,13 @@ function quizDifficultyMarkup(){
 function setQuizDifficultyMode(mode){
   if(!['easy','hard'].includes(mode))return false;
   const changed=mode!==state.quizDifficulty;state.quizDifficulty=mode;state.supportMode=mode==='easy'?'guided':'challenge';
-  if(changed){state.active=null;state.answered=false;state.shieldArmed=false;state.recentQuestionIds=[];const area=document.getElementById('challengeArea');if(area)area.innerHTML=`<div class="empty"><strong>${mode==='easy'?'🌱 Easy mode':'⛏️ Hard mode'}</strong><br>${mode==='easy'?'More guidance and fewer answer choices are enabled for every language.':'Reduced guidance and the full answer set are enabled for every language.'}<br>Choose a lesson or tap the rock to begin.</div>`;save();render();setMessage(`${mode==='easy'?'Easy':'Hard'} quiz mode selected for every language. Start a new question.`,"correct");}
+  if(changed){
+    save();render();
+    const display=document.querySelector('#challengeArea .question-card .question');
+    if(display&&state.active&&!silentTestingActive(state.active))display.innerHTML=questionDisplay(state.active);
+    window.LanguageMinerPictures?.applyDifficulty(document.getElementById('challengeArea'));
+    setMessage(`${mode==='easy'?'Easy: picture clues and reading support.':'Hard: picture clues appear after answering; reduced reading support.'} Four answer choices in both modes.`,"correct");
+  }
   syncSelectedStageUI();return changed;
 }
 window.japaneseMinerQuizModeMarkup=quizDifficultyMarkup;
@@ -1860,6 +1866,7 @@ function answer(opt,button){
   if(state.answered || !state.active) return;
   const correct=window.LanguageMinerVocabulary?.japaneseAccepts(state.active,opt,document.querySelector("#challengeArea .question")?.textContent)||opt===state.active.a;
   if(window.LanguageMinerPictures?.learningAnswer(state.active,correct,button))return;
+  if(!silentTestingActive(state.active))window.LanguageMinerPictures?.revealAfterAnswer(document.getElementById("challengeArea"));
   if(state.active.smartReview===true){
     const all=[...document.querySelectorAll("#answers button")];playFeedbackSound(correct);if(correct){state.answered=true;button.style.background="#225f49";all.forEach(answerButton=>answerButton.disabled=true);}else{button.disabled=true;button.style.background="#6d2933";}save();render();return;
   }
@@ -2937,7 +2944,7 @@ function repairPlacementUnlocks(){
   if(placed===null) return false;
   const before=JSON.stringify([state.stageXp,state.clearedStages,state.questionStats,state.kanaStats,state.placementUnlockedThrough]);
   unlockThroughStage(placed);
-  state.selectedStage=Math.max(Number(state.selectedStage)||0,placed);
+  // Repair access only. The player may deliberately select an earlier mine for review.
   return before!==JSON.stringify([state.stageXp,state.clearedStages,state.questionStats,state.kanaStats,state.placementUnlockedThrough]);
 }
 function grantPlacementReward(routeStage,overall){
