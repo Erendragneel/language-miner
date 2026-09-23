@@ -212,13 +212,33 @@
     const cloudForm=cloudReady()?`<section class="ptc-cloud-link"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Find the student’s account'))}</h3><p>${esc(t('Enter the exact email address they use to sign in to Language Miner.'))}</p></header><form data-ptc-cloud-form><label for="ptcStudentEmail">${esc(t('Student account email'))}</label><div><input id="ptcStudentEmail" name="studentEmail" type="email" inputmode="email" autocomplete="email" required value="${esc(studentEmailDraft)}" placeholder="student@example.com"><button class="primary" type="submit" ${cloudBusy?'disabled':''}>＋ ${esc(t('Send request'))}</button></div><small>${esc(t('The learner must approve on their own account before any progress is shared.'))}</small></form></section>`:`<section class="ptc-cloud-link unavailable"><header><span>${esc(t('LINK ANOTHER DEVICE'))}</span><h3>${esc(t('Sign in to use cross-device linking'))}</h3><p>${esc(t('Both people need separate online Language Miner accounts. After signing in, enter the learner’s account email here.'))}</p></header></section>`;
     return `<button class="ptc-sub-back" type="button" data-ptc-view="dashboard">← ${esc(t('Back to Center'))}</button><section class="ptc-subhead"><span>${esc(t('STUDENT-CONTROLLED LINKING'))}</span><h3>＋ ${esc(t('Link student'))}</h3><p>${esc(t('Send a read-only access request to the learner’s account. Nothing is shared until that learner approves it.'))}</p></section><section class="ptc-link-note"><span>1</span><p><strong>${esc(t('Send request'))}</strong><small>${esc(t('Enter the learner’s account email.'))}</small></p><i></i><span>2</span><p><strong>${esc(t('Student approves'))}</strong><small>${esc(t('They sign in on their device and open this Center.'))}</small></p><i></i><span>3</span><p><strong>${esc(t('Progress stays current'))}</strong><small>${esc(t('Their cloud-saved progress becomes visible on your device.'))}</small></p></section>${cloudForm}<section class="ptc-candidates"><header><span>${esc(t('PROFILES ON THIS DEVICE'))}</span><h3>${esc(t('Optional local linking'))}</h3></header>${candidates.length?candidates.map(profile=>`<article><span>${esc(profile.name.slice(0,1).toUpperCase())}</span><div><strong>${esc(profile.name)}</strong><small>${profile.email?esc(profile.email):esc(t('Local player profile'))}</small></div><button class="primary" type="button" data-ptc-request="${esc(profile.id)}">${esc(t('Send request'))}</button></article>`).join(''):`<div class="ptc-inline-empty">${esc(t('No additional local profiles are available. Use the account email above to link another device.'))}</div>`}</section><aside class="ptc-device-note"><strong>${esc(t('Private and read-only'))}</strong><p>${esc(t('Approved adults can see learning progress, activity, reviews, course completion, and assessment records. They cannot play as the learner, spend anything, reset progress, or read private Notebook notes. The learner can revoke access at any time.'))}</p></aside>`;
   }
+  // Retain existing DOM nodes so report updates preserve scrolling and focus.
+  function patchReport(current,next){
+    if(current.nodeType!==next.nodeType||current.nodeName!==next.nodeName){current.replaceWith(next.cloneNode(true));return;}
+    if(current.nodeType===3){if(current.nodeValue!==next.nodeValue)current.nodeValue=next.nodeValue;return;}
+    if(current.nodeType!==1)return;
+    for(const attr of [...current.attributes])if(!next.hasAttribute(attr.name)&&!(current.tagName==='DETAILS'&&attr.name==='open'))current.removeAttribute(attr.name);
+    for(const attr of [...next.attributes])if(current.getAttribute(attr.name)!==attr.value&&!(current.tagName==='DETAILS'&&attr.name==='open'))current.setAttribute(attr.name,attr.value);
+    const old=[...current.childNodes],fresh=[...next.childNodes];
+    for(let i=0;i<Math.max(old.length,fresh.length);i++){if(!fresh[i])old[i].remove();else if(!old[i])current.appendChild(fresh[i].cloneNode(true));else patchReport(old[i],fresh[i]);}
+  }
+  let lastReportScroll=0,reportRefreshTimer=0;
+  document.addEventListener('scroll',event=>{if(document.getElementById('ptcContent')?.contains(event.target))lastReportScroll=Date.now();},true);
+  function queueReportRefresh(){
+    clearTimeout(reportRefreshTimer);if(!centerOpen())return;
+    reportRefreshTimer=setTimeout(()=>{if(!centerOpen())return;if(Date.now()-lastReportScroll<500){queueReportRefresh();return;}render();},250);
+  }
+  for(const event of ['lm-player-progress-saved','lm-course-settings-saved','lm-learning-report-updated','storage'])window.addEventListener(event,queueReportRefresh);
+  setInterval(()=>{if(centerOpen()&&!document.hidden)queueReportRefresh();},5000);
   function render(){const content=document.getElementById('ptcContent');if(!content)return;refreshHeader();if(activeView==='link'&&content.querySelector('[data-ptc-cloud-form]')){const form=content.querySelector('[data-ptc-cloud-form]');form.querySelector('button[type=submit]').disabled=cloudBusy;let status=form.querySelector('[data-ptc-form-status]');if(!status){status=document.createElement('p');status.dataset.ptcFormStatus='';status.setAttribute('role','status');form.appendChild(status);}status.textContent=cloudError;return;}const viewKey=JSON.stringify([activeView,selectedLearnerId,activeTab]);
     const sameView=content.dataset.ptcRenderedView===viewKey;
+    if(sameView&&Date.now()-lastReportScroll<500){queueReportRefresh();return;}
     const position={top:content.scrollTop,left:content.scrollLeft};
     const selector='.ptc-table,.ptc-tabs,.ptc-switcher>div';
     const nested=sameView?[...content.querySelectorAll(selector)].map(node=>({left:node.scrollLeft,top:node.scrollTop})):[];
     const expanded=sameView?[...content.querySelectorAll('details')].map(node=>node.open):[];
-    content.innerHTML=activeView==='self'?selfReport():activeView==='manage'?manageView():activeView==='link'?linkView():dashboard();
+    const markup=activeView==='self'?selfReport():activeView==='manage'?manageView():activeView==='link'?linkView():dashboard();
+    if(sameView){const next=content.cloneNode(false);next.innerHTML=markup;patchReport(content,next);}else content.innerHTML=markup;
     window.LanguageMinerI18n?.localize?.(content);
     content.dataset.ptcRenderedView=viewKey;
     if(sameView){
