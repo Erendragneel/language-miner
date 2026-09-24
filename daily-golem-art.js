@@ -44,17 +44,26 @@
     else if(gloves!=='none'&&Math.max(r,g,b)<125&&Math.max(r,g,b)-Math.min(r,g,b)<30){const v=(r+g+b)/3,colour=gloves==='crystal'?[.85,1.65,1.9]:[1.5,1.13,.77];d[i]=Math.min(255,v*colour[0]);d[i+1]=Math.min(255,v*colour[1]);d[i+2]=Math.min(255,v*colour[2]);}
    }ctx.putImageData(frame,0,0);return c.toDataURL('image/png');})();handCache.set(key,pending);try{return await pending;}catch(e){handCache.delete(key);throw e;}
  }
+ // Map continuous strips of the equipped sleeve onto the arm surface. The
+ // original bent-pose silhouette must not determine the moving joint edges.
+ function sleeveMesh(id){
+  const source=t=>{const stops=[[655,357],[687,415],[714,467],[738,507]],n=Math.min(2,Math.floor(t*3)),f=t*3-n;return [stops[n][0]+(stops[n+1][0]-stops[n][0])*f,stops[n][1]+(stops[n+1][1]-stops[n][1])*f];};
+  const target=(t,side)=>{const x=-35+t*199,y=side*34,angle=Math.atan2(124,95);return [665+x*Math.cos(angle)-y*Math.sin(angle),382+x*Math.sin(angle)+y*Math.cos(angle)];};
+  const affine=(a,b)=>{const [p,q,r]=a,[u,v,w]=b,dx=q[0]-p[0],dy=q[1]-p[1],ex=r[0]-p[0],ey=r[1]-p[1],det=dx*ey-dy*ex,A=((v[0]-u[0])*ey-(w[0]-u[0])*dy)/det,C=((w[0]-u[0])*dx-(v[0]-u[0])*ex)/det,B=((v[1]-u[1])*ey-(w[1]-u[1])*dy)/det,D=((w[1]-u[1])*dx-(v[1]-u[1])*ex)/det;return [A,B,C,D,u[0]-A*p[0]-C*p[1],u[1]-B*p[0]-D*p[1]].join(' ');};
+  let markup='';for(let i=0;i<6;i++){const a=i/6,b=(i+1)/6,P=[a,a,b,b].map((t,j)=>{const c=source(t),side=j===0||j===3?-1:1;return [c[0]-side*24*.86,c[1]+side*24*.51];}),Q=[target(a,-1),target(a,1),target(b,1),target(b,-1)];for(const [n,indices] of [[0,[0,1,2]],[1,[0,2,3]]]){const key=id+'-strip-'+i+'-'+n,src=indices.map(k=>P[k]),dst=indices.map(k=>Q[k]);markup+=`<clipPath id="${key}"><polygon points="${src.map(p=>p.join(',')).join(' ')}"/></clipPath><g transform="matrix(${affine(src,dst)})"><g clip-path="url(#${key})"><use href="#${id}-avatar" mask="url(#${id}-sleeve-mask)"/></g></g>`;}}return markup;
+ }
  function core(id){return `<defs><linearGradient id="${id}-core" x2=".8" y2="1"><stop stop-color="#efffff"/><stop offset=".4" stop-color="#77e3f9"/><stop offset="1" stop-color="#5479c6"/></linearGradient></defs><path d="M0-28 21-9 16 19 0 31-16 19-21-9Z" fill="url(#${id}-core)" stroke="#d9ffff" stroke-width="1.3"/><path d="M0-28-8-6 0 31 8-6Z" fill="#d5ffff" opacity=".72"/><path d="M-21-9-8-6 0-28M21-9 8-6 16 19M-8-6-16 19M8-6 0 31" stroke="#f3ffff" stroke-width=".8" fill="none"/><path d="m-8-11 1.7 5.3L-1-4-6.3-2.3-8 3l-1.7-5.3L-15-4l5.3-1.7Z" fill="white"/>`;}
  function scene(record,avatarMarkup,pickaxe){
   const id='dg-rig-'+(++serial),tool=document.createElement('div');tool.innerHTML=window.LanguageMinerPickaxeFinishes.preview(pickaxe);
   const use=part=>`<g clip-path="url(#${id}-${part})"><use href="#${id}-avatar"/></g>`;
   const outfit=window.getJapaneseMinerPoseOutfit?.()||{},skin=Object.hasOwn(skinTones,outfit.skin)?outfit.skin:'warm',tones=skinTones[skin];
+  const sleeveColours={miner:['#282b2a','#7c682c','#aa913e'],academy:['#222b39','#344e77','#6b92c4'],hoodie:['#272437','#694889','#ad76ce'],festival:['#352a34','#95596e','#d597aa'],armor:['#2c2628','#822f32','#b95b53'],casual:['#232c29','#42674b','#76986a']},cloth=sleeveColours[outfit.shirt]||sleeveColours.miner;
   const shell=art(record).replace(/^<svg[^>]*>|<\/svg>$/g,'');
   return `<div class="dg-avatar-source" aria-hidden="true">${avatarMarkup}</div><svg class="dg-cinematic" viewBox="80 -20 530 465" role="img" aria-label="Your miner swings an equipped pickaxe, opens the mini golem, and catches its glowing Core">
-   <defs><linearGradient id="${id}-skin" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${tones[2]}"/><stop offset=".2" stop-color="${tones[0]}"/><stop offset=".53" stop-color="${tones[1]}"/><stop offset="1" stop-color="${tones[2]}"/></linearGradient><g id="${id}-avatar"><image href="player-lesson-pose-v1.png" width="1024" height="1536"/></g>
-   <clipPath id="${id}-body"><path d="M429 15H665V235L614 264 627 318 671 347 677 487 700 635 654 699 366 699 351 452 373 341 445 300 460 278 429 243Z"/></clipPath>
+   <defs><linearGradient id="${id}-cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${cloth[0]}"/><stop offset=".65" stop-color="${cloth[1]}"/><stop offset="1" stop-color="${cloth[2]}"/></linearGradient><path id="${id}-sleeve-shape" transform="translate(665 382) rotate(${Math.atan2(124,95)*180/Math.PI})" d="M -15 -32 Q -35 -31 -35 0 Q -35 31 -15 33 L 148 29 Q 162 26 164 0 Q 162 -26 148 -29 Z"/><linearGradient id="${id}-skin" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${tones[2]}"/><stop offset=".2" stop-color="${tones[0]}"/><stop offset=".53" stop-color="${tones[1]}"/><stop offset="1" stop-color="${tones[2]}"/></linearGradient><g id="${id}-avatar"><image href="player-lesson-pose-v1.png" width="1024" height="1536"/></g>
+   <clipPath id="${id}-body"><path d="M429 15H665V235L614 264 627 318 647 350 642 435 663 535 700 635 654 699 366 699 351 452 373 341 445 300 460 278 429 243Z"/></clipPath>
    <clipPath id="${id}-legs"><path d="M350 670H685L733 800 875 1525H185L253 1200 340 955Z"/></clipPath>
-   <filter id="${id}-black"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/><feMorphology operator="dilate" radius="4"/></filter><clipPath id="${id}-elbow-area"><rect x="720" y="400" width="110" height="110"/></clipPath><mask id="${id}-sleeve-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536"><rect width="1024" height="1536" fill="white"/><image class="dg-old-skin-mask" width="1024" height="1536" clip-path="url(#${id}-elbow-area)" filter="url(#${id}-black)"/></mask><clipPath id="${id}-upper"><path d="M642 345Q669 335 695 371L719 411 736 453Q772 467 809 451Q812 489 785 514Q750 550 721 531L678 490Z"/></clipPath>
+   <filter id="${id}-black"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/><feMorphology operator="dilate" radius="4"/></filter><clipPath id="${id}-elbow-area"><rect x="720" y="400" width="110" height="110"/></clipPath><mask id="${id}-sleeve-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536"><rect width="1024" height="1536" fill="white"/><image class="dg-old-skin-mask" width="1024" height="1536" clip-path="url(#${id}-elbow-area)" filter="url(#${id}-black)"/></mask><clipPath id="${id}-upper"><use href="#${id}-sleeve-shape"/></clipPath>
    <clipPath id="${id}-support"><path d="M361 350 395 389 355 476 354 526 420 579 461 592 451 627 417 659 369 660 294 606 238 553 225 495 270 411Z"/></clipPath>
    <radialGradient id="${id}-floor"><stop stop-color="#60decd" stop-opacity=".28"/><stop offset="1" stop-color="#60decd" stop-opacity="0"/></radialGradient>
    <radialGradient id="${id}-light"><stop stop-color="#e1ffff" stop-opacity=".8"/><stop offset=".2" stop-color="#80dfff" stop-opacity=".3"/><stop offset="1" stop-color="#80dfff" stop-opacity="0"/></radialGradient>
@@ -64,11 +73,11 @@
    <g class="dg-ground-rings" fill="none" stroke="#a0e7ee"><ellipse cx="428" cy="402" rx="94" ry="22"/><ellipse cx="428" cy="402" rx="76" ry="17"/></g>
    <ellipse class="dg-player-shadow" cx="224" cy="394" rx="68" ry="11" fill="#03101c" opacity=".45"/>
    <g class="dg-rig-legs" transform="translate(95 62) scale(.22)">${use('legs')}</g>
-   <g class="dg-rig-body">${use('body')}<g class="dg-support-arm">${use('support')}</g></g>
+   <g class="dg-rig-body">${use('body')}<g class="dg-shoulder-anchor" transform="translate(665 382)"/><g class="dg-support-arm">${use('support')}</g></g>
 
    <g class="dg-tool" data-equipped-pickaxe="${pickaxe}">${tool.querySelector('svg').innerHTML}</g>
    <g class="dg-forearm"><g class="dg-wrist-anchor"/><g class="dg-skin-surface"><path class="dg-skin-contour" fill="url(#${id}-skin)" stroke="${tones[2]}" stroke-width=".45"/><path class="dg-skin-highlight" fill="none" stroke="${tones[0]}" stroke-width=".9" opacity=".5"/></g></g>
-   <g class="dg-upper-arm" mask="url(#${id}-sleeve-mask)">${use('upper')}</g>
+   <g class="dg-upper-arm"><use class="dg-sleeve-underlay" href="#${id}-sleeve-shape" fill="url(#${id}-cloth)"/><g class="dg-sleeve-texture" clip-path="url(#${id}-upper)">${sleeveMesh(id)}</g><g class="dg-sleeve-shoulder" transform="translate(665 382)"/><g class="dg-sleeve-elbow" transform="translate(760 506)"/></g>
    <g class="dg-hand" data-skin="${skin}" data-gloves="${outfit.gloves||'none'}">${[100,66,42].map((x,i)=>`<g class="dg-hand-pose" data-pose="${i}"><svg x="${-x*.04}" y="-15" width="28.96" height="28.96" viewBox="${i*724} 0 724 724" overflow="hidden"><image class="dg-hand-image" href="daily-golem-hands-v1.webp" width="2172" height="724"/></svg></g>`).join('')}<g class="dg-grip-anchor" transform="translate(12 0)"/></g>
    <g class="dg-golem-aura"><circle cx="428" cy="308" r="119" fill="url(#${id}-light)"/></g>
    <g class="dg-egg" transform="translate(330 205) scale(.98)"><g class="dg-intact"><use href="#${id}-shell"/></g><g class="dg-break-seams">${cracks.map(d=>`<path d="${d}" fill="none" stroke="#d8ffff" stroke-width="2"/>`).join('')}</g><g class="dg-fragments">${pieces.map((p,i)=>`<g class="dg-piece" data-piece="${i}"><g clip-path="url(#${id}-piece-${i})"><use href="#${id}-shell"/></g></g>`).join('')}</g></g>
@@ -84,15 +93,15 @@
   const nodes=root._dgNodes,attr=(key,value)=>nodes[key].setAttribute('transform',value);
   // The hips stay planted; shoulder motion follows the torso's weight shift.
   const a=radians(p.lean),sx=95+.22*(530+135*Math.cos(a)+268*Math.sin(a)),sy=62+.22*(650+135*Math.sin(a)-268*Math.cos(a));
-  const dx=p.wx-sx,dy=p.wy-sy,L1=Math.hypot(100,103)*.22,L2=Math.hypot(-10,-165)*.22;
+  const dx=p.wx-sx,dy=p.wy-sy,L1=Math.hypot(95,124)*.22,L2=Math.hypot(-5,-186)*.22;
   const distance=Math.min(L1+L2-.1,Math.max(Math.abs(L1-L2)+.1,Math.hypot(dx,dy))),direction=Math.atan2(dy,dx);
   const upper=direction+Math.acos(Math.max(-1,Math.min(1,(L1*L1+distance*distance-L2*L2)/(2*L1*distance))));
   const ex=sx+L1*Math.cos(upper),ey=sy+L1*Math.sin(upper),wx=sx+distance*Math.cos(direction),wy=sy+distance*Math.sin(direction),lower=Math.atan2(wy-ey,wx-ex);
   attr('body',`translate(95 62) scale(.22) translate(530 650) rotate(${p.lean}) translate(-530 -650)`);
-  attr('upper',`translate(${sx} ${sy}) rotate(${degrees(upper)-degrees(Math.atan2(103,100))}) scale(.22) translate(-665 -382)`);
+  attr('upper',`translate(${sx} ${sy}) rotate(${degrees(upper)-degrees(Math.atan2(124,95))}) scale(.22) translate(-665 -382)`);
   // Wrist flexion stays within a natural range. The forearm contour connects to
   // the wrist continuously, and the shaft is anchored at the hand's actual grip.
-  const lowerDegrees=degrees(lower),palmDelta=((p.palm-lowerDegrees+540)%360)-180,open=Math.min(1,p.handOpen),bend=mix(p.palm,Math.max(-38,Math.min(38,palmDelta)),open),handAngle=lowerDegrees+bend;
+  const lowerDegrees=degrees(lower),palmDelta=((p.palm-lowerDegrees+540)%360)-180,open=Math.min(1,p.handOpen),bend=Math.max(-38,Math.min(38,mix(p.palm,Math.max(-38,Math.min(38,palmDelta)),open))),handAngle=lowerDegrees+bend;
   const wristX=wx-12*Math.cos(radians(handAngle)),wristY=wy-12*Math.sin(radians(handAngle)),armLength=Math.hypot(wristX-ex,wristY-ey),armAngle=degrees(Math.atan2(wristY-ey,wristX-ex));
   attr('forearm',`translate(${ex} ${ey}) rotate(${armAngle})`);
   nodes.contour.setAttribute('d',`M -6 -3 Q -4 -7 3 -6 Q ${armLength*.55} -6.3 ${armLength} -3.5 Q ${armLength+2} 0 ${armLength} 3.5 Q ${armLength*.55} 5.2 2 6 Q -5 6 -6 -3 Z`);
