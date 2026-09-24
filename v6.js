@@ -113,10 +113,11 @@ function coachAction(a){if(a==='mine'){mine();document.getElementById('challenge
 // v6.4.15 - Kōji is now a permanent, clickable guide inside the mine.
 let coachLastFeedback=null;
 function coachDueReviewCount(){
+ if(window.japaneseMinerSmartReview?.status)return window.japaneseMinerSmartReview.status().dueCount;
  const srs=state.v5?.srs||{},now=Date.now();
  return questions.filter(question=>questionAllowedForSession(question)&&srs[question.id]&&Number(srs[question.id].dueAt||0)<=now).length;
 }
-function coachDailyRefresherReady(){const sessions=Array.isArray(state.v5?.studySessions)?state.v5.studySessions:[],last=sessions.at(-1),result=state.v5?.dailyRefresher;return !!last?.questionIds?.length&&!(result?.status==='complete'&&result.day===dateKey());}
+function coachDailyRefresherReady(){if(window.LanguageMinerCourseCoach?.active())return false;const sessions=Array.isArray(state.v5?.studySessions)?state.v5.studySessions:[],last=sessions.at(-1),result=state.v5?.dailyRefresher;return !!last?.questionIds?.length&&!(result?.status==='complete'&&result.day===dateKey());}
 function coachMissionSummary(){
  const missions=state.v5?.missions,specs=typeof MISSION_SPECS==='undefined'?[]:MISSION_SPECS;
  if(!missions||!specs.length)return{claimable:0,claimed:0,total:0,remaining:0};
@@ -125,10 +126,11 @@ function coachMissionSummary(){
  return{claimable,claimed,total:specs.length,remaining:Math.max(0,specs.length-claimed)};
 }
 function coachLessonReminder(){
+ if(window.LanguageMinerCourseCoach?.active())return window.LanguageMinerCourseCoach.snapshot().reminder;
  const stage=selectedStageIndex();
  if(stage<2){
   const family=currentKanaFamily(stage),mastery=kanaFamilyMastery(family);
-  return{icon:stage===0?'あ':'ア',title:`Continue ${family.name}`,text:`This kana family is at ${mastery}% mastery. Reach ${KANA_FAMILY_UNLOCK_MASTERY}% to open the next family.`,action:'map',label:'Open family map'};
+  return{icon:stage===0?'あ':'ア',title:`Continue ${family.name}`,text:`This kana family is at ${mastery}% mastery. ${mastery>=KANA_FAMILY_UNLOCK_MASTERY?'Its mastery target is met. Open the family map to continue or review.':`Reach ${KANA_FAMILY_UNLOCK_MASTERY}% to open the next family.`}`,action:'map',label:'Open family map'};
  }
  const section=currentJlptSection(stage),spec=jlptSectionSpec(section),levels=jlptSectionLevels(stage,section);
  const checkpoint=Array.from({length:Math.floor(levels.length/2)},(_,index)=>(index+1)*2).find(evenLesson=>jlptReviewCheckpointAvailable(stage,section,evenLesson)&&!jlptReviewCheckpointPassed(stage,section,evenLesson));
@@ -139,16 +141,17 @@ function coachLessonReminder(){
  return{icon:spec.icon,title:`${spec.name} Lesson ${level+1} is next`,text:`${mastery}% mastery · ${items.length} ${config.plural}. Review every item before practice.`,action:'lesson',label:`Open Lesson ${level+1}`,stage,section,level};
 }
 function coachReminderTasks(){
- ensureV6();const tasks=[],due=coachDueReviewCount(),dailyRefresherReady=coachDailyRefresherReady(),missions=coachMissionSummary(),stage=selectedStageIndex(),today=dateKey();
+ ensureV6();const shared=window.LanguageMinerCourseCoach?.active()?window.LanguageMinerCourseCoach.snapshot():null;const tasks=[],due=coachDueReviewCount(),dailyRefresherReady=coachDailyRefresherReady(),missions=coachMissionSummary(),stage=selectedStageIndex(),today=dateKey();
  if(Number(state.hearts||0)<=0)tasks.push({icon:'❤️‍🩹',title:'Hearts are recovering',text:'Your hearts are safe while you are away. Check the recovery timer or use this time to review your course plan.',action:'dashboard',label:'View health'});
  if(dailyRefresherReady)tasks.push({icon:'🔄',title:'Your Daily Refresher is ready',text:'Revisit up to 10 tap-answer items from your previous study session with no timer, microphone, heart loss, or lesson penalty.',action:'review',label:'Open refresher'});
  if(due>0)tasks.push({icon:'🧠',title:`${due} optional Smart Review${due===1?'':'s'} ready`,text:'Spaced repetition is available after your previous-session refresher.',action:'review',label:'Open review'});
- if(state.active&&!state.answered)tasks.push({icon:'🎌',title:'Finish your current challenge',text:'A question is waiting. Return to it before starting another activity.',action:'question',label:'Return to question'});
+ if(shared?shared.pending:state.active&&!state.answered)tasks.push({icon:'🎌',title:'Finish your current challenge',text:'A question is waiting. Return to it before starting another activity.',action:'question',label:'Return to question'});
  tasks.push(coachLessonReminder());
  if(missions.claimable>0)tasks.push({icon:'🎁',title:`${missions.claimable} mission reward${missions.claimable===1?'':'s'} ready`,text:'You completed mission goals that are waiting to be claimed.',action:'missions',label:'Claim rewards'});
  else if(missions.remaining>0)tasks.push({icon:'🎯',title:'Daily missions in progress',text:`${missions.claimed}/${missions.total} mission rewards claimed today. Check the board for your next objective.`,action:'missions',label:'View missions'});
  if(state.lastPracticeDate!==today)tasks.push({icon:'🔥',title:Number(state.practiceStreak||0)>0?`Protect your ${state.practiceStreak}-day streak`:'Start today’s study',text:'One focused lesson or review session keeps your learning routine moving.',action:'mine',label:'Practice now'});
- if(typeof bossUnlocked==='function'&&bossUnlocked(stage)&&!state.v5?.bossDefeated?.includes(stage))tasks.push({icon:'👹',title:`${stages[stage].label} guardian is ready`,text:'Your course checkpoint has reached the guardian gate. Review first, then attempt the silent test.',action:'boss',label:'View guardian'});
+ if(shared?.bossReady)tasks.push({icon:'👹',title:`${shared.mineTitle} guardian is ready`,text:'Review your course before attempting the silent guardian test.',action:'boss',label:'View guardian'});
+ if(!shared&&typeof bossUnlocked==='function'&&bossUnlocked(stage)&&!state.v5?.bossDefeated?.includes(stage))tasks.push({icon:'👹',title:`${stages[stage].label} guardian is ready`,text:'Your course checkpoint has reached the guardian gate. Review first, then attempt the silent test.',action:'boss',label:'View guardian'});
  if(tasks.length<3)tasks.push({icon:'🗺️',title:'Check your next checkpoint',text:'The Expedition Hub shows your active route, mastery, lessons, and guardian progress.',action:'map',label:'Open map'});
  const seen=new Set();return tasks.filter(task=>{const key=`${task.action}:${task.title}`;if(seen.has(key))return false;seen.add(key);return true;}).slice(0,4);
 }
@@ -176,7 +179,7 @@ renderCoach=function(kind='refresh'){
 };
 coachAction=function(action,task={}){
  closeCoach();
- if(action==='mine'){mine();document.getElementById('challengeArea')?.scrollIntoView({behavior:'smooth'});}
+ if(action==='mine'){if(window.LanguageMinerCourseCoach?.active())window.LanguageMinerCourseCoach.practice();else mine();document.getElementById('challengeArea')?.scrollIntoView({behavior:'smooth'});}
  else if(action==='question')document.getElementById('challengeArea')?.scrollIntoView({behavior:'smooth'});
  else if(action==='map')window.openJapaneseMinerV5?.('map');
  else if(action==='review')window.openJapaneseMinerV5?.('review');

@@ -584,6 +584,14 @@
     if(!courseMineUnlocked(index)){const previous=placementMineTitle(learning,Math.max(0,index-1));window.setMessage?.(`${placementMineTitle(learning,index)} is locked. Complete the lessons and Guardian in ${previous} to unlock it.`,'wrong');return false;}
     return startCourseLesson(courseMineSections(index).find(section=>section!=='boss'),0,index);
   }
+  window.LanguageMinerCourseCoach=Object.freeze({
+    active:()=>!fullJapaneseCourse(),
+    snapshot:()=>{
+      const mine=selectedCourseMine,sections=courseMineSections(mine).filter(section=>section!=='boss'),section=sections.includes(selectedCourseSection)?selectedCourseSection:sections[0],lessons=courseSectionLessons(section,mine),lesson=Math.max(0,Math.min(lessons.length-1,selectedCourseLesson)),mastery=courseLessonMastery(section,lesson,mine),requirement=section==='alphabet'?MULTILINGUAL_ALPHABET_BOSS_MASTERY:MULTILINGUAL_LESSON_MASTERY_REQUIREMENT;
+      return {pending:!!activePreviewQuestion||multilingualBoss?.status==='active'||!!multilingualReviewQuiz&&!multilingualReviewQuiz.finished,bossReady:courseBossUnlocked(mine)&&!courseBossDefeated(mine),mineTitle:placementMineTitle(learning,mine),reminder:{icon:LANGUAGES[learning].flag,title:`${targetName()} · ${sectionLabel(section)} · Lesson ${lesson+1}`,text:`${mastery}% mastery. ${mastery>=requirement?'This lesson has met its mastery target. Open your course map to continue or review.':`Reach ${requirement}% mastery, then complete any required checkpoint to continue.`}`,action:'map',label:'Open course map'}};
+    },
+    practice:()=>{if(activePreviewQuestion||multilingualBoss?.status==='active'||multilingualReviewQuiz&&!multilingualReviewQuiz.finished){document.getElementById('challengeArea')?.scrollIntoView({behavior:'smooth'});return true;}return renderFoundationQuestion();}
+  });
   window.LanguageMinerCourseNavigation=Object.freeze({active:()=>!fullJapaneseCourse(),open:openCurrentCourse,select:selectCurrentCourseMine,unlocked:index=>(!travelCourseActive()||Number(index)===0)&&courseMineUnlocked(index),next:()=>renderFoundationQuestion(),title:(language,index)=>placementMineTitle(language,index)});
   window.LanguageMinerCourseVoice=Object.freeze({test:()=>speakTarget(FOUNDATION_CONCEPTS[0].forms[learning],{manual:true}),currentLanguage:()=>learning});
   function makeFoundationQuestion(){
