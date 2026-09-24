@@ -743,14 +743,14 @@
     if(section==='boss')question.mode='boss';
     window.LanguageMinerVocabulary?.refreshMultilingual(question,learning,known,meaning=>(QUESTION_PROMPTS[known]||QUESTION_PROMPTS.en)(meaning,targetName()));activePreviewQuestion=question;if(!area||!question?.answer)return;
     const lessonTotal=courseSectionLessons(section,selectedCourseMine).length,translatedSection=sectionLabel(section),bossStatus=section==='boss'&&multilingualBoss?` · ${ui('boss')} ${multilingualBoss.index+1}/${multilingualBoss.total}`:'';
-    const alphabetQuestion=section==='alphabet'||question.sourceSection==='alphabet',hearingQuestion=question.promptKind==='audio-recognition',optionalAudio=hearingQuestion?`<div class="lm-question-actions"><button id="lmSpeakQuestion" class="lm-speak-button" type="button" aria-describedby="lmSpeechReplayStatus">🔊 ${escapeHtml(ui('replayClue'))}</button><span id="lmSpeechReplayStatus" class="lm-speech-replay-status" aria-live="polite"></span></div>`:alphabetQuestion?`<div class="lm-hearing-fallback" role="status">🔊 ${escapeHtml(ui('nativeHearingFallback',{language:targetName(),code:target.voice}))}</div>`:'';
+    const alphabetQuestion=section==='alphabet'||question.sourceSection==='alphabet',hearingQuestion=question.promptKind==='audio-recognition',optionalAudio=hearingQuestion?`<div class="lm-question-actions"><button id="lmSpeakQuestion" data-pronunciation="${escapeHtml(question.spoken||question.answer)}" class="lm-speak-button" type="button" aria-describedby="lmSpeechReplayStatus">🔊 ${escapeHtml(ui('replayClue'))}</button><span id="lmSpeechReplayStatus" class="lm-speech-replay-status" aria-live="polite"></span></div>`:alphabetQuestion?`<div class="lm-hearing-fallback" role="status">🔊 ${escapeHtml(ui('nativeHearingFallback',{language:targetName(),code:target.voice}))}</div>`:'';
     area.innerHTML=`<section class="lm-course-question ${alphabetQuestion?'lm-alphabet-question':''}" aria-label="${escapeHtml(targetName())} ${escapeHtml(translatedSection)}"><div class="lm-question-kicker">${target.flag} ${escapeHtml(alphabetQuestion?system.name:`${targetName()} ${translatedSection} ${ui('mine')}`)} · ${escapeHtml(ui('lesson',{number:selectedCourseLesson+1}))}/${lessonTotal}${bossStatus}</div><h3 class="lm-course-prompt" data-lm-no-interface-translate>${escapeHtml(courseQuestionPrompt(question,target))}</h3>${optionalAudio}<button id="lmUnknownCourseItem" class="lm-unknown-course-item" type="button">📖 I don’t know this yet — add to review</button><div class="lm-answer-grid ${alphabetQuestion?'lm-alphabet-answers':''}" data-lm-no-interface-translate>${question.options.map(option=>`<button type="button" data-lm-course-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join('')}</div><div id="lmCourseFeedback" class="lm-course-feedback" aria-live="polite"></div></section>`;
     window.LanguageMinerPictures?.decorateQuestion(area,question,learning);
     if(message)message.textContent='';document.getElementById('lmUnknownCourseItem')?.addEventListener('click',event=>{if(enqueueCurrentCourseQuestion(question)){event.currentTarget.disabled=true;event.currentTarget.textContent='✓ Added to Smart Review';const feedback=document.getElementById('lmCourseFeedback');if(feedback){feedback.className='lm-course-feedback correct';feedback.textContent='Added to unlimited Smart Review. No hearts, rewards, or penalties are used there.';}}});document.querySelectorAll('[data-lm-course-answer]').forEach(button=>button.addEventListener('click',()=>answerCourseQuestion(button)));
     syncMultilingualQuickMineButton();updateFoundationProgress();area.scrollIntoView({behavior:'smooth',block:'center'});if(hearingQuestion)setTimeout(()=>{if(activePreviewQuestion===question)speakTarget(question.spoken);},80);
   }
   function replayCoursePronunciation(button){
-    const question=activePreviewQuestion,text=question?.spoken||question?.answer,status=document.getElementById('lmSpeechReplayStatus');
+    const question=activePreviewQuestion,text=question?.spoken||question?.answer||document.getElementById('lmSpeakQuestion')?.dataset.pronunciation,status=document.getElementById('lmSpeechReplayStatus');
     if(!text){if(status)status.textContent='No pronunciation is available for this question.';return false;}
     const played=speakTarget(text,{manual:true});
     if(button){button.classList.toggle('is-playing',played);button.setAttribute('aria-pressed',String(played));}
@@ -917,7 +917,21 @@
     return {...existing,courseMastery,mineXpByMine,bossDefeatedByMine,bossBestByMine,reviewCheckpoints,placementUnlockedThrough:6,selectedMine:6,activeBoss:null,xp:Math.max(1750,Number(existing.xp)||0)};
   }
   function refreshAfterAdmin(settings){
+    const area=document.getElementById('challengeArea'),hadCourseQuestion=Boolean(area?.querySelector('.lm-course-question'));
     clearCourseBossClock();clearCourseReviewClock();activePreviewQuestion=null;multilingualBoss=null;multilingualReviewQuiz=null;applyCourse(settings);expandedCourseMines.clear();for(let mine=0;mine<=6;mine++)expandedCourseMines.add(mine);
+    // A remote save invalidates the controller. Replace its visible controls too.
+    if(hadCourseQuestion){
+      if(fullJapaneseCourse())area.innerHTML='';
+      else{
+        const progress=languageProgress();
+        selectedCourseMine=courseMineUnlocked(Number(progress.selectedMine)||0)?Number(progress.selectedMine)||0:0;
+        const sections=courseMineSections(selectedCourseMine).filter(section=>section!=='boss');
+        selectedCourseSection=sections.includes(progress.selectedSection)?progress.selectedSection:sections[0];
+        const lessons=courseSectionLessons(selectedCourseSection,selectedCourseMine),lesson=Math.max(0,Math.min(lessons.length-1,Math.floor(Number(progress.selectedLesson)||0)));
+        selectedCourseLesson=courseLessonReplayable(selectedCourseSection,lesson,selectedCourseMine)?lesson:0;
+        renderCourseQuestion(selectedCourseSection,selectedCourseLesson);
+      }
+    }
     const hub=document.getElementById('v5Content');if(hub){delete hub.dataset.lmLearning;delete hub.dataset.lmExpeditionPreview;syncExpeditionHub();}updateFoundationProgress();
   }
   function adminUnlockAllLanguages(){
