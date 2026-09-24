@@ -30,7 +30,7 @@
   const grid=document.querySelector('.menu-wheel,.game-menu-grid');
   if(grid&&!grid.querySelector('[data-adventure="account"]'))for(const [id,label] of [['account','Account & Support']]){const b=document.createElement('button');b.type='button';b.dataset.adventure=id;b.dataset.menuCategoryName='player';b.textContent=label;grid.appendChild(b);}
   if(grid&&!grid.querySelector('[data-adventure="admin"]')){const b=document.createElement('button');b.type='button';b.dataset.adventure='admin';b.dataset.menuCategoryName='player';b.className='mobile-admin-menu';b.textContent='Admin';b.hidden=true;grid.appendChild(b);}
-  if(grid&&!grid.querySelector('[data-adventure=stories]')){const b=document.createElement('button');b.type='button';b.dataset.adventure='stories';b.dataset.menuCategoryName='gear';b.textContent='Listen & follow along';grid.appendChild(b);}
+  if(grid&&!grid.querySelector('[data-adventure=stories]')){const b=document.createElement('button');b.type='button';b.dataset.adventure='stories';b.dataset.menuCategoryName='gear';b.innerHTML='<span aria-hidden="true">🎧</span><strong>Listen &amp; follow along</strong>';grid.appendChild(b);}
   if(grid)for(const b of grid.querySelectorAll('[data-adventure]')){const layout=grid.closest('.miner-interface-menu');b.hidden=(layout&&layout.dataset.category!==(b.dataset.menuCategoryName||'player'))||(b.dataset.adventure==='admin'&&document.getElementById('developerBtn')?.hidden!==false);}
 
   const summary=window.LanguageMinerReadOnly?.learnerSummary?.(window.japaneseMinerActiveProfile?.()?.id);
