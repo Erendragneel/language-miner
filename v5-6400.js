@@ -353,7 +353,7 @@ function decorateCharacters(){
 window.refreshJapaneseMinerCompanionDisplays=decorateCharacters;
 window.getJapaneseMinerActiveCompanion=()=>{ensureV5();const companion=activeCompanion(),outfit=companionOutfitFor(companion);return {id:companion.id,name:companion.name,icon:companion.icon,outfit:outfit.id,outfitName:outfit.name};};
 
-const UTILITY_SECTIONS=[['health','❤️','Practice Health'],['exchange','🪙','Nugget Exchange'],['inventory','🎒','Inventory'],['mastery','🔤','Kana Mastery'],['course','📚','JLPT Course'],['gems','💎','Gem Collection']];
+const UTILITY_SECTIONS=[['health','❤️','Practice Health'],['exchange','🪙','Nugget Exchange'],['inventory','🎒','Inventory'],['gems','💎','Gem Collection']];
 function utilityShell(){
  if(document.getElementById('utilityOverlay'))return;
  document.body.insertAdjacentHTML('beforeend',`<div id="utilityOverlay" class="utility-overlay" aria-hidden="true"><section class="utility-panel"><header class="utility-head"><button id="utilityBackToMenu" class="menu-back-button" type="button">← Menu</button><div class="menu-header-copy"><span>Player tools</span><h2>Health &amp; Inventory</h2></div><button id="utilityClose" aria-label="Close">×</button></header><nav class="utility-tabs">${UTILITY_SECTIONS.map(([id,icon,name])=>`<button data-utility-tab="${id}">${icon} ${name}</button>`).join('')}</nav><main id="utilityContent"></main></section></div>`);

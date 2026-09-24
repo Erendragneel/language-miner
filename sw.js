@@ -1,6 +1,6 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.258-coach-next-r84';
-const BUILD_VERSION='6.4.258';
+const CACHE_NAME='language-miner-v6.4.259-utility-tabs-r85';
+const BUILD_VERSION='6.4.259';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
 const CRITICAL_SHELL=['./short-stories.js','./short-stories-data.js','./short-stories.css','./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
