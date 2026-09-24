@@ -170,7 +170,7 @@
   };tick(start);return root;
  }
  async function prepare(root){
-  try{const module=await import('./golem-3d-v1/scene.js');root._dg3d=await module.create(root.querySelector('.dg-3d-canvas'),window.getJapaneseMinerPoseOutfit?.()||{},root.querySelector('.dg-tool').dataset.equippedPickaxe);root.dataset.renderer='3d';root.querySelector('.dg-3d-viewport').style.display='';for(const selector of ['.dg-rig-legs','.dg-rig-body','.dg-tool','.dg-forearm','.dg-upper-arm','.dg-hand','.dg-player-shadow'])root.querySelector(selector).style.display='none';}catch(error){root.dataset.renderer='fallback';root.querySelector('.dg-3d-viewport').remove();}
+  try{const module=await import('./golem-3d-v2/scene.js');root._dg3d=await module.create(root.querySelector('.dg-3d-canvas'),window.getJapaneseMinerPoseOutfit?.()||{},root.querySelector('.dg-tool').dataset.equippedPickaxe);root.dataset.renderer='3d';root.querySelector('.dg-3d-viewport').style.display='';for(const selector of ['.dg-rig-legs','.dg-rig-body','.dg-tool','.dg-forearm','.dg-upper-arm','.dg-hand','.dg-player-shadow'])root.querySelector(selector).style.display='none';}catch(error){root.dataset.renderer='fallback';root.querySelector('.dg-3d-viewport').remove();}
   const avatar=root._dg3d?null:root.querySelector('.dg-avatar-source .miner-avatar');
   if(avatar){
    window.syncJapaneseMinerRenderedLayers?.(avatar);

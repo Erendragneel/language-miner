@@ -71,3 +71,12 @@ The reproducible Blender adaptation script is `tools/golem-3d/build-miner.py`.
 Animation, accessories, equipment geometry and integration were authored for
 Language Miner. Three.js 0.180.0 is bundled under MIT; full license accompanies
 the runtime. No external model-generation or paid animation service is used.
+
+## Player-specific Daily Golem model — 2026-09-24
+
+`golem-3d-v2/miner.glb` replaces the generic v1 head/outfit with authored player-specific
+volumetric geometry. Only Quaternius's CC0 armature and weighted hand topology
+remain. Front/back painted textures were generated with OpenAI ImageGen from a
+capture of the actual customized player. Inputs, generated originals and a
+prompt brief are archived in `tools/golem-3d/player-textures/`. Rebuild script:
+`tools/golem-3d/build-player.py`. Runtime/source licenses: `golem-3d-v2/LICENSE.txt`.

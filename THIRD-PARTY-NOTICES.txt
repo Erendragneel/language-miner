@@ -44,3 +44,7 @@ SOFTWARE.
 
 Daily Golem 3D renderer and model:
 See golem-3d-v1/LICENSE.txt for Three.js (MIT) and Quaternius models (CC0 1.0).
+
+Player-specific Daily Golem v2 renderer/model:
+See golem-3d-v2/LICENSE.txt for Three.js (MIT), CC0 armature/finger topology,
+and the player-reference texture generation record.
