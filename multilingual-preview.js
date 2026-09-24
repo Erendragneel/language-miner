@@ -726,7 +726,7 @@
     return (QUESTION_PROMPTS[known]||QUESTION_PROMPTS.en)(question.meaning,targetName());
   }
   function syncMultilingualQuickMineButton(){
-    if(fullJapaneseCourse())return;
+    if(fullJapaneseCourse()||window.japaneseMinerSmartReview?.status?.().active)return;
     const button=document.getElementById('quickMineBtn'),label=document.getElementById('quickMineLabel');
     if(!button)return;
     const next=document.getElementById('nextBtn');if(next)next.disabled=Boolean(activePreviewQuestion);
@@ -735,7 +735,7 @@
     if(label)label.textContent=returning?'Resume':'Next';
   }
   function enqueueCurrentCourseQuestion(question=activePreviewQuestion){
-    if(!question?.answer)return false;const itemId=question.item?.id??question.unit?.symbol??question.id??question.answer,id=`multilingual:${learning}:${selectedCourseMine}:${question.sourceSection||question.mode}:${itemId}:${known}`;return window.japaneseMinerSmartReview?.enqueue?.({id,stage:selectedCourseMine,q:question.spoken||question.answer,displayChallenge:question.spoken||question.answer,prompt:courseQuestionPrompt(question,LANGUAGES[learning]),a:question.answer,opts:question.options,speechText:question.spoken||question.answer})===true;
+    if(!question?.answer)return false;const itemId=question.item?.id??question.unit?.symbol??question.id??question.answer,id=`multilingual:${learning}:${selectedCourseMine}:${question.sourceSection||question.mode}:${itemId}:${known}`;return window.japaneseMinerSmartReview?.enqueue?.({id,stage:selectedCourseMine,learningLanguage:learning,knownLanguage:known,speechLanguage:learning,q:question.meaning||"🔊",displayChallenge:question.meaning||"🔊",prompt:courseQuestionPrompt(question,LANGUAGES[learning]),a:question.answer,opts:question.options,speechText:question.spoken||question.answer})===true;
   }
   function renderCourseQuestion(section=selectedCourseSection,lesson=selectedCourseLesson){
     if(fullJapaneseCourse())return;selectedCourseSection=section;selectedCourseLesson=Number(lesson)||0;if(section==='boss'){renderCourseBossArena();return;}
@@ -880,6 +880,7 @@
     const replayAudio=event.target.closest?.('#lmSpeakQuestion'),reviewAnswer=event.target.closest?.('[data-lm-review-answer]'),reviewAction=event.target.closest?.('[data-lm-review-action]'),reviewCheckpoint=event.target.closest?.('[data-lm-review-section]'),bossAction=event.target.closest?.('[data-lm-boss-action]'),expeditionTab=event.target.closest?.('[data-v5tab="map"]'),mineToggle=event.target.closest?.('[data-lm-mine-toggle]'),courseLesson=event.target.closest?.('[data-lm-course-section]'),rock=event.target.closest?.('#rock'),quick=event.target.closest?.('#quickMineBtn'),voiceTest=event.target.closest?.('#testVoiceBtn');
     const courseEntry=event.target.closest?.('#openAcademyBtn,#enterN5MineBtn,[data-menu-action="course"]'),legacyNext=event.target.closest?.('#nextBtn');
     if(courseEntry){event.preventDefault();event.stopImmediatePropagation();openCurrentCourse();return;}
+    if((legacyNext||quick||rock)&&window.japaneseMinerSmartReview?.status?.().active){event.preventDefault();event.stopImmediatePropagation();window.japaneseMinerSmartReview.next();return;}
     if(legacyNext){event.preventDefault();event.stopImmediatePropagation();renderFoundationQuestion();return;}
     if(replayAudio){event.preventDefault();event.stopImmediatePropagation();replayCoursePronunciation(replayAudio);return;}
     if(reviewAnswer){event.preventDefault();event.stopImmediatePropagation();answerCourseReview(reviewAnswer);return;}

@@ -1734,7 +1734,7 @@ function japaneseAnswerSpeechText(q=state.active){
 function speakJapanese(text,rate=state.voiceRate){
   return speakLanguageMinerText(text,'ja-JP',rate);
 }
-function speakActiveQuestion(rate=state.voiceRate){if(silentTestingActive())return;const text=japaneseSpeechText();if(text)speakJapanese(text,rate);else setMessage('This question does not contain spoken Japanese.','');}
+function speakActiveQuestion(rate=state.voiceRate){if(silentTestingActive())return;const text=japaneseSpeechText();if(text)speakLanguageMinerText(text,state.active?.speechLanguage||state.active?.learningLanguage||'ja-JP',rate);else setMessage('This question does not contain spoken audio.','');}
 function updateSessionDashboard(){
   const answered=Number(state.sessionAnswered||0),correct=Number(state.sessionCorrect||0),goal=Number(state.sessionGoal||20);
   const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
