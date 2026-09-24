@@ -660,3 +660,14 @@ body[data-wallpaper="sunstone-ember"]{background-color:#170a03;background-image:
 #featureCenterOverlay .feature-tabs[hidden],#featurePlayerIdentity[hidden]{display:none!important}
 
 .mine-golem-art{display:block;width:clamp(150px,28vw,256px);height:auto;max-width:100%;object-fit:contain;margin:0 auto;filter:drop-shadow(0 5px 12px #36dfea44)}.mine-golem-icon{display:inline-block;width:48px;height:48px;object-fit:contain;vertical-align:middle}.boss-sprite,.lm-boss-sprite{font-size:0!important;filter:none!important;animation:none!important}.v5-tabs .mine-golem-icon,.boss-challenge-hud .mine-golem-icon{width:32px;height:32px}.v5-icon:has(.mine-golem-art){display:block}.v5-icon .mine-golem-art{width:120px}.lm-guardian-lesson .mine-golem-icon{width:64px;height:64px}
+
+/* Shared mine palette: cyan, sapphire, amethyst, rose, ruby, amber, emerald.
+   Apply to the image so map nodes, boss cards, arenas and the HUD agree. */
+.mine-golem-art[data-boss-mine],.mine-golem-icon[data-boss-mine]{filter:hue-rotate(var(--boss-hue,0deg)) drop-shadow(0 5px 12px #36dfea44)}
+[data-boss-mine="0"]{--boss-hue:0deg}
+[data-boss-mine="1"]{--boss-hue:45deg}
+[data-boss-mine="2"]{--boss-hue:95deg}
+[data-boss-mine="3"]{--boss-hue:145deg}
+[data-boss-mine="4"]{--boss-hue:180deg}
+[data-boss-mine="5"]{--boss-hue:220deg}
+[data-boss-mine="6"]{--boss-hue:290deg}
