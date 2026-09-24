@@ -1718,7 +1718,7 @@ window.LanguageMinerSpeech=Object.freeze({
 setInterval(()=>{if(window.LanguageMinerPronunciation?.isSpeaking()&&silentTestingActive())window.LanguageMinerSpeech.cancel();},100);
 function japaneseSpeechText(q=state.active){
   if(!q)return '日本語を勉強しましょう。';
-  if(q.speechText)return readingSpeechText(q.speechText);
+  if(q.speechText)return q.learningLanguage&&q.learningLanguage!=='ja'?stripMarkup(q.speechText).trim():readingSpeechText(q.speechText);
   if(q.kana)return q.kana;
   if(q.kind==='reading' && q.q)return stripMarkup(q.q);
   if(q.displayChallenge)return stripMarkup(q.displayChallenge);
@@ -1734,7 +1734,7 @@ function japaneseAnswerSpeechText(q=state.active){
 function speakJapanese(text,rate=state.voiceRate){
   return speakLanguageMinerText(text,'ja-JP',rate);
 }
-function speakActiveQuestion(rate=state.voiceRate){if(silentTestingActive())return;const text=japaneseSpeechText();if(text)speakLanguageMinerText(text,state.active?.speechLanguage||state.active?.learningLanguage||'ja-JP',rate);else setMessage('This question does not contain spoken audio.','');}
+function speakActiveQuestion(rate=state.voiceRate,options={}){if(silentTestingActive())return;const text=japaneseSpeechText();if(text)speakLanguageMinerText(text,state.active?.speechLanguage||state.active?.learningLanguage||'ja-JP',rate,options);else setMessage('This question does not contain spoken audio.','');}
 function updateSessionDashboard(){
   const answered=Number(state.sessionAnswered||0),correct=Number(state.sessionCorrect||0),goal=Number(state.sessionGoal||20);
   const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
@@ -1859,9 +1859,9 @@ function showQuestion(q){
   const silentTest=silentTestingActive(q);
   const voiceTools=silentTest?'<div class="silent-test-note">🔇 Silent testing — question and answer sounds are disabled.</div>':spoken?`<div class="voice-tools"><button id="speakQuestionBtn" type="button">🔊 Hear question</button><button id="slowSpeakQuestionBtn" type="button">🐢 Slow</button><span>Question audio only</span></div>`:'';
   area.innerHTML=`<div class="question-card"><div class="question">${displayedQuestion}</div><div class="prompt">${q.prompt}</div>${voiceTools}${helpButton}${helpBox}<div class="answers" id="answers"></div></div>`;
-  window.LanguageMinerPictures?.decorateQuestion(area,q,'ja');
-  document.getElementById('speakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion());
-  document.getElementById('slowSpeakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(.58));
+  window.LanguageMinerPictures?.decorateQuestion(area,q,q.learningLanguage||'ja');
+  document.getElementById('speakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(state.voiceRate,{manual:true}));
+  document.getElementById('slowSpeakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(.58,{manual:true}));
   if(showKanjiHelp){
     document.getElementById("kanjiHelpBtn").addEventListener("click",()=>{
       const box=document.getElementById("kanjiHelpBox");

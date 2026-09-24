@@ -212,7 +212,7 @@ function dueSmartReviewQuestions(now=Date.now()){
  ensureV5();return smartReviewQuestionCatalog().filter(question=>question?.id&&reviewMatchesCourse(question)&&questionAllowedForSession(question)&&state.v5.srs[question.id]&&Number(state.v5.srs[question.id].dueAt||0)<=now).sort((a,b)=>Number(state.v5.srs[a.id]?.dueAt||0)-Number(state.v5.srs[b.id]?.dueAt||0));
 }
 function dueCount(){return dueSmartReviewQuestions().length;}
-function activeSmartReviewSession(){const session=state.v5?.smartReviewSession;return session?.status==='active'&&reviewMatchesCourse({id:session.questionIds[session.index]||session.questionIds[0]})?session:null;}
+function activeSmartReviewSession(){const session=state.v5?.smartReviewSession;return session?.status==='active'&&reviewMatchesCourse({id:session.questionIds[0]})?session:null;}
 function smartReviewQuestionForSession(session=activeSmartReviewSession()){
  if(!session)return null;const id=session.questionIds[session.index];return smartReviewQuestionCatalog().find(question=>String(question.id)===String(id)&&reviewMatchesCourse(question)&&questionAllowedForSession(question))||null;
 }
@@ -432,7 +432,7 @@ function answerDailyRefresher(question,opt,button){
  const ref=state.v5?.dailyRefresher;if(!ref||ref.status!=='active'||state.answered)return false;const correct=opt===question.a;state.answered=true;const buttons=[...document.querySelectorAll('#answers button')];buttons.forEach(answerButton=>{answerButton.disabled=true;if(answerButton.textContent===String(question.a))answerButton.style.background='#225f49';});if(button)button.style.background=correct?'#225f49':'#6d2933';ref.index=Math.min(ref.questionIds.length,Number(ref.index||0)+1);if(correct)ref.correct=Number(ref.correct||0)+1;save();render();setMessage(correct?`Refresher answer correct. ${ref.correct}/${ref.index} remembered so far. Next card opens automatically.`:`Refresher answer: ${question.a}. This is practice only—no heart or progress was lost. Next card opens automatically.`,correct?'correct':'wrong');clearTimeout(refresherAutoAdvanceTimer);refresherAutoAdvanceTimer=setTimeout(()=>{refresherAutoAdvanceTimer=null;showNextDailyRefresher();},REFRESHER_AUTO_ADVANCE_DELAY_MS);return true;
 }
 function reviewView(){
- const base=reviewViewLegacy(),due=dueSmartReviewQuestions(),session=state.v5.smartReviewSession,active=session?.status==='active',complete=session?.status==='complete';
+ const base=reviewViewLegacy(),due=dueSmartReviewQuestions(),session=state.v5.smartReviewSession,active=!!activeSmartReviewSession(),complete=session?.status==='complete'&&reviewMatchesCourse({id:session.questionIds[0]});
  const catalog=smartReviewQuestionCatalog(),queue=active?session.questionIds.slice(session.index).map(id=>catalog.find(question=>String(question.id)===String(id))).filter(Boolean):due;
  const result=complete?`<div class="smart-review-result"><strong>Latest session complete</strong><span>${session.remembered}/${session.questionIds.length} remembered first try &middot; ${session.attempts} total attempts</span></div>`:'';
  const controls=`<button class="v5-wide" data-v5-action="review" ${active||due.length?'':'disabled'}>${active?'Continue Smart Review':`Start Smart Review${due.length?` (${due.length})`:''}`}</button>${active?'<button class="v5-wide smart-review-end" data-v5-action="end-review">End Review Session</button>':''}`;
