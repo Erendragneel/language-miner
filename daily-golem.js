@@ -34,18 +34,18 @@
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||state.v6?.characterAnimations===false||state.v6?.reducedMotion===true;
   scene.dataset.reduced=String(reduced);
   const wait=ms=>new Promise(resolve=>{if(skipped)return resolve();let elapsed=0;const timer=setInterval(()=>{elapsed+=25;if(skipped||elapsed>=ms){clearInterval(timer);resolve();}},25);});
-  const phase=async(name,label,duration)=>{scene.dataset.phase=name;scene.querySelector('.dg-scene-label').textContent=t(label);if(!['victory','reward'].includes(name))reveal.textContent=t(label);await wait(reduced?180:duration);};
+  const phase=async(name,label,duration)=>{scene.dataset.phase=name;window.LanguageMinerDailyGolemArt.transition(scene,name,reduced||skipped?0:duration,reduced||skipped);scene.querySelector('.dg-scene-label').textContent=t(label);if(!['victory','reward'].includes(name))reveal.textContent=t(label);await wait(reduced?180:duration);};
   try{
    await window.LanguageMinerDailyGolemArt.prepare(scene);
    await phase('wake','The golem wakes up!',650);
    await phase('windup','Ready your pickaxe',850);
-   await phase('strike','Pickaxe strike',280);
-   await phase('impact','Pickaxe strike',320);
+   await phase('strike','Pickaxe strike',260);
+   await phase('impact','Pickaxe strike',130);
    await phase('recoil','The shell cracks open',400);
    await phase('crack','The shell cracks open',650);
-   await phase('core','Golem Core',650);
+   await phase('core','Golem Core',850);
    reveal.textContent=t('Golem Core');
-   await phase('victory','Golem Core',r.claims%7===6?1500:1100);
+   await phase('victory','Golem Core',r.claims%7===6?1800:1400);
    const reward=M.rewards[r.claims%7];reveal.textContent=rewardText(reward);
    await phase('reward','Golem Core',650);
    if(preview){reveal.textContent=t('Animation preview — no reward claimed');return;}
@@ -55,6 +55,7 @@
    reveal.textContent=t('Reward added')+' · '+rewardText(result);notice=t('Reward claimed today');
   }catch{reveal.textContent=t('Reward not confirmed. Sync before trying again.');if(!preview){notice=reveal.textContent;anchor=null;}}
   finally{
+   window.LanguageMinerDailyGolemArt.dispose(scene);
    const close=dialog.querySelector('.dg-skip');close.textContent=t('Continue');
    const finish=()=>{dialog.close();dialog.remove();document.querySelector('#dailyGolem '+(preview?'.dg-preview':'.dg-break'))?.focus();};
    close.onclick=finish;dialog.addEventListener('cancel',finish,{once:true});busy=false;draw();close.focus();
