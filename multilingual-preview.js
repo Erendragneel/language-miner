@@ -584,7 +584,7 @@
     if(!courseMineUnlocked(index)){const previous=placementMineTitle(learning,Math.max(0,index-1));window.setMessage?.(`${placementMineTitle(learning,index)} is locked. Complete the lessons and Guardian in ${previous} to unlock it.`,'wrong');return false;}
     return startCourseLesson(courseMineSections(index).find(section=>section!=='boss'),0,index);
   }
-  window.LanguageMinerCourseNavigation=Object.freeze({active:()=>!fullJapaneseCourse(),open:openCurrentCourse,select:selectCurrentCourseMine,next:()=>renderFoundationQuestion(),title:(language,index)=>placementMineTitle(language,index)});
+  window.LanguageMinerCourseNavigation=Object.freeze({active:()=>!fullJapaneseCourse(),open:openCurrentCourse,select:selectCurrentCourseMine,unlocked:index=>(!travelCourseActive()||Number(index)===0)&&courseMineUnlocked(index),next:()=>renderFoundationQuestion(),title:(language,index)=>placementMineTitle(language,index)});
   window.LanguageMinerCourseVoice=Object.freeze({test:()=>speakTarget(FOUNDATION_CONCEPTS[0].forms[learning],{manual:true}),currentLanguage:()=>learning});
   function makeFoundationQuestion(){
     const concept=shuffled(FOUNDATION_CONCEPTS.filter(item=>item.id!==activePreviewQuestion?.concept?.id))[0]||FOUNDATION_CONCEPTS[0];
