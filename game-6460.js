@@ -661,6 +661,7 @@ async function pushCloudSave(){
           setMessage(reset?"An administrator reset was applied to this device.":"A newer cloud save was loaded. A recovery copy of this device’s progress was kept.","correct");break;
         }
         cloudSaveRevision=Math.max(cloudSaveRevision,Number(result.revision)||0);
+        window.dispatchEvent(new CustomEvent('lm-cloud-save-clock',{detail:{user:profile.cloudUserId,updatedAt:result.updated_at}}));
         if(snapshot()!==serialized)flight.queued=true;
       }while(flight.queued&&current());
       return result;
@@ -670,6 +671,43 @@ async function pushCloudSave(){
   return flight.promise;
 }
 window.languageMinerPushCloudSave=pushCloudSave;
+// Commit the daily receipt and economy in the same optimistic cloud transaction.
+// A stale device receives the authoritative save and cannot add a second reward.
+let dailyGolemCommitFlight=false;
+window.languageMinerCommitDailyGolem=async function(expectedDay){
+  if(dailyGolemCommitFlight)throw Error('Daily reward already saving');
+  dailyGolemCommitFlight=true;
+  const profile=readProfiles().find(item=>item.id===activeProfileId),epoch=cloudSaveEpoch,cloud=window.languageMinerCloudAuth;
+  const current=()=>epoch===cloudSaveEpoch&&activeProfileId===profile?.id&&cloud?.getSession()?.user?.id===profile?.cloudUserId;
+  try{
+    if(!profile?.cloudUserId||!current())throw Error('Cloud account required');
+    const synced=await pushCloudSave();
+    if(!synced||!current())throw Error('Cloud sync required');
+    const serverDay=String(synced.updated_at||'').slice(0,10);
+    if(serverDay!==expectedDay)throw Error('A new game day has started');
+    const {record,reward}=window.LanguageMinerDailyGolemModel.claim(state.dailyGolem,serverDay);
+    const candidate=JSON.parse(JSON.stringify(state));candidate.dailyGolem=record;
+    candidate.hints=Number(candidate.hints||0)+Number(reward.hints||0);
+    candidate.shields=Number(candidate.shields||0)+Number(reward.shields||0);
+    let remaining=Number(reward.nuggets||0);
+    for(let i=gemTiers.length-1;i>=0;i--){const gem=gemTiers[i],count=Math.floor(remaining/gem.value);if(count){candidate.gemInventory[gem.name]=Number(candidate.gemInventory[gem.name]||0)+count;remaining-=count*gem.value;}}
+    clearTimeout(cloudSaveTimer);cloudSaveTimer=null;cloudSaveApplying=true;
+    let result;
+    try{result=await cloud.savePlayerState({gameState:candidate,courseSettings:window.LanguageMinerCourseCloud?.exportCurrent?.()||readCloudCourseSettings(profile.cloudUserId),displayName:profile.name,email:profile.email,baseRevision:cloudSaveRevision});}
+    catch(error){
+      // A lost response is ambiguous: reload the server receipt before allowing retry.
+      const recovered=await cloud.loadPlayerSave();
+      if(current()&&recovered)applyCloudSaveRecord(recovered,profile,true);
+      if(current()&&recovered?.game_state?.dailyGolem?.lastClaim===serverDay)return recovered.game_state.dailyGolem.receipt.reward;
+      throw error;
+    }
+    if(!current())throw Error('Account changed');
+    if(result)applyCloudSaveRecord(result,profile,true);
+    if(result?.accepted!==true)throw Error('Newer cloud save loaded');
+    window.dispatchEvent(new CustomEvent('lm-cloud-save-clock',{detail:{user:profile.cloudUserId,updatedAt:result.updated_at}}));
+    return reward;
+  }finally{cloudSaveApplying=false;dailyGolemCommitFlight=false;}
+};
 window.addEventListener("lm-course-settings-saved",()=>scheduleCloudSave());
 function save(){
   if(!activeProfileId) return;

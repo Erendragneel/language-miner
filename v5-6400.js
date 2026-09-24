@@ -332,6 +332,7 @@ function collectCourseWord(options){
  state.v5.wordBook[id]={...previous,language,knownLanguage:known,itemId:item.id,section:options.section,jp:String(term),reading:String(term),meaning:String(meaning),seen:Number(previous.seen||0)+1,mastery:Math.min(100,Number(previous.mastery||0)+8),updated:Date.now()};
 }
 function recordExternalCourseAnswer(options={}){
+ window.LanguageMinerDailyGolem?.practice(options);
  ensureV5();if(options.correct===true)collectCourseWord(options);const correct=options.correct===true,stage=Math.max(0,Math.min(stages.length-1,Number(options.stage)||0)),review=options.review===true,deferTreasure=options.deferTreasure===true;state.sessionAnswered=Number(state.sessionAnswered||0)+1;if(correct)state.sessionCorrect=Number(state.sessionCorrect||0)+1;state.streak=correct?Number(state.streak||0)+1:0;state.bestStreak=Math.max(Number(state.bestStreak||0),state.streak);state.v5.missions.answered=Number(state.v5.missions.answered||0)+1;if(review)state.v5.missions.reviews=Number(state.v5.missions.reviews||0)+1;
   if(state.analytics){const section=['alphabet','vocabulary','grammar','sentences','travel'].includes(String(options.section))?String(options.section):'';state.analytics.answered=Number(state.analytics.answered||0)+1;state.analytics[correct?'correct':'wrong']=Number(state.analytics[correct?'correct':'wrong']||0)+1;if(section)state.analytics[section]=Number(state.analytics[section]||0)+1;state.analytics.lastAnswerAt=Date.now();if(!state.analytics.firstStudyAt)state.analytics.firstStudyAt=Date.now();}
  if(state.questData?.daily&&state.questData?.weekly){state.questData.daily.answered=Number(state.questData.daily.answered||0)+1;state.questData.weekly.answered=Number(state.questData.weekly.answered||0)+1;if(correct){state.questData.daily.correct=Number(state.questData.daily.correct||0)+1;state.questData.weekly.correct=Number(state.questData.weekly.correct||0)+1;state.questData.daily.bestStreak=Math.max(Number(state.questData.daily.bestStreak)||0,state.streak);}if(review){state.questData.daily.reviews=Number(state.questData.daily.reviews||0)+1;state.questData.weekly.reviews=Number(state.questData.weekly.reviews||0)+1;}}
@@ -532,9 +533,9 @@ const oldQuestionDisplay=questionDisplay;questionDisplay=function(q){return q?.k
 const oldAnswer=answer;
 answer=function(opt,button){
  ensureV5();const q=state.active,wasAnswered=state.answered;
- if(q?.dailyRefresher===true&&!wasAnswered){answerDailyRefresher(q,opt,button);return;}
+ if(q?.dailyRefresher===true&&!wasAnswered){answerDailyRefresher(q,opt,button);window.LanguageMinerDailyGolem?.practice(q);return;}
  const correct=!!q&&opt===q.a,dueReview=!!(q&&state.v5.srs[q.id]?.dueAt<=Date.now()),bossAnswerActive=state.v5.boss?.status==='active',bossResources=bossAnswerActive?{hearts:state.hearts,shields:state.shields,shieldArmed:state.shieldArmed,heartRecoveryEnd:state.heartRecoveryEnd}:null;
-	 oldAnswer(opt,button);if(!q||wasAnswered)return;recordStudySessionQuestion(q,correct);const smartReviewAnswer=recordSmartReviewAnswer(q,correct);
+	 oldAnswer(opt,button);if(!q||wasAnswered)return;if(state.answered||!correct)window.LanguageMinerDailyGolem?.practice(q);recordStudySessionQuestion(q,correct);const smartReviewAnswer=recordSmartReviewAnswer(q,correct);
 	 if(q.smartReview===true){updateSrs(q,correct);save();render();const session=activeSmartReviewSession();if(correct&&session)setMessage(`Remembered. ${session.index}/${session.questionIds.length} Smart Reviews complete. Tap Next Review to continue the saved queue.`,'correct');else if(!correct)setMessage('Keep working on this Smart Review question. Choose the correct answer to continue. No hearts, rewards, or progress are changed.','wrong');return;}
  if(bossResources&&!correct){state.hearts=bossResources.hearts;state.shields=bossResources.shields;state.shieldArmed=bossResources.shieldArmed;state.heartRecoveryEnd=bossResources.heartRecoveryEnd;state.answered=true;document.querySelectorAll('#answers button').forEach(answerButton=>answerButton.disabled=true);}
  state.v5.missions.answered++;if(correct){state.v5.missions.correct++;state.v5.totalCorrect++;collectWord(q);react('happy');if(state.v5.totalCorrect%CHEST_CORRECT_INTERVAL===0)chestReward(q);}else react('sad');if(dueReview)state.v5.missions.reviews++;updateSrs(q,correct);if(correct)applyCompanionCorrectAnswer(q,dueReview);
@@ -606,6 +607,7 @@ renderPurchasedInventory=function(){
  renderPurchasedInventoryV64104();
  const box=document.getElementById('purchasedInventory');if(!box||box.querySelector('[data-mine-cosmetic-inventory]'))return;
  syncGemButtonUnlocks();
+ const daily=window.LanguageMinerDailyGolemModel?.normalize(state.dailyGolem);if(daily?.weeks>=4)box.insertAdjacentHTML('beforeend',inventoryCategory('✦','Daily Miner',[inventoryItem('✦','Daily Miner',daily.titleEquipped?'Equipped title':'Earned · equip at your Daily Mini Golem')]));
  const rockItems=state.unlockedGemButtons.map(name=>inventoryItem('💎',name,state.equippedGemButton===name?'Equipped question button':'Unlocked'));
  const mineItems=(state.ownedMineWallpapers||[]).map(id=>{const item=MINE_WALLPAPERS.find(entry=>entry.id===id);return item?inventoryItem('⛏️',item.name,state.equippedMineWallpaper===id?'In use':'Owned'):'';}).filter(Boolean);
  box.insertAdjacentHTML('beforeend',`<div data-mine-cosmetic-inventory>${inventoryCategory('💎','Gem buttons',rockItems)}${inventoryCategory('🕳️','Menu wallpapers',mineItems)}</div>`);

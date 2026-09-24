@@ -1,0 +1,11 @@
+# Daily Mini Golem checks
+
+From the repository root:
+
+1. `node tests/daily-golem-model.test.cjs`
+2. Create a scratch `work/` directory and run `node tests/serve.cjs` (localhost:8765).
+3. With Playwright and Microsoft Edge available, run the three `tests/daily-golem-*.test.cjs` browser/race/recovery scripts. `PLAYWRIGHT_MODULE` may specify the installed Playwright module path.
+
+The browser suites use fresh browser contexts and intercept Supabase requests with an isolated revision-checked in-memory save. No live account is created or changed. Screenshots and results are written under `work/`; do not publish those scratch files. Fixtures directly set milestone state only for long-cycle/recovery scenarios. Japanese and Spanish regression checks click real rendered answer controls.
+
+`tests/serve.cjs` is a local-only static test server, not a production server.
