@@ -48,3 +48,30 @@
  const tipKeys=['Missed days keep your reward day. Questions reset at 00:00 UTC.','Weekly cores unlock a free title.','Connect to sync your daily golem'];
  window.LanguageMinerDailyGolemText=(text)=>{const locale=window.LanguageMinerI18n?.getLocale?.(),index=keys.indexOf(text),tip=tipKeys.indexOf(text),pack=packs[locale];return index>=0&&pack?pack[index]:tip>=0&&tips[locale]?tips[locale][tip]:window.LanguageMinerI18n?.translate?.(text)||text;};
 })();
+(()=>{'use strict';
+ const keys=['Preview animation','Ready your pickaxe','Pickaxe strike','The shell cracks open','Animation preview — no reward claimed'];
+ const packs={
+ ja:['アニメーションを見る','つるはしを構える','つるはしで一撃','殻が割れます','プレビューです。報酬は受け取りません'],
+ es:['Ver animación','Prepara tu pico','Golpe de pico','La coraza se abre','Vista previa: no se recibió ninguna recompensa'],
+ fr:['Voir l’animation','Prépare ta pioche','Coup de pioche','La coque se fissure','Aperçu : aucune récompense réclamée'],
+ de:['Animation ansehen','Spitzhacke bereitmachen','Spitzhacken-Schlag','Die Schale bricht auf','Vorschau – keine Belohnung beansprucht'],
+ it:['Guarda animazione','Prepara il piccone','Colpo di piccone','Il guscio si apre','Anteprima: nessuna ricompensa riscossa'],
+ ko:['애니메이션 보기','곡괭이 준비','곡괭이로 치기','껍질이 열려요','미리보기 — 보상을 받지 않았어요'],
+ zh:['预览动画','准备好镐子','挥镐敲击','外壳裂开了','动画预览 — 未领取奖励'],
+ ru:['Посмотреть анимацию','Приготовь кирку','Удар киркой','Оболочка раскрывается','Предпросмотр — награда не получена'],
+ pt:['Ver animação','Prepare sua picareta','Golpe de picareta','A casca se abre','Prévia: nenhuma recompensa recebida'],
+ vi:['Xem hoạt ảnh','Chuẩn bị cuốc','Vung cuốc','Lớp vỏ nứt ra','Xem thử — chưa nhận phần thưởng'],
+ th:['ดูตัวอย่างแอนิเมชัน','เตรียมอีเต้อ','ฟาดอีเต้อ','เปลือกแตกออก','ตัวอย่างแอนิเมชัน — ยังไม่ได้รับรางวัล'],
+ tr:['Animasyonu izle','Kazmanı hazırla','Kazma darbesi','Kabuk açılıyor','Önizleme — ödül alınmadı'],
+ id:['Lihat animasi','Siapkan beliung','Ayunan beliung','Cangkang terbuka','Pratinjau — hadiah tidak diambil'],
+ pl:['Podgląd animacji','Przygotuj kilof','Uderzenie kilofem','Skorupa pęka','Podgląd — nie odebrano nagrody'],
+ el:['Προβολή κίνησης','Ετοίμασε την αξίνα','Χτύπημα αξίνας','Το κέλυφος ανοίγει','Προεπισκόπηση — δεν ελήφθη ανταμοιβή'],
+ uk:['Переглянути анімацію','Приготуй кирку','Удар киркою','Оболонка розкривається','Попередній перегляд — нагороду не отримано'],
+ ar:['معاينة الحركة','جهّز معولك','ضربة المعول','تنفتح القشرة','معاينة الحركة — لم تُستلم مكافأة'],
+ hi:['ऐनिमेशन देखें','कुदाल तैयार करें','कुदाल से प्रहार','खोल खुल रहा है','पूर्वावलोकन — कोई पुरस्कार नहीं लिया गया'],
+ nl:['Animatie bekijken','Maak je houweel klaar','Slag met de houweel','De schaal breekt open','Voorbeeld — geen beloning opgehaald'],
+ sv:['Visa animation','Gör hackan redo','Slag med hackan','Skalet öppnas','Förhandsvisning — ingen belöning hämtad']
+ };
+ const previous=window.LanguageMinerDailyGolemText;
+ window.LanguageMinerDailyGolemText=text=>{const index=keys.indexOf(text),pack=packs[window.LanguageMinerI18n?.getLocale?.()];return index>=0&&pack?pack[index]:previous(text);};
+})();

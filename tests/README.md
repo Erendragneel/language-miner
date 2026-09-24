@@ -9,3 +9,5 @@ From the repository root:
 The browser suites use fresh browser contexts and intercept Supabase requests with an isolated revision-checked in-memory save. No live account is created or changed. Screenshots and results are written under `work/`; do not publish those scratch files. Fixtures directly set milestone state only for long-cycle/recovery scenarios. Japanese and Spanish regression checks click real rendered answer controls.
 
 `tests/serve.cjs` is a local-only static test server, not a production server.
+
+`tests/daily-golem-animation.test.cjs` verifies the articulated contact geometry, preview safety, Day 7 mobile rendering, and reduced motion. It saves phase screenshots under `work/`.

@@ -51,3 +51,8 @@ This is the release-control register for bundled art, media, fonts, datasets, an
 ## Release decision
 
 The source build can be tested, but it is **not art-cleared for commercial launch** while any `HOLD` item remains. The safest launch route is to replace held art with newly created, documented originals or obtain a signed chain of title for each held item.
+
+## Daily Mini Golem sprites — 2026-09-24
+
+- `daily-golem-stone-v2.webp` and `daily-golem-prismatic-v2.webp`: generated with the built-in OpenAI image-generation tool for Language Miner. The existing `companion-3d-golem.png` supplied the material/style reference for the new regular sprite; the regular sprite supplied the reference for the prismatic variant. Actual transparent alpha preserved; exported to 640px WebP for runtime use.
+- Animation uses the existing customized player/wardrobe and equipped-pickaxe artwork. SVG masks separate the arm for a joint-driven wind-up, impact, and overhead Core pose.
