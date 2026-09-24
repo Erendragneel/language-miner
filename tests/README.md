@@ -17,3 +17,5 @@ The animation suite also samples continuous motion to catch detached grips, stre
 The arm checks additionally verify continuous forearm geometry, wrist attachment and flexion limits, a grip-to-open-palm transition, and all four skin tones with three glove finishes.
 
 Shoulder and elbow anchors are checked throughout the animation; close-up joint screenshots are saved for wind-up, impact, Core reception, and victory.
+
+Whole-body checks sample hip weight transfer, crouch, chest turn and the opposite arm throughout the swing, and verify the actual boot mesh remains planted.
