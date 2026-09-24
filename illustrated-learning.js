@@ -35,9 +35,10 @@ function questionArt(q,language='ja'){
 }
 function applyDifficulty(area){
  const card=area?.querySelector('.question-card,.lm-course-question');if(!card)return;
+ const mode=card.dataset.practiceMode;
  const hard=window.japaneseMinerQuizDifficulty?.()==='hard',reveal=card.dataset.pictureAnswered==='true';
  card.dataset.quizDifficulty=hard?'hard':'easy';
- card.querySelectorAll('.lm-quiz-art').forEach(img=>{img.hidden=hard&&!reveal;img.style.setProperty('display',hard&&!reveal?'none':'','important');});
+ card.querySelectorAll('.lm-quiz-art').forEach(img=>{const hidden=mode==='reading'||mode==='listening'||(mode!=='picture'&&hard&&!reveal);img.hidden=hidden;img.style.setProperty('display',hidden?'none':'','important');});
  card.querySelector('.lm-quiz-scene')?.classList.toggle('lm-hard-recall',hard&&!reveal);
 }
 function revealAfterAnswer(area){const card=area?.querySelector('.question-card,.lm-course-question');if(card)card.dataset.pictureAnswered='true';applyDifficulty(area);}

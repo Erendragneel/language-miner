@@ -19,3 +19,7 @@ The arm checks additionally verify continuous forearm geometry, wrist attachment
 Shoulder and elbow anchors are checked throughout the animation; close-up joint screenshots are saved for wind-up, impact, Core reception, and victory.
 
 As of v6.4.273, the avatar and animation are restored from v6.4.268. The animation suite also verifies that no 3D model or renderer is requested. Obsolete 3D/fallback-specific suites have been removed. Reward/browser/race/recovery suites are unchanged.
+
+`tests/practice-modes.test.cjs` checks the shared map controls and actual practice
+presentation, audio fallback, handwriting, persistence, exam isolation and mobile.
+Set `PRACTICE_TEST_URL` for a deployed build; account/save traffic is mocked.

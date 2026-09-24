@@ -338,7 +338,7 @@ window.japaneseMinerAssessmentTimeLabel=assessmentTimeLabel;
 window.japaneseMinerAssessmentRecordMarkup=assessmentRecordMarkup;
 
 const DEFAULT_STATE = {
-  supportMode:"guided", quizDifficulty:"easy", n5Tier:"beginner", n5Curriculum:"mixed", tutorTrack:"all",
+  supportMode:"guided", quizDifficulty:"easy", practiceMode:"reading", n5Tier:"beginner", n5Curriculum:"mixed", tutorTrack:"all",
   n5AcademyMastery:{}, academyTestBest:0, academyReviewDate:"", recentQuestionIds:[], onboardingComplete:false, placementResult:null, placementTestCompleted:false,
   gems:0, hearts:3, maxHearts:3, level:1, xp:0, streak:0, bestStreak:0, practiceStreak:0,
   hints:2, shields:1, active:null, answered:false, shieldArmed:false, lastPracticeDate:null,
@@ -565,6 +565,7 @@ function normalizeState(raw){
   next.sessionAnswered=Math.max(0,Number(next.sessionAnswered)||0);
   next.sessionCorrect=Math.max(0,Math.min(next.sessionAnswered,Number(next.sessionCorrect)||0));
   next.supportMode=["guided","standard","challenge"].includes(next.supportMode)?next.supportMode:"guided";
+  next.practiceMode=['picture','listening','writing','reading'].includes(next.practiceMode)?next.practiceMode:'reading';
   next.quizDifficulty=["easy","hard"].includes(next.quizDifficulty)?next.quizDifficulty:"easy";
   next.n5Tier=["beginner","intermediate","advanced"].includes(next.n5Tier)?next.n5Tier:"beginner";
   next.n5Curriculum=["standard","tutor","mixed"].includes(next.n5Curriculum)?next.n5Curriculum:"mixed";
@@ -811,11 +812,12 @@ function syncSelectedStageUI(){
   if(supportMode) supportMode.value=state.supportMode||"guided";
   document.querySelectorAll('[data-quiz-difficulty]').forEach(button=>{const selected=button.dataset.quizDifficulty===(state.quizDifficulty||'easy');button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));});
   const difficultyHint=document.getElementById('quizDifficultyHint');if(difficultyHint)difficultyHint.textContent=state.quizDifficulty==='hard'?'Hard · pictures after answering; reduced reading aids':'Easy · picture clues and reading support';
+  window.LanguageMinerPracticeModes?.sync();
   syncOwnerTutorControls(idx);
 }
 function quizDifficultyMarkup(){
   const mode=state.quizDifficulty==='hard'?'hard':'easy';
-  return `<div class="expedition-quiz-mode" aria-label="Quiz difficulty"><span><strong>Quiz mode</strong><small>${mode==='hard'?'Reduced hints':'More guidance'}</small></span><div class="quiz-difficulty-options" role="group" aria-label="Choose easy or hard quiz mode"><button type="button" data-quiz-difficulty="easy" class="${mode==='easy'?'selected':''}" aria-pressed="${mode==='easy'}">🌱 Easy</button><button type="button" data-quiz-difficulty="hard" class="${mode==='hard'?'selected':''}" aria-pressed="${mode==='hard'}">⛏️ Hard</button></div></div>`;
+  return `<div class="expedition-quiz-mode" aria-label="Quiz difficulty"><span><strong>Quiz mode</strong><small>${mode==='hard'?'Reduced hints':'More guidance'}</small></span><div class="quiz-difficulty-options" role="group" aria-label="Choose easy or hard quiz mode"><button type="button" data-quiz-difficulty="easy" class="${mode==='easy'?'selected':''}" aria-pressed="${mode==='easy'}">🌱 Easy</button><button type="button" data-quiz-difficulty="hard" class="${mode==='hard'?'selected':''}" aria-pressed="${mode==='hard'}">⛏️ Hard</button></div>${window.LanguageMinerPracticeModes?.markup()||''}</div>`;
 }
 function setQuizDifficultyMode(mode){
   if(!['easy','hard'].includes(mode))return false;
@@ -1815,6 +1817,7 @@ function quickMineAction(){
 }
 
 function mine(){
+  if(window.LanguageMinerPracticeModes?.current()==='writing'){window.LanguageMinerPracticeModes.openWriting();return;}
   ensureHeartRecovery();
   if(state.hearts<=0){
     if(totalStoneValue()<heartRestoreCost()){
@@ -1851,6 +1854,7 @@ function mine(){
     render();
     return;
   }
+  if(window.LanguageMinerPracticeModes?.current()==='picture'){const pictured=pool.filter(q=>window.LanguageMinerPictures?.questionArt(q,q.learningLanguage||'ja'));if(pictured.length)pool=pictured;}
   const recent=new Set(state.recentQuestionIds||[]);
   let candidates=pool.filter(q=>!recent.has(q.id));
   if(!candidates.length) candidates=pool;
@@ -1864,7 +1868,7 @@ function mine(){
   state.shieldArmed=false;
   showQuestion(q);
   setMessage("","");
-  if(state.voiceEnabled&&state.autoSpeak)setTimeout(()=>speakActiveQuestion(),180);
+  if(state.voiceEnabled&&state.autoSpeak&&(!window.LanguageMinerPracticeModes||window.LanguageMinerPracticeModes.current()==='listening'))setTimeout(()=>speakActiveQuestion(),180);
   render();
 }
 
@@ -1918,6 +1922,7 @@ function showQuestion(q){
     a.appendChild(b);
   });
   window.LanguageMinerPictures?.beginLearning(area,q);
+  window.LanguageMinerPracticeModes?.apply(area,q,{language:q.learningLanguage||'ja',spoken,silent:silentTest});
 }
 
 function quizOptionsForDifficulty(options,answer){
@@ -2220,7 +2225,7 @@ function resetOfflineV5Progress(targetState){
   targetState.v5=collection;
 }
 function resetJapaneseCourseProgress(targetState=state){
-  resetStateFields(["supportMode","quizDifficulty","n5Tier","n5Curriculum","tutorTrack","n5AcademyMastery","academyTestBest","academyReviewDate","recentQuestionIds","onboardingComplete","placementResult","placementTestCompleted","placementRewardClaimed","placementUnlockedThrough","selectedStage","jlptSectionSelection","jlptVocabularyLevel","jlptSectionLevel","jlptReviewCheckpoints","jlptVocabularyLessonSize","kanaFamilyLevel","kanaStats","stats","hiraganaXp","stageXp","clearedStages","questionStats","level","xp","active","answered","shieldArmed","sessionAnswered","sessionCorrect"],targetState);
+  resetStateFields(["supportMode","quizDifficulty","practiceMode","n5Tier","n5Curriculum","tutorTrack","n5AcademyMastery","academyTestBest","academyReviewDate","recentQuestionIds","onboardingComplete","placementResult","placementTestCompleted","placementRewardClaimed","placementUnlockedThrough","selectedStage","jlptSectionSelection","jlptVocabularyLevel","jlptSectionLevel","jlptReviewCheckpoints","jlptVocabularyLessonSize","kanaFamilyLevel","kanaStats","stats","hiraganaXp","stageXp","clearedStages","questionStats","level","xp","active","answered","shieldArmed","sessionAnswered","sessionCorrect"],targetState);
   if(targetState===state)window.japaneseMinerV5Admin?.resetProgress?.();else resetOfflineV5Progress(targetState);
 }
 function resetJapanesePlacement(targetState=state){
