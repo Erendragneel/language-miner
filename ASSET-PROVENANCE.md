@@ -56,3 +56,8 @@ The source build can be tested, but it is **not art-cleared for commercial launc
 
 - `daily-golem-stone-v2.webp` and `daily-golem-prismatic-v2.webp`: generated with the built-in OpenAI image-generation tool for Language Miner. The existing `companion-3d-golem.png` supplied the material/style reference for the new regular sprite; the regular sprite supplied the reference for the prismatic variant. Actual transparent alpha preserved; exported to 640px WebP for runtime use.
 - Animation uses the existing customized player/wardrobe and equipped-pickaxe artwork. SVG masks separate the arm for a joint-driven wind-up, impact, and overhead Core pose.
+
+## Daily Golem hand-pose atlas — 2026-09-24
+
+- `daily-golem-hands-v1.webp`: newly generated grip, release, and cupped-palm artwork using the built-in OpenAI image-generation tool. Existing `player-lesson-pose-v1.png` supplied the style reference. Transparent alpha preserved; exported at 1086×362, 59,240 bytes. The complete prompt is archived in `RELEASE-NOTES-v6.4.267.md`.
+- The animation retains the selected sleeve artwork, removes its overlapping original skin pixels, and joins a continuously shaded forearm to independently animated, skin/glove-matched hand poses.

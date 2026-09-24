@@ -13,3 +13,5 @@ The browser suites use fresh browser contexts and intercept Supabase requests wi
 `tests/daily-golem-animation.test.cjs` verifies the articulated contact geometry, preview safety, Day 7 mobile rendering, and reduced motion. It saves phase screenshots under `work/`.
 
 The animation suite also samples continuous motion to catch detached grips, stretched tools, reversed swings, and clipped framing. Set `GOLEM_TEST_URL` to a deployed site base URL (ending in `/`) to run the same isolated checks on the hosted build. Portrait and landscape phone layouts are covered.
+
+The arm checks additionally verify continuous forearm geometry, wrist attachment and flexion limits, a grip-to-open-palm transition, and all four skin tones with three glove finishes.
