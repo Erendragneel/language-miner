@@ -918,7 +918,19 @@
     }
     return {...existing,courseMastery,mineXpByMine,bossDefeatedByMine,bossBestByMine,reviewCheckpoints,placementUnlockedThrough:6,selectedMine:6,activeBoss:null,xp:Math.max(1750,Number(existing.xp)||0)};
   }
-  function refreshAfterAdmin(settings){
+  function refreshAfterAdmin(settings,{reset=true}={}){
+    const sameCourse=settings.learning===learning&&settings.known===known&&coursePurpose(settings)===lastAppliedPurpose;
+    if(!reset&&sameCourse){
+      const bossVisible=!!document.querySelector('.lm-perfect-gate-question,.lm-boss-arena'),reviewVisible=!!document.querySelector('.lm-review-quiz,.lm-review-result');
+      if(bossVisible&&multilingualBoss){
+        const incoming=settings.progress?.[learning]?.activeBoss;
+        if(incoming&&JSON.stringify(incoming)===JSON.stringify(multilingualBoss)){applyCourse(settings);updateCourseBossTimer();return;}
+        const restored=savedCourseBoss(multilingualBoss.mine);
+        if(restored){clearCourseBossClock();multilingualBoss=restored;applyCourse(settings);selectedCourseMine=restored.mine;selectedCourseSection='boss';renderCourseBossArena();return;}
+      }
+      if(reviewVisible&&multilingualReviewQuiz){applyCourse(settings);selectedCourseMine=multilingualReviewQuiz.mine;selectedCourseSection=multilingualReviewQuiz.section;updateCourseReviewTimer();return;}
+    }
+    const interrupted=reset&&!!(multilingualBoss?.status==='active'||multilingualReviewQuiz&&!multilingualReviewQuiz.finished);
     const area=document.getElementById('challengeArea'),hadCourseQuestion=Boolean(area?.querySelector('.lm-course-question'));
     clearCourseBossClock();clearCourseReviewClock();activePreviewQuestion=null;multilingualBoss=null;multilingualReviewQuiz=null;applyCourse(settings);expandedCourseMines.clear();for(let mine=0;mine<=6;mine++)expandedCourseMines.add(mine);
     // A remote save invalidates the controller. Replace its visible controls too.
@@ -934,7 +946,7 @@
         renderCourseQuestion(selectedCourseSection,selectedCourseLesson);
       }
     }
-    const hub=document.getElementById('v5Content');if(hub){delete hub.dataset.lmLearning;delete hub.dataset.lmExpeditionPreview;syncExpeditionHub();}updateFoundationProgress();
+    const hub=document.getElementById('v5Content');if(hub){delete hub.dataset.lmLearning;delete hub.dataset.lmExpeditionPreview;syncExpeditionHub();}updateFoundationProgress();if(interrupted)window.setMessage?.("Your course was reset. The timed test has ended.","");
   }
   function adminUnlockAllLanguages(){
     if(!multilingualAdminAllowed())return false;const settings=currentSettings();nonJapaneseLanguageIds().forEach(id=>{settings.progress[id]=completedLanguageProgress(id,settings.progress[id]||{});settings.placements[id]={status:'tested',standard:'japanese-parity-40-v1',score:40,total:40,overall:100,stageScores:[100,100,100,100,100,100,100],recommendedMine:6,recommendedLevel:placementLevelLabel(id,6),completedAt:Date.now(),adminUnlocked:true};});saveSettings(settings);refreshAfterAdmin(settings);return true;
@@ -985,7 +997,7 @@
     selectedCourseMine=mineIndex;selectedCourseSection=section;selectedCourseLesson=lesson;activePreviewQuestion=null;const progress=languageProgress();progress.selectedMine=mineIndex;progress.selectedSection=section;progress.selectedLesson=lesson;saveLanguageProgress(progress);expandedCourseMines.add(mineIndex);updateFoundationProgress();return true;
   }
   window.LanguageMinerCourseAdmin=Object.freeze({unlockAll:adminUnlockAllLanguages,resetLanguage:adminResetLanguage,resetAll:adminResetAllLanguages,resetBossesAndReviews:adminResetBossesAndReviews,resetPlacement:adminResetPlacement,resetAllPlacements:adminResetAllPlacements,resetForAccount:adminResetForAccount,currentLanguage:()=>multilingualAdminAllowed()?learning:null,status:adminCourseStatus});
-  window.LanguageMinerCourseCloud=Object.freeze({exportCurrent:()=>cloneSettings(currentSettings()),importCurrent:value=>{const settings=normalizeSettings(cloneSettings(value));saveSettings(settings);refreshAfterAdmin(settings);return settings;},resetSnapshot:(value,target)=>resetSettingsSnapshot(value,target)});
+  window.LanguageMinerCourseCloud=Object.freeze({exportCurrent:()=>cloneSettings(currentSettings()),importCurrent:(value,options={})=>{const settings=normalizeSettings(cloneSettings(value));saveSettings(settings);refreshAfterAdmin(settings,{reset:options.reset===true});return settings;},resetSnapshot:(value,target)=>resetSettingsSnapshot(value,target)});
   window.LanguageMinerCourseFlashcards=Object.freeze({open(mine,section,lesson,index){
     if(!['alphabet','vocabulary'].includes(section)||!courseMineUnlocked(mine)||!courseLessonReplayable(section,lesson,mine))return false;
     const items=courseSectionLessons(section,mine)[lesson];if(!items)return false;const targetLanguage=learning;
