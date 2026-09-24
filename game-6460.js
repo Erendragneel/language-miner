@@ -579,6 +579,7 @@ function normalizeState(raw){
   return next;
 }
 function loadProfile(profile,verifiedCloudAdmin=false){
+  cloudSaveEpoch++;clearTimeout(cloudSaveTimer);cloudSaveTimer=null;
   activeProfileId=profile.id;
   isDeveloperSession=verifiedCloudAdmin===true&&!!profile.cloudUserId;
   localStorage.setItem(ACTIVE_PROFILE_KEY,profile.id);
@@ -603,7 +604,7 @@ function loadProfile(profile,verifiedCloudAdmin=false){
 }
 async function logout(){
   const activeProfile=readProfiles().find(profile=>profile.id===activeProfileId);
-  save();if(activeProfile?.cloudUserId)await pushCloudSave();activeProfileId=null;isDeveloperSession=false;
+  save();if(activeProfile?.cloudUserId)await pushCloudSave();cloudSaveEpoch++;activeProfileId=null;isDeveloperSession=false;
   if(activeProfile?.cloudUserId)await window.languageMinerCloudAuth?.signOut?.();
   syncOwnerTutorControls();
   closeDeveloperPanel();localStorage.removeItem(ACTIVE_PROFILE_KEY);
@@ -617,7 +618,7 @@ window.japaneseMinerActiveProfile=()=>{if(!activeProfileId)return null;const pro
 window.japaneseMinerIsDeveloperSession=()=>isDeveloperSession===true;
 window.languageMinerLogout=logout;
 const CLOUD_COURSE_STORAGE_PREFIX="lm_multilingual_functional_preview_v1:";
-let cloudSaveRevision=0,cloudSaveTimer=null,cloudSaveApplying=false;
+let cloudSaveRevision=0,cloudSaveTimer=null,cloudSaveApplying=false,cloudSaveEpoch=0,cloudSaveFlight=null,cloudResetAt='';
 function cloudCourseAccountKey(userId){return `cloud:${userId}`;}
 function readCloudCourseSettings(userId){try{return JSON.parse(localStorage.getItem(CLOUD_COURSE_STORAGE_PREFIX+cloudCourseAccountKey(userId))||"null")||{};}catch{return {};}}
 function writeCloudCourseSettings(userId,value){try{localStorage.setItem(CLOUD_COURSE_STORAGE_PREFIX+cloudCourseAccountKey(userId),JSON.stringify(value&&typeof value==="object"?value:{}));}catch{}}
@@ -625,23 +626,48 @@ function applyCloudSaveRecord(record,profile,renderNow=false){
   if(!record||!profile?.cloudUserId)return false;cloudSaveApplying=true;
   try{
     const remoteState=record.game_state&&typeof record.game_state==="object"?record.game_state:{},remoteCourses=record.course_settings&&typeof record.course_settings==="object"?record.course_settings:{};
-    localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(normalizeState(remoteState)));writeCloudCourseSettings(profile.cloudUserId,remoteCourses);cloudSaveRevision=Math.max(0,Number(record.revision)||0);
-    if(activeProfileId===profile.id){state=normalizeState(remoteState);if(window.LanguageMinerCourseCloud?.importCurrent)window.LanguageMinerCourseCloud.importCurrent(remoteCourses);else window.dispatchEvent(new CustomEvent("lm-cloud-save-applied"));if(renderNow)render();}
+    const reset=!!record.admin_reset_at&&String(record.admin_reset_at)!==cloudResetAt;
+    localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(normalizeState(remoteState)));writeCloudCourseSettings(profile.cloudUserId,remoteCourses);cloudSaveRevision=Math.max(0,Number(record.revision)||0);cloudResetAt=String(record.admin_reset_at||'');
+    if(activeProfileId===profile.id){state=normalizeState(remoteState);if(window.LanguageMinerCourseCloud?.importCurrent)window.LanguageMinerCourseCloud.importCurrent(remoteCourses,{reset});else window.dispatchEvent(new CustomEvent("lm-cloud-save-applied"));if(renderNow)render();}
     return true;
   }finally{cloudSaveApplying=false;}
 }
 function scheduleCloudSave(delay=900){
   if(cloudSaveApplying||!activeProfileId)return;const profile=readProfiles().find(item=>item.id===activeProfileId),session=window.languageMinerCloudAuth?.getSession?.();if(!profile?.cloudUserId||session?.user?.id!==profile.cloudUserId)return;
+  if(cloudSaveFlight?.epoch===cloudSaveEpoch){cloudSaveFlight.queued=true;return;}
   clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(()=>{cloudSaveTimer=null;pushCloudSave();},Math.max(0,Number(delay)||0));
 }
 async function pushCloudSave(){
   clearTimeout(cloudSaveTimer);cloudSaveTimer=null;if(cloudSaveApplying||!activeProfileId)return null;
   const profile=readProfiles().find(item=>item.id===activeProfileId),session=window.languageMinerCloudAuth?.getSession?.(),cloud=window.languageMinerCloudAuth;if(!profile?.cloudUserId||session?.user?.id!==profile.cloudUserId||!cloud?.savePlayerState)return null;
-  try{
-    const result=await cloud.savePlayerState({gameState:state,courseSettings:window.LanguageMinerCourseCloud?.exportCurrent?.()||readCloudCourseSettings(profile.cloudUserId),displayName:profile.name||"Player",email:profile.email||session.user?.email||"",baseRevision:cloudSaveRevision},session);
-    if(!result)return null;if(result.accepted===false){applyCloudSaveRecord(result,profile,true);setMessage("A newer cloud save or administrator reset was applied to this device.","correct");}else cloudSaveRevision=Math.max(0,Number(result.revision)||cloudSaveRevision);
-    return result;
-  }catch(error){console.warn("Language Miner cloud save is temporarily unavailable.",error);return null;}
+  if(cloudSaveFlight?.epoch===cloudSaveEpoch){cloudSaveFlight.queued=true;return cloudSaveFlight.promise;}
+  const flight={epoch:cloudSaveEpoch,queued:false,promise:null};cloudSaveFlight=flight;
+  const current=()=>cloudSaveEpoch===flight.epoch&&activeProfileId===profile.id&&cloud.getSession?.()?.user?.id===profile.cloudUserId;
+  const snapshot=()=>JSON.stringify({gameState:state,courseSettings:window.LanguageMinerCourseCloud?.exportCurrent?.()||readCloudCourseSettings(profile.cloudUserId)});
+  flight.promise=(async()=>{
+    let result=null,lastSent='';
+    try{
+      do{
+        flight.queued=false;if(!current())break;
+        const serialized=snapshot();if(serialized===lastSent)break;lastSent=serialized;
+        result=await cloud.savePlayerState({...JSON.parse(serialized),displayName:profile.name||"Player",email:profile.email||session.user?.email||"",baseRevision:cloudSaveRevision},session);
+        if(!current())return null;
+        if(!result)return null;
+        if(result.accepted===false){
+          // Keep a recoverable local copy before accepting another device's or an admin's authoritative save.
+          try{localStorage.setItem('lm_cloud_conflict_backup:'+profile.id,JSON.stringify({savedAt:Date.now(),baseRevision:cloudSaveRevision,...JSON.parse(snapshot())}));}catch{}
+          const reset=!!result.admin_reset_at&&String(result.admin_reset_at)!==cloudResetAt;
+          applyCloudSaveRecord(result,profile,true);flight.queued=false;
+          setMessage(reset?"An administrator reset was applied to this device.":"A newer cloud save was loaded. A recovery copy of this device’s progress was kept.","correct");break;
+        }
+        cloudSaveRevision=Math.max(cloudSaveRevision,Number(result.revision)||0);
+        if(snapshot()!==serialized)flight.queued=true;
+      }while(flight.queued&&current());
+      return result;
+    }catch(error){console.warn("Language Miner cloud save is temporarily unavailable.",error);return null;}
+    finally{if(cloudSaveFlight===flight)cloudSaveFlight=null;}
+  })();
+  return flight.promise;
 }
 window.languageMinerPushCloudSave=pushCloudSave;
 window.addEventListener("lm-course-settings-saved",()=>scheduleCloudSave());
