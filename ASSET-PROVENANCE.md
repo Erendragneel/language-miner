@@ -61,3 +61,13 @@ The source build can be tested, but it is **not art-cleared for commercial launc
 
 - `daily-golem-hands-v1.webp`: newly generated grip, release, and cupped-palm artwork using the built-in OpenAI image-generation tool. Existing `player-lesson-pose-v1.png` supplied the style reference. Transparent alpha preserved; exported at 1086×362, 59,240 bytes. The complete prompt is archived in `RELEASE-NOTES-v6.4.267.md`.
 - The animation retains the selected sleeve artwork, removes its overlapping original skin pixels, and joins a continuously shaded forearm to independently animated, skin/glove-matched hand poses.
+
+## Daily Golem 3D miner — 2026-09-24
+
+`golem-3d-v1/miner.glb` is derived from Quaternius Universal Base Characters and
+Modular Character Outfits - Fantasy, free Standard packs, under CC0 1.0.
+Sources, license and modification details are in `golem-3d-v1/LICENSE.txt`.
+The reproducible Blender adaptation script is `tools/golem-3d/build-miner.py`.
+Animation, accessories, equipment geometry and integration were authored for
+Language Miner. Three.js 0.180.0 is bundled under MIT; full license accompanies
+the runtime. No external model-generation or paid animation service is used.

@@ -80,7 +80,7 @@
    <radialGradient id="${id}-light"><stop stop-color="#e1ffff" stop-opacity=".8"/><stop offset=".2" stop-color="#80dfff" stop-opacity=".3"/><stop offset="1" stop-color="#80dfff" stop-opacity="0"/></radialGradient>
    <g id="${id}-shell">${shell}</g>${pieces.map((p,i)=>`<clipPath id="${id}-piece-${i}"><polygon points="${p[0]}"/></clipPath>`).join('')}
    </defs>
-   <g class="dg-camera"><ellipse cx="335" cy="402" rx="240" ry="48" fill="url(#${id}-floor)"/>
+   <g class="dg-camera"><foreignObject class="dg-3d-viewport" x="80" y="-20" width="530" height="465" style="display:none"><div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%"><canvas class="dg-3d-canvas" role="img" aria-label="Your miner opens the golem with a two-handed pickaxe swing" style="width:100%;height:100%;display:block"></canvas></div></foreignObject><ellipse cx="335" cy="402" rx="240" ry="48" fill="url(#${id}-floor)"/>
    <g class="dg-ground-rings" fill="none" stroke="#a0e7ee"><ellipse cx="428" cy="402" rx="94" ry="22"/><ellipse cx="428" cy="402" rx="76" ry="17"/></g>
    <ellipse class="dg-player-shadow" cx="224" cy="394" rx="68" ry="11" fill="#03101c" opacity=".45"/>
    <g class="dg-rig-legs">${legMesh(id)}<g class="dg-foot-left" transform="translate(167.6 385.4)"/><g class="dg-foot-right" transform="translate(252.3 385.4)"/></g>
@@ -103,7 +103,7 @@
  function render(root,p,phase,t,reduced){
   const nodes=root._dgNodes,attr=(key,value)=>nodes[key].setAttribute('transform',value);
   // Shoulder, head and counter-arm inherit the same pelvis/chest transform.
-  const a=radians(p.lean),sx=95+p.hipX+.22*(530+135*p.turn*Math.cos(a)+268*Math.sin(a)),sy=62+p.hipY+.22*(650+135*p.turn*Math.sin(a)-268*Math.cos(a));
+  if(!root._dg3d){const a=radians(p.lean),sx=95+p.hipX+.22*(530+135*p.turn*Math.cos(a)+268*Math.sin(a)),sy=62+p.hipY+.22*(650+135*p.turn*Math.sin(a)-268*Math.cos(a));
   const dx=p.wx-sx,dy=p.wy-sy,L1=Math.hypot(95,124)*.22,L2=Math.hypot(-5,-186)*.22;
   const distance=Math.min(L1+L2-.1,Math.max(Math.abs(L1-L2)+.1,Math.hypot(dx,dy))),direction=Math.atan2(dy,dx);
   const upper=direction+Math.acos(Math.max(-1,Math.min(1,(L1*L1+distance*distance-L2*L2)/(2*L1*distance))));
@@ -126,7 +126,7 @@
   nodes.handPoses.forEach((node,i)=>{node.style.opacity=Math.max(0,1-Math.abs(open*2-i));});
   attr('tool',`translate(${wx} ${wy}) rotate(${p.tool}) scale(.176) translate(-755 -320)`);
   nodes.tool.style.opacity=p.toolAlpha;
-  attr('support',`rotate(${p.counter} 360 400)`);
+  attr('support',`rotate(${p.counter} 360 400)`);}
   const shake=phase==='impact'&&!reduced?Math.sin(t*38)*(1-t)*3:0;
   attr('camera',`translate(${shake} ${shake*.3}) translate(330 245) scale(${p.zoom}) translate(-330 -245)`);
   const burst=p.break;
@@ -148,14 +148,29 @@
   attr('gem',`rotate(${phase==='victory'?Math.sin(t*Math.PI)*16:0}) scale(${.65+p.coreAlpha*.35})`);
   nodes.stars.forEach((node,i)=>{const active=phase==='victory'||phase==='reward',u=phase==='victory'?t:1,angle=i*2.4,r=25+u*(35+(i%5)*14);node.setAttribute('transform',`translate(${p.cx+Math.cos(angle)*r} ${p.cy-arc+Math.sin(angle)*r}) scale(${root.classList.contains('prismatic')?1.5:1})`);node.style.opacity=active&&!reduced?Math.sin(Math.min(1,u)*Math.PI)*.9:0;});
  }
+ function render3d(root,name,t,e,reduced,p){
+  const prior=root._dg3dFrom||root._dg3d.keys.loading,goal=root._dg3d.keys[name]||root._dg3d.keys.loading,q={};
+  for(const k of Object.keys(goal)){const body=['hip','crouch','lean','twist'].includes(k),w=body?t*t*(3-2*t):e;q[k]=mix(prior[k],goal[k],w);}
+  root._dg3dPose=q;const info=root._dg3d.pose(q);root._dg3dInfo=info;
+  if(name==='impact'||name==='recoil')root.querySelector('.dg-impact-anchor').setAttribute('transform',`translate(${info.tip.x} ${info.tip.y})`);
+  let x=p.cx,y=p.cy;const start=root._dgCoreFrom||{x:428,y:293};
+  if(name==='core'){x=mix(start.x,info.hand.x,e);y=mix(start.y,info.hand.y-26,e)-(reduced?0:Math.sin(t*Math.PI)*48);}
+  if(name==='victory'){x=info.hand.x;y=info.hand.y-26;}
+  if(name==='reward'){x=mix(start.x,260,e);y=mix(start.y,235,e);}
+  root._dgCorePos={x,y};root._dgNodes.core.setAttribute('transform',`translate(${x} ${y})`);
+ }
  function transition(root,name,duration,reduced=false){
-  cancelAnimationFrame(root._dgFrame);
+  cancelAnimationFrame(root._dgFrame);root._dg3dFrom=root._dg3dPose?{...root._dg3dPose}:null;root._dgCoreFrom=root._dgCorePos?{...root._dgCorePos}:null;
   const from={...(root._dgPose||poses.loading)},to=poses[name]||poses.loading,start=performance.now();
-  const tick=now=>{const t=reduced?1:Math.min(1,(now-start)/Math.max(1,duration)),e=name==='strike'?t*t*t:1-Math.pow(1-t,3),p={};for(const key of Object.keys(to)){const body=['hipX','hipY','lean','turn','look','counter'].includes(key),weight=body?t*t*(3-2*t):e;p[key]=mix(from[key],to[key],weight);}root._dgPose=p;render(root,p,name,t,reduced);if(t<1&&root.isConnected)root._dgFrame=requestAnimationFrame(tick);};
-  tick(start);return root;
+  const tick=now=>{const t=reduced?1:Math.min(1,(now-start)/Math.max(1,duration)),e=name==='strike'?t*t*t:1-Math.pow(1-t,3),p={};
+   for(const key of Object.keys(to)){const body=['hipX','hipY','lean','turn','look','counter'].includes(key),weight=body?t*t*(3-2*t):e;p[key]=mix(from[key],to[key],weight);}
+   root._dgPose=p;render(root,p,name,t,reduced);if(root._dg3d)render3d(root,name,t,e,reduced,p);
+   if(t<1&&root.isConnected)root._dgFrame=requestAnimationFrame(tick);
+  };tick(start);return root;
  }
  async function prepare(root){
-  const avatar=root.querySelector('.dg-avatar-source .miner-avatar');
+  try{const module=await import('./golem-3d-v1/scene.js');root._dg3d=await module.create(root.querySelector('.dg-3d-canvas'),window.getJapaneseMinerPoseOutfit?.()||{},root.querySelector('.dg-tool').dataset.equippedPickaxe);root.dataset.renderer='3d';root.querySelector('.dg-3d-viewport').style.display='';for(const selector of ['.dg-rig-legs','.dg-rig-body','.dg-tool','.dg-forearm','.dg-upper-arm','.dg-hand','.dg-player-shadow'])root.querySelector(selector).style.display='none';}catch(error){root.dataset.renderer='fallback';root.querySelector('.dg-3d-viewport').remove();}
+  const avatar=root._dg3d?null:root.querySelector('.dg-avatar-source .miner-avatar');
   if(avatar){
    window.syncJapaneseMinerRenderedLayers?.(avatar);
    const start=performance.now();
@@ -163,8 +178,8 @@
    const source=avatar.querySelector('.shared-pose-preview svg'),id=root.querySelector('.dg-rig-key').textContent;
    if(source){root.querySelector(`[id="${id}-avatar"]`).innerHTML=source.innerHTML;const skinMask=source.querySelector('mask[id$="pose-skin-mask"] image');if(skinMask)root.querySelector('.dg-old-skin-mask').setAttribute('href',skinMask.getAttribute('href'));}
   }
-  const elbowMask=root.querySelector('.dg-old-skin-mask');if(!elbowMask.getAttribute('href')&&window.LanguageMinerPoseTextures)elbowMask.setAttribute('href',await window.LanguageMinerPoseTextures.materialMask('player-lesson-pose-v1.png','skin'));
-  const hand=root.querySelector('.dg-hand');const texture=await handTexture(hand.dataset.skin,hand.dataset.gloves);root.querySelectorAll('.dg-hand-image').forEach(img=>img.setAttribute('href',texture));
+  if(!root._dg3d){const elbowMask=root.querySelector('.dg-old-skin-mask');if(!elbowMask.getAttribute('href')&&window.LanguageMinerPoseTextures)elbowMask.setAttribute('href',await window.LanguageMinerPoseTextures.materialMask('player-lesson-pose-v1.png','skin'));
+  const hand=root.querySelector('.dg-hand');const texture=await handTexture(hand.dataset.skin,hand.dataset.gloves);root.querySelectorAll('.dg-hand-image').forEach(img=>img.setAttribute('href',texture));}
   const selectors={head:'.dg-rig-head',wrist:'.dg-wrist-anchor',hand:'.dg-hand',contour:'.dg-skin-contour',highlight:'.dg-skin-highlight',body:'.dg-rig-body',upper:'.dg-upper-arm',forearm:'.dg-forearm',tool:'.dg-tool',support:'.dg-support-arm',camera:'.dg-camera',intact:'.dg-intact',fragments:'.dg-fragments',egg:'.dg-egg',aura:'.dg-golem-aura',impact:'.dg-impact',trail:'.dg-swing-trail',core:'.dg-core-flight',gem:'.dg-core-gem',orbits:'.dg-core-orbits',halo:'.dg-core-halo',seams:'.dg-break-seams'};
   root._dgNodes=Object.fromEntries(Object.entries(selectors).map(([key,value])=>[key,root.querySelector(value)]));
   for(const [key,selector] of Object.entries({legTriangles:'.dg-leg-triangle',handPoses:'.dg-hand-pose',pieces:'.dg-piece',dust:'[data-dust]',stars:'[data-star]'}))root._dgNodes[key]=[...root.querySelectorAll(selector)];
@@ -172,6 +187,6 @@
   await Promise.all(files.map(src=>new Promise(resolve=>{const img=new Image();img.onload=img.onerror=resolve;img.src=src;})));
   root.querySelector('.dg-avatar-source')?.remove();transition(root,'loading',0,true);root.classList.add('dg-prepared');
  }
- function dispose(root){cancelAnimationFrame(root._dgFrame);delete root._dgNodes;}
+ function dispose(root){cancelAnimationFrame(root._dgFrame);root._dg3d?.dispose();delete root._dg3d;delete root._dgNodes;}
  window.LanguageMinerDailyGolemArt=Object.freeze({art,scene,prepare,transition,dispose});
 })();
