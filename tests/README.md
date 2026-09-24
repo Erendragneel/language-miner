@@ -18,11 +18,4 @@ The arm checks additionally verify continuous forearm geometry, wrist attachment
 
 Shoulder and elbow anchors are checked throughout the animation; close-up joint screenshots are saved for wind-up, impact, Core reception, and victory.
 
-Whole-body checks sample hip weight transfer, crouch, chest turn and the opposite arm throughout the swing, and verify the actual boot mesh remains planted.
-
-As of v6.4.270, `daily-golem-animation.test.cjs` checks the actual 65-bone 3D
-renderer, both hands against the handle, planted feet and Core attachment.
-`daily-golem-fallback.test.cjs` blocks the 3D module and exercises the previous
-customized SVG renderer. New renderer assertions do not rely on hidden SVG
-anchors. The browser regression suite continues to verify actual practice and
-claim/reload/language/missed-day behavior with isolated mocked cloud saves.
+As of v6.4.273, the avatar and animation are restored from v6.4.268. The animation suite also verifies that no 3D model or renderer is requested. Obsolete 3D/fallback-specific suites have been removed. Reward/browser/race/recovery suites are unchanged.

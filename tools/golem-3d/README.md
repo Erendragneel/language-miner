@@ -1,3 +1,5 @@
+> Archived as of v6.4.273. The game now uses the v6.4.268 SVG avatar in daily-golem-art.js. These 3D sources are retained for history and are not loaded or precached.
+
 # Daily Golem player model source
 
 The active reward cinematic loads `golem-3d-v2/miner.glb` and its bundled renderer.

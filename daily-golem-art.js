@@ -32,12 +32,6 @@
   victory:{lean:-3,wx:269,wy:101,tool:185,toolAlpha:0,break:1.65,coreAlpha:1,cx:269,cy:68,zoom:1.035},
   reward:{lean:0,wx:268,wy:211,tool:77,toolAlpha:0,break:1.8,coreAlpha:0,cx:239,cy:212,zoom:1}
  };
- // Each pose describes one coordinated body action. Feet remain planted while
- // weight transfers through the knees, pelvis, chest, and shoulders.
- const bodyKeys={loading:[0,0,0,1,0,0],wake:[-3,2,-3,.98,3,-2],windup:[-12,11,-12,.90,9,12],strike:[19,13,16,.88,-7,-18],impact:[19,13,16,.88,-7,-18],recoil:[24,17,20,.88,-9,-25],crack:[12,8,8,.95,-2,-10],core:[5,3,0,.98,4,0],victory:[-2,-3,-4,1,-4,8],reward:[0,0,0,1,0,0]};
- for(const [name,p] of Object.entries(poses)){[p.hipX,p.hipY,p.lean,p.turn,p.look,p.counter]=bodyKeys[name];}
- poses.strike.wx=poses.impact.wx=325;poses.strike.wy=poses.impact.wy=220;
- poses.recoil.wx=327;poses.recoil.wy=224;poses.recoil.tool=236;
  const handKeys={loading:[0,10],wake:[0,10],windup:[0,8],strike:[0,4],impact:[0,4],recoil:[0,5],crack:[.5,25],core:[1,0],victory:[1,-65],reward:[.5,45]};
  for(const [name,p] of Object.entries(poses)){[p.handOpen,p.palm]=handKeys[name];}
  const skinTones={light:['#f4c3a0','#e2a47b','#ae7252'],warm:['#dfa884','#c18a65','#8d5b40'],tan:['#ba845f','#a16c4c','#6d422d'],deep:['#865738','#68402b','#40291f']};
@@ -59,11 +53,6 @@
   const affine=(a,b)=>{const [p,q,r]=a,[u,v,w]=b,dx=q[0]-p[0],dy=q[1]-p[1],ex=r[0]-p[0],ey=r[1]-p[1],det=dx*ey-dy*ex,A=((v[0]-u[0])*ey-(w[0]-u[0])*dy)/det,C=((w[0]-u[0])*dx-(v[0]-u[0])*ex)/det,B=((v[1]-u[1])*ey-(w[1]-u[1])*dy)/det,D=((w[1]-u[1])*dx-(v[1]-u[1])*ex)/det;return [A,B,C,D,u[0]-A*p[0]-C*p[1],u[1]-B*p[0]-D*p[1]].join(' ');};
   let markup='';for(let i=0;i<6;i++){const a=i/6,b=(i+1)/6,P=[a,a,b,b].map((t,j)=>{const c=source(t),side=j===0||j===3?-1:1;return [c[0]-side*24*.86,c[1]+side*24*.51];}),Q=[target(a,-1),target(a,1),target(b,1),target(b,-1)];for(const [n,indices] of [[0,[0,1,2]],[1,[0,2,3]]]){const key=id+'-strip-'+i+'-'+n,src=indices.map(k=>P[k]),dst=indices.map(k=>Q[k]);markup+=`<clipPath id="${key}"><polygon points="${src.map(p=>p.join(',')).join(' ')}"/></clipPath><g transform="matrix(${affine(src,dst)})"><g clip-path="url(#${key})"><use href="#${id}-avatar" mask="url(#${id}-sleeve-mask)"/></g></g>`;}}return markup;
  }
- // Shared affine skinning: mesh edges use identical vertices, keeping pants
- // and knees continuous while the boots remain fixed on the floor.
- function triangleMatrix(a,b){const [p,q,r]=a,[u,v,w]=b,dx=q[0]-p[0],dy=q[1]-p[1],ex=r[0]-p[0],ey=r[1]-p[1],det=dx*ey-dy*ex,A=((v[0]-u[0])*ey-(w[0]-u[0])*dy)/det,C=((w[0]-u[0])*dx-(v[0]-u[0])*ex)/det,B=((v[1]-u[1])*ey-(w[1]-u[1])*dy)/det,D=((w[1]-u[1])*dx-(v[1]-u[1])*ex)/det;return [A,B,C,D,u[0]-A*p[0]-C*p[1],u[1]-B*p[0]-D*p[1]].join(' ');}
- function legMesh(id){let out='';const xs=[180,530,880],ys=[650,720,850,1000,1150,1300,1360,1536];for(let j=0;j<ys.length-1;j++)for(let i=0;i<xs.length-1;i++){const q=[[xs[i],ys[j]],[xs[i+1],ys[j]],[xs[i+1],ys[j+1]],[xs[i],ys[j+1]]];for(const [n,indices] of [[0,[0,1,2]],[1,[0,2,3]]]){const pts=indices.map(k=>q[k]),key=id+'-leg-'+j+'-'+i+'-'+n;out+=`<clipPath id="${key}"><polygon points="${pts.map(p=>p.join(',')).join(' ')}"/></clipPath><g class="dg-leg-triangle" data-points="${JSON.stringify(pts)}"><g clip-path="url(#${key})"><g clip-path="url(#${id}-legs)"><use href="#${id}-avatar"/></g></g></g>`;}}return out;}
- function legPoint(x,y,p){const smooth=t=>t*t*(3-2*t),side=Math.max(0,Math.min(1,(x-320)/380)),kneeX=p.hipX*.55+p.hipY*(.55+side*.35),kneeY=p.hipY*.22;const a=p.lean*Math.PI/180,hipX=p.hipX+.22*((x-530)*(p.turn*Math.cos(a)-1)-(Math.min(y,720)-650)*Math.sin(a)),hipY=p.hipY+.22*((x-530)*p.turn*Math.sin(a)+(Math.min(y,720)-650)*(Math.cos(a)-1));let ox=0,oy=0;if(y<=720){ox=hipX;oy=hipY;}else if(y<1000){const t=smooth((y-720)/280);ox=mix(hipX,kneeX,t);oy=mix(hipY,kneeY,t);}else if(y<1360){const t=smooth((y-1000)/360);ox=mix(kneeX,0,t);oy=mix(kneeY,0,t);}return [95+x*.22+ox,62+y*.22+oy];}
  function core(id){return `<defs><linearGradient id="${id}-core" x2=".8" y2="1"><stop stop-color="#efffff"/><stop offset=".4" stop-color="#77e3f9"/><stop offset="1" stop-color="#5479c6"/></linearGradient></defs><path d="M0-28 21-9 16 19 0 31-16 19-21-9Z" fill="url(#${id}-core)" stroke="#d9ffff" stroke-width="1.3"/><path d="M0-28-8-6 0 31 8-6Z" fill="#d5ffff" opacity=".72"/><path d="M-21-9-8-6 0-28M21-9 8-6 16 19M-8-6-16 19M8-6 0 31" stroke="#f3ffff" stroke-width=".8" fill="none"/><path d="m-8-11 1.7 5.3L-1-4-6.3-2.3-8 3l-1.7-5.3L-15-4l5.3-1.7Z" fill="white"/>`;}
  function scene(record,avatarMarkup,pickaxe){
   const id='dg-rig-'+(++serial),tool=document.createElement('div');tool.innerHTML=window.LanguageMinerPickaxeFinishes.preview(pickaxe);
@@ -73,19 +62,19 @@
   const shell=art(record).replace(/^<svg[^>]*>|<\/svg>$/g,'');
   return `<div class="dg-avatar-source" aria-hidden="true">${avatarMarkup}</div><svg class="dg-cinematic" viewBox="80 -20 530 465" role="img" aria-label="Your miner swings an equipped pickaxe, opens the mini golem, and catches its glowing Core">
    <defs><linearGradient id="${id}-cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${cloth[0]}"/><stop offset=".65" stop-color="${cloth[1]}"/><stop offset="1" stop-color="${cloth[2]}"/></linearGradient><path id="${id}-sleeve-shape" transform="translate(665 382) rotate(${Math.atan2(124,95)*180/Math.PI})" d="M -15 -32 Q -35 -31 -35 0 Q -35 31 -15 33 L 148 29 Q 162 26 164 0 Q 162 -26 148 -29 Z"/><linearGradient id="${id}-skin" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${tones[2]}"/><stop offset=".2" stop-color="${tones[0]}"/><stop offset=".53" stop-color="${tones[1]}"/><stop offset="1" stop-color="${tones[2]}"/></linearGradient><g id="${id}-avatar"><image href="player-lesson-pose-v1.png" width="1024" height="1536"/></g>
-   <clipPath id="${id}-body"><path d="M460 284 L610 284 627 318 647 350 642 435 663 535 700 635 654 699 366 699 351 452 373 341 445 300Z"/></clipPath>
-   <clipPath id="${id}-head"><path d="M410 0H680V244L615 271 609 306 461 306 436 273 410 244Z"/></clipPath><clipPath id="${id}-legs"><path d="M350 670H685L733 800 875 1525H185L253 1200 340 955Z"/></clipPath>
+   <clipPath id="${id}-body"><path d="M429 15H665V235L614 264 627 318 647 350 642 435 663 535 700 635 654 699 366 699 351 452 373 341 445 300 460 278 429 243Z"/></clipPath>
+   <clipPath id="${id}-legs"><path d="M350 670H685L733 800 875 1525H185L253 1200 340 955Z"/></clipPath>
    <filter id="${id}-black"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/><feMorphology operator="dilate" radius="4"/></filter><clipPath id="${id}-elbow-area"><rect x="720" y="400" width="110" height="110"/></clipPath><mask id="${id}-sleeve-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536"><rect width="1024" height="1536" fill="white"/><image class="dg-old-skin-mask" width="1024" height="1536" clip-path="url(#${id}-elbow-area)" filter="url(#${id}-black)"/></mask><clipPath id="${id}-upper"><use href="#${id}-sleeve-shape"/></clipPath>
    <clipPath id="${id}-support"><path d="M361 350 395 389 355 476 354 526 420 579 461 592 451 627 417 659 369 660 294 606 238 553 225 495 270 411Z"/></clipPath>
    <radialGradient id="${id}-floor"><stop stop-color="#60decd" stop-opacity=".28"/><stop offset="1" stop-color="#60decd" stop-opacity="0"/></radialGradient>
    <radialGradient id="${id}-light"><stop stop-color="#e1ffff" stop-opacity=".8"/><stop offset=".2" stop-color="#80dfff" stop-opacity=".3"/><stop offset="1" stop-color="#80dfff" stop-opacity="0"/></radialGradient>
    <g id="${id}-shell">${shell}</g>${pieces.map((p,i)=>`<clipPath id="${id}-piece-${i}"><polygon points="${p[0]}"/></clipPath>`).join('')}
    </defs>
-   <g class="dg-camera"><foreignObject class="dg-3d-viewport" x="80" y="-20" width="530" height="465" style="display:none"><div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%"><canvas class="dg-3d-canvas" role="img" aria-label="Your miner opens the golem with a two-handed pickaxe swing" style="width:100%;height:100%;display:block"></canvas></div></foreignObject><ellipse cx="335" cy="402" rx="240" ry="48" fill="url(#${id}-floor)"/>
+   <g class="dg-camera"><ellipse cx="335" cy="402" rx="240" ry="48" fill="url(#${id}-floor)"/>
    <g class="dg-ground-rings" fill="none" stroke="#a0e7ee"><ellipse cx="428" cy="402" rx="94" ry="22"/><ellipse cx="428" cy="402" rx="76" ry="17"/></g>
    <ellipse class="dg-player-shadow" cx="224" cy="394" rx="68" ry="11" fill="#03101c" opacity=".45"/>
-   <g class="dg-rig-legs">${legMesh(id)}<g class="dg-foot-left" transform="translate(167.6 385.4)"/><g class="dg-foot-right" transform="translate(252.3 385.4)"/></g>
-   <g class="dg-rig-body">${use('body')}<g class="dg-rig-head">${use('head')}</g><g class="dg-hip-anchor" transform="translate(530 650)"/><g class="dg-shoulder-anchor" transform="translate(665 382)"/><g class="dg-support-arm">${use('support')}</g></g>
+   <g class="dg-rig-legs" transform="translate(95 62) scale(.22)">${use('legs')}</g>
+   <g class="dg-rig-body">${use('body')}<g class="dg-shoulder-anchor" transform="translate(665 382)"/><g class="dg-support-arm">${use('support')}</g></g>
 
    <g class="dg-tool" data-equipped-pickaxe="${pickaxe}">${tool.querySelector('svg').innerHTML}</g>
    <g class="dg-forearm"><g class="dg-wrist-anchor"/><g class="dg-skin-surface"><path class="dg-skin-contour" fill="url(#${id}-skin)" stroke="${tones[2]}" stroke-width=".45"/><path class="dg-skin-highlight" fill="none" stroke="${tones[0]}" stroke-width=".9" opacity=".5"/></g></g>
@@ -93,7 +82,7 @@
    <g class="dg-hand" data-skin="${skin}" data-gloves="${outfit.gloves||'none'}">${[100,66,42].map((x,i)=>`<g class="dg-hand-pose" data-pose="${i}"><svg x="${-x*.04}" y="-15" width="28.96" height="28.96" viewBox="${i*724} 0 724 724" overflow="hidden"><image class="dg-hand-image" href="daily-golem-hands-v1.webp" width="2172" height="724"/></svg></g>`).join('')}<g class="dg-grip-anchor" transform="translate(12 0)"/></g>
    <g class="dg-golem-aura"><circle cx="428" cy="308" r="119" fill="url(#${id}-light)"/></g>
    <g class="dg-egg" transform="translate(330 205) scale(.98)"><g class="dg-intact"><use href="#${id}-shell"/></g><g class="dg-break-seams">${cracks.map(d=>`<path d="${d}" fill="none" stroke="#d8ffff" stroke-width="2"/>`).join('')}</g><g class="dg-fragments">${pieces.map((p,i)=>`<g class="dg-piece" data-piece="${i}"><g clip-path="url(#${id}-piece-${i})"><use href="#${id}-shell"/></g></g>`).join('')}</g></g>
-   <g class="dg-impact-anchor" transform="translate(406 276)"><g class="dg-impact"><ellipse rx="19" ry="35" fill="#f3ffff"/><circle r="26" fill="none" stroke="#aff7ef" stroke-width="3"/></g><path class="dg-swing-trail" d="M-200-212Q70-190 0 0" fill="none" stroke="#e2faff" stroke-width="5" stroke-linecap="round"/></g>
+   <g class="dg-impact-anchor" transform="translate(381 254)"><g class="dg-impact"><ellipse rx="19" ry="35" fill="#f3ffff"/><circle r="26" fill="none" stroke="#aff7ef" stroke-width="3"/></g><path class="dg-swing-trail" d="M-200-212Q70-190 0 0" fill="none" stroke="#e2faff" stroke-width="5" stroke-linecap="round"/></g>
    <g class="dg-dust">${Array.from({length:14},(_,i)=>`<circle data-dust="${i}" r="${2+i%4}" fill="${i%2?'#95b6b9':'#dfd9c1'}"/>`).join('')}</g>
    <g class="dg-core-flight"><circle class="dg-core-halo" r="76" fill="url(#${id}-light)"/><g class="dg-core-orbits" fill="none" stroke="#d9bcff" stroke-width="1"><ellipse rx="38" ry="12" transform="rotate(-25)"/><ellipse rx="38" ry="12" transform="rotate(45)"/></g><g class="dg-core-gem">${core(id)}</g></g>
    <g class="dg-confetti">${Array.from({length:18},(_,i)=>`<path data-star="${i}" d="m0-4 1 3 3 1-3 1-1 3-1-3-3-1 3-1Z" fill="${['#a6efff','#efbdff','#ffe9a7'][i%3]}"/>`).join('')}</g>
@@ -103,16 +92,13 @@
  const mix=(a,b,t)=>a+(b-a)*t;
  function render(root,p,phase,t,reduced){
   const nodes=root._dgNodes,attr=(key,value)=>nodes[key].setAttribute('transform',value);
-  // Shoulder, head and counter-arm inherit the same pelvis/chest transform.
-  if(!root._dg3d){const a=radians(p.lean),sx=95+p.hipX+.22*(530+135*p.turn*Math.cos(a)+268*Math.sin(a)),sy=62+p.hipY+.22*(650+135*p.turn*Math.sin(a)-268*Math.cos(a));
+  // The hips stay planted; shoulder motion follows the torso's weight shift.
+  const a=radians(p.lean),sx=95+.22*(530+135*Math.cos(a)+268*Math.sin(a)),sy=62+.22*(650+135*Math.sin(a)-268*Math.cos(a));
   const dx=p.wx-sx,dy=p.wy-sy,L1=Math.hypot(95,124)*.22,L2=Math.hypot(-5,-186)*.22;
   const distance=Math.min(L1+L2-.1,Math.max(Math.abs(L1-L2)+.1,Math.hypot(dx,dy))),direction=Math.atan2(dy,dx);
   const upper=direction+Math.acos(Math.max(-1,Math.min(1,(L1*L1+distance*distance-L2*L2)/(2*L1*distance))));
   const ex=sx+L1*Math.cos(upper),ey=sy+L1*Math.sin(upper),wx=sx+distance*Math.cos(direction),wy=sy+distance*Math.sin(direction),lower=Math.atan2(wy-ey,wx-ex);
-  attr('body',`translate(${95+p.hipX} ${62+p.hipY}) scale(.22) translate(530 650) rotate(${p.lean}) scale(${p.turn} 1) translate(-530 -650)`);
-  attr('head',`translate(540 285) scale(${1/p.turn} 1) rotate(${p.look}) translate(-540 -285)`);
-  for(const node of nodes.legTriangles){const source=node._points||(node._points=JSON.parse(node.dataset.points));node.setAttribute('transform',`matrix(${triangleMatrix(source,source.map(([x,y])=>legPoint(x,y,p)))})`);}
-  root.dataset.weightShift=p.hipX.toFixed(2);root.dataset.crouch=p.hipY.toFixed(2);
+  attr('body',`translate(95 62) scale(.22) translate(530 650) rotate(${p.lean}) translate(-530 -650)`);
   attr('upper',`translate(${sx} ${sy}) rotate(${degrees(upper)-degrees(Math.atan2(124,95))}) scale(.22) translate(-665 -382)`);
   // Wrist flexion stays within a natural range. The forearm contour connects to
   // the wrist continuously, and the shaft is anchored at the hand's actual grip.
@@ -127,7 +113,7 @@
   nodes.handPoses.forEach((node,i)=>{node.style.opacity=Math.max(0,1-Math.abs(open*2-i));});
   attr('tool',`translate(${wx} ${wy}) rotate(${p.tool}) scale(.176) translate(-755 -320)`);
   nodes.tool.style.opacity=p.toolAlpha;
-  attr('support',`rotate(${p.counter} 360 400)`);}
+  attr('support',`rotate(${-p.lean*.45} 360 400)`);
   const shake=phase==='impact'&&!reduced?Math.sin(t*38)*(1-t)*3:0;
   attr('camera',`translate(${shake} ${shake*.3}) translate(330 245) scale(${p.zoom}) translate(-330 -245)`);
   const burst=p.break;
@@ -140,7 +126,7 @@
   const impact=phase==='impact'?(1-t):0;nodes.impact.style.opacity=impact;
   attr('impact',`scale(${.4+t*1.7})`);
   nodes.trail.style.opacity=phase==='strike'?Math.sin(t*Math.PI)*.65:0;
-  nodes.dust.forEach((node,i)=>{const u=phase==='impact'?t*.3:phase==='recoil'?.3+t*.4:phase==='crack'?.7+t*.3:1,angle=i*2.4;node.setAttribute('cx',406+Math.cos(angle)*u*(35+i*4));node.setAttribute('cy',276+Math.sin(angle)*u*(25+i*2)+u*u*46);node.style.opacity=(['impact','recoil','crack'].includes(phase)&&!reduced)?(1-u)*.8:0;});
+  nodes.dust.forEach((node,i)=>{const u=phase==='impact'?t*.3:phase==='recoil'?.3+t*.4:phase==='crack'?.7+t*.3:1,angle=i*2.4;node.setAttribute('cx',381+Math.cos(angle)*u*(35+i*4));node.setAttribute('cy',254+Math.sin(angle)*u*(25+i*2)+u*u*46);node.style.opacity=(['impact','recoil','crack'].includes(phase)&&!reduced)?(1-u)*.8:0;});
   // The Core follows an arc into the same hand used by the skeleton. It never
   // swaps to a disconnected victory-arm image or jumps between scene layouts.
   const arc=phase==='victory'&&!reduced?Math.sin(t*Math.PI)*58:0;
@@ -149,29 +135,14 @@
   attr('gem',`rotate(${phase==='victory'?Math.sin(t*Math.PI)*16:0}) scale(${.65+p.coreAlpha*.35})`);
   nodes.stars.forEach((node,i)=>{const active=phase==='victory'||phase==='reward',u=phase==='victory'?t:1,angle=i*2.4,r=25+u*(35+(i%5)*14);node.setAttribute('transform',`translate(${p.cx+Math.cos(angle)*r} ${p.cy-arc+Math.sin(angle)*r}) scale(${root.classList.contains('prismatic')?1.5:1})`);node.style.opacity=active&&!reduced?Math.sin(Math.min(1,u)*Math.PI)*.9:0;});
  }
- function render3d(root,name,t,e,reduced,p){
-  const prior=root._dg3dFrom||root._dg3d.keys.loading,goal=root._dg3d.keys[name]||root._dg3d.keys.loading,q={};
-  for(const k of Object.keys(goal)){const body=['hip','crouch','lean','twist'].includes(k),w=body?t*t*(3-2*t):e;q[k]=mix(prior[k],goal[k],w);}
-  root._dg3dPose=q;const info=root._dg3d.pose(q);root._dg3dInfo=info;
-  if(name==='impact'||name==='recoil')root.querySelector('.dg-impact-anchor').setAttribute('transform',`translate(${info.tip.x} ${info.tip.y})`);
-  let x=p.cx,y=p.cy;const start=root._dgCoreFrom||{x:428,y:293};
-  if(name==='core'){x=mix(start.x,info.hand.x,e);y=mix(start.y,info.hand.y-26,e)-(reduced?0:Math.sin(t*Math.PI)*48);}
-  if(name==='victory'){x=info.hand.x;y=info.hand.y-26;}
-  if(name==='reward'){x=mix(start.x,260,e);y=mix(start.y,235,e);}
-  root._dgCorePos={x,y};root._dgNodes.core.setAttribute('transform',`translate(${x} ${y})`);
- }
  function transition(root,name,duration,reduced=false){
-  cancelAnimationFrame(root._dgFrame);root._dg3dFrom=root._dg3dPose?{...root._dg3dPose}:null;root._dgCoreFrom=root._dgCorePos?{...root._dgCorePos}:null;
+  cancelAnimationFrame(root._dgFrame);
   const from={...(root._dgPose||poses.loading)},to=poses[name]||poses.loading,start=performance.now();
-  const tick=now=>{const t=reduced?1:Math.min(1,(now-start)/Math.max(1,duration)),e=name==='strike'?t*t*t:1-Math.pow(1-t,3),p={};
-   for(const key of Object.keys(to)){const body=['hipX','hipY','lean','turn','look','counter'].includes(key),weight=body?t*t*(3-2*t):e;p[key]=mix(from[key],to[key],weight);}
-   root._dgPose=p;render(root,p,name,t,reduced);if(root._dg3d)render3d(root,name,t,e,reduced,p);
-   if(t<1&&root.isConnected)root._dgFrame=requestAnimationFrame(tick);
-  };tick(start);return root;
+  const tick=now=>{const t=reduced?1:Math.min(1,(now-start)/Math.max(1,duration)),e=name==='strike'?t*t*t:1-Math.pow(1-t,3),p={};for(const key of Object.keys(to))p[key]=mix(from[key],to[key],e);root._dgPose=p;render(root,p,name,t,reduced);if(t<1&&root.isConnected)root._dgFrame=requestAnimationFrame(tick);};
+  tick(start);return root;
  }
  async function prepare(root){
-  try{const module=await import('./golem-3d-v2/scene.js');root._dg3d=await module.create(root.querySelector('.dg-3d-canvas'),window.getJapaneseMinerPoseOutfit?.()||{},root.querySelector('.dg-tool').dataset.equippedPickaxe);root.dataset.renderer='3d';root.querySelector('.dg-3d-viewport').style.display='';for(const selector of ['.dg-rig-legs','.dg-rig-body','.dg-tool','.dg-forearm','.dg-upper-arm','.dg-hand','.dg-player-shadow'])root.querySelector(selector).style.display='none';}catch(error){root.dataset.renderer='fallback';root.querySelector('.dg-3d-viewport').remove();}
-  const avatar=root._dg3d?null:root.querySelector('.dg-avatar-source .miner-avatar');
+  const avatar=root.querySelector('.dg-avatar-source .miner-avatar');
   if(avatar){
    window.syncJapaneseMinerRenderedLayers?.(avatar);
    const start=performance.now();
@@ -179,15 +150,15 @@
    const source=avatar.querySelector('.shared-pose-preview svg'),id=root.querySelector('.dg-rig-key').textContent;
    if(source){root.querySelector(`[id="${id}-avatar"]`).innerHTML=source.innerHTML;const skinMask=source.querySelector('mask[id$="pose-skin-mask"] image');if(skinMask)root.querySelector('.dg-old-skin-mask').setAttribute('href',skinMask.getAttribute('href'));}
   }
-  if(!root._dg3d){const elbowMask=root.querySelector('.dg-old-skin-mask');if(!elbowMask.getAttribute('href')&&window.LanguageMinerPoseTextures)elbowMask.setAttribute('href',await window.LanguageMinerPoseTextures.materialMask('player-lesson-pose-v1.png','skin'));
-  const hand=root.querySelector('.dg-hand');const texture=await handTexture(hand.dataset.skin,hand.dataset.gloves);root.querySelectorAll('.dg-hand-image').forEach(img=>img.setAttribute('href',texture));}
-  const selectors={head:'.dg-rig-head',wrist:'.dg-wrist-anchor',hand:'.dg-hand',contour:'.dg-skin-contour',highlight:'.dg-skin-highlight',body:'.dg-rig-body',upper:'.dg-upper-arm',forearm:'.dg-forearm',tool:'.dg-tool',support:'.dg-support-arm',camera:'.dg-camera',intact:'.dg-intact',fragments:'.dg-fragments',egg:'.dg-egg',aura:'.dg-golem-aura',impact:'.dg-impact',trail:'.dg-swing-trail',core:'.dg-core-flight',gem:'.dg-core-gem',orbits:'.dg-core-orbits',halo:'.dg-core-halo',seams:'.dg-break-seams'};
+  const elbowMask=root.querySelector('.dg-old-skin-mask');if(!elbowMask.getAttribute('href')&&window.LanguageMinerPoseTextures)elbowMask.setAttribute('href',await window.LanguageMinerPoseTextures.materialMask('player-lesson-pose-v1.png','skin'));
+  const hand=root.querySelector('.dg-hand');const texture=await handTexture(hand.dataset.skin,hand.dataset.gloves);root.querySelectorAll('.dg-hand-image').forEach(img=>img.setAttribute('href',texture));
+  const selectors={wrist:'.dg-wrist-anchor',hand:'.dg-hand',contour:'.dg-skin-contour',highlight:'.dg-skin-highlight',body:'.dg-rig-body',upper:'.dg-upper-arm',forearm:'.dg-forearm',tool:'.dg-tool',support:'.dg-support-arm',camera:'.dg-camera',intact:'.dg-intact',fragments:'.dg-fragments',egg:'.dg-egg',aura:'.dg-golem-aura',impact:'.dg-impact',trail:'.dg-swing-trail',core:'.dg-core-flight',gem:'.dg-core-gem',orbits:'.dg-core-orbits',halo:'.dg-core-halo',seams:'.dg-break-seams'};
   root._dgNodes=Object.fromEntries(Object.entries(selectors).map(([key,value])=>[key,root.querySelector(value)]));
-  for(const [key,selector] of Object.entries({legTriangles:'.dg-leg-triangle',handPoses:'.dg-hand-pose',pieces:'.dg-piece',dust:'[data-dust]',stars:'[data-star]'}))root._dgNodes[key]=[...root.querySelectorAll(selector)];
+  for(const [key,selector] of Object.entries({handPoses:'.dg-hand-pose',pieces:'.dg-piece',dust:'[data-dust]',stars:'[data-star]'}))root._dgNodes[key]=[...root.querySelectorAll(selector)];
   const files=['daily-golem-stone-v2.webp','daily-golem-prismatic-v2.webp','player-lesson-pose-v1.png','menu-wallpapers/art-azure-passage-v2.webp'];
   await Promise.all(files.map(src=>new Promise(resolve=>{const img=new Image();img.onload=img.onerror=resolve;img.src=src;})));
   root.querySelector('.dg-avatar-source')?.remove();transition(root,'loading',0,true);root.classList.add('dg-prepared');
  }
- function dispose(root){cancelAnimationFrame(root._dgFrame);root._dg3d?.dispose();delete root._dg3d;delete root._dgNodes;}
+ function dispose(root){cancelAnimationFrame(root._dgFrame);delete root._dgNodes;}
  window.LanguageMinerDailyGolemArt=Object.freeze({art,scene,prepare,transition,dispose});
 })();
