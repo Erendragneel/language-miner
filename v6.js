@@ -129,14 +129,16 @@ function coachLessonReminder(){
  if(window.LanguageMinerCourseCoach?.active())return window.LanguageMinerCourseCoach.snapshot().reminder;
  const stage=selectedStageIndex();
  if(stage<2){
-  const family=currentKanaFamily(stage),mastery=kanaFamilyMastery(family);
-  return{icon:stage===0?'あ':'ア',title:`Continue ${family.name}`,text:`This kana family is at ${mastery}% mastery. ${mastery>=KANA_FAMILY_UNLOCK_MASTERY?'Its mastery target is met. Open the family map to continue or review.':`Reach ${KANA_FAMILY_UNLOCK_MASTERY}% to open the next family.`}`,action:'map',label:'Open family map'};
+  const families=kanaFamiliesForStage(stage),current=currentKanaFamily(stage),family=kanaFamilyMastery(current)<100?current:families.find((item,index)=>kanaFamilyUnlocked(stage,index)&&kanaFamilyMastery(item)<100);
+  if(!family)return{icon:'✓',title:`${stages[stage].label} families mastered`,text:'All families are at 100% mastery. Check your guardian gate or continue to the next unlocked mine.',action:'map',label:'View progression'};
+  const mastery=kanaFamilyMastery(family),index=families.findIndex(item=>item.name===family.name);
+  return{icon:family.entries[0]?.[0]||(stage===0?'あ':'ア'),title:`Continue ${family.name}`,text:`This kana family is at ${mastery}% mastery. ${mastery>=KANA_FAMILY_UNLOCK_MASTERY?'Keep practicing toward 100% mastery.':`Reach ${KANA_FAMILY_UNLOCK_MASTERY}% to open the next family.`}`,action:'kana-family',label:'Practice this family',stage,family:index};
  }
  const section=currentJlptSection(stage),spec=jlptSectionSpec(section),levels=jlptSectionLevels(stage,section);
  const checkpoint=Array.from({length:Math.floor(levels.length/2)},(_,index)=>(index+1)*2).find(evenLesson=>jlptReviewCheckpointAvailable(stage,section,evenLesson)&&!jlptReviewCheckpointPassed(stage,section,evenLesson));
  if(checkpoint)return{icon:'🧠',title:`${spec.name} Lessons ${checkpoint-1}–${checkpoint} review is ready`,text:'Answer 25 randomized questions in two minutes and score at least 75% to unlock the next lesson.',action:'checkpoint',label:'Start review quiz',stage,section,evenLesson:checkpoint};
  let level=currentJlptSectionLevel(stage,section),mastery=jlptSectionLevelMastery(stage,section,level);
- if(mastery>=JLPT_VOCABULARY_UNLOCK_MASTERY&&levels[level+1]&&jlptSectionLevelUnlocked(stage,section,level+1)){level+=1;mastery=jlptSectionLevelMastery(stage,section,level);}
+ if(mastery>=100){level=levels.findIndex((_,index)=>jlptSectionLevelUnlocked(stage,section,index)&&jlptSectionLevelMastery(stage,section,index)<100);if(level<0)return{icon:'✓',title:`${spec.name} lessons mastered`,text:'These lessons are at 100% mastery. Check your course map for another section or guardian gate.',action:'map',label:'View progression'};mastery=jlptSectionLevelMastery(stage,section,level);}
  const items=levels[level]||[],config=jlptSectionLessonConfig(section);
  return{icon:spec.icon,title:`${spec.name} Lesson ${level+1} is next`,text:`${mastery}% mastery · ${items.length} ${config.plural}. Review every item before practice.`,action:'lesson',label:`Open Lesson ${level+1}`,stage,section,level};
 }
@@ -186,6 +188,8 @@ coachAction=function(action,task={}){
  else if(action==='dashboard')window.openJapaneseMinerDashboard?.('health');
  else if(action==='missions')window.openLanguageMinerGoals?.('expedition');
  else if(action==='boss')window.openJapaneseMinerV5?.('boss');
+ else if(action==='kana-family'){selectStage(Number(task.stage),false);selectKanaFamily(Number(task.stage),Number(task.family));mine();}
+ else if(action==='course-lesson'||action==='course-checkpoint')window.LanguageMinerCourseCoach?.openTask(task);
  else if(action==='lesson'){const stage=Number(task.stage),section=String(task.section||'vocabulary'),level=Number(task.level)||0;selectStage(stage,false);openJlptSectionLessonReview(stage,section,level);}
  else if(action==='checkpoint'){openJlptReviewCheckpoint(Number(task.stage),String(task.section||'vocabulary'),Number(task.evenLesson));}
 };
