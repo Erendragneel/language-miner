@@ -11,7 +11,7 @@ await picker.locator('[data-practice-mode="picture"]').click();assert.equal(awai
 await page.locator('.expedition-quiz-mode:visible').first().screenshot({path:'work/practice-modes-controls.png'});
 await page.evaluate(()=>document.getElementById('v5Close').click());
 await page.evaluate(()=>{const q=questions.find(q=>q.stage===0&&q.kana==='あ');state.active={...q};state.answered=false;showQuestion(state.active);});
-assert(await page.locator('.lm-quiz-art').isVisible());await page.locator('#challengeArea').screenshot({path:'work/practice-picture.png'});assert(!await page.locator('#challengeArea .question').isVisible());
+assert(await page.locator('.lm-quiz-art').isVisible());await page.waitForFunction(()=>{const i=document.querySelector('.lm-quiz-art');return i?.complete&&i.naturalWidth>0;});await page.locator('#challengeArea').screenshot({path:'work/practice-picture.png'});assert(!await page.locator('#challengeArea .question').isVisible());
 await page.evaluate(()=>LanguageMinerPracticeModes.select('listening'));assert(!await page.locator('.lm-quiz-art').isVisible());assert(!await page.locator('#challengeArea .question').isVisible());
 await page.evaluate(()=>{window.savedSpeech=LanguageMinerSpeech;window.audioCalls=[];window.LanguageMinerSpeech={...savedSpeech,replay:(text,language)=>{audioCalls.push({text,language});return false;}};});
 await page.locator('.practice-listen').click();assert((await page.locator('.practice-mode-note').innerText()).includes('Audio unavailable'));
@@ -22,7 +22,7 @@ const before=await page.evaluate(()=>state.sessionAnswered||0),correct=await pag
 await page.evaluate(()=>LanguageMinerPracticeModes.select('writing'));await page.locator('#languageMinerWritingPractice.open').waitFor();assert(await page.locator('#writingPracticeCanvas').isVisible());await page.evaluate(()=>LanguageMinerWritingPractice.close());
 await page.evaluate(async()=>{LanguageMinerPracticeModes.select('listening');await languageMinerPushCloudSave();});await page.reload();await page.waitForFunction(()=>window.LanguageMinerPracticeModes&&typeof state==='object'&&state.practiceMode==='listening');
 await page.evaluate(()=>{const q={...questions.find(q=>q.stage===0),silentTesting:true};state.active=q;showQuestion(q);});assert.equal(await page.locator('.practice-mode-note').count(),0);
-await page.evaluate(()=>{const s=LanguageMinerCourseCloud.exportCurrent();s.learning='es';s.known='en';s.placements.es={status:'tested'};LanguageMinerCourseCloud.importCurrent(s,{reset:true});state.active=null;LanguageMinerCourseNavigation.select(0);});
+await page.evaluate(async()=>{await languageMinerPushCloudSave();const s=LanguageMinerCourseCloud.exportCurrent();s.learning='es';s.known='en';s.placements.es={status:'tested'};LanguageMinerCourseCloud.importCurrent(s,{reset:true});await languageMinerPushCloudSave();state.active=null;LanguageMinerCourseNavigation.select(0);});
 await page.waitForSelector('.lm-course-question .practice-listen');assert(!await page.locator('.lm-course-prompt').isVisible());
 await page.evaluate(()=>LanguageMinerPracticeModes.select('reading'));assert(await page.locator('.lm-course-prompt').isVisible());
 await page.evaluate(()=>LanguageMinerPracticeModes.select('picture'));assert((await page.locator('.practice-mode-note').innerText()).length>0);

@@ -5,3 +5,9 @@
 #challengeArea [data-practice-mode="picture"] .lm-quiz-scene::before{display:none}
 #challengeArea [data-practice-mode="reading"] .lm-quiz-scene::before,#challengeArea [data-practice-mode="listening"] .lm-quiz-scene::before{display:none}
 #challengeArea [data-practice-mode="listening"] .lm-quiz-copy{padding:12px}
+/* Override the adventure theme's two-column clue layout for picture practice. */
+#challengeArea [data-practice-mode="picture"] .lm-quiz-scene{display:flex!important;flex-direction:column!important;height:auto!important;grid-template-columns:none!important}
+#challengeArea [data-practice-mode="picture"] .lm-quiz-art{position:relative!important;width:100%!important;height:260px!important;object-fit:contain!important;grid-column:auto!important}
+#challengeArea [data-practice-mode="picture"] .lm-quiz-copy{width:100%!important;padding:10px!important}
+#challengeArea [data-practice-mode="reading"] .lm-quiz-scene,#challengeArea [data-practice-mode="listening"] .lm-quiz-scene{display:block!important;height:auto!important}
+#challengeArea [data-practice-mode="reading"] .lm-quiz-copy,#challengeArea [data-practice-mode="listening"] .lm-quiz-copy{width:100%!important}
