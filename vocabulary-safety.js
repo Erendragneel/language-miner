@@ -8,7 +8,14 @@
     if(item.id===848)item.contentReview={blocked:true,reason:'Japanese pronoun and boyfriend senses require separate translated questions.'};
     for(const [language,value] of Object.entries(item.forms||{})){
       const parts=String(value).split(/[,，]/).map(part=>part.trim());
-      if(parts.length>1&&parts.every(part=>normalize(part)===normalize(parts[0])))item.forms[language]=parts[0];
+      if(parts.length>1&&parts.every(part=>normalize(part)===normalize(parts[0]))){
+        // The recorded phrase contains only repetitions of this same word. Keep
+        // its native recording reachable when cleaning the displayed answer.
+        const aliases=window.LANGUAGE_MINER_PRONUNCIATION_PACK?.languages?.[language]?.aliases;
+        const original=normalize(value),cleaned=normalize(parts[0]);
+        if(aliases?.[original]&&!aliases[cleaned])aliases[cleaned]=aliases[original];
+        item.forms[language]=parts[0];
+      }
     }
   }
   const rows=()=>window.N5_VOCABULARY_1000||[];
