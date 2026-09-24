@@ -53,7 +53,7 @@ function supporterGateMarkup(tier,feature){const label=['','Supporter','Companio
 window.japaneseMinerSupporterTier=supporterTier;
 window.japaneseMinerSupporterGate=supporterGateMarkup;
 window.setJapaneseMinerVerifiedSupporterEntitlement=entitlement=>{verifiedSupporterEntitlement=Object.assign({tier:0,connected:false,source:'none'},entitlement||{});verifiedSupporterTier=Math.max(0,Math.min(3,Number(verifiedSupporterEntitlement.tier)||0));if(state?.v6){state.v6.supporterTier=verifiedSupporterTier;state.v6.supporterVerifiedAt=verifiedSupporterEntitlement.verified_at||null;}try{applyWallpaper();render();window.refreshJapaneseMinerCompanionDisplays?.();}catch{}window.dispatchEvent(new CustomEvent('jm-supporter-entitlement-changed',{detail:Object.assign({},verifiedSupporterEntitlement,{tier:verifiedSupporterTier})}));};
-window.japaneseMinerSupporterEntitlement=()=>Object.assign({},verifiedSupporterEntitlement,{tier:supporterTier()});
+window.japaneseMinerSupporterEntitlement=()=>Object.assign({},verifiedSupporterEntitlement,{tier:supporterTier()},window.LanguageMinerAdminPrivileges?.isAlphaTester?.()?{tier:3,tier_name:'Alpha Tester · complimentary access',source:'alpha-tester'}:{});
 function esc6(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function shell(){
  if(document.getElementById('v6TourOverlay'))return;

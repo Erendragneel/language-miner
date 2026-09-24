@@ -104,7 +104,7 @@ async function signOut(){
   try{for(let index=localStorage.length-1;index>=0;index--){const key=localStorage.key(index);if(String(key||"").startsWith(LEGACY_SESSION_PREFIX))localStorage.removeItem(key);}}catch{}
 }
 const ADMIN_PERMISSION_KEYS=Object.freeze(['economy','health','progression','cosmetics','profile_resets','player_management','release_management','privacy_management']);
-function normalizeAdminPermissions(value,legacyFull=false){const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{};return Object.fromEntries(ADMIN_PERMISSION_KEYS.map(key=>[key,legacyFull||source[key]===true]));}
+function normalizeAdminPermissions(value,legacyFull=false){const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{},alpha=!legacyFull&&source.alpha_tester===true;return {...Object.fromEntries(ADMIN_PERMISSION_KEYS.map(key=>[key,alpha?['health','progression','cosmetics'].includes(key):legacyFull||source[key]===true])),alpha_tester:alpha};}
 async function adminIdentity(candidate=session,retried=false){
   const current=candidate?.accessToken?candidate:await validSession();
   const userId=current?.user?.id;
@@ -161,6 +161,7 @@ async function releaseStatus(){return firstRow(await publicRpc("get_app_release_
 async function adminReleaseAction(body){return functionRequest("admin-release-deploy",body&&typeof body==="object"?body:{});}
 async function ownerSearchAccounts(search="",limit=30){const payload=await rpc("owner_search_accounts_with_permissions",{p_search:String(search||"").trim(),p_limit:Math.max(1,Math.min(100,Number(limit)||30))});return Array.isArray(payload)?payload:[];}
 async function ownerListAdmins(){const payload=await rpc("owner_list_admins_with_permissions",{});return Array.isArray(payload)?payload:[];}
+async function ownerSetAlphaTesterAccess(userId,enabled=true){return firstRow(await rpc('owner_set_alpha_tester_access',{p_user_id:String(userId||''),p_enabled:enabled===true}));}
 async function ownerSetAdminAccess(userId,enabled,permissions={}){return firstRow(await rpc("owner_set_admin_permissions",{p_user_id:String(userId||""),p_permissions:normalizeAdminPermissions(permissions),p_enabled:enabled===true}));}
 async function ownerListAdminEvents(limit=40){const payload=await rpc("owner_list_admin_permission_events",{p_limit:Math.max(1,Math.min(100,Number(limit)||40))});return Array.isArray(payload)?payload:[];}
 async function loadPlayerSave(candidate=session){return firstRow(await rpc("load_player_save",{},candidate));}
@@ -208,5 +209,5 @@ async function deleteAccount(){
   saveSession(null);return payload;
 }
 
-window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,adminRole,adminIdentity,releaseStatus,adminReleaseAction,ownerSearchAccounts,ownerListAdmins,ownerSetAdminAccess,ownerListAdminEvents,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
+window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,adminRole,adminIdentity,releaseStatus,adminReleaseAction,ownerSearchAccounts,ownerListAdmins,ownerSetAdminAccess,ownerSetAlphaTesterAccess,ownerListAdminEvents,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
 })();
