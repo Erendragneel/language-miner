@@ -292,7 +292,7 @@
       launcher.id = 'patreonHeartRewardLauncher';
       launcher.className = 'patreon-heart-reward-launcher';
       launcher.type = 'button';
-      launcher.innerHTML = '<span>▶</span><strong>Earn 1 heart</strong><small>Optional video</small>';
+      launcher.innerHTML = '<span>▶</span><strong>Restore your heart</strong><small>Watch a free video · +1 ❤️</small>';
       launcher.addEventListener('click', openOverlay);
       document.body.appendChild(launcher);
     }
@@ -308,13 +308,15 @@
     const shouldShow = Boolean(activePlayer && status.hearts < status.maxHearts && status.reason !== 'Infinite Hearts is enabled.');
     card.hidden = !shouldShow;
     if(launcher){
-      launcher.hidden = !shouldShow || !status.eligible;
-      launcher.setAttribute('aria-label', `Watch an optional Patreon tier video to earn one heart. Current health: ${status.hearts} of ${status.maxHearts}.`);
+      launcher.hidden = !shouldShow;
+      launcher.disabled = !status.eligible;
+      launcher.querySelector('small').textContent = status.eligible ? 'Watch a free video · +1 ❤️' : 'Available in '+formatCooldown(status.remainingMs);
+      launcher.setAttribute('aria-label', `Restore your heart. ${status.eligible ? "Watch a free video to earn one heart." : "Available in "+formatCooldown(status.remainingMs)+"."} Current health: ${status.hearts} of ${status.maxHearts}.`);
     }
     if(!shouldShow) return;
     if(status.eligible){
       card.classList.remove('cooldown');
-      card.innerHTML = `<span>OPTIONAL · FREE HEART</span><h4>▶ Watch a Patreon tier video</h4><p>Choose 1 of 3 short tier videos and finish it to earn exactly one heart.</p><small>Once every 6 hours · no membership or purchase required</small><button id="openPatreonHeartVideos" class="primary" type="button">Choose a video · +1 ❤️</button>`;
+      card.innerHTML = `<span>OPTIONAL · FREE HEART</span><h4>▶ Watch a Patreon tier video</h4><p>Choose 1 of 3 short tier videos and finish it to earn exactly one heart.</p><small>Once every 6 hours · no membership or purchase required</small><button id="openPatreonHeartVideos" class="primary" type="button">Restore your heart · watch a video</button>`;
       card.querySelector('#openPatreonHeartVideos')?.addEventListener('click', openOverlay);
     }else{
       card.classList.add('cooldown');
@@ -327,6 +329,7 @@
   window.addEventListener('jm-profile-loaded', refresh);
   window.addEventListener('jm-profile-logged-out', closeOverlay);
   window.addEventListener('lm-patreon-heart-reward-updated', refresh);
+  window.addEventListener('lm-player-progress-saved', refresh);
   document.addEventListener('visibilitychange', () => { lastTickAt = performance.now(); });
   setInterval(refresh, 30000);
   refresh();
