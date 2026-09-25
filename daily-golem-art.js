@@ -4,7 +4,7 @@
  // Short surface fractures stay on individual stone plates, away from gaps between limbs.
  const cracks=['M87 77 90 83 86 88','M113 91 108 97 112 102','M78 106 82 111 79 116','M123 119 127 125 123 130','M94 124 98 129 96 135'];
  function art(record){
-  const tier=record.claims%7+1,stage=Math.max(0,Math.min(5,record.questions||0)),id='dg-art-'+(++serial),src=tier===7?'daily-golem-prismatic-v2.webp':'daily-golem-stone-v2.webp';
+  const tier=(record.streak??record.claims??0)%7+1,stage=Math.max(0,Math.min(5,record.questions||0)),id='dg-art-'+(++serial),src=tier===7?'daily-golem-prismatic-v2.webp':'daily-golem-stone-v2.webp';
   const growth=tier===7?'':Array.from({length:Math.max(0,tier-1)},(_,i)=>{const x=43+i*28,y=62-Math.sin(i/4*Math.PI)*33;return `<g transform="translate(${x} ${y}) rotate(${(i-2)*12})"><path d="M0 6 -7 -13 0 -33 9 -12 6 8Z" fill="url(#${id}-quartz)" stroke="#e5fbff" stroke-width=".6"/><path d="M0 -33 1 -10 6 8 -2 -8Z" fill="#ffffff8c"/></g>`;}).join('');
   return `<svg class="dg-stone" viewBox="0 0 200 220" aria-hidden="true" data-tier="${tier}" data-weakening="${stage}"><defs><linearGradient id="${id}-quartz" x2="1" y2="1"><stop stop-color="#e9feff"/><stop offset=".45" stop-color="#76d7ef"/><stop offset="1" stop-color="#8b75eb"/></linearGradient></defs><ellipse cx="100" cy="210" rx="69" ry="8" fill="#000" opacity=".25"/><g class="dg-shell">${growth}<image class="dg-sprite" href="${src}" x="0" y="7" width="200" height="200"/>${cracks.slice(0,stage).map((d,i)=>`<g class="dg-fracture" data-crack="${i+1}"><path d="${d}" fill="none" stroke="#1a3047" stroke-width="1.6"/><path d="${d}" fill="none" stroke="#839ca0" stroke-width=".55"/></g>`).join('')}</g></svg>`;
  }

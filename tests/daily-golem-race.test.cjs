@@ -17,5 +17,5 @@ await page.evaluate(()=>{const q={id:'persisted'};LanguageMinerDailyGolem.practi
 await page.evaluate(()=>{Date.now=()=>4102444800000;LanguageMinerDailyGolem.practice({id:'last'});});assert.equal(await page.evaluate(()=>state.dailyGolem.day),'2026-09-24');assert.equal(await page.evaluate(()=>state.dailyGolem.questions),5);
 // A second browser tab/device has the same cloud revision, then races the claim.
 await page.evaluate(()=>languageMinerPushCloudSave());const second=await ctx.newPage();await second.goto('http://127.0.0.1:8765/index.html');await second.waitForFunction(()=>state.dailyGolem?.questions===5);const results=await Promise.all([page.evaluate(()=>languageMinerCommitDailyGolem('2026-09-24').then(()=>true,()=>false)),second.evaluate(()=>languageMinerCommitDailyGolem('2026-09-24').then(()=>true,()=>false))]);assert.equal(commits,1);assert.equal(row.game_state.dailyGolem.claims,1);assert.equal(results.filter(Boolean).length,1);console.log('concurrent devices: exactly one grant',results);
-assert.equal(errors.length,0);await browser.close();})().catch(e=>{console.error(e);process.exit(1)});
+assert.equal(row.game_state.dailyGolem.streak,1,'Racing claims advance the daily reward streak only once');assert.equal(errors.length,0);await browser.close();})().catch(e=>{console.error(e);process.exit(1)});
 

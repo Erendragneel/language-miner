@@ -10,6 +10,8 @@ The browser suites use fresh browser contexts and intercept Supabase requests wi
 
 `tests/serve.cjs` is a local-only static test server, not a production server.
 
+Daily reward model checks cover consecutive UTC claims, missed-day resets, legacy-save migration, month/year/leap-day boundaries, and preservation of earned rewards and titles. Browser checks verify the removed 7-day rewards dropdown, a persisted reset and Day 1 payout after missed claims, and Day 7 selection based on the reward streak rather than lifetime claims. The recovery suite also checks that an equipped title survives a missed day.
+
 `tests/daily-golem-animation.test.cjs` verifies the articulated contact geometry, preview safety, Day 7 mobile rendering, and reduced motion. It saves phase screenshots under `work/`.
 
 The animation suite also samples continuous motion to catch detached grips, stretched tools, reversed swings, and clipped framing. Set `GOLEM_TEST_URL` to a deployed site base URL (ending in `/`) to run the same isolated checks on the hosted build. Portrait and landscape phone layouts are covered.
