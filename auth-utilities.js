@@ -8,7 +8,7 @@
   const isAppleMobile=()=>/iphone|ipad|ipod/i.test(window.navigator.userAgent)||window.navigator.platform==='MacIntel'&&window.navigator.maxTouchPoints>1;
   const publicUrl=()=>String(window.LANGUAGE_MINER_PUBLIC_URL||document.querySelector('meta[name="language-miner-share-url"]')?.content||'https://erendragneel.github.io/language-miner/').trim();
   const isLocalPreview=()=>/^(localhost|127(?:\.\d+){3}|\[::1\])$/i.test(location.hostname);
-  function installState(){return {installed:isInstalled(),ready:!!installPrompt&&!isLocalPreview(),appleMobile:isAppleMobile(),secure:window.isSecureContext!==false,localPreview:isLocalPreview(),publicUrl:publicUrl()};}
+  function installState(){return {installed:isInstalled(),ready:!!installPrompt&&!isLocalPreview(),appleMobile:isAppleMobile(),android:/android/i.test(navigator.userAgent),secure:window.isSecureContext!==false,localPreview:isLocalPreview(),publicUrl:publicUrl()};}
   function installStatusText(state=installState()){
     if(state.installed)return 'Language Miner is installed from the current website.';
     if(state.ready)return 'Language Miner is ready to install from '+state.publicUrl;
@@ -30,6 +30,7 @@
   }
   function showInstallInstructions(){
     const state=installState();
+    const steps=state.appleMobile?['Open the official Language Miner website in Safari.','Tap Share, then Add to Home Screen.','Tap Add. Open Language Miner from its Home Screen icon.']:state.android?['Open the official Language Miner website in Chrome, Edge, or Samsung Internet.','Open the browser menu and choose Install app or Add to Home screen.','Confirm Install or Add. Open Language Miner from its Home screen icon.']:['Open the official Language Miner website in Chrome or Edge.','Choose Install app from the address bar or browser menu.','Confirm Install, then open Language Miner from your apps.'];
     const instructions=state.appleMobile
       ?'To install Language Miner on iPhone or iPad: open the game in Safari, tap Share, then choose Add to Home Screen and Add.'
       :'To install Language Miner: open '+state.publicUrl+' in Chrome, Edge, or Samsung Internet. Open the browser menu, choose Install app or Add to Home screen, then confirm Install.';
@@ -40,6 +41,9 @@
       help=document.createElement('div');help.id='languageMinerInstallHelp';help.className='install-help-overlay';help.setAttribute('aria-hidden','true');help.innerHTML='<section role="dialog" aria-modal="true" aria-labelledby="installHelpTitle"><button class="install-help-close" type="button" aria-label="Close">×</button><span>DESKTOP &amp; HOME-SCREEN APP</span><h2 id="installHelpTitle">💻 Install Language Miner</h2><p class="install-help-copy"></p><ol><li>Open the official Language Miner website.</li><li>In Chrome or Edge, choose <strong>Install app</strong> from the address bar or browser menu.</li><li>Confirm <strong>Install</strong>. Language Miner will get its own desktop and Start menu icon.</li></ol><div><a class="install-help-open" target="_blank" rel="noopener">Open official website</a><button class="install-help-done" type="button">Done</button></div></section>';
       document.body.appendChild(help);const close=()=>{help.classList.remove('open');help.setAttribute('aria-hidden','true');};help.querySelector('.install-help-close').onclick=close;help.querySelector('.install-help-done').onclick=close;help.addEventListener('click',event=>{if(event.target===help)close();});
     }
+    help.querySelector('section>span').textContent=state.appleMobile?'IPHONE & IPAD APP':state.android?'ANDROID APP':'DESKTOP APP';
+    help.querySelector('#installHelpTitle').textContent=(state.appleMobile||state.android?'📲':'💻')+' Install Language Miner';
+    help.querySelector('ol').replaceChildren(...steps.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
     help.querySelector('.install-help-copy').textContent=state.localPreview?'This preview is running only on this computer. Open the official secure website first so the installed app continues working after the preview closes.':instructions;
     help.querySelector('.install-help-open').href=state.publicUrl;help.classList.add('open');help.setAttribute('aria-hidden','false');
     message(instructions,true);

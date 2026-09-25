@@ -671,3 +671,17 @@ body[data-wallpaper="sunstone-ember"]{background-color:#170a03;background-image:
 [data-boss-mine="4"]{--boss-hue:180deg}
 [data-boss-mine="5"]{--boss-hue:220deg}
 [data-boss-mine="6"]{--boss-hue:290deg}
+
+/* Compact phone setup while keeping the desktop account layout. */
+.auth-mobile-copy{display:none}
+@media(max-width:600px){
+ .auth-desktop-copy{display:none}.auth-mobile-copy{display:inline}
+ .auth-card .auth-account-intro{font-size:14px;margin-bottom:10px}
+ .auth-card .auth-install-entry{padding:0;border:0;background:none;margin-bottom:10px}
+ .auth-card .auth-install-entry>div{display:none}
+ .auth-card .auth-install-entry .install-app-btn{min-height:44px}
+ .auth-card .auth-legal-account{padding:10px;margin:10px 0}
+ .auth-card .auth-legal-account h3{margin:0 0 4px;font-size:16px}
+ .auth-card .auth-legal-account p{margin:0 0 6px;font-size:13px}
+ .auth-card .auth-field{margin:8px 0}
+}
