@@ -8,7 +8,21 @@
  function markup(){const words=names();return `<div class="practice-mode-picker" role="group" aria-label="${words[4]}" data-lm-no-interface-translate>${modes.map((m,i)=>`<button type="button" data-practice-mode="${m}" aria-pressed="${current()===m}" class="${current()===m?'selected':''}">${['🖼️','🔊','✍️','📖'][i]} ${words[i]}</button>`).join('')}</div>`;}
  function sync(){document.querySelectorAll('button[data-practice-mode]').forEach(b=>{const selected=b.dataset.practiceMode===current();b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));b.textContent=['🖼️','🔊','✍️','📖'][modes.indexOf(b.dataset.practiceMode)]+' '+names()[modes.indexOf(b.dataset.practiceMode)];});}
  function openWriting(){document.getElementById('v5Close')?.click();document.getElementById('closeAcademyBtn')?.click();window.openLanguageMinerWritingPractice?.();}
- function select(mode){if(!modes.includes(mode))return;state.practiceMode=mode;save();window.LanguageMinerSpeech?.cancel?.();sync();if(mode==='writing'){openWriting();return;}const area=document.getElementById('challengeArea'),context=contexts.get(area);if(context&&context.card===area?.querySelector('.question-card,.lm-course-question'))apply(area,context.q,context.options);}
+ const cardIsNative=card=>card.classList.contains('question-card');
+ function select(mode){if(!modes.includes(mode))return;state.practiceMode=mode;save();window.LanguageMinerSpeech?.cancel?.();sync();if(mode==='writing'){openWriting();return;}const area=document.getElementById('challengeArea'),context=contexts.get(area);if(context&&context.card===area?.querySelector('.question-card,.lm-course-question')){if(context.q===state.active&&!state.answered&&cardIsNative(context.card))showQuestion(context.q);else apply(area,context.q,context.options);}}
+ function prepareQuestion(q){
+  const original=q.pictureOriginalQuestion;if(original)Object.assign(q,original);
+  if(current()!=='picture'||q.silentTesting||q.smartReview||!q.vocabularyKey||!window.LanguageMinerPictures?.questionArt(q,q.learningLanguage||'ja'))return;
+  // Native Japanese meaning questions become word recognition in picture mode.
+  if(!/meaning|Japanese word/i.test(q.prompt||''))return;
+  if(!original)q.pictureOriginalQuestion={a:q.a,opts:q.opts,prompt:q.prompt};
+  const easy=state.quizDifficulty!=='hard';
+  const kana=text=>/^[\u3040-\u30ffー・\s]+$/.test(String(text||''));
+  const word=item=>{if(!easy)return item.vocabularyKey;const reading=window.N5_VOCABULARY_1000?.find(row=>row[0]===item.vocabularyKey)?.[1]||item.speechText;return kana(reading)?reading:kana(item.vocabularyKey)?item.vocabularyKey:'';};
+  const correct=word(q);if(!correct)return;
+  const words=[...new Set(questions.filter(item=>item.stage===q.stage&&item.vocabularyKey).map(word).filter(value=>value&&value!==correct))];
+  q.a=correct;q.opts=[q.a,...shuffle(words).slice(0,3)];q.prompt='Choose the pictured word.';
+ }
  function apply(area,q,options={}){
   const card=area?.querySelector('.question-card,.lm-course-question');if(!card||options.silent||q.silentTesting||q.smartReview)return;
   contexts.set(area,{q,options,card});card.querySelector('.practice-mode-note')?.remove();card.querySelectorAll('[data-practice-hidden]').forEach(n=>{n.hidden=false;delete n.dataset.practiceHidden;});
@@ -23,5 +37,5 @@
  }
  document.addEventListener('click',e=>{const b=e.target.closest?.('button[data-practice-mode]');if(b)select(b.dataset.practiceMode);});
  window.addEventListener('lm-interface-language-changed',sync);
- window.LanguageMinerPracticeModes=Object.freeze({markup,current,select,apply,sync,openWriting});
+ window.LanguageMinerPracticeModes=Object.freeze({markup,current,select,apply,sync,openWriting,prepareQuestion});
 })();

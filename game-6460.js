@@ -1898,6 +1898,7 @@ function questionDisplay(q){
 function textContainsKanji(value){return /[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\u{20000}-\u{2FA1F}]/u.test(String(value??"").replace(/<[^>]*>/g," "));}
 function questionShowsKanji(q,displayedQuestion=questionDisplay(q)){return textContainsKanji(displayedQuestion)||textContainsKanji(q?.prompt);}
 function showQuestion(q){
+  window.LanguageMinerPracticeModes?.prepareQuestion(q);
   const area=document.getElementById("challengeArea");
   const displayedQuestion=questionDisplay(q);
   const showKanjiHelp=Boolean(q.help&&questionShowsKanji(q,displayedQuestion));

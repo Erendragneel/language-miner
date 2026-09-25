@@ -10,6 +10,14 @@ const picker=page.locator('.practice-mode-picker:visible').first();assert.equal(
 await picker.locator('[data-practice-mode="picture"]').click();assert.equal(await page.evaluate(()=>state.practiceMode),'picture');
 await page.locator('.expedition-quiz-mode:visible').first().screenshot({path:'work/practice-modes-controls.png'});
 await page.evaluate(()=>document.getElementById('v5Close').click());
+await page.evaluate(()=>{const q=questions.find(q=>q.stage===2&&q.vocabularyKey==='目'&&/meaning/i.test(q.prompt));if(!q)throw Error('Eye fixture missing');state.active={...q};state.answered=false;showQuestion(state.active);});
+let choices=await page.locator('#answers button').allTextContents();assert.equal(choices.length,4);assert(choices.includes('め'));assert(choices.every(text=>/^[\u3040-\u30ffー・\s]+$/.test(text)),'Easy picture choices use kana only');
+await page.evaluate(()=>{state.quizDifficulty='hard';showQuestion(state.active);});assert((await page.locator('#answers button').allTextContents()).includes('目'));
+await page.evaluate(()=>{state.quizDifficulty='easy';showQuestion(state.active);});
+await page.evaluate(()=>LanguageMinerPracticeModes.select('reading'));assert.equal(await page.evaluate(()=>state.active.a),'eye');
+await page.evaluate(()=>LanguageMinerPracticeModes.select('picture'));assert.equal(await page.evaluate(()=>state.active.a),'め');
+const eyeBefore=await page.evaluate(()=>state.sessionAnswered||0),eyeCorrectBefore=await page.evaluate(()=>state.sessionCorrect||0);await page.locator('#answers').getByRole('button',{name:'め',exact:true}).click();assert.equal(await page.evaluate(()=>state.sessionAnswered),eyeBefore+1);assert.equal(await page.evaluate(()=>state.sessionCorrect),eyeCorrectBefore+1);
+console.log('Japanese picture choices, mode switching, and grading passed');
 await page.evaluate(()=>{const q=questions.find(q=>q.stage===0&&q.kana==='あ');state.active={...q};state.answered=false;showQuestion(state.active);});
 assert(await page.locator('.lm-quiz-art').isVisible());await page.waitForFunction(()=>{const i=document.querySelector('.lm-quiz-art');return i?.complete&&i.naturalWidth>0;});await page.locator('#challengeArea').screenshot({path:'work/practice-picture.png'});assert(!await page.locator('#challengeArea .question').isVisible());
 await page.evaluate(()=>LanguageMinerPracticeModes.select('listening'));assert(!await page.locator('.lm-quiz-art').isVisible());assert(!await page.locator('#challengeArea .question').isVisible());
