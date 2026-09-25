@@ -1759,6 +1759,11 @@ window.LanguageMinerSpeech=Object.freeze({
 setInterval(()=>{if(window.LanguageMinerPronunciation?.isSpeaking()&&silentTestingActive())window.LanguageMinerSpeech.cancel();},100);
 function japaneseSpeechText(q=state.active){
   if(!q)return '日本語を勉強しましょう。';
+  // Known-language prompts must not speak the learning-language answer.
+  const promptText=stripMarkup(q.concealedPrompt||q.displayStandard||q.q||'');
+  const reverseJapanese=(!q.learningLanguage||q.learningLanguage==='ja')&&!/[ぁ-んァ-ヶ一-龯]/.test(promptText)&&/[ぁ-んァ-ヶ一-龯]/.test(String(q.a||''))&&promptText!=='🔊';
+  const reverseReview=String(q.id||'').startsWith('multilingual:')&&Boolean(q.q)&&q.q!=='🔊';
+  if(q.questionAudioDisabled||reverseJapanese||reverseReview)return '';
   if(q.speechText)return q.learningLanguage&&q.learningLanguage!=='ja'?stripMarkup(q.speechText).trim():readingSpeechText(q.speechText);
   if(q.kana)return q.kana;
   if(q.kind==='reading' && q.q)return stripMarkup(q.q);
