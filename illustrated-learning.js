@@ -38,8 +38,11 @@ function applyDifficulty(area){
  const mode=card.dataset.practiceMode;
  const hard=window.japaneseMinerQuizDifficulty?.()==='hard',reveal=card.dataset.pictureAnswered==='true';
  card.dataset.quizDifficulty=hard?'hard':'easy';
- card.querySelectorAll('.lm-quiz-art').forEach(img=>{const hidden=mode==='reading'||mode==='listening'||(mode!=='picture'&&hard&&!reveal);img.hidden=hidden;img.style.setProperty('display',hidden?'none':'','important');});
- card.querySelector('.lm-quiz-scene')?.classList.toggle('lm-hard-recall',hard&&!reveal);
+ // Audio questions must not reveal their answer through the accompanying picture.
+ const audioQuestion=Boolean(card.querySelector('#speakQuestionBtn,#lmSpeakQuestion'));
+ const hidden=mode==='reading'||mode==='listening'||(mode!=='picture'&&(audioQuestion||hard&&!reveal));
+ card.querySelectorAll('.lm-quiz-art').forEach(img=>{img.hidden=hidden;img.style.setProperty('display',hidden?'none':'','important');});
+ card.querySelector('.lm-quiz-scene')?.classList.toggle('lm-hard-recall',hidden);
 }
 function revealAfterAnswer(area){const card=area?.querySelector('.question-card,.lm-course-question');if(card)card.dataset.pictureAnswered='true';applyDifficulty(area);}
 function decorateQuestion(area,q,language='ja'){
