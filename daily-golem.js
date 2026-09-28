@@ -26,28 +26,18 @@
   const user=identity(),expectedDay=day(),r=record(),dialog=document.createElement('dialog');
   if(preview&&r.lastClaim===day()&&r.streak>0)r.streak--;
   dialog.className='dg-dialog';dialog.setAttribute('aria-labelledby','dgDialogTitle');
-  dialog.innerHTML='<header><small>'+esc(t('Daily Reward'))+' · '+esc(t('Day'))+' '+(r.streak%7+1)+'/7</small><h2 id="dgDialogTitle">'+esc(t('Golem Core'))+'</h2></header><div class="dg-scene" data-phase="loading">'+window.LanguageMinerDailyGolemArt.scene(r,window.japaneseMinerCharacterMarkup?.('large')||'',activePickaxeSkin().id)+'</div><p class="dg-reveal" role="status">'+esc(t('The golem wakes up!'))+'</p><button type="button" class="dg-skip">'+esc(t('Skip animation'))+'</button>';
+  dialog.innerHTML='<header><small>'+esc(t('Daily Reward'))+' · '+esc(t('Day'))+' '+(r.streak%7+1)+'/7</small><h2 id="dgDialogTitle">'+esc(t('Golem Core'))+'</h2></header><div class="dg-scene" data-phase="loading">'+window.LanguageMinerDailyGolemArt.scene(r)+'</div><p class="dg-reveal" role="status">'+esc(t('The golem wakes up!'))+'</p><button type="button" class="dg-skip">'+esc(t('Skip animation'))+'</button>';
   document.body.append(dialog);dialog.showModal();dialog.addEventListener('cancel',event=>event.preventDefault());
   let skipped=false;dialog.querySelector('.dg-skip').onclick=()=>{skipped=true;};
   const scene=dialog.querySelector('.dg-scene'),reveal=dialog.querySelector('.dg-reveal');
   scene.classList.toggle('prismatic',r.streak%7===6);
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||state.v6?.characterAnimations===false||state.v6?.reducedMotion===true;
   scene.dataset.reduced=String(reduced);
-  const wait=ms=>new Promise(resolve=>{if(skipped)return resolve();let elapsed=0;const timer=setInterval(()=>{elapsed+=25;if(skipped||elapsed>=ms){clearInterval(timer);resolve();}},25);});
-  const phase=async(name,label,duration)=>{scene.dataset.phase=name;window.LanguageMinerDailyGolemArt.transition(scene,name,reduced||skipped?0:duration,reduced||skipped);scene.querySelector('.dg-scene-label').textContent=t(label);if(!['victory','reward'].includes(name))reveal.textContent=t(label);await wait(reduced?180:duration);};
   try{
    await window.LanguageMinerDailyGolemArt.prepare(scene);
-   await phase('wake','The golem wakes up!',650);
-   await phase('windup','Ready your pickaxe',850);
-   await phase('strike','Pickaxe strike',260);
-   await phase('impact','Pickaxe strike',130);
-   await phase('recoil','The shell cracks open',400);
-   await phase('crack','The shell cracks open',650);
-   await phase('core','Golem Core',850);
-   reveal.textContent=t('Golem Core');
-   await phase('victory','Golem Core',r.streak%7===6?1800:1400);
+   const labels={wake:'The golem wakes up!',windup:'Ready your pickaxe',strike:'Pickaxe strike',impact:'Pickaxe strike',recoil:'The shell cracks open',crack:'The shell cracks open',core:'Golem Core',victory:'Golem Core',reward:'Golem Core'};
+   await window.LanguageMinerDailyGolemArt.play(scene,{reduced,shouldSkip:()=>skipped,onPhase:name=>{const label=t(labels[name]);scene.querySelector('.dg-scene-label').textContent=label;reveal.textContent=label;}});
    const reward=M.rewards[r.streak%7];reveal.textContent=rewardText(reward);
-   await phase('reward','Golem Core',650);
    if(preview){reveal.textContent=t('Animation preview — no reward claimed');return;}
    if(user!==identity())throw Error('account changed');
    const result=await window.languageMinerCommitDailyGolem(expectedDay);

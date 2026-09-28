@@ -1,27 +1,30 @@
 # Daily Mini Golem checks
 
-From the repository root:
+Run these from the repository root:
 
-1. `node tests/daily-golem-model.test.cjs`
-2. Create a scratch `work/` directory and run `node tests/serve.cjs` (localhost:8765).
-3. With Playwright and Microsoft Edge available, run the three `tests/daily-golem-*.test.cjs` browser/race/recovery scripts. `PLAYWRIGHT_MODULE` may specify the installed Playwright module path.
+```text
+node tests/daily-golem-model.test.cjs
+node tests/daily-golem-cel-wardrobe.test.cjs
+node tests/serve.cjs
+```
 
-The browser suites use fresh browser contexts and intercept Supabase requests with an isolated revision-checked in-memory save. No live account is created or changed. Screenshots and results are written under `work/`; do not publish those scratch files. Fixtures directly set milestone state only for long-cycle/recovery scenarios. Japanese and Spanish regression checks click real rendered answer controls.
+Keep the local server running on `http://127.0.0.1:8765/`. Create a scratch `work/` directory, then run the browser suites in another terminal with Playwright and Microsoft Edge available:
 
-`tests/serve.cjs` is a local-only static test server, not a production server.
+```text
+node tests/daily-golem-browser.test.cjs
+node tests/daily-golem-race.test.cjs
+node tests/daily-golem-recovery.test.cjs
+node tests/daily-golem-cel-scene.test.cjs
+```
 
-Daily reward model checks cover consecutive UTC claims, missed-day resets, legacy-save migration, month/year/leap-day boundaries, and preservation of earned rewards and titles. Browser checks verify the removed 7-day rewards dropdown, a persisted reset and Day 1 payout after missed claims, and Day 7 selection based on the reward streak rather than lifetime claims. The recovery suite also checks that an equipped title survives a missed day.
+`PLAYWRIGHT_MODULE` can specify an installed Playwright module path. The cel scene suite also accepts `GOLEM_TEST_URL`, a local or deployed site base URL ending in `/`. `tests/daily-golem-animation.test.cjs` is a compatibility entry point for the same cel scene suite; run either entry point once.
 
-`tests/daily-golem-animation.test.cjs` verifies the articulated contact geometry, preview safety, Day 7 mobile rendering, and reduced motion. It saves phase screenshots under `work/`.
+Browser suites use fresh contexts and intercept Supabase requests with isolated revision-checked in-memory saves. They create or change no live account. Screenshots and results go under `work/`; keep those scratch files out of a release. `tests/serve.cjs` is a local test server, not a production server.
 
-The animation suite also samples continuous motion to catch detached grips, stretched tools, reversed swings, and clipped framing. Set `GOLEM_TEST_URL` to a deployed site base URL (ending in `/`) to run the same isolated checks on the hosted build. Portrait and landscape phone layouts are covered.
+The model suite covers consecutive UTC claims, missed-day resets, migration, calendar boundaries, and earned reward/title preservation. The browser suite checks the removed 7-day dropdown, persisted streak reset with Day 1 payout, and Day 7 selection using the reward streak. Race and recovery suites cover duplicate claims, lost responses, offline claims, and title persistence.
 
-The arm checks additionally verify continuous forearm geometry, wrist attachment and flexion limits, a grip-to-open-palm transition, and all four skin tones with three glove finishes.
+The wardrobe unit suite covers immutable outfit snapshots, material masks, registered atlas crops, jacket/holiday/footwear choices, profile-scoped cache keys, bounded caches, and retry after failed images or head artwork.
 
-Shoulder and elbow anchors are checked throughout the animation; close-up joint screenshots are saved for wind-up, impact, Core reception, and victory.
+The cel scene suite verifies the approved 5.2-second frame sequence without deforming complete drawings; visible fractures, separated shell pieces, and the emerging gem; all four skin tones and three glove finishes; equipped pickaxe appearance; prismatic rewards; portrait and landscape layouts; reduced motion and disabled character animations; immutable outfits; failed/stalled loading recovery; animator disposal; preview isolation; account-change protection; and the single authoritative reward commit after Skip. Phase screenshots are saved under `work/`. Old skeleton-specific wrist and joint assertions were replaced with complete-frame proportion checks. No 3D model is loaded.
 
-As of v6.4.273, the avatar and animation are restored from v6.4.268. The animation suite also verifies that no 3D model or renderer is requested. Obsolete 3D/fallback-specific suites have been removed. Reward/browser/race/recovery suites are unchanged.
-
-`tests/practice-modes.test.cjs` checks the shared map controls and actual practice
-presentation, audio fallback, handwriting, persistence, exam isolation and mobile.
-Set `PRACTICE_TEST_URL` for a deployed build; account/save traffic is mocked.
+`tests/practice-modes.test.cjs` checks shared map controls, real practice presentation, audio fallback, handwriting, persistence, exam isolation, and mobile layouts. Set `PRACTICE_TEST_URL` for a deployed build; account/save traffic is mocked.
