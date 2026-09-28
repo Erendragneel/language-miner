@@ -308,7 +308,7 @@
     const shouldShow = Boolean(activePlayer && status.hearts < status.maxHearts && status.reason !== 'Infinite Hearts is enabled.');
     card.hidden = !shouldShow;
     if(launcher){
-      launcher.hidden = !shouldShow;
+      launcher.hidden = !shouldShow || !status.eligible;
       launcher.disabled = !status.eligible;
       launcher.querySelector('small').textContent = status.eligible ? 'Watch a free video · +1 ❤️' : 'Available in '+formatCooldown(status.remainingMs);
       launcher.setAttribute('aria-label', `Restore your heart. ${status.eligible ? "Watch a free video to earn one heart." : "Available in "+formatCooldown(status.remainingMs)+"."} Current health: ${status.hearts} of ${status.maxHearts}.`);
