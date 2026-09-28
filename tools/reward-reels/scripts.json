@@ -1,0 +1,296 @@
+{
+  "version": "6.4.285",
+  "languageSource": "known",
+  "durationSeconds": 24,
+  "languages": {
+    "en": {
+      "name": "English",
+      "lines": [
+        "Make your miner your own with Tier One, Supporter.",
+        "Save your Nuggets for pickaxe finishes that feel earned.",
+        "Choose game wallpapers and a separate background for your menu.",
+        "Preview before joining. Membership unlocks access; paid cosmetics still cost Nuggets.",
+        "Tier Two, Companion Keeper, includes Tier One and companion access.",
+        "Discover eleven companions, with different bonuses while they are equipped.",
+        "Explore companion outfits and Holiday Specials for your miner.",
+        "Save Nuggets and meet progression requirements to grow your collection.",
+        "Tier Three, Settlement Founder, includes both earlier tiers.",
+        "Build five landmarks through twenty-five upgrades, using levels and Nuggets.",
+        "Play Study Arcade with your unlocked lessons and track personal bests.",
+        "Support the next chapter of Language Miner. Membership stays optional."
+      ]
+    },
+    "ja": {
+      "name": "日本語",
+      "lines": [
+        "ティア1のサポーターで、自分らしい採掘者にカスタマイズ。",
+        "ナゲットを貯めて、特別なつるはしの外観を手に入れよう。",
+        "ゲームの壁紙と、メニュー専用の背景を選べます。",
+        "加入前にプレビューできます。有料アイテムにはナゲットも必要です。",
+        "ティア2は、ティア1の特典と仲間へのアクセスを含みます。",
+        "11種類の仲間を発見。連れている間、それぞれのボーナスが有効です。",
+        "仲間の衣装や、採掘者の季節限定コスチュームを楽しもう。",
+        "ナゲットを貯め、進行条件を満たしてコレクションを増やそう。",
+        "ティア3は、ティア1とティア2の特典を含みます。",
+        "レベルとナゲットを使い、5つの施設を合計25段階で強化。",
+        "解放済みのレッスンで学習アーケードを遊び、自己ベストに挑戦。",
+        "Language Minerの次の冒険を応援。メンバーシップは任意です。"
+      ]
+    },
+    "ko": {
+      "name": "한국어",
+      "lines": [
+        "티어 1 서포터로 나만의 광부를 꾸며 보세요.",
+        "너깃을 모아 특별한 곡괭이 외형을 획득하세요.",
+        "게임 배경화면과 메뉴 전용 배경을 따로 선택하세요.",
+        "가입 전에 미리 볼 수 있습니다. 유료 꾸미기에는 너깃도 필요합니다.",
+        "티어 2는 티어 1 혜택과 동료 이용 권한을 포함합니다.",
+        "열한 동료를 만나 보세요. 동행 중에는 각자의 보너스가 적용됩니다.",
+        "동료 의상과 광부를 위한 특별한 시즌 의상을 살펴보세요.",
+        "너깃을 모으고 진행 조건을 충족해 수집품을 늘려 가세요.",
+        "티어 3는 앞선 두 티어의 혜택을 모두 포함합니다.",
+        "레벨과 너깃으로 다섯 시설을 총 스물다섯 단계 업그레이드하세요.",
+        "해금한 수업으로 학습 아케이드를 즐기고 최고 기록에 도전하세요.",
+        "Language Miner의 다음 모험을 응원해 주세요. 멤버십은 선택 사항입니다."
+      ]
+    },
+    "zh": {
+      "name": "中文",
+      "lines": [
+        "加入一级支持者，打造属于你的矿工形象。",
+        "积攒金块，换取值得努力获得的镐子外观。",
+        "自由选择游戏壁纸，以及单独的菜单背景。",
+        "加入前即可预览。会员解锁购买权限，付费装饰仍需金块。",
+        "二级伙伴守护者包含一级权益，并开放伙伴功能。",
+        "发现十一位伙伴，携带时可获得各自不同的加成。",
+        "探索伙伴服装，以及矿工的节日特别装扮。",
+        "积攒金块、满足进度要求，逐步丰富你的收藏。",
+        "三级聚落创始者包含前两级的所有权益。",
+        "用等级和金块建设五座设施，共可升级二十五次。",
+        "使用已解锁的课程游玩学习街机，挑战个人最佳纪录。",
+        "支持Language Miner的下一段旅程。会员始终自愿加入。"
+      ]
+    },
+    "es": {
+      "name": "Español",
+      "lines": [
+        "Personaliza a tu minero con el nivel uno, Supporter.",
+        "Ahorra pepitas para conseguir acabados especiales para tu pico.",
+        "Elige fondos del juego y otro fondo independiente para el menú.",
+        "Prueba la vista previa. La membresía da acceso; los cosméticos cuestan pepitas.",
+        "El nivel dos incluye el nivel uno y acceso a compañeros.",
+        "Descubre once compañeros con distintas bonificaciones mientras te acompañan.",
+        "Explora atuendos para compañeros y conjuntos festivos para tu minero.",
+        "Ahorra pepitas y cumple los requisitos de progreso para ampliar tu colección.",
+        "El nivel tres incluye las ventajas de los dos niveles anteriores.",
+        "Construye cinco edificios con veinticinco mejoras, usando niveles y pepitas.",
+        "Juega en el arcade con tus lecciones desbloqueadas y supera tus récords.",
+        "Apoya la próxima aventura de Language Miner. La membresía es opcional."
+      ]
+    },
+    "fr": {
+      "name": "Français",
+      "lines": [
+        "Personnalisez votre mineur avec le premier niveau, Supporter.",
+        "Économisez vos pépites pour obtenir des finitions de pioche bien méritées.",
+        "Choisissez un fond pour le jeu et un autre pour le menu.",
+        "Prévisualisez avant de rejoindre. Les cosmétiques payants coûtent aussi des pépites.",
+        "Le deuxième niveau inclut le premier et l'accès aux compagnons.",
+        "Découvrez onze compagnons aux bonus différents lorsqu'ils vous accompagnent.",
+        "Explorez leurs tenues et les costumes de fête pour votre mineur.",
+        "Économisez des pépites et progressez pour agrandir votre collection.",
+        "Le troisième niveau inclut les avantages des deux niveaux précédents.",
+        "Construisez cinq bâtiments et vingt-cinq améliorations grâce aux niveaux et pépites.",
+        "Jouez avec vos leçons débloquées dans l'arcade et battez vos records.",
+        "Soutenez la prochaine aventure de Language Miner. L'adhésion reste facultative."
+      ]
+    },
+    "de": {
+      "name": "Deutsch",
+      "lines": [
+        "Gestalte deinen Bergarbeiter mit Stufe eins, Supporter, ganz individuell.",
+        "Spare Nuggets für besondere Spitzhacken-Designs, die du dir verdienst.",
+        "Wähle Spielhintergründe und einen eigenen Hintergrund für dein Menü.",
+        "Vorab ansehen ist möglich. Kostenpflichtige Kosmetik braucht zusätzlich Nuggets.",
+        "Stufe zwei enthält Stufe eins und Zugang zu Begleitern.",
+        "Entdecke elf Begleiter mit unterschiedlichen Boni, solange sie dich begleiten.",
+        "Entdecke Begleiter-Outfits und besondere Festtagskleidung für deinen Bergarbeiter.",
+        "Spare Nuggets und erfülle Fortschrittsanforderungen, um deine Sammlung zu erweitern.",
+        "Stufe drei enthält die Vorteile der beiden vorherigen Stufen.",
+        "Baue fünf Gebäude mit fünfundzwanzig Ausbaustufen, durch Level und Nuggets.",
+        "Spiele mit freigeschalteten Lektionen in der Lern-Arcade und verbessere deine Rekorde.",
+        "Unterstütze das nächste Abenteuer von Language Miner. Die Mitgliedschaft bleibt freiwillig."
+      ]
+    },
+    "it": {
+      "name": "Italiano",
+      "lines": [
+        "Personalizza il tuo minatore con il livello uno, Supporter.",
+        "Risparmia pepite per ottenere finiture speciali per il tuo piccone.",
+        "Scegli sfondi di gioco e uno sfondo separato per il menu.",
+        "Guarda l'anteprima. L'abbonamento dà accesso; i cosmetici a pagamento richiedono pepite.",
+        "Il livello due include il primo e l'accesso ai compagni.",
+        "Scopri undici compagni con bonus diversi quando sono al tuo fianco.",
+        "Esplora abiti per i compagni e costumi festivi per il minatore.",
+        "Risparmia pepite e soddisfa i requisiti di avanzamento per ampliare la collezione.",
+        "Il livello tre include i vantaggi dei due livelli precedenti.",
+        "Costruisci cinque edifici con venticinque potenziamenti, usando livelli e pepite.",
+        "Gioca nell'arcade con le lezioni sbloccate e supera i tuoi record.",
+        "Sostieni la prossima avventura di Language Miner. L'abbonamento resta facoltativo."
+      ]
+    },
+    "pt": {
+      "name": "Português",
+      "lines": [
+        "Personalize seu minerador com o nível um, Supporter.",
+        "Guarde pepitas para conquistar visuais especiais para sua picareta.",
+        "Escolha papéis de parede do jogo e um fundo separado para o menu.",
+        "Veja antes de assinar. A assinatura libera acesso; cosméticos pagos exigem pepitas.",
+        "O nível dois inclui o primeiro e acesso aos companheiros.",
+        "Descubra onze companheiros com bônus diferentes enquanto acompanham você.",
+        "Explore roupas para companheiros e trajes festivos para seu minerador.",
+        "Junte pepitas e cumpra os requisitos de progresso para ampliar sua coleção.",
+        "O nível três inclui os benefícios dos dois níveis anteriores.",
+        "Construa cinco edifícios com vinte e cinco melhorias, usando níveis e pepitas.",
+        "Jogue no arcade com suas lições desbloqueadas e supere seus recordes.",
+        "Apoie a próxima aventura de Language Miner. A assinatura é opcional."
+      ]
+    },
+    "ru": {
+      "name": "Русский",
+      "lines": [
+        "Создайте своего шахтёра с первым уровнем поддержки, Supporter.",
+        "Копите самородки, чтобы заслужить особое оформление кирки.",
+        "Выбирайте фон игры и отдельный фон для меню.",
+        "Сначала посмотрите превью. Подписка открывает доступ; платные украшения требуют самородков.",
+        "Второй уровень включает первый и доступ к спутникам.",
+        "Откройте одиннадцать спутников с разными бонусами, пока они сопровождают вас.",
+        "Выбирайте наряды спутников и праздничные костюмы для шахтёра.",
+        "Копите самородки и выполняйте условия прогресса, чтобы расширять коллекцию.",
+        "Третий уровень включает преимущества двух предыдущих уровней.",
+        "Стройте пять зданий с двадцатью пятью улучшениями, используя уровни и самородки.",
+        "Играйте в учебной аркаде с открытыми уроками и ставьте личные рекорды.",
+        "Поддержите новое приключение Language Miner. Подписка остаётся добровольной."
+      ]
+    },
+    "uk": {
+      "name": "Українська",
+      "lines": [
+        "Створіть власного шахтаря з першим рівнем підтримки, Supporter.",
+        "Заощаджуйте самородки, щоб заслужити особливе оформлення кирки.",
+        "Вибирайте тло гри та окреме тло для меню.",
+        "Спочатку перегляньте. Підписка відкриває доступ; платні прикраси потребують самородків.",
+        "Другий рівень включає перший і доступ до супутників.",
+        "Відкрийте одинадцять супутників із різними бонусами, коли вони поруч.",
+        "Вибирайте вбрання супутників і святкові костюми для шахтаря.",
+        "Заощаджуйте самородки й виконуйте умови прогресу, щоб розширити колекцію.",
+        "Третій рівень включає переваги двох попередніх рівнів.",
+        "Будуйте п'ять споруд із двадцятьма п'ятьма покращеннями, використовуючи рівні й самородки.",
+        "Грайте в навчальній аркаді з відкритими уроками та встановлюйте особисті рекорди.",
+        "Підтримайте наступну пригоду Language Miner. Підписка залишається добровільною."
+      ]
+    },
+    "pl": {
+      "name": "Polski",
+      "lines": [
+        "Stwórz własnego górnika dzięki pierwszemu poziomowi, Supporter.",
+        "Oszczędzaj samorodki na wyjątkowy wygląd kilofa, na który zapracujesz.",
+        "Wybierz tło gry oraz osobne tło dla menu.",
+        "Obejrzyj podgląd. Członkostwo daje dostęp; płatne ozdoby nadal kosztują samorodki.",
+        "Drugi poziom obejmuje pierwszy oraz dostęp do towarzyszy.",
+        "Odkryj jedenastu towarzyszy z różnymi bonusami, gdy ci towarzyszą.",
+        "Poznaj stroje towarzyszy i świąteczne przebrania dla swojego górnika.",
+        "Zbieraj samorodki i spełniaj wymagania postępu, aby powiększać kolekcję.",
+        "Trzeci poziom obejmuje korzyści z obu poprzednich poziomów.",
+        "Rozwijaj pięć budynków przez dwadzieścia pięć ulepszeń, zdobywając poziomy i samorodki.",
+        "Graj w arkadzie z odblokowanymi lekcjami i poprawiaj swoje rekordy.",
+        "Wesprzyj kolejną przygodę Language Miner. Członkostwo jest dobrowolne."
+      ]
+    },
+    "el": {
+      "name": "Ελληνικά",
+      "lines": [
+        "Δημιουργήστε τον δικό σας μεταλλωρύχο με το πρώτο επίπεδο, Supporter.",
+        "Μαζέψτε ψήγματα για να αποκτήσετε ξεχωριστές εμφανίσεις αξίνας.",
+        "Επιλέξτε φόντο παιχνιδιού και ξεχωριστό φόντο για το μενού.",
+        "Δείτε προεπισκοπήσεις. Η συνδρομή δίνει πρόσβαση· τα επί πληρωμή είδη απαιτούν ψήγματα.",
+        "Το δεύτερο επίπεδο περιλαμβάνει το πρώτο και πρόσβαση στους συντρόφους.",
+        "Ανακαλύψτε έντεκα συντρόφους με διαφορετικά μπόνους όσο σας συνοδεύουν.",
+        "Εξερευνήστε στολές συντρόφων και γιορτινές εμφανίσεις για τον μεταλλωρύχο σας.",
+        "Μαζέψτε ψήγματα και καλύψτε τις απαιτήσεις προόδου για μεγαλύτερη συλλογή.",
+        "Το τρίτο επίπεδο περιλαμβάνει τα οφέλη των δύο προηγούμενων.",
+        "Χτίστε πέντε κτίρια με είκοσι πέντε αναβαθμίσεις, χρησιμοποιώντας επίπεδα και ψήγματα.",
+        "Παίξτε στην εκπαιδευτική αρκέιντ με ξεκλείδωτα μαθήματα και βελτιώστε τα ρεκόρ σας.",
+        "Στηρίξτε την επόμενη περιπέτεια του Language Miner. Η συνδρομή είναι προαιρετική."
+      ]
+    },
+    "tr": {
+      "name": "Türkçe",
+      "lines": [
+        "Birinci seviye Supporter ile madencinizi kendinize göre özelleştirin.",
+        "Hak ederek kazanacağınız özel kazma görünümleri için külçe biriktirin.",
+        "Oyun duvar kâğıdını ve menü arka planını ayrı ayrı seçin.",
+        "Katılmadan önce önizleyin. Üyelik erişim açar; ücretli süslemeler ayrıca külçe gerektirir.",
+        "İkinci seviye, birinci seviyeyi ve yoldaşlara erişimi içerir.",
+        "Yanınızdayken farklı bonuslar sağlayan on bir yoldaşı keşfedin.",
+        "Yoldaş kıyafetlerini ve madenciniz için bayramlık özel kostümleri keşfedin.",
+        "Külçe biriktirip ilerleme koşullarını karşılayarak koleksiyonunuzu büyütün.",
+        "Üçüncü seviye, önceki iki seviyenin avantajlarını içerir.",
+        "Seviyeler ve külçelerle beş binayı toplam yirmi beş kez geliştirin.",
+        "Açtığınız derslerle öğrenme oyunlarını oynayın ve kişisel rekorlarınızı geliştirin.",
+        "Language Miner'ın yeni macerasını destekleyin. Üyelik isteğe bağlıdır."
+      ]
+    },
+    "id": {
+      "name": "Bahasa Indonesia",
+      "lines": [
+        "Sesuaikan penambangmu dengan tingkat satu, Supporter.",
+        "Tabung nugget untuk mendapatkan tampilan beliung istimewa hasil usahamu.",
+        "Pilih wallpaper permainan dan latar menu secara terpisah.",
+        "Pratinjau sebelum bergabung. Keanggotaan membuka akses; kosmetik berbayar tetap membutuhkan nugget.",
+        "Tingkat dua mencakup tingkat satu dan akses ke teman pendamping.",
+        "Temukan sebelas pendamping dengan bonus berbeda selama mereka menemanimu.",
+        "Jelajahi pakaian pendamping dan kostum hari raya untuk penambangmu.",
+        "Tabung nugget dan penuhi syarat kemajuan untuk memperluas koleksimu.",
+        "Tingkat tiga mencakup manfaat dari kedua tingkat sebelumnya.",
+        "Bangun lima bangunan melalui dua puluh lima peningkatan, memakai level dan nugget.",
+        "Mainkan arkade belajar dengan pelajaran yang terbuka dan raih rekor pribadi.",
+        "Dukung petualangan Language Miner berikutnya. Keanggotaan tetap opsional."
+      ]
+    },
+    "vi": {
+      "name": "Tiếng Việt",
+      "lines": [
+        "Tùy chỉnh thợ mỏ của bạn với cấp một, Supporter.",
+        "Tiết kiệm vàng để sở hữu diện mạo cuốc chim xứng đáng với nỗ lực.",
+        "Chọn hình nền trò chơi và hình nền riêng cho trình đơn.",
+        "Xem trước khi đăng ký. Hội viên mở quyền truy cập; vật phẩm trả phí vẫn cần vàng.",
+        "Cấp hai bao gồm cấp một và quyền sử dụng bạn đồng hành.",
+        "Khám phá mười một bạn đồng hành với phần thưởng khác nhau khi được trang bị.",
+        "Khám phá trang phục bạn đồng hành và trang phục lễ hội cho thợ mỏ.",
+        "Tiết kiệm vàng và đáp ứng yêu cầu tiến độ để mở rộng bộ sưu tập.",
+        "Cấp ba bao gồm quyền lợi của cả hai cấp trước.",
+        "Xây năm công trình qua hai mươi lăm lần nâng cấp, dùng cấp độ và vàng.",
+        "Chơi trò chơi học tập với bài học đã mở và lập kỷ lục cá nhân.",
+        "Ủng hộ hành trình tiếp theo của Language Miner. Hội viên luôn là lựa chọn tự nguyện."
+      ]
+    },
+    "th": {
+      "name": "ไทย",
+      "lines": [
+        "แต่งตัวนักขุดในแบบของคุณด้วยสมาชิกระดับหนึ่ง Supporter",
+        "สะสมนักเก็ตเพื่อปลดล็อกรูปลักษณ์พลั่วสุดพิเศษที่คุณภูมิใจ",
+        "เลือกวอลเปเปอร์เกมและพื้นหลังเมนูแยกจากกันได้",
+        "ดูก่อนได้ก่อนสมัคร สมาชิกเปิดสิทธิ์เข้าถึง แต่ของตกแต่งที่มีราคายังต้องใช้นักเก็ต",
+        "ระดับสองรวมสิทธิ์ระดับหนึ่งและสิทธิ์เข้าถึงเพื่อนร่วมทาง",
+        "ค้นพบเพื่อนร่วมทางสิบเอ็ดตัว แต่ละตัวให้โบนัสต่างกันเมื่อพาไปด้วย",
+        "เลือกชุดเพื่อนร่วมทางและชุดเทศกาลสำหรับนักขุดของคุณ",
+        "สะสมนักเก็ตและผ่านเงื่อนไขความก้าวหน้าเพื่อเพิ่มของสะสม",
+        "ระดับสามรวมสิทธิ์ของทั้งสองระดับก่อนหน้า",
+        "สร้างอาคารห้าแห่ง อัปเกรดรวมยี่สิบห้าขั้นด้วยเลเวลและนักเก็ต",
+        "เล่นเกมอาร์เคดด้วยบทเรียนที่ปลดล็อกแล้ว และทำสถิติใหม่ของตัวเอง",
+        "สนับสนุนการผจญภัยครั้งต่อไปของ Language Miner การสมัครสมาชิกเป็นทางเลือก"
+      ]
+    }
+  }
+}

@@ -1,4 +1,25 @@
-/* Language Miner v6.4.164 — narrated Patreon feature reels. */
+/* Language Miner v6.4.285 — captions stay readable outside the video on phones. */
+.patreon-tier-video > .patreon-tier-video-caption {
+  position: static;
+  opacity: 1;
+  transform: none;
+  min-height: 4.5em;
+  margin: 12px 0 0;
+  padding: 14px 16px;
+  border: 1px solid #ffffff24;
+  border-radius: 14px;
+  background: #0b1427;
+  color: #fff;
+  text-align: center;
+}
+.patreon-tier-video > .patreon-tier-video-caption p {
+  margin: 0;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.patreon-tier-video-meta { flex-wrap: wrap; }
+.patreon-heart-reward-launcher { max-width: calc(100vw - 24px); }
 .patreon-tier-video-frame > video {
   position: absolute;
   inset: 0;

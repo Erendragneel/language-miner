@@ -1,9 +1,9 @@
-// Language Miner v6.4.284 Update Guardian.
+// Language Miner v6.4.285 Update Guardian.
 // Keeps recovery local, validates each boot, and exposes only reviewed release
 // controls to authenticated administrators. It never evaluates pasted code.
 (()=>{
 'use strict';
-const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.284';
+const BUILD=document.querySelector('meta[name="language-miner-version"]')?.content||'6.4.285';
 const STATE_KEY='lm_update_guardian_state_v1';
 const ERROR_KEY='lm_update_guardian_errors_v1';
 const DB_NAME='language-miner-update-guardian';
@@ -125,6 +125,7 @@ function criticalHealth(){
   if(typeof window.japaneseMinerActiveProfile!=='function')missing.push('profile runtime');
   if(!window.languageMinerCloudAuth)missing.push('cloud runtime');
   if(!window.LanguageMinerCourseAdmin)missing.push('course runtime');
+  if(!window.LanguageMinerPatreonReelLocales || !window.LanguageMinerPatreonHeartVideos)missing.push('heart reward video runtime');
   return {ok:missing.length===0&&fatalBootErrors===0,missing,fatalBootErrors};
 }
 function showGuardianBanner(title,message,actions=[]){

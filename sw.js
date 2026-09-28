@@ -1,10 +1,10 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.284-heart-cooldown-r110';
-const BUILD_VERSION='6.4.284';
+const CACHE_NAME='language-miner-v6.4.285-heart-reels-r111';
+const BUILD_VERSION='6.4.285';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
-const CRITICAL_SHELL=['./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./short-stories.js','./short-stories-data.js','./short-stories.css','./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
-const APP_SHELL=['./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./mine-golem-v1.png','./short-stories.js','./short-stories-data.js','./short-stories.css',
+const CRITICAL_SHELL=['./patreon-reel-locales.js','./patreon-heart-videos.js','./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./short-stories.js','./short-stories-data.js','./short-stories.css','./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
+const APP_SHELL=['./patreon-reel-locales.js','./patreon-reels/v285/tier-1.jpg','./patreon-reels/v285/tier-2.jpg','./patreon-reels/v285/tier-3.jpg','./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./mine-golem-v1.png','./short-stories.js','./short-stories-data.js','./short-stories.css',
  './menu-wallpapers/classic-v2.webp','./menu-wallpapers/sakura-grotto-v2.webp','./menu-wallpapers/crystal-cathedral-v2.webp','./menu-wallpapers/bamboo-tunnel-v2.webp','./menu-wallpapers/sunken-mine-v2.webp','./menu-wallpapers/magma-forge-v2.webp','./menu-wallpapers/aurora-cavern-v2.webp','./menu-wallpapers/galaxy-depths-v2.webp','./menu-wallpapers/art-azure-passage-v2.webp','./menu-wallpapers/art-amethyst-dream-v2.webp','./menu-wallpapers/art-moonlit-ice-v2.webp','./menu-wallpapers/art-sapphire-river-v2.webp','./menu-wallpapers/art-emerald-moss-v2.webp','./menu-wallpapers/art-rose-quartz-v2.webp','./menu-wallpapers/art-golden-topaz-v2.webp','./menu-wallpapers/art-ruby-forge-v2.webp','./menu-wallpapers/art-aurora-prism-v2.webp','./menu-wallpapers/art-celestial-galaxy-v2.webp','./menu-wallpapers/art-opal-hollow-v2.webp','./menu-wallpapers/art-ancient-lantern-v2.webp',
  './patreon-previews.js','./patreon-previews.css',
  './gem-buttons.js','./gem-buttons.css',
@@ -73,9 +73,6 @@ const APP_SHELL=['./practice-modes.js','./practice-modes.css','./daily-golem-han
   './v6.js',
   './arcade-games.js',
   './patreon-heart-videos.js',
-  './patreon-tier-1-feature-reel.mp4',
-  './patreon-tier-2-feature-reel.mp4',
-  './patreon-tier-3-feature-reel.mp4',
   './recovery-6460.js',
   './patreon-config.js',
   './cloud-auth.js',
@@ -297,9 +294,9 @@ self.addEventListener('fetch',event=>{
       return response;
     })());return;
   }
-  if((url.pathname.includes('/audio/voices/')||url.pathname.includes('/audio/stories/'))){
+  if((url.pathname.includes('/audio/voices/')||url.pathname.includes('/audio/stories/')||(url.pathname.includes('/patreon-reels/')&&url.pathname.endsWith('.mp4')))){
     event.respondWith((async()=>{
-      const cache=await caches.open('lm-pronunciation-v1'),headers=new Headers(request.headers);headers.delete('range');
+      const cache=await caches.open(url.pathname.includes('/patreon-reels/')?'lm-reward-reels-v285':'lm-pronunciation-v1'),headers=new Headers(request.headers);headers.delete('range');
       const fullRequest=new Request(request,{headers});let response=await cache.match(fullRequest);
       if(!response){response=await fetch(fullRequest);if(response.status===200){try{await cache.put(fullRequest,response.clone());}catch{ /* Storage limits must not prevent playback. */ }}}
       const range=request.headers.get('range');if(!range||response.status!==200)return response;

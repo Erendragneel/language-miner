@@ -117,5 +117,5 @@
   window.addEventListener('jm-profile-logged-out',()=>{engine.halt(true);sync();});
   window.addEventListener('lm-cloud-save-applied',sync);
   // Polling speech state avoids replacing or interrupting the game's voice system.
-  setInterval(()=>{if(engine.source)engine.setLevel(!!(window.speechSynthesis?.speaking||window.LanguageMinerPronunciation?.isSpeaking()));},100);
+  setInterval(()=>{const reel=document.getElementById('patreonTierVideo');if(engine.source)engine.setLevel(!!(window.speechSynthesis?.speaking||window.LanguageMinerPronunciation?.isSpeaking()||(reel&&!reel.paused&&!reel.muted)));},100);
 })();
