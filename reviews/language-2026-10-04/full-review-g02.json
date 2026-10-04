@@ -1,0 +1,17 @@
+{"section":"grammar","startIndex":40,"endIndexExclusive":80,"languages":"all 17","status":"read and linguistically assessed","corrections":[
+{"id":41,"forms":{"ja":"準備はできましたか？","fr":"Es-tu prêt ?"},"reason":"Neutral polite readiness question; French spacing."},
+{"id":45,"forms":{"id":"Di mana stasiunnya?"},"reason":"Locative di mana written separately."},
+{"id":46,"forms":{"ko":"이름이 뭐예요?","fr":"Quel est ton nom ?"},"reason":"Korean spelling; French spacing."},
+{"id":51,"forms":{"el":"Μελέτησα χθες."},"reason":"Study yesterday rather than undertake university studies."},
+{"id":52,"forms":{"ko":"어젯밤에 저에게 전화했어요."},"reason":"Neutral past statement rather than reminder/challenging ending."},
+{"id":58,"forms":{"pl":"Mój przyjaciel przygotował kolację."},"reason":"Evening meal rather than midday main meal."},
+{"id":60,"forms":{"it":"Il negozio ha chiuso alle otto.","pt":"A loja fechou às oito.","pl":"Sklep zamknął się o ósmej.","uk":"Магазин закрився о восьмій."},"reason":"Completed closing event rather than habitual/imperfect past."},
+{"id":61,"forms":{"el":"Θα μελετήσω αύριο."},"reason":"Study tomorrow rather than undertake university studies."},
+{"id":67,"forms":{"de":"Der Zug wird um zwölf Uhr mittags ankommen.","tr":"Tren öğlen saat on ikide varacak.","id":"Kereta akan tiba pukul dua belas siang."},"reason":"At noon rather than around noon or during daytime."},
+{"id":71,"forms":{"el":"Μπορώ να κολυμπήσω."},"reason":"Sentence capitalization."},
+{"id":75,"forms":{"ja":"私たちは一緒に行けます。"},"reason":"We can go together rather than permission to accompany someone."},
+{"id":78,"forms":{"th":"คุณชอบชามากกว่า"},"reason":"Prefer rather than merely like tea."}
+],"flags":[
+{"id":71,"languages":["pt"],"reason":"Ability to swim versus permission to swim needs contextual distinction; sei nadar is the skill reading."},
+{"id":79,"languages":["ja"],"reason":"Third-person wants expressed with 欲しい needs epistemic/dialogue context; qualified Japanese review of pedagogical pattern."}
+]}

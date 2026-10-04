@@ -71,12 +71,13 @@
     const item=question.item||data.find(r=>r.id===id);
     const prompt=item?.forms?.[known]||question.meaning||question.display;
     if(!prompt)return false;
-    return data.some(r=>normalize(r.forms?.[known])===normalize(prompt)&&normalize(r.forms?.[learning])===normalize(selected));
+    return data.some(r=>available(r)&&normalize(r.forms?.[known])===normalize(prompt)&&normalize(r.forms?.[learning])===normalize(selected));
   }
   function available(item){return item?.contentReview?.blocked!==true;}
   function refreshMultilingual(question,learning,known,promptForMeaning){
-    if((question?.sourceSection||question?.mode)!=='vocabulary'||!question.item?.forms)return false;
-    const current=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.vocabulary.find(r=>r.id===question.item.id);
+    const section=question?.sourceSection||question?.section||question?.mode;
+    if(!['vocabulary','grammar','sentences','travel'].includes(section)||!question.item?.forms)return false;
+    const current=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section==='travel'?'sentences':section]?.find(r=>r.id===question.item.id);
     if(!current||!available(current))return false;
     const answer=current.forms[learning],meaning=current.forms[known];
     if(!answer||!meaning||question.item.forms[learning]===answer&&question.item.forms[known]===meaning)return false;

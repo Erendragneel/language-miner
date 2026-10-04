@@ -1,0 +1,18 @@
+{"section":"grammar","startIndex":0,"endIndexExclusive":40,"languages":"all 17","status":"read and linguistically assessed","corrections":[
+{"id":7,"forms":{"it":"Questo è un libro."},"reason":"Missing sentence punctuation."},
+{"id":10,"forms":{"zh":"食物很好吃。","ko":"음식이 맛있습니다.","th":"อาหารอร่อย"},"reason":"Food tastes good rather than abstractly food is a good thing."},
+{"id":11,"forms":{"ko":"저는 형제가 있습니다."},"reason":"Consistent polite pronoun and ending."},
+{"id":12,"forms":{"it":"Hai una domanda."},"reason":"Missing sentence punctuation."},
+{"id":20,"forms":{"ja":"その本には絵が載っています。","es":"Ese libro tiene imágenes.","pt":"Esse livro tem imagens.","pl":"W tej książce są ilustracje."},"reason":"Pictures need not be photographs; match broad image concept."},
+{"id":22,"forms":{"ko":"당신은 천천히 말합니다.","vi":"Bạn nói chậm."},"reason":"Statement that someone speaks slowly, not instruction to slow down."},
+{"id":24,"forms":{"zh":"他写一封信。"},"reason":"Remove completed-past aspect from present example."},
+{"id":28,"forms":{"el":"Ο φίλος μου πηγαίνει στο σχολείο με τα πόδια."},"reason":"Preserve walking rather than unspecified travel."},
+{"id":31,"forms":{"pt":"Eu não entendo.","pl":"Nie rozumiem.","el":"Δεν καταλαβαίνω."},"reason":"Present rather than past comprehension; sentence capitalization."},
+{"id":32,"forms":{"ko":"당신은 그것이 필요하지 않습니다.","th":"คุณไม่จำเป็นต้องใช้มัน"},"reason":"Correct Korean case marking; need rather than desire."}
+],"flags":[
+{"id":1,"languages":["en","ja","vi","th","de","ru","pl","el","uk"],"reason":"School pupil versus university student varies across forms. Specify education level for a strict equivalence exercise; gendered example variants also need support."},
+{"id":2,"languages":["ko"],"reason":"당신 can be marked or confrontational between friends; conversational register needs Korean editorial review."},
+{"id":11,"languages":["vi","th"],"reason":"Translations specify older brother while English leaves relative age unspecified; add age context or accepted alternatives."},
+{"id":12,"languages":["ja","ko"],"reason":"Subject omitted and can read I have a question. Add dialogue context before strict person-based assessment."},
+{"id":29,"languages":["zh"],"reason":"Completed arrival versus habitual early arrival is context-dependent; choose tense/aspect teaching objective."}
+]}

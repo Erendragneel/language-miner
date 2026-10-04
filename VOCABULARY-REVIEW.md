@@ -1,5 +1,16 @@
 # Vocabulary review — 14 September 2026
 
+## Current release clarification — 29 September 2026
+
+The current shared bank has 1,000 entries: 940 available and 60 withheld.
+The original review withheld 59 rows; `vocabulary-safety.js` additionally
+withholds ID 848 because its Japanese pronoun/boyfriend senses need separate
+translated questions. Counts of 941 available or 59 withheld below describe
+the original review, before that additional exclusion. Existing IDs remain intact.
+The referenced historical `vocabulary-audit.csv` is not present in this checkout.
+Current structural evidence is recorded separately; it does not replace that
+missing row-by-row editorial record or native-language review.
+
 The reported question was unfair. あつい can represent 暑い (hot weather), 熱い (hot objects), or 厚い (thick). Guided mode removed the distinguishing kanji and penalized a legitimate meaning. The updated game displays the written word with a kana pronunciation guide. Same-reading meanings are excluded as distractors. Legacy kana-only meaning questions accept the alternatives present in the vocabulary bank.
 
 ## What was checked
@@ -36,3 +47,10 @@ The audit does not certify interface copy, cultural material, or every dynamical
 - Inanimate existence: Japan Foundation, Marugoto Plus, Starter A1: https://a1.marugotoweb.jp/en/note_4_7_1.php . Additional suffix senses were checked in the locally downloaded JMdict English dictionary.
 
 Review demo: `vocabulary-preview.html`. Regression results and correction records are retained in the development workspace.
+# Full AI review — 2026-10-04
+
+The subsequent full AI pass assessed all 22,780 forms and corrected 1,420 forms across 467 entries. See `FULL-LINGUISTIC-REVIEW.md` and `../../outputs/full-linguistic-review-2026-10-04/review.html` for every decision. 5,788 forms still require follow-up, and 1,369 forms need matching audio. Native-speaker certification remains pending. The current gameplay hold count is 60; the earlier 59-row counts above describe the historical illustration pass.
+
+# Archived targeted language follow-up — 2026-10-04
+
+81 localized forms across 18 shared-course rows and four Japanese-bank English glosses were corrected. Exact changes are in `reviews/language-2026-10-04/corrections.json`; the reproducible handoff generator is `reviews/language-2026-10-04/build-handoff.cjs`. The reviewer package is `../../outputs/language-review-2026-10-04/README.md`. All 17 language sign-offs remain pending. There are 85 corrected or derived forms without a matching bundled audio alias. Do not relabel an incorrect recording as the corrected wording. The existing Android bundle predates these changes and must be rebuilt after content/audio clearance.

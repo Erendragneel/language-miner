@@ -3,21 +3,22 @@
  const M=window.LanguageMinerDailyGolemModel;
  let anchor=null,busy=false,syncing=false,notice='',lastSignature='',seen=new WeakSet(),pending=[];
  const profile=()=>window.japaneseMinerActiveProfile?.();
- const identity=()=>profile()?.cloudUserId||'';
+ const local=()=>window.LANGUAGE_MINER_PLAY_EDITION===true&&!!profile()?.id&&!profile()?.cloudUserId;
+ const identity=()=>local()?profile().id:profile()?.cloudUserId||'';
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const t=s=>window.LanguageMinerDailyGolemText?.(s)||s;
- function day(){if(!anchor||anchor.user!==identity()||performance.now()-anchor.at>300000)return '';return new Date(anchor.time+performance.now()-anchor.at).toISOString().slice(0,10);}
+ function day(){if(local())return new Date().toISOString().slice(0,10);if(!anchor||anchor.user!==identity()||performance.now()-anchor.at>300000)return '';return new Date(anchor.time+performance.now()-anchor.at).toISOString().slice(0,10);}
  function record(){return M.roll(state.dailyGolem,day());}
  function rewardText(reward){return [reward.nuggets?`${reward.nuggets.toLocaleString()} ${t('Nuggets')}`:'',reward.hints?`${t('Hints')} ×${reward.hints}`:'',reward.shields?`${t('Shields')} ×${reward.shields}`:'',reward.cosmetic?`${t('Daily Miner')} +1/4`:''].filter(Boolean).join(' · ');}
  const art=r=>window.LanguageMinerDailyGolemArt.art(r);
  function mount(){let box=document.getElementById('dailyGolem');if(box)return box;const host=document.getElementById('challengeArea')?.parentElement;if(!host)return null;box=document.createElement('section');box.id='dailyGolem';box.className='daily-golem';box.setAttribute('aria-label',t('Daily Mini Golem'));host.after(box);return box;}
- function draw(){const box=mount();if(!box)return;box.hidden=!profile();if(box.hidden){document.querySelector('.dg-equipped-title')?.remove();return;}const r=record(),claimed=!!r.lastClaim&&r.lastClaim===(day()||r.day),track=claimed?(r.streak-1)%7+1:r.streak%7+1,ready=!!day()&&r.questions===5&&!claimed;box.hidden=claimed;const signature=JSON.stringify([r,day(),busy,notice,identity(),window.LanguageMinerI18n?.getLocale()]);if(signature===lastSignature)return;lastSignature=signature;document.querySelector('.dg-equipped-title')?.remove();if(r.titleEquipped&&r.weeks>=4){const badge=document.createElement('span');badge.className='dg-equipped-title dg-badge';badge.textContent='✦ '+t('Daily Miner');document.querySelector('.adventure-avatar')?.append(badge);}
+ function draw(){const box=mount();if(!box)return;box.hidden=!profile();if(box.hidden){document.querySelector('.dg-equipped-title')?.remove();return;}const r=record(),claimed=!!r.lastClaim&&r.lastClaim===(day()||r.day),track=claimed?(r.streak-1)%7+1:r.streak%7+1,ready=!!day()&&r.questions===5&&!claimed;box.hidden=claimed&&r.weeks<4;const signature=JSON.stringify([r,day(),busy,notice,identity(),window.LanguageMinerI18n?.getLocale()]);if(signature===lastSignature)return;lastSignature=signature;document.querySelector('.dg-equipped-title')?.remove();if(r.titleEquipped&&r.weeks>=4){const badge=document.createElement('span');badge.className='dg-equipped-title dg-badge';badge.textContent='✦ '+t('Daily Miner');document.querySelector('.adventure-avatar')?.append(badge);}
  box.innerHTML=`<div class="dg-art">${art({...r,streak:track-1})}</div><div class="dg-info"><small>${esc(t('Daily Reward'))} · ${esc(t('Day'))} ${track}/7</small><h3>${esc(t(track===7?'Prismatic Mini Golem':'Daily Mini Golem'))}</h3><p>${esc(rewardText(M.rewards[track-1]))}</p><div class="dg-progress" role="progressbar" aria-label="${esc(t('Practice questions'))}" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${r.questions}">${Array.from({length:5},(_,i)=>`<i class="${i<r.questions?'done':''}"></i>`).join('')}</div><p>${esc(t('Practice questions'))} ${r.questions}/5</p><p class="dg-status" role="status">${esc(notice||(!identity()?t('Sign in to save daily rewards'):!day()?t('Connect to sync your daily golem'):claimed?t('Reward claimed today'):ready?t('READY TO BREAK'):''))}</p><button type="button" class="dg-break" ${busy||syncing||claimed||!identity()?'disabled':''}>${esc(t(claimed?'Reward claimed today':ready?'Break Golem':day()?'Practice 5 questions':'Sync daily reward'))}</button><button type="button" class="dg-preview">${esc(t('Preview animation'))}</button>${r.weeks>=4?`<button type="button" class="dg-title">${esc(t(r.titleEquipped?'Remove':'Equip')+' '+t('Daily Miner'))}</button>`:''}${r.titleEquipped?`<strong class="dg-badge">✦ ${esc(t('Daily Miner'))} ✦</strong>`:''}</div>`;
  box.querySelector('.dg-break').onclick=()=>{if(ready)breakGolem();else if(!day())sync();else{document.getElementById('rock')?.focus();document.getElementById('challengeArea')?.scrollIntoView({block:'center',behavior:'smooth'});}};
  box.querySelector('.dg-preview').onclick=()=>breakGolem(true);
  box.querySelector('.dg-title')?.addEventListener('click',()=>{state.dailyGolem={...record(),titleEquipped:!record().titleEquipped};save();draw();});
  }
- async function sync(){if(syncing||busy||!identity())return;syncing=true;notice='';draw();try{const result=await window.languageMinerPushCloudSave?.();if(!result)throw Error('offline');}catch{notice=t('Connect to sync your daily golem');}finally{syncing=false;lastSignature='';draw();}}
+ async function sync(){if(syncing||busy||!identity())return;if(local()){notice='';state.dailyGolem=M.roll(state.dailyGolem,day());save();draw();return;}syncing=true;notice='';draw();try{const result=await window.languageMinerPushCloudSave?.();if(!result)throw Error('offline');}catch{notice=t('Connect to sync your daily golem');}finally{syncing=false;lastSignature='';draw();}}
  function cloudClock(event){const time=Date.parse(event.detail?.updatedAt);if(!Number.isFinite(time)||event.detail?.user!==identity())return;anchor={time,at:performance.now(),user:identity()};state.dailyGolem=M.roll(state.dailyGolem,day());const queued=pending;pending=[];for(const item of queued)if(item.user===identity()&&performance.now()-item.at<30000)practice(item.question);draw();}
  function practice(question){if(!question||typeof question!=='object'||seen.has(question)||question._dailyGolemCountedDay===day())return;if(!day()){if(identity()&&!pending.some(item=>item.question===question)&&pending.length<5)pending.push({question,user:identity(),at:performance.now()});sync();return;}seen.add(question);question._dailyGolemCountedDay=day();state.dailyGolem=M.practice(state.dailyGolem,day());save();draw();}
  async function breakGolem(preview=false){
@@ -40,14 +41,14 @@
    const reward=M.rewards[r.streak%7];reveal.textContent=rewardText(reward);
    if(preview){reveal.textContent=t('Animation preview — no reward claimed');return;}
    if(user!==identity())throw Error('account changed');
-   const result=await window.languageMinerCommitDailyGolem(expectedDay);
+   const result=await (local()?window.LanguageMinerPlay.claimDailyGolem(expectedDay,user):window.languageMinerCommitDailyGolem(expectedDay));
    if(!result)throw Error('not committed');
    reveal.textContent=t('Reward added')+' · '+rewardText(result);notice=t('Reward claimed today');
-  }catch{reveal.textContent=t('Reward not confirmed. Sync before trying again.');if(!preview){notice=reveal.textContent;anchor=null;}}
+  }catch{reveal.textContent=t(local()?'Reward not saved. Please try again.':'Reward not confirmed. Sync before trying again.');if(!preview){notice=reveal.textContent;anchor=null;}}
   finally{
    window.LanguageMinerDailyGolemArt.dispose(scene);
    const close=dialog.querySelector('.dg-skip');close.textContent=t('Continue');
-   const finish=()=>{dialog.close();dialog.remove();(document.getElementById('dailyGolem')?.hidden?document.getElementById('rock'):document.querySelector('#dailyGolem '+(preview?'.dg-preview':'.dg-break')))?.focus();};
+   const finish=()=>{dialog.close();dialog.remove();(document.getElementById('dailyGolem')?.hidden?document.getElementById('rock'):document.querySelector('#dailyGolem '+(preview?'.dg-preview':record().lastClaim===day()?'.dg-title':'.dg-break')))?.focus();};
    close.onclick=finish;dialog.addEventListener('cancel',finish,{once:true});busy=false;draw();close.focus();
   }
  }

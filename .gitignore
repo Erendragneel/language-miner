@@ -1,0 +1,11 @@
+/work/
+/outputs/
+node_modules/
+.env
+.env.local
+*.jks
+*.keystore
+*.aab
+*.apk
+.gradle/
+local.properties

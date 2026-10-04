@@ -36,5 +36,11 @@ await page.evaluate(()=>LanguageMinerPracticeModes.select('reading'));assert(awa
 await page.evaluate(()=>LanguageMinerPracticeModes.select('picture'));assert((await page.locator('.practice-mode-note').innerText()).length>0);
 await page.evaluate(()=>LanguageMinerPracticeModes.select('writing'));assert.equal(await page.evaluate(()=>LanguageMinerWritingPractice.status().language),'es');await page.evaluate(()=>LanguageMinerWritingPractice.close());
 await page.evaluate(()=>{LanguageMinerPracticeModes.select('reading');openJapaneseMinerV5('map');});await page.setViewportSize({width:390,height:844});
-const mobile=page.locator('.practice-mode-picker:visible').first();await mobile.waitFor();const bounds=await mobile.boundingBox();assert(bounds.x>=0&&bounds.x+bounds.width<=391);await mobile.screenshot({path:'work/practice-modes-mobile.png'});
+// Resizing can redraw the course map between locating and measuring a control.
+// Measure a visible picker atomically; retain the actual viewport-fit assertion.
+const boundsHandle=await page.waitForFunction(()=>{for(const node of document.querySelectorAll('.practice-mode-picker')){const r=node.getBoundingClientRect();if(r.width&&r.height&&getComputedStyle(node).visibility!=='hidden')return {x:r.x,width:r.width};}return false;});
+const bounds=await boundsHandle.jsonValue();assert(bounds.x>=0&&bounds.x+bounds.width<=391);
+// The map replaces picker nodes during responsive redraws; capture the viewport
+// after the layout assertion rather than screenshotting a detached picker node.
+await page.screenshot({path:'work/practice-modes-mobile.png'});
 assert.equal(errors.length,0,errors.join(';'));console.log('PASS modes: actual controls, picture, audio/fallback, reading, handwriting JA/ES, grading, reload persistence, silent test isolation and mobile');await browser.close();})().catch(e=>{console.error(e);process.exit(1)});

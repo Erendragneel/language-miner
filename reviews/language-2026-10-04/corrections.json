@@ -1,0 +1,812 @@
+[
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "en",
+    "before": "match",
+    "after": "matchstick",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "zh",
+    "before": "比赛",
+    "after": "火柴",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "ko",
+    "before": "경기",
+    "after": "성냥",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "es",
+    "before": "partido",
+    "after": "cerilla",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "fr",
+    "before": "correspondre",
+    "after": "allumette",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "de",
+    "before": "Spiel",
+    "after": "Streichholz",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "ru",
+    "before": "матч",
+    "after": "спичка",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "it",
+    "before": "partita",
+    "after": "fiammifero",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "pt",
+    "before": "combinar",
+    "after": "fósforo",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "vi",
+    "before": "trận đấu",
+    "after": "que diêm",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "th",
+    "before": "ตรงกัน",
+    "after": "ไม้ขีดไฟ",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "tr",
+    "before": "maç",
+    "after": "kibrit",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "id",
+    "before": "pertandingan",
+    "after": "batang korek api",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "pl",
+    "before": "mecz",
+    "after": "zapałka",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "el",
+    "before": "ταιριάζουν",
+    "after": "σπίρτο",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 704,
+    "language": "uk",
+    "before": "матч",
+    "after": "сірник",
+    "reason": "Select the fire-lighting object meant by Japanese マッチ, rather than a sports match or the verb match.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "en",
+    "before": "record",
+    "after": "vinyl record",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "zh",
+    "before": "记录",
+    "after": "黑胶唱片",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "ko",
+    "before": "기록",
+    "after": "레코드판",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "es",
+    "before": "grabar",
+    "after": "disco de vinilo",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "fr",
+    "before": "enregistrer",
+    "after": "disque vinyle",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "de",
+    "before": "aufzeichnen",
+    "after": "Schallplatte",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "ru",
+    "before": "запись",
+    "after": "виниловая пластинка",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "it",
+    "before": "registrare",
+    "after": "disco in vinile",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "pt",
+    "before": "gravar",
+    "after": "disco de vinil",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "vi",
+    "before": "ghi lại",
+    "after": "đĩa than",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "th",
+    "before": "บันทึก",
+    "after": "แผ่นเสียง",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "tr",
+    "before": "kayıt",
+    "after": "plak",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "id",
+    "before": "catatan",
+    "after": "piringan hitam",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "pl",
+    "before": "rekord",
+    "after": "płyta winylowa",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "el",
+    "before": "ρεκόρ",
+    "after": "δίσκος βινυλίου",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 771,
+    "language": "uk",
+    "before": "запис",
+    "after": "вінілова платівка",
+    "reason": "Select the audio disc meant by レコード, rather than the verb record or an achievement.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "en",
+    "before": "fitness, suitability",
+    "after": "suitability",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "zh",
+    "before": "体质、适宜性",
+    "after": "适宜性",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "ko",
+    "before": "체력, 적합성",
+    "after": "적합성",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "es",
+    "before": "aptitud, idoneidad",
+    "after": "idoneidad",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "fr",
+    "before": "forme physique, aptitude",
+    "after": "adéquation",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "de",
+    "before": "Fitness, Eignung",
+    "after": "Eignung",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "ru",
+    "before": "фитнес, пригодность",
+    "after": "пригодность",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "it",
+    "before": "forma fisica, idoneità",
+    "after": "adeguatezza",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "pt",
+    "before": "aptidão, adequação",
+    "after": "adequação",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "vi",
+    "before": "sự phù hợp, sự phù hợp",
+    "after": "sự phù hợp",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "tr",
+    "before": "uygunluk, uygunluk",
+    "after": "uygunluk",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "id",
+    "before": "kebugaran, kesesuaian",
+    "after": "kesesuaian",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "pl",
+    "before": "kondycja, przydatność",
+    "after": "stosowność",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "el",
+    "before": "φυσική κατάσταση, καταλληλότητα",
+    "after": "καταλληλότητα",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "uk",
+    "before": "придатність, придатність",
+    "after": "придатність",
+    "reason": "Select suitability; remove physical fitness. Other contextual senses of 適当 need separate review.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "en",
+    "before": "heater (lit: stove)",
+    "after": "space heater",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "zh",
+    "before": "加热器（点燃：炉子）",
+    "after": "取暖器",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "ko",
+    "before": "히터 (점등 : 스토브)",
+    "after": "난로",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "es",
+    "before": "calentador (iluminado: estufa)",
+    "after": "estufa",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "fr",
+    "before": "radiateur (allumé : poêle)",
+    "after": "appareil de chauffage",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "de",
+    "before": "Heizung (beleuchtet: Herd)",
+    "after": "Heizgerät",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "ru",
+    "before": "обогреватель (горит: печь)",
+    "after": "обогреватель",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "it",
+    "before": "stufa (accesa: stufa)",
+    "after": "stufa",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "pt",
+    "before": "aquecedor (aceso: fogão)",
+    "after": "aquecedor",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "vi",
+    "before": "lò sưởi (sáng: bếp lò)",
+    "after": "lò sưởi",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "th",
+    "before": "เครื่องทำความร้อน (จุด: เตา)",
+    "after": "เครื่องทำความร้อน",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "tr",
+    "before": "ısıtıcı (yanıyor: soba)",
+    "after": "ısıtıcı",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "id",
+    "before": "pemanas (menyala: kompor)",
+    "after": "pemanas ruangan",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "pl",
+    "before": "grzejnik (dosł.: piec)",
+    "after": "grzejnik",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "el",
+    "before": "θερμάστρα (αναμμένο: σόμπα)",
+    "after": "θερμάστρα",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 432,
+    "language": "uk",
+    "before": "обігрівач (горить: плита)",
+    "after": "обігрівач",
+    "reason": "Remove mistranslations of the English abbreviation lit. and select a room-heating appliance.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 737,
+    "language": "ru",
+    "before": "овощной",
+    "after": "овощ",
+    "reason": "Use the vegetable noun, rather than an adjective.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 737,
+    "language": "uk",
+    "before": "рослинний",
+    "after": "овоч",
+    "reason": "Use the vegetable noun, rather than an adjective.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 674,
+    "language": "uk",
+    "before": "перо",
+    "after": "ручка",
+    "reason": "Use the modern writing pen noun rather than feather/quill.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 42,
+    "language": "tr",
+    "before": "içki",
+    "after": "içmek",
+    "reason": "Use the verb drink, rather than a beverage/alcohol noun.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "vocabulary",
+    "id": 42,
+    "language": "el",
+    "before": "ποτό",
+    "after": "πίνω",
+    "reason": "Use the verb drink, rather than a beverage/alcohol noun.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 72,
+    "language": "zh",
+    "before": "我姐姐比​​我小。",
+    "after": "我妹妹比我小。",
+    "reason": "Remove the contradiction of calling a younger sister an older sister and accidental zero-width characters.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 73,
+    "language": "ja",
+    "before": "彼の両親は共働きです。",
+    "after": "彼の両親は一緒に働いています。",
+    "reason": "Work together describes working jointly; 共働き only says both spouses work.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 102,
+    "language": "ja",
+    "before": "ご予約がございます。",
+    "after": "予約があります。",
+    "reason": "Use the guest perspective for We have a reservation.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 114,
+    "language": "ja",
+    "before": "一番上に自分の名前を書きます。",
+    "after": "一番上に自分の名前を書いてください。",
+    "reason": "Use a request, matching Write your name at the top.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 119,
+    "language": "ja",
+    "before": "練習は上達します。",
+    "after": "練習すると上達します。",
+    "reason": "Express improvement through practice; practice itself does not improve/progress.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 119,
+    "language": "ru",
+    "before": "Практика прогрессирует.",
+    "after": "Практика помогает совершенствоваться.",
+    "reason": "Express improvement through practice; practice itself does not improve/progress.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 119,
+    "language": "uk",
+    "before": "Практика прогресує.",
+    "after": "Практика допомагає вдосконалюватися.",
+    "reason": "Express improvement through practice; practice itself does not improve/progress.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "grammar",
+    "id": 31,
+    "language": "uk",
+    "before": "не розумію.",
+    "after": "Не розумію.",
+    "reason": "Capitalize the sentence.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "grammar",
+    "id": 46,
+    "language": "uk",
+    "before": "як тебе звуть",
+    "after": "Як тебе звуть?",
+    "reason": "Capitalize and punctuate the question.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 1,
+    "language": "uk",
+    "before": "доброго ранку як справи",
+    "after": "Доброго ранку! Як справи?",
+    "reason": "Separate and punctuate the greeting and question.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 61,
+    "language": "uk",
+    "before": "у мене болить голова.",
+    "after": "У мене болить голова.",
+    "reason": "Capitalize the sentence.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "grammar",
+    "id": 56,
+    "language": "it",
+    "before": "Sono arrivati ​​lunedì.",
+    "after": "Sono arrivati lunedì.",
+    "reason": "Remove accidental zero-width spaces.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  },
+  {
+    "section": "sentences",
+    "id": 91,
+    "language": "ja",
+    "before": "私は本を​​読むのが好きです。",
+    "after": "私は本を読むのが好きです。",
+    "reason": "Remove accidental zero-width spaces.",
+    "reviewType": "AI editorial correction",
+    "nativeReview": "pending"
+  }
+]

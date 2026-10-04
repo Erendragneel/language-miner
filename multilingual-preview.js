@@ -370,12 +370,15 @@
   }
   function renderPostPlacementGuide(){
     const guide=POST_GUIDE_TRANSLATIONS[known]||POST_GUIDE_TRANSLATIONS.en,page=guide.pages[postGuideIndex],target=LANGUAGES[learning],last=postGuideIndex===guide.pages.length-1;
-    const tips=page[3].concat(postGuideIndex===2?[GUIDE_REVIEW_SKIP_TIPS[known]||GUIDE_REVIEW_SKIP_TIPS.en]:[]);
+    const offlineTools=window.LANGUAGE_MINER_PLAY_EDITION===true&&postGuideIndex===3;
+    const description=offlineTools?page[3][0]:page[2];
+    const tips=(offlineTools?page[3].slice(1):page[3]).concat(postGuideIndex===2?[GUIDE_REVIEW_SKIP_TIPS[known]||GUIDE_REVIEW_SKIP_TIPS.en]:[]);
     step='post-guide';progress(2);setHead('📘',guide.title,postGuideText(guide.subtitle));
-    content.innerHTML=`<section class="lm-post-guide"><div class="lm-guide-pair">${LANGUAGES[known].flag} ${escapeHtml(LANGUAGES[known].native)} <strong>→</strong> ${target.flag} ${escapeHtml(target.native)}</div><div class="lm-post-guide-count"><span>${escapeHtml(guide.section)}</span><strong>${postGuideIndex+1}/${guide.pages.length}</strong></div><div class="lm-placement-meter"><i style="width:${(postGuideIndex+1)/guide.pages.length*100}%"></i></div><article class="lm-post-guide-page"><span class="lm-post-guide-icon">${page[0]}</span><div><h3>${escapeHtml(postGuideText(page[1]))}</h3><p>${escapeHtml(postGuideText(page[2]))}</p><ul>${tips.map(tip=>`<li>${escapeHtml(postGuideText(tip))}</li>`).join('')}</ul></div></article><div class="lm-flow-actions"><button id="lmPostGuideSkip" class="lm-flow-secondary" type="button">${escapeHtml(guide.skip)}</button><button id="lmPostGuideBack" class="lm-flow-secondary" type="button" ${postGuideIndex===0?'disabled':''}>${escapeHtml(guide.back)}</button><button id="lmPostGuideNext" class="lm-flow-primary" type="button">${escapeHtml(last?guide.finish:guide.next)}</button></div></section>`;
+    content.innerHTML=`<section class="lm-post-guide"><div class="lm-guide-pair">${LANGUAGES[known].flag} ${escapeHtml(LANGUAGES[known].native)} <strong>→</strong> ${target.flag} ${escapeHtml(target.native)}</div><div class="lm-post-guide-count"><span>${escapeHtml(guide.section)}</span><strong>${postGuideIndex+1}/${guide.pages.length}</strong></div><div class="lm-placement-meter"><i style="width:${(postGuideIndex+1)/guide.pages.length*100}%"></i></div><article class="lm-post-guide-page"><span class="lm-post-guide-icon">${page[0]}</span><div><h3>${escapeHtml(postGuideText(page[1]))}</h3><p>${escapeHtml(postGuideText(description))}</p><ul>${tips.map(tip=>`<li>${escapeHtml(postGuideText(tip))}</li>`).join('')}</ul></div></article><div class="lm-flow-actions"><button id="lmPostGuideSkip" class="lm-flow-secondary" type="button">${escapeHtml(guide.skip)}</button><button id="lmPostGuideBack" class="lm-flow-secondary" type="button" ${postGuideIndex===0?'disabled':''}>${escapeHtml(guide.back)}</button><button id="lmPostGuideNext" class="lm-flow-primary" type="button">${escapeHtml(last?guide.finish:guide.next)}</button></div></section>`;
     document.getElementById('lmPostGuideSkip').addEventListener('click',completePostPlacementGuide);document.getElementById('lmPostGuideBack').addEventListener('click',()=>{if(postGuideIndex>0){postGuideIndex--;renderPostPlacementGuide();}});document.getElementById('lmPostGuideNext').addEventListener('click',()=>{if(last)completePostPlacementGuide();else{postGuideIndex++;renderPostPlacementGuide();}});
   }
   function openPostPlacementGuide(force=false){
+    window.LanguageMinerGameGuide?.close();
     if(overlay.classList.contains('open')&&step==='post-guide')return;
     const v6Guide=document.querySelector('#v6TourOverlay.open [data-v6-close="tour"]');v6Guide?.click();
     const settings=currentSettings(),guideKey=`${known}:${learning}`;if(!force&&settings.guides[guideKey]===true){finishFlow(`${LANGUAGES[learning].name} course ready.`);return;}
@@ -384,6 +387,7 @@
   function completePostPlacementGuide(){
     const guide=POST_GUIDE_TRANSLATIONS[known]||POST_GUIDE_TRANSLATIONS.en,settings=currentSettings();settings.guides[`${known}:${learning}`]=true;saveSettings(settings);finishFlow(guide.complete);
   }
+  window.LanguageMinerQuickStartGuide=openPostPlacementGuide;
   function placementRecordComplete(record){return record==='tested'||!!(record&&typeof record==='object'&&record.status==='tested');}
   function placementRecordBeginner(record){return record==='beginner'||!!(record&&typeof record==='object'&&record.status==='beginner');}
   function hideOriginalJapanesePlacementForOtherCourses(){

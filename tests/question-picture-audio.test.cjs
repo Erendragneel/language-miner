@@ -75,7 +75,10 @@ const assert = require('assert/strict');
       assert.equal(await page.locator('.lm-quiz-art').isVisible(), false, `${difficulty}: hide the answer picture`);
       assert.equal(await page.locator('.lm-quiz-scene').evaluate(node => node.classList.contains('lm-hard-recall')), true,
         'Hidden art does not leave an empty image column');
-      const wrong = await page.evaluate(() => state.active.opts.find(option => option !== state.active.a));
+      const correct = await page.evaluate(() => state.active.a);
+      // Rendering can canonicalize legacy gloss spacing; use a displayed choice.
+      const wrong = (await page.locator('#answers button').allTextContents()).find(option => option.trim() !== correct.trim());
+      assert(wrong, 'A visible incorrect option is available');
       await page.locator('#answers').getByRole('button', { name: wrong, exact: true }).click();
       assert.equal(await page.evaluate(() => state.answered), false, 'Wrong Smart Review answers permit another attempt');
       assert.equal(await page.locator('.lm-quiz-art').isVisible(), false, 'A wrong attempt must not reveal the next answer');

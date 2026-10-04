@@ -1,0 +1,14 @@
+{"section":"sentences","startIndex":80,"endIndexExclusive":120,"languages":"all 17","status":"read and linguistically assessed","corrections":[
+{"id":86,"forms":{"it":"Ho ricevuto il tuo messaggio."},"reason":"Sentence punctuation."},
+{"id":95,"forms":{"de":"Sie trainieren nach der Schule Fußball.","el":"Κάνουν προπόνηση ποδοσφαίρου μετά το σχολείο.","uk":"Вони тренуються з футболу після школи."},"reason":"Natural football-training collocations."},
+{"id":104,"forms":{"ko":"체크인은 몇 시입니까?"},"reason":"Korean spacing."},
+{"id":107,"forms":{"ja":"タオルを2枚持ってきてください。","ko":"수건 두 장을 가져다주세요.","de":"Bitte bringen Sie uns zwei Handtücher.","ru":"Пожалуйста, принесите два полотенца.","vi":"Vui lòng mang cho tôi hai chiếc khăn tắm.","pl":"Proszę przynieść dwa ręczniki.","uk":"Будь ласка, принесіть два рушники."},"reason":"Hotel guest requests delivery rather than instruction to pack towels and bring them along."},
+{"id":108,"forms":{"tr":"Anahtar resepsiyonda."},"reason":"Hotel reception rather than literal front table."},
+{"id":111,"forms":{"ko":"오늘 배운 내용을 복습해 봅시다.","de":"Wiederholen wir die heutige Lektion.","pl":"Powtórzmy dzisiejszą lekcję.","el":"Ας επαναλάβουμε το σημερινό μάθημα."},"reason":"Review learned lesson rather than moral lesson or merely look at it."},
+{"id":117,"forms":{"el":"Αυτή τη λέξη είναι εύκολο να τη θυμάται κανείς."},"reason":"Correct case and object construction."},
+{"id":118,"forms":{"ko":"다음 연습 문제는 더 어렵습니다.","uk":"Наступна вправа складніша."},"reason":"Learning exercise rather than workout; adjective agreement."},
+{"id":119,"forms":{"es":"La práctica ayuda a progresar.","de":"Durch Übung macht man Fortschritte.","it":"La pratica aiuta a migliorare.","pt":"A prática ajuda a progredir.","id":"Latihan membantu kita membuat kemajuan.","pl":"Ćwiczenie pomaga robić postępy.","el":"Η εξάσκηση βοηθά στην πρόοδο."},"reason":"Natural statement that practice helps the learner progress rather than practice itself progressing."}
+],"flags":[
+{"id":105,"languages":"all","reason":"Floor numbering differs by locale (ground floor versus first floor). Add locale note; translation alone cannot guarantee same physical level."},
+{"id":107,"languages":["zh","th","id"],"reason":"Bring-along versus deliver-to-guest ambiguity; qualified review of hotel request pragmatics."}
+]}

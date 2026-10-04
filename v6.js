@@ -195,7 +195,9 @@ coachAction=function(action,task={}){
 };
 function explanation(q,chosen,correct){
  if(!state.v6.explanations||!q)return;
- let box=document.getElementById('v6AnswerExplanation');if(!box){box=document.createElement('section');box.id='v6AnswerExplanation';box.className='v6-answer-explanation';document.getElementById('message')?.after(box);}
+ // Keep feedback inside the question it describes. Replacing the question
+ // (including language changes and tests) also removes its answer and actions.
+ let box=document.getElementById('v6AnswerExplanation');if(!box){box=document.createElement('section');box.id='v6AnswerExplanation';box.className='v6-answer-explanation';document.getElementById('challengeArea')?.append(box);}
  const answer=q.a||'',reading=q.speechText||q.reading||q.kana||'',meaning=q.meaning||q.en||'',listenText=japaneseAnswerSpeechText(q);
  box.innerHTML=`<span>${correct?'✅ WHY IT WORKS':'📘 LEARN FROM THIS'}</span><h3>Correct answer: ${esc6(answer)}</h3>${reading&&reading!==answer?`<p><strong>Reading:</strong> ${esc6(reading)}</p>`:''}${meaning?`<p><strong>Meaning:</strong> ${esc6(meaning)}</p>`:''}<p>${correct?'You matched the prompt correctly.':'Your choice was '+esc6(chosen)+'. Compare it with the correct answer, then use Smart Review to see this item again.'}</p><div><button data-v6-explain="listen" ${listenText?'':'disabled'}>🔊 Hear Japanese</button><button data-v6-explain="review">🧠 Review later</button></div>`;
  box.querySelector('[data-v6-explain="listen"]').onclick=()=>{if(listenText)speakJapanese(listenText);};box.querySelector('[data-v6-explain="review"]').onclick=()=>{if(state.v5?.srs&&q.id){state.v5.srs[q.id]={ease:1.8,interval:1,dueAt:Date.now()};save();setMessage('Added to Smart Review.','correct');}};
@@ -305,7 +307,8 @@ function advertiseGuideAfterOnboarding(){
  if(state.v6.onboardingGuideOffered||state.v6.tourComplete)return;
  state.v6.onboardingGuideOffered=true;
  save();
- setTimeout(()=>openTour(0),300);
+ // Course setup owns the first-time quick guide. The handbook stays optional.
+ if(!window.LanguageMinerQuickStartGuide)setTimeout(()=>openTour(0),300);
 }
 function isStandaloneApp(){return window.matchMedia?.('(display-mode: standalone)').matches||window.navigator.standalone===true;}
 function isAppleMobileDevice(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1;}

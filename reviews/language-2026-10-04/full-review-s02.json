@@ -1,0 +1,18 @@
+{"section":"sentences","startIndex":40,"endIndexExclusive":80,"languages":"all 17","status":"read and linguistically assessed","corrections":[
+{"id":41,"forms":{"zh":"现在几点？","ko":"지금은 몇 시입니까?","fr":"Quelle heure est-il ?","uk":"Котра година?"},"reason":"Standard Chinese character, Korean spacing and sentence punctuation."},
+{"id":46,"forms":{"id":"Saya biasanya makan siang pukul dua belas."},"reason":"At noon rather than generally during daytime."},
+{"id":50,"forms":{"th":"บางครั้งพวกเขาทำงานจนดึก"},"reason":"Work until late rather than arrive late to work."},
+{"id":60,"forms":{"th":"ฤดูใบไม้ผลิเป็นฤดูที่ฉันชอบที่สุด"},"reason":"Favorite rather than merely liked season."},
+{"id":61,"forms":{"el":"Έχω πονοκέφαλο."},"reason":"Sentence capitalization."},
+{"id":62,"forms":{"id":"Di mana apoteknya?"},"reason":"Locative di mana spacing."},
+{"id":66,"forms":{"tr":"Yer fıstığına alerjim var.","id":"Saya alergi kacang tanah."},"reason":"Explicit peanuts rather than unspecified nuts/pistachios."},
+{"id":72,"forms":{"id":"Saudara perempuan saya lebih muda daripada saya."},"reason":"Preserve sister rather than unspecified younger sibling."},
+{"id":73,"forms":{"tr":"Annesi ve babası birlikte çalışıyor.","id":"Orang tuanya bekerja bersama."},"reason":"Parents rather than entire family; standard Indonesian spelling."},
+{"id":75,"forms":{"ru":"У их дома есть небольшой сад.","uk":"Біля їхнього будинку є невеликий сад."},"reason":"Garden belonging to/beside house rather than inside the building."},
+{"id":76,"forms":{"tr":"Büyükannemizi ve büyükbabamızı ziyaret ediyoruz."},"reason":"Include grandmother rather than grandfathers alone."}
+],"flags":[
+{"id":47,"languages":"all","reason":"Unspecified practice versus athletic training; identify activity if used to assess exact cross-language meaning."},
+{"id":48,"languages":["es","de","it"],"reason":"Translations add him/us as visit recipient absent from source; specify shared recipient or allow contextual variants."},
+{"id":66,"languages":["el"],"reason":"Peanut versus pistachio terminology requires qualified Greek confirmation before this allergy phrase is relied upon."},
+{"id":77,"languages":"all","reason":"Cousin gender and relative age differ across translations; choose a shared male/female and age context or accept variants."}
+]}

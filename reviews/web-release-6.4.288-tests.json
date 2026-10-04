@@ -1,0 +1,86 @@
+[
+  {
+    "name": "daily-golem-animation.test.cjs",
+    "passed": true,
+    "durationMs": 19778,
+    "error": null
+  },
+  {
+    "name": "daily-golem-browser.test.cjs",
+    "passed": true,
+    "durationMs": 18762,
+    "error": null
+  },
+  {
+    "name": "daily-golem-cel-scene.test.cjs",
+    "passed": true,
+    "durationMs": 20844,
+    "error": null
+  },
+  {
+    "name": "daily-golem-cel-wardrobe.test.cjs",
+    "passed": true,
+    "durationMs": 4951,
+    "error": null
+  },
+  {
+    "name": "daily-golem-model.test.cjs",
+    "passed": true,
+    "durationMs": 62,
+    "error": null
+  },
+  {
+    "name": "daily-golem-race.test.cjs",
+    "passed": true,
+    "durationMs": 11553,
+    "error": null
+  },
+  {
+    "name": "daily-golem-recovery.test.cjs",
+    "passed": true,
+    "durationMs": 4713,
+    "error": null
+  },
+  {
+    "name": "full-linguistic-review.test.cjs",
+    "passed": true,
+    "durationMs": 567,
+    "error": null
+  },
+  {
+    "name": "heart-restore.test.cjs",
+    "passed": true,
+    "durationMs": 30501,
+    "error": null
+  },
+  {
+    "name": "language-review.test.cjs",
+    "passed": true,
+    "durationMs": 202,
+    "error": null
+  },
+  {
+    "name": "practice-modes.test.cjs",
+    "passed": true,
+    "durationMs": 11698,
+    "error": null
+  },
+  {
+    "name": "question-picture-audio.test.cjs",
+    "passed": true,
+    "durationMs": 5887,
+    "error": null
+  },
+  {
+    "name": "reward-reel-cache.test.cjs",
+    "passed": true,
+    "durationMs": 107,
+    "error": null
+  },
+  {
+    "name": "reward-reels.test.cjs",
+    "passed": true,
+    "durationMs": 39364,
+    "error": null
+  }
+]

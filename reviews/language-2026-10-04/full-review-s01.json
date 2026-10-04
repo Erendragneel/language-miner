@@ -1,0 +1,28 @@
+{"section":"sentences","startIndex":0,"endIndexExclusive":40,"languages":"all 17","status":"read and linguistically assessed","corrections":[
+{"id":1,"forms":{"fr":"Bonjour. Comment vas-tu ?"},"reason":"French punctuation spacing."},
+{"id":2,"forms":{"el":"Με λένε Άλεξ. Χαίρω πολύ."},"reason":"Greeting on introduction rather than farewell-like past pleased-to-have-met-you."},
+{"id":3,"forms":{"it":"Per favore, parli più lentamente."},"reason":"Preserve comparative more slowly."},
+{"id":6,"forms":{"ja":"少し分かります。","zh":"我懂一点。","el":"Καταλαβαίνω λίγο."},"reason":"Present understanding rather than newly understood past; capitalization."},
+{"id":8,"forms":{"fr":"Qu'est-ce que cela signifie ?"},"reason":"French punctuation spacing."},
+{"id":15,"forms":{"ko":"이 자리는 비어 있나요?","ru":"Это место свободно?","vi":"Chỗ này còn trống không?","pl":"Czy to miejsce jest wolne?"},"reason":"Unoccupied seat rather than abstract availability/accessibility."},
+{"id":18,"forms":{"pt":"Eu gostaria de uma passagem, por favor.","th":"ขอตั๋วหนึ่งใบ"},"reason":"Transport ticket rather than event admission; natural Thai request."},
+{"id":19,"forms":{"zh":"我们到了的时候，请告诉我。","el":"Πείτε μου, παρακαλώ, όταν φτάσουμε."},"reason":"Notify at arrival rather than ask predicted arrival time; Greek conjunction."},
+{"id":20,"forms":{"de":"Ich glaube, wir haben uns verirrt.","it":"Penso che ci siamo persi.","pl":"Myślę, że się zgubiliśmy."},"reason":"Lost one's way rather than doomed or lost as an object."},
+{"id":22,"forms":{"fr":"Que recommandez-vous ?"},"reason":"French punctuation spacing."},
+{"id":25,"forms":{"ko":"메뉴판을 주시겠어요?","de":"Könnten wir bitte die Speisekarte haben?"},"reason":"Request menu document rather than eat menu or order set meal."},
+{"id":26,"forms":{"zh":"我现在想点餐。","vi":"Tôi muốn gọi món bây giờ.","th":"ขอสั่งอาหารตอนนี้"},"reason":"Restaurant ordering rather than purchasing goods."},
+{"id":27,"forms":{"ja":"お会計をお願いします。","zh":"请把账单拿来。","ko":"계산서를 가져다주세요.","de":"Bitte bringen Sie die Rechnung.","vi":"Vui lòng cho tôi xin hóa đơn.","th":"ขอบิลด้วย"},"reason":"Ask server for bill rather than instruct diner to bring a bill along."},
+{"id":28,"forms":{"pt":"O café da manhã está incluído?"},"reason":"Restore missing verb in breakfast-included question."},
+{"id":30,"forms":{"id":"Bolehkah saya minta satu lagi?"},"reason":"One more rather than a different alternative."},
+{"id":31,"forms":{"es":"¿Cuánto cuesta esto?","fr":"Combien ça coûte ?","de":"Wie viel kostet das?","pt":"Quanto custa isto?","uk":"Скільки це коштує?"},"reason":"Natural price question, spelling and punctuation."},
+{"id":32,"forms":{"fr":"Acceptez-vous les cartes de crédit ?"},"reason":"French punctuation spacing."},
+{"id":33,"forms":{"zh":"我只是随便看看。","ko":"그냥 구경하는 중이에요.","th":"ขอดูก่อน","pl":"Tylko się rozglądam.","el":"Απλώς κοιτάζω."},"reason":"Browsing in a shop rather than searching for an item."},
+{"id":35,"forms":{"uk":"Чи можу я це приміряти?"},"reason":"Try clothing on rather than generic try something."},
+{"id":37,"forms":{"it":"È troppo costoso."},"reason":"Proper accented capital letter."},
+{"id":39,"forms":{"ja":"これを買います。","zh":"我买这个。","pt":"Vou levar.","el":"Θα το πάρω."},"reason":"Shopping purchase decision rather than accepting something or pre-meal formula; capitalization."}
+],"flags":[
+{"id":18,"languages":["pt"],"reason":"Transport context assumed from neighboring rows; if generic event ticket intended, provide separate phrase rather than one shared ticket sense."},
+{"id":19,"languages":["fr","ru","pl","uk"],"reason":"Tell arrival time versus notify on arrival remains context-sensitive; qualified review of intended announcement request."},
+{"id":35,"languages":["vi","th","id"],"reason":"Generic try wording depends on clothing context; explicit try-on phrasing preferred for isolated question."},
+{"id":40,"languages":["pl"],"reason":"Receipt after payment versus bill before payment should be distinguished (paragon versus rachunek)."}
+]}

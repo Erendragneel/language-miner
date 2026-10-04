@@ -1,0 +1,35 @@
+{
+  "reviewType": "Full AI linguistic review; not native-speaker certification",
+  "reviewDate": "2026-10-04",
+  "reviewedForms": 22780,
+  "totalRows": 1340,
+  "languages": 17,
+  "sections": {
+    "vocabulary": 17000,
+    "grammar": 1360,
+    "sentences": 4420
+  },
+  "changedForms": 1420,
+  "changedRows": 467,
+  "followupForms": 5788,
+  "followupRows": 422,
+  "noDefiniteIssueForms": 15701,
+  "correctedWithoutOpenFlags": 1291,
+  "audioReplacementForms": 1369,
+  "existingWithheldVocabularyRows": 60,
+  "nativeCertifiedForms": 0,
+  "releaseApproved": false,
+  "sourceSha256": "41b6995bc901b1a85b16d2b9dd288015fe1063d3a7a5cf9229bc631fcf379f1b",
+  "scopeExclusions": [
+    "Interface strings outside these 1340 rows",
+    "Audio listening/native pronunciation certification",
+    "Native-speaker certification",
+    "Android package rebuild and deployment"
+  ],
+  "limitations": [
+    "Unflagged AI decisions are not a guarantee of error-free language.",
+    "Context flags remain open, including most generated phrase-plus-cue travel entries.",
+    "Only the existing 60 vocabulary holds are enforced in gameplay; report flags do not create additional runtime exclusions.",
+    "The existing AAB predates these source changes."
+  ]
+}
