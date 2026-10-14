@@ -105,3 +105,50 @@ excluded from the current website publication; exact originals are preserved
 privately. No new TTS requests were made. This does not retroactively license
 old recordings or resolve separate image-reference permissions. Android's
 three paid Azure narrated promotional videos are unchanged.
+
+FOUR ONLINE-REFERENCE PORTRAIT REPLACEMENTS — October 14, 2026
+The marked online hairstyle sheet's permission is unknown. Its four generated
+portrait outputs are excluded from current source by copying existing documented
+project artwork byte-for-byte into the same paths. No new license was purchased:
+  regal-sweep.png / regalsweep -> undercut.png / undercut
+  side-sweep.png / sidesweep -> wavy.png / wavy
+  flame-spikes.png / flamespikes -> anime-miner-v1.png / spiky
+  textured-crop.png / texturedcrop -> short.png / short
+The 476 cosmetic archive keys remain; 136 legacy aliases use matching existing
+style images, 116 values changed, and 340 unrelated values remain unchanged.
+Current cosmetics-6420.dat SHA-256:
+add46e07f736f37a1212a4379ba7f4591d430a4ad9f853b5b0f703979891fb14
+Exact originals and source/derivative hashes are preserved privately outside
+release. Historical unresolved four-reference statements are superseded only
+for these current replacements; old outputs and the sheet are not licensed
+retroactively. Older signed bundles require a current rebuild.
+
+The nine earlier hairstyle edits directly use the generated project miner.
+The base miner's earlier concept ancestry includes the separately audited
+purchased-avatar quality reference. AI-generated status alone does not establish
+all reference-input rights. Separately generated anime head atlases use the cel
+source/earlier head atlas rather than the removed four portraits or online sheet;
+generic hairstyle names alone do not establish derivation. Other actual media
+inputs are reviewed separately.
+No new service charges, artwork generation, hosting, or provider messages were
+required. ASSET-PROVENANCE.md and the private October 14 hair-remediation audit
+bind these exact replacement bytes. This scoped source remediation does not
+establish complete legal/owner approval, native-language accuracy, Google Play
+declarations, or physical-device readiness.
+
+SEPARATE DOWNSTREAM SOURCE EVIDENCE AND LIMITS — October 14, 2026
+Actual generated source PNGs reproduce current anime-head WebP bytes exactly.
+heads-1.webp SHA-256:
+7e0a972733cfb93817df319fff18d841a7c2eb9a165aa12baefc63d09ee774f9
+heads-2.webp SHA-256:
+bc9181f5b60880b466442ec0e44cea141dcb20936dacd55cee33dc566a40f8ac
+The second atlas uses only the documented cel source and first head atlas;
+the first atlas uses that source plus short, long, bob and bun. Overlapping
+hairstyle names were generic descriptions, without the removed portraits or
+online sheet as actual inputs. No atlas or other media rewrite was needed.
+The cel's helmeted lesson-pose ancestry includes a supplied miner JPEG whose
+earlier source is not in the recovered record. Original input records for
+three static Patreon covers and product logo/icon are also unrecovered.
+No known four-portrait ancestry is evidenced for those files; these distinct
+source gaps remain open rather than being silently treated as rights-cleared.
+The exact four-portrait replacements do not establish complete release clearance.

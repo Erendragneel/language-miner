@@ -1,5 +1,6 @@
 /* Runtime masks for the existing raster wardrobe. No profile writes. */
 (()=>{'use strict';
+ const ART_REVISION='hair-clearance-20261014';
  const cache=new Map();
  function remember(key,promise){cache.set(key,promise);while(cache.size>48)cache.delete(cache.keys().next().value);promise.catch(()=>cache.delete(key));return promise;}
  function load(src){return new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=src})}
@@ -11,7 +12,7 @@
   default:'M270 0 H670 V300 H532 L512 326 L512 377 L421 377 L420 326 L408 300 H270 Z'
  };
  async function head(o,portrait,hair,skin){
-  const key=JSON.stringify([portrait,o.hairColor,o.skin]);if(cache.has(key))return cache.get(key);
+  const key=JSON.stringify([ART_REVISION,portrait,o.hairStyle,o.hairColor,o.skin]);if(cache.has(key))return cache.get(key);
   const pending=(async()=>{
    const [base,h,s]=await Promise.all([portrait,hair,skin].map(load));
    const c=canvas(941,1672),ctx=c.getContext('2d',{willReadFrequently:true});
@@ -43,5 +44,6 @@
     d.data[i]=d.data[i+1]=d.data[i+2]=255;d.data[i+3]=Math.round(d.data[i+3]*a);
    }ctx.putImageData(d,0,0);return c.toDataURL();})();return remember(key,pending);
  }
+ window.addEventListener('jm-recolors-ready',()=>cache.clear());
  window.LanguageMinerPoseTextures=Object.freeze({head,materialMask});
 })();

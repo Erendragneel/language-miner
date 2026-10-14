@@ -1,6 +1,6 @@
 # Language Miner asset provenance register
 
-This register preserves the historical v6.4.138 inventory and adds dated evidence for later assets. The current source contains generated learning illustrations, code-native diagrams, installed paid Azure neural recordings, and original music. Consult ARTWORK-CLUE-NOTES.md, MATCHING-ARTWORK-PROMPTS.md, NATIVE-VOICES-UPDATE.md, and MUSIC-UPDATE.md for those additions. The historical inventory below does not describe the current build’s media coverage; unresolved HOLD entries still apply wherever those assets or their reference inputs are used.
+This register preserves the historical v6.4.138 inventory and adds dated evidence for later assets. The current source contains generated learning illustrations, code-native diagrams, installed paid Azure neural recordings, and original music. Consult ARTWORK-CLUE-NOTES.md, MATCHING-ARTWORK-PROMPTS.md, NATIVE-VOICES-UPDATE.md, and MUSIC-UPDATE.md for those additions. The historical inventory below does not describe the current build’s media coverage; unresolved HOLD entries still apply wherever those assets or their reference inputs are used, except where an explicit later dated remediation supersedes the exact current files.
 
 Audit date: 2026-08-15  
 Build reviewed: v6.4.138 legal-readiness source package
@@ -292,7 +292,7 @@ OpenAI's January 1, 2026 terms assign output rights as between the customer and
 OpenAI, subject to the terms and the necessary permissions for actual inputs:
 https://openai.com/policies/terms-of-use/
 
-Nine hairstyle edits reference only the generated project miner. Four later
+Historical finding before the replacement record below: nine hairstyle edits reference only the generated project miner. Four later
 variants (`regal-sweep.png`, `side-sweep.png`, `flame-spikes.png`,
 `textured-crop.png`) explicitly include a user-supplied screenshot of a third-party
 hairstyle sheet. That screenshot is recovered and visually inspected. Its
@@ -328,14 +328,14 @@ and are not added to product documentation or public release evidence.
 
 ### Recovered cosmetic archive history
 
-The current `cosmetics-6420.dat` contains 476 keys and 396 distinct WebP images
+The pre-remediation `cosmetics-6420.dat` recorded at this checkpoint contains 476 keys and 396 distinct WebP images
 across 14 styles. Of those, 448 image entries exactly match both the preserved
 July 24 standalone archive and the prior documented `cosmetics-6410.dat` skin
 build; the other 28 are the later sneakers/geta layers,
 two per style. The actual project-authored `build_v6400_cosmetics.py` and
 `build_v6410_skin.py` scripts were recovered and hashed. This recovers archive
 history and source families; the complete upstream recolor pipeline was not
-reproduced and the third-party hairstyle-reference permission is still open.
+reproduced and the third-party hairstyle-reference permission was still open at this checkpoint. See the later same-day replacement record for the current files.
 Evidence: `cosmetic-archive-recovery.json` in the surrounding audit directory.
 
 ### Current music and separate website promotional narration
@@ -382,6 +382,100 @@ current localized website reels. Android's three paid Azure promotional videos
 and narration are unchanged. The three unreferenced legacy top-level narrated MP4s were excluded from the
 current publication index, with their local bytes and verified private backups
 preserved. Image/reference rights are separate; the four
-hairstyle-sheet-reference variants remain unresolved. Evidence:
+hairstyle-sheet-reference variants were unresolved at this checkpoint; the later same-day replacement record supersedes that status only for current source. Evidence:
 'website-reel-caption-remediation.json' and
 'website-reel-caption-tests.txt' in the surrounding release-clearance audit.
+
+### Four online-reference portraits replaced — October 14, 2026
+
+The owner confirmed that the marked "20 Stylized Anime Male Hairstyles" sheet
+came from an online source and its permission is unknown. No license was
+purchased. The four current source portraits that used that sheet have been
+replaced with exact bytes from existing documented project artwork. These
+same-ID replacements apply to both the website and Android source; historical
+originals remain in verified private backups outside the release trees.
+
+| Preserved legacy file / save ID | Existing replacement file / style | Current portrait SHA-256 |
+| --- | --- | --- |
+| `regal-sweep.png` / `regalsweep` | `undercut.png` / `undercut` | `ae5398b082a987a064e7547d8c2ef186ca4becca0e7cceb36032e422719a0322` |
+| `side-sweep.png` / `sidesweep` | `wavy.png` / `wavy` | `d00fba7aa14f48e1df8aad9f7efa82f7a460fa42813fcc936574376f143bafa2` |
+| `flame-spikes.png` / `flamespikes` | `anime-miner-v1.png` / `spiky` | `2c6e1922ce401906a65e6d05940bbbd81abec780b95e733570ed87dca03d697e` |
+| `textured-crop.png` / `texturedcrop` | `short.png` / `short` | `850d07c94e7008775ca4c96ef81023949f1b81fc32f020e8253be680eaea9a8f` |
+
+The new `cosmetics-6420.dat` SHA-256 is
+`add46e07f736f37a1212a4379ba7f4591d430a4ad9f853b5b0f703979891fb14`.
+All 476 key names and their ordering remain. The 136 legacy-style entries now
+use the corresponding existing style's encoded images; 116 values changed and
+20 already matched. The 340 other style entries are unchanged. This replaces
+the four portraits' hair and skin derivatives without changing saved ownership,
+selected cosmetic IDs, or creating new raster artwork.
+
+The original four portrait files and archive were retained byte-for-byte with
+SHA-256 records before replacement. Independent readback checked both source
+trees, all 136 replacement WebP headers and values, and all 340 unrelated
+values. The 56 distinct affected historical hair/skin image hashes are absent
+from the new archive. A scan of 1,291 tracked nonaudio image/archive files and
+370 current release text files found no exact old portrait or old encoded
+affected-image payloads. These are bounded exact-byte checks, not a claim of
+perceptual review of all unrelated art.
+
+The recovered nine earlier hairstyle-generation calls directly reference only
+the generated project miner. The selected undercut, wavy and short replacement
+portraits have those direct inputs; the spiky replacement is the documented
+base miner. The base miner descends from the earlier generated project concept,
+whose history includes the separately audited purchased-avatar quality cue.
+This record does not claim zero external reference inputs in that full ancestral
+chain or that AI output ownership automatically settles input permissions.
+
+The separately generated Daily Golem head atlases are not inferred to be
+sheet-derived merely because they describe similar generic hairstyles. Their
+actual recovered source calls use the approved cel source and, for the second
+atlas, the first generated head atlas; the four removed portraits and online
+sheet are not actual inputs to those calls. Their exact downstream lineage is
+recorded separately. Promotional scenes, textures, and other derivative media
+must be assessed on their actual inputs; this replacement record does not
+silently clear them.
+
+Earlier unresolved statements concerning these four exact portrait/reference
+inputs describe the historical pre-remediation files. They are superseded for
+the current replacement portraits and archive entries only. The online sheet
+and historical output have not been licensed retroactively. Earlier signed
+Android bundles remain historical artifacts until a current rebuild includes
+these replacements.
+
+Private evidence: `hair-assets-remediation.json` and
+`hair-assets-verification.json` in the October 14 hair-remediation audit.
+No new service charges, image generation, raster pixel editing, hosting, or
+provider-contact messages were required. Comprehensive legal/owner clearance,
+native-language review, Google Play declarations, and physical-device testing
+remain unestablished by this scoped record.
+
+#### Separate downstream evidence and remaining source gaps
+
+The actual preserved generated PNGs reproduce the current cel encodings
+byte-for-byte without writing or changing any media file. Current
+`reward-animation/heads-1.webp` SHA-256 is
+`7e0a972733cfb93817df319fff18d841a7c2eb9a165aa12baefc63d09ee774f9`;
+`reward-animation/heads-2.webp` SHA-256 is
+`bc9181f5b60880b466442ec0e44cea141dcb20936dacd55cee33dc566a40f8ac`.
+The second atlas's only actual inputs were the documented cel source and first
+head atlas. Its four overlapping hairstyle names were generic text descriptions.
+The cel source directly referenced the existing helmeted lesson pose; the first
+head atlas directly referenced that cel source plus short, long, bob and bun.
+The original lesson-pose call used a supplied miner JPEG whose earlier source
+is outside the recovered record, so the complete ancestral input chain has
+not been established by the atlas evidence.
+
+Original input records for three static Patreon covers and the product
+logo/icon also remain unrecovered. No actual four-portrait ancestry is evidenced
+for those files, but missing source evidence is not a rights-clearance finding.
+Existing website movie captures use a fresh default short-haired profile and
+remain caption-only; the separate Google Play promotional visuals are authored
+text and shapes with the verified paid Azure narration unchanged. These checks
+did not require rewriting media based on shared hairstyle names.
+
+Private evidence: `downstream-asset-audit.json`,
+`downstream-generation-records.json` and `atlas-encoding-lineage.json`.
+This appendix resolves the exact four removed portrait-source issue for the
+current replacement files. It does not settle the separately named missing
+source records or establish comprehensive commercial-release clearance.

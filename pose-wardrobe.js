@@ -1,6 +1,8 @@
 /* Pose-aligned wardrobe rendering. Reads equipped items; never purchases or saves. */
 (()=>{'use strict';
  const host=document.querySelector('.adventure-player-pose');if(!host)return;
+ const ART_REVISION='hair-clearance-20261014';
+ const safeHair=style=>window.LanguageMinerHairStyles?.resolve(style,'short')||({regalsweep:'undercut',sidesweep:'wavy',flamespikes:'spiky',texturedcrop:'short'}[style]||style);
  const BASE='player-lesson-pose-v1.png',DIR='pose-wardrobe/';
  const pickaxes={standard:null,copper:'#c98652',sakura:'#f4a4c6',silver:'#dbe5ed',frost:'#9feaff',gold:'#ffc74b',neon:'#30f0ee',amethyst:'#ba7cf4',inferno:'#ff7436',galaxy:'#7262e4',emerald:'#36cf91',aurora:'#72efc4',shadow:'#64577e','red-diamond':'#f84b69'};
  const tops={miner:['Golden','#b58229'],academy:['Blue','#417bc3'],hoodie:['Purple','#9b69ca'],festival:['Rose Pink','#e98fae'],armor:['Red','#c94846'],casual:['Green','#59a778']};
@@ -11,7 +13,7 @@
  const holidays={'new-year':'Lantern Festival Yukata','winter-academy':'Cozy Christmas Knit','holiday-explorer':'Santa Celebration Suit','summer-matsuri':'Kitsune Matsuri Yukata'};
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const known=(table,key,fallback)=>Object.hasOwn(table,key)?key:fallback;
- const heads={short:'short.png',spiky:'anime-miner-v1.png',bob:'bob.png',long:'long.png',bun:'bun.png',buzz:'buzz.png',ponytail:'ponytail.png',wavy:'wavy.png',undercut:'undercut.png',twintails:'twintails.png',regalsweep:'regal-sweep.png',sidesweep:'side-sweep.png',flamespikes:'flame-spikes.png',texturedcrop:'textured-crop.png'};
+ const heads={short:'short.png',spiky:'anime-miner-v1.png',bob:'bob.png',long:'long.png',bun:'bun.png',buzz:'buzz.png',ponytail:'ponytail.png',wavy:'wavy.png',undercut:'undercut.png',twintails:'twintails.png'};
  const accessories=['glasses','headband','helmet','earrings','scarf'];
  const hairColors=['black','brown','blonde','red','blue','pink','silver','purple','teal','green'];
  const skins=['light','warm','tan','deep'];
@@ -19,7 +21,7 @@
   const art=category=>window.getJapaneseMinerRecolor?.(`${o.hairStyle}/${category}/${category==='hair'?o.hairColor:o.skin}`);
   const hair=art('hair'),skin=art('skin');
   if(!hair||!skin)return null;
-  const portrait=heads[o.hairStyle],rendered=await window.LanguageMinerPoseTextures.head(o,heads[o.hairStyle],hair,skin),items=o.accessories.map(id=>'accessory-layer-'+id+'.png');
+  const portrait=heads[o.hairStyle]+'?v='+ART_REVISION,rendered=await window.LanguageMinerPoseTextures.head(o,portrait,hair,skin),items=o.accessories.map(id=>'accessory-layer-'+id+'.png');
   const im=(src,extra='')=>`<image href="${src}" width="941" height="1672" ${extra}/>`;
   // Reuse the actual selected portrait layers, registered at the neck joint.
   // Hair silhouettes (including long styles) remain intact, not recolored short hair.
@@ -27,7 +29,7 @@
   const bodyMask='<mask id="pose-without-head" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1536"><rect width="1024" height="1536" fill="white"/><path d="M402 0 H666 V242 L594 267 L558 322 L488 320 L442 275 L402 245 Z" fill="black"/></mask>';
   return {assets:[portrait,hair,skin,...items],defs:bodyMask,front:`<g data-pose-head="${o.hairStyle}" transform="${transform}">${im(rendered)}${items.map(src=>im(src)).join('')}</g>`};
  }
- const loaded=new Map();let wanted='',revision=0;
+ const loaded=new Map();let wanted='',revision=0,assetEpoch=0;
  function load(src){if(!loaded.has(src))loaded.set(src,new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>{loaded.delete(src);reject(Error('Wardrobe asset unavailable: '+src))};img.src=src}));return loaded.get(src)}
  const image=(src,attrs='')=>`<image href="${src}" width="1024" height="1536" ${attrs}/>`;
  // All layer boundaries share the approved pose's 1024 x 1536 artboard.
@@ -62,8 +64,8 @@ return {label:art.label,svg:`<svg class="pose-equipped-art" viewBox="0 0 1024 15
  }
  async function refresh(){
   const source=window.getJapaneseMinerPoseOutfit?.();if(!source)return;if(!source.profile){host.hidden=true;wanted='';revision++;return;}host.hidden=false;
-  const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,source.shirt,'miner'),pants:known(pants,source.pants,'denim'),jacket:known(jackets,source.jacket,'none'),gloves:known(gloves,source.gloves,'none'),shoes:known(shoes,source.shoes,'boots'),holiday:known(holidays,source.holidaySpecial,'none'),hairStyle:known(heads,source.hairStyle,'short'),hairColor:hairColors.includes(source.hairColor)?source.hairColor:'brown',skin:skins.includes(source.skin)?source.skin:'warm',accessories:(source.accessories||[]).filter(id=>accessories.includes(id))};
-  const key=JSON.stringify(o);if(key===wanted)return;wanted=key;const token=++revision;
+  const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,source.shirt,'miner'),pants:known(pants,source.pants,'denim'),jacket:known(jackets,source.jacket,'none'),gloves:known(gloves,source.gloves,'none'),shoes:known(shoes,source.shoes,'boots'),holiday:known(holidays,source.holidaySpecial,'none'),hairStyle:known(heads,safeHair(source.hairStyle),'short'),hairColor:hairColors.includes(source.hairColor)?source.hairColor:'brown',skin:skins.includes(source.skin)?source.skin:'warm',accessories:(source.accessories||[]).filter(id=>accessories.includes(id))};
+  const key=JSON.stringify([ART_REVISION,assetEpoch,o]);if(key===wanted)return;wanted=key;const token=++revision;
   // Clear the prior account's outfit while the new account's images load.
   if(host.dataset.profile!==String(o.profile||'')){host.innerHTML='';host.dataset.profile=String(o.profile||'');}
   host.dataset.wardrobeStatus='loading';
@@ -78,8 +80,8 @@ return {label:art.label,svg:`<svg class="pose-equipped-art" viewBox="0 0 1024 15
  async function syncAvatar(avatar){
   const source=window.getJapaneseMinerPoseOutfit?.();if(!source?.profile)return;
   const d=avatar.dataset;
-  const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,d.shirt,'miner'),pants:known(pants,d.pants,'denim'),jacket:known(jackets,d.jacket,'none'),gloves:known(gloves,d.gloves,'none'),shoes:known(shoes,d.shoes,'boots'),holiday:known(holidays,d.holidaySpecial,'none'),hairStyle:known(heads,d.hairStyle,'spiky'),hairColor:hairColors.includes(d.hairColor)?d.hairColor:'brown',skin:skins.includes(d.skin)?d.skin:'warm',accessories:[...avatar.querySelectorAll('.portrait-accessory-image')].flatMap(img=>accessories.filter(a=>img.classList.contains(a)))};
-  const key=JSON.stringify(o);if(avatar._poseKey===key)return;avatar._poseKey=key;
+  const o={profile:source.profile,pickaxe:known(pickaxes,source.pickaxe,'standard'),top:known(tops,d.shirt,'miner'),pants:known(pants,d.pants,'denim'),jacket:known(jackets,d.jacket,'none'),gloves:known(gloves,d.gloves,'none'),shoes:known(shoes,d.shoes,'boots'),holiday:known(holidays,d.holidaySpecial,'none'),hairStyle:known(heads,safeHair(d.hairStyle),'spiky'),hairColor:hairColors.includes(d.hairColor)?d.hairColor:'brown',skin:skins.includes(d.skin)?d.skin:'warm',accessories:[...avatar.querySelectorAll('.portrait-accessory-image')].flatMap(img=>accessories.filter(a=>img.classList.contains(a)))};
+  const key=JSON.stringify([ART_REVISION,assetEpoch,o]);if(avatar._poseKey===key)return;avatar._poseKey=key;
   try{
    if(!avatarCache.has(key)){const task=buildOutfit(o);avatarCache.set(key,task);task.catch(()=>avatarCache.delete(key));while(avatarCache.size>80)avatarCache.delete(avatarCache.keys().next().value);}
    const art=await avatarCache.get(key);if(!avatar.isConnected||avatar._poseKey!==key)return;
@@ -92,7 +94,7 @@ return {label:art.label,svg:`<svg class="pose-equipped-art" viewBox="0 0 1024 15
  function syncPreviews(){document.querySelectorAll('.miner-avatar').forEach(syncAvatar);}
  window.LanguageMinerPoseWardrobe=Object.freeze({refresh,syncAvatar});
  new MutationObserver(syncPreviews).observe(document.body,{childList:true,subtree:true});
- window.addEventListener('jm-recolors-ready',syncPreviews);
+ window.addEventListener('jm-recolors-ready',()=>{assetEpoch++;loaded.clear();avatarCache.clear();wanted='';document.querySelectorAll('.miner-avatar').forEach(a=>a._poseKey='');syncPreviews();refresh();});
  setInterval(syncPreviews,1500);syncPreviews();
  for(const name of ['jm-profile-loaded','jm-profile-logged-out','jm-recolors-ready'])window.addEventListener(name,refresh);
  document.addEventListener('click',event=>{if(event.target.closest('[data-character-key],[data-avatar-fashion-key],[data-holiday-special],#randomizeCharacterBtn'))setTimeout(refresh,0)});

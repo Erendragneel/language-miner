@@ -1,5 +1,7 @@
 /* Prepared, pose-aligned reward cels. This module reads appearance; it never saves it. */
 (()=>{'use strict';
+ const ART_REVISION='hair-clearance-20261014';
+ const safeHair=style=>window.LanguageMinerHairStyles?.resolve(style,'short')||({regalsweep:'undercut',sidesweep:'wavy',flamespikes:'spiky',texturedcrop:'short'}[style]||style);
  const WIDTH=320,HEIGHT=327,DIR='reward-animation/',CACHE_LIMIT=6;
  const palette={
   skin:{light:'#f5bd92',warm:'#bf8259',tan:'#98613f',deep:'#643e2d'},
@@ -13,7 +15,7 @@
  const item=(kind,key,fallback)=>enums[kind].includes(key)?key:fallback;
  function normalize(source={}){
   if(!source||typeof source!=='object')source={};
-  return Object.freeze({profile:typeof source.profile==='string'?source.profile:'',skin:own(palette.skin,source.skin,'warm'),hairStyle:item('hairStyle',source.hairStyle,'short'),hairColor:item('hairColor',source.hairColor,'brown'),shirt:own(palette.shirt,source.shirt,'miner'),pants:own(palette.pants,source.pants,'denim'),jacket:item('jacket',source.jacket,'none'),gloves:own(palette.gloves,source.gloves,'none'),shoes:item('shoes',source.shoes,'boots'),holidaySpecial:item('holidaySpecial',source.holidaySpecial,'none'),pickaxe:own(palette.pickaxe,source.pickaxe,'standard'),accessories:Object.freeze((Array.isArray(source.accessories)?source.accessories:[]).filter(x=>enums.accessories.includes(x)).slice(-1))});
+  return Object.freeze({profile:typeof source.profile==='string'?source.profile:'',skin:own(palette.skin,source.skin,'warm'),hairStyle:item('hairStyle',safeHair(source.hairStyle),'short'),hairColor:item('hairColor',source.hairColor,'brown'),shirt:own(palette.shirt,source.shirt,'miner'),pants:own(palette.pants,source.pants,'denim'),jacket:item('jacket',source.jacket,'none'),gloves:own(palette.gloves,source.gloves,'none'),shoes:item('shoes',source.shoes,'boots'),holidaySpecial:item('holidaySpecial',source.holidaySpecial,'none'),pickaxe:own(palette.pickaxe,source.pickaxe,'standard'),accessories:Object.freeze((Array.isArray(source.accessories)?source.accessories:[]).filter(x=>enums.accessories.includes(x)).slice(-1))});
  }
  // Coordinates are registered to the approved 310.25 x 317 source cells.
  // A material must pass both its local polygon and its original pigment mask.
@@ -197,7 +199,7 @@
   return Object.freeze({frames:Object.freeze(frames),width:WIDTH,height:HEIGHT,key,outfit});
  }
  function prepare(source){
-  const outfit=normalize(source),key=JSON.stringify(outfit);
+  const outfit=normalize(source),key=JSON.stringify([ART_REVISION,outfit]);
   if(prepared.has(key)){const existing=prepared.get(key);prepared.delete(key);prepared.set(key,existing);return existing;}
   const task=build(outfit,key);prepared.set(key,task);while(prepared.size>CACHE_LIMIT)prepared.delete(prepared.keys().next().value);
   task.catch(()=>{if(prepared.get(key)===task)prepared.delete(key);});return task;

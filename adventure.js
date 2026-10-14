@@ -30,7 +30,7 @@
   const profile=window.japaneseMinerActiveProfile?.();document.body.classList.toggle('adventure-signed-in',!!profile);
   const avatarButton=nav.querySelector('.adventure-avatar-edit');
   if(avatarButton&&window.japaneseMinerCharacterMarkup&&typeof state==='object'){
-   const key=JSON.stringify([profile?.id,state.character,state.v5?.fashion,state.v5?.holidaySpecial,window.japaneseMinerSupporterTier?.(),Object.keys(window.JM_RECOLOR_DATA||{}).length]);
+   const key=JSON.stringify([window.LanguageMinerHairStyles?.revision,profile?.id,state.character,state.v5?.fashion,state.v5?.holidaySpecial,window.japaneseMinerSupporterTier?.(),Object.keys(window.JM_RECOLOR_DATA||{}).length]);
    if(key!==avatarAppearanceKey){avatarAppearanceKey=key;avatarButton.innerHTML=window.japaneseMinerCharacterMarkup('large');const avatar=avatarButton.querySelector('.miner-avatar');avatar?.setAttribute('aria-hidden','true');window.syncJapaneseMinerRenderedLayers?.(avatar);}
   }
   const name=nav.querySelector('.adventure-avatar strong');if(name&&name.textContent!==profile?.name)name.textContent=profile?.name||'Player';

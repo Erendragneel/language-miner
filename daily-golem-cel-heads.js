@@ -1,5 +1,7 @@
 /* Three-view anime heads registered at each cel's neck; no body deformation. */
 (()=>{'use strict';
+ const ART_REVISION='hair-clearance-20261014';
+ const safeHair=style=>window.LanguageMinerHairStyles?.resolve(style,'short')||({regalsweep:'undercut',sidesweep:'wavy',flamespikes:'spiky',texturedcrop:'short'}[style]||style);
  const styles=['short','spiky','bob','long','bun','buzz','ponytail','wavy','undercut','twintails','regalsweep','sidesweep','flamespikes','texturedcrop'];
  const boxes=[
   [[119,21,315,238],[387,24,578,237],[649,24,836,237]],
@@ -98,8 +100,8 @@
  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
  function path(ctx,p){ctx.beginPath();ctx.moveTo(p[0],p[1]);for(let j=2;j<p.length;j+=2)ctx.lineTo(p[j],p[j+1]);ctx.closePath();}
  async function head(style,view,skinColor,hairColor){
-  const id=Math.max(0,styles.indexOf(style)),key=[id,view,skinColor,hairColor].join(':');if(heads.has(key))return heads.get(key);
-  const promise=(async()=>{const im=await load('reward-animation/heads-'+(id<7?1:2)+'.webp');const b=boxes[id][view],w=b[2]-b[0],h=b[3]-b[1],c=canvas(w,h),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,b[0],b[1],w,h,0,0,w,h);const d=ctx.getImageData(0,0,w,h),p=d.data;
+  const id=Math.max(0,styles.indexOf(safeHair(style))),key=[ART_REVISION,id,view,skinColor,hairColor].join(':');if(heads.has(key))return heads.get(key);
+  const promise=(async()=>{const im=await load('reward-animation/heads-'+(id<7?1:2)+'.webp?v='+ART_REVISION);const b=boxes[id][view],w=b[2]-b[0],h=b[3]-b[1],c=canvas(w,h),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,b[0],b[1],w,h,0,0,w,h);const d=ctx.getImageData(0,0,w,h),p=d.data;
    // A few neighboring silhouettes overlap the bounding rectangle. Retain only
    // this head's connected alpha component, not a neighboring row's loose hair.
    const seen=new Uint8Array(w*h);let largest=[];

@@ -1,6 +1,6 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.291-web-legal-r124';
-const BUILD_VERSION='6.4.291';
+const CACHE_NAME='language-miner-v6.4.292-hair-rights-r125';
+const BUILD_VERSION='6.4.292';
 const REEL_CACHE='lm-reward-reels-caption-r291';
 const PICTURE_CACHE='lm-picture-assets-clarity-r120';
 const PRONUNCIATION_CACHE='lm-pronunciation-azure-20261008';
