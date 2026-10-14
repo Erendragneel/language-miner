@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-14",
+  "websiteVersion": "6.4.291",
+  "androidVersion": "6.4.289-play.11",
+  "androidVersionCode": 11,
+  "androidSha256": "748469CB1EF29F70D5B11C05F152726AE25D5CF21EEB5F2BE4B77215EAA5A920",
+  "additionalPaidRequests": 0,
+  "newPaidResources": 0,
+  "privacyPolicyVersion": "2026-10-14-v2",
+  "privacyPolicyUrl": "https://erendragneel.github.io/language-miner/android-privacy.html",
+  "completed": {
+    "licenseAttributionUpdated": true,
+    "paidAzureExistingOutputPermissionSupported": true,
+    "boppyExistingStaticMusicPermissionSupported": true,
+    "legacyGenerationRecordsRecovered": 17,
+    "currentPortraitDerivativesHashMatched": 14,
+    "websiteReelsWithoutAudio": 51,
+    "preservedCaptionLines": 204,
+    "preservedVideoFrames": 29376,
+    "captionRuntimeScenariosPassed": 63,
+    "legacyUnreferencedNarratedVideosExcluded": 3,
+    "androidSignedCandidateVerified": true,
+    "androidPackagedAssetsVerified": 62637,
+    "androidLearningScenariosPassed": 79,
+    "disabledBillingInitializationGuard": true
+  },
+  "remaining": {
+    "thirdPartyHairstyleReferencePermission": "Not established for four variants and affected derivatives; owner source question pending",
+    "nativeEditorialReview": "Qualified certification not established",
+    "liveWebsiteCloudPrivacyOperations": "Deployment and operational verification still required",
+    "targetAudienceAndContentRating": "Owner declaration and contextual review still required",
+    "googlePlayDataSafety": "Final device/SDK verification and owner declaration still required",
+    "reviewerAccess": "Paid tiers remain unavailable; review route needed before enabling restricted features",
+    "googlePlaySigningAndExport": "Factual sources inspected; owner declarations/platform acceptance not performed",
+    "subscriptions": "Verifier and products not activated; checkout remains disabled",
+    "realDeviceAndGooglePlayTesting": "Not completed"
+  },
+  "releaseClearanceEstablished": false,
+  "legalCertification": false,
+  "uploadedToGooglePlay": false
+}

@@ -1,6 +1,6 @@
-# Language Miner v6.4.290
+# Language Miner v6.4.291
 
-Current web update: [corrected wording, recorded audio, and clearer pictures](RELEASE-NOTES-v6.4.290.md). The website now includes the content corrections already installed in the Android testing candidate and preserves the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). The recorded AI wording review covers 22,780 forms; qualified native review remains open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
+Current web update: [privacy and license disclosures](RELEASE-NOTES-v6.4.291.md). The previous [wording, recorded audio, and picture update](RELEASE-NOTES-v6.4.290.md) remains included. The website now includes the content corrections already installed in the Android testing candidate and preserves the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). The recorded AI wording review covers 22,780 forms; qualified native review remains open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
 
 ## Illustrated Expedition Hub
 

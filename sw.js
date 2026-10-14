@@ -1,6 +1,7 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.290-web-content-r123';
-const BUILD_VERSION='6.4.290';
+const CACHE_NAME='language-miner-v6.4.291-web-legal-r124';
+const BUILD_VERSION='6.4.291';
+const REEL_CACHE='lm-reward-reels-caption-r291';
 const PICTURE_CACHE='lm-picture-assets-clarity-r120';
 const PRONUNCIATION_CACHE='lm-pronunciation-azure-20261008';
 const META_CACHE='language-miner-update-guardian-meta';
@@ -299,12 +300,13 @@ self.addEventListener('fetch',event=>{
   if((url.pathname.includes('/audio/voices/')||url.pathname.includes('/audio/stories/')||(url.pathname.includes('/patreon-reels/')&&url.pathname.endsWith('.mp4')))){
     event.respondWith((async()=>{
       const isReel=url.pathname.includes('/patreon-reels/');
-      const cache=await caches.open(isReel?'lm-reward-reels-v285':PRONUNCIATION_CACHE),headers=new Headers(request.headers);headers.delete('range');
+      const cache=await caches.open(isReel?REEL_CACHE:PRONUNCIATION_CACHE),headers=new Headers(request.headers);headers.delete('range');
       // Older cached pages can finish their session while the complete updater
       // installs the new lookup code. Both paths share the corrected audio cache.
       const legacyAudio=!isReel&&url.hostname==='erendragneel.github.io'&&url.pathname.startsWith('/language-miner/audio/');
-      const canonicalUrl=legacyAudio?url.href.replace('/language-miner/audio/','/language-miner-audio/audio/'):request.url;
-      const fullRequest=new Request(canonicalUrl,{headers,cache:isReel?request.cache:'reload'});let response=await cache.match(fullRequest);
+      const reelUrl=new URL(request.url);if(isReel){reelUrl.search='';reelUrl.searchParams.set('rev','caption-only-r291');}
+      const canonicalUrl=isReel?reelUrl.href:legacyAudio?url.href.replace('/language-miner/audio/','/language-miner-audio/audio/'):request.url;
+      const fullRequest=new Request(canonicalUrl,{headers,cache:'reload'});let response=await cache.match(fullRequest);
       if(!response){response=await fetch(fullRequest);if(response.status===200){try{await cache.put(fullRequest,response.clone());}catch{ /* Storage limits must not prevent playback. */ }}}
       const range=request.headers.get('range');if(!range||response.status!==200)return response;
       const match=/^bytes=(\d*)-(\d*)$/.exec(range);if(!match)return response;

@@ -4,6 +4,9 @@
 # Local copies remain available for previews and paired offline packages.
 /audio/voices/
 /audio/stories/
+/patreon-tier-1-feature-reel.mp4
+/patreon-tier-2-feature-reel.mp4
+/patreon-tier-3-feature-reel.mp4
 node_modules/
 .env
 .env.local

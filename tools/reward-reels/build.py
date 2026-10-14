@@ -1,4 +1,7 @@
-"""Build 17 recorded-language variants from current game art. Resumable TTS cache.
+"""Historical narrated-reel source, retained only as a creation record.
+
+Generation is disabled: current reels are caption-only and require no TTS.
+Use the installed silent assets and tools/reward-reels/verify.py for release QA.
 
 Requires Pillow, PyAV, edge-tts and imageio-ffmpeg. Run from the repository root.
 Captions are rendered by the player, so the shared artwork has no English copy.
@@ -9,7 +12,6 @@ from concurrent.futures import ThreadPoolExecutor
 
 for directory in os.environ.get('REEL_PYTHON_DEPS', '').split(os.pathsep):
     if directory: sys.path.insert(0, directory)
-import edge_tts
 import av
 import imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
@@ -38,6 +40,7 @@ def run(args):
     if result.returncode: raise RuntimeError(result.stderr.decode('utf-8', errors='replace'))
 
 async def narration():
+    raise RuntimeError("Historical Edge narration generation is disabled; current website reels are caption-only.")
     limit = asyncio.Semaphore(6)
     async def clip(lang, index, text):
         key = hashlib.sha256((VOICES[lang] + text).encode()).hexdigest()[:16]

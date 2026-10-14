@@ -1,4 +1,4 @@
-// Language Miner v6.4.285 - recorded narration and captions follow the known language.
+// Language Miner v6.4.291 - silent feature videos with captions in the known language.
 (() => {
   'use strict';
 
@@ -13,6 +13,7 @@
   let watchedMs = 0;
   let lastSlide = -1;
   let returnFocus = null;
+  const cardViews = new WeakMap();
 
   function knownLanguage(){
     const code=String(window.LanguageMinerI18n?.getContext?.().known || document.documentElement.dataset.lmKnownLanguage || 'en').toLowerCase().split('-')[0];
@@ -25,7 +26,7 @@
     const language=knownLanguage(),locale=window.LanguageMinerPatreonReelLocales?.languages?.[language];
     if(!locale || locale.lines.length !== 12) return null;
     return {...base, language, title:`Patreon · ${base.tier} · ${locale.name}`,
-      image:`patreon-reels/v285/tier-${base.tier}.jpg`, video:`patreon-reels/v285/${language}/tier-${base.tier}.mp4`,
+      image:`patreon-reels/v285/tier-${base.tier}.jpg`, video:`patreon-reels/v285/${language}/tier-${base.tier}.mp4?rev=caption-only-r291`,
       slides:locale.lines.slice((base.tier-1)*4,base.tier*4).map(line=>['',line])};
   }
   function seconds(value){
@@ -75,7 +76,7 @@
         <img src="${tier.image}" alt="">
         <span>${escapeHtml(tier.title)}</span>
         <strong>${escapeHtml(tier.slides[0][1])}</strong>
-        <small>🔊 ${escapeHtml(copy('watch'))} · +1 ❤️</small>
+        <small>▶ ${escapeHtml(copy('watch'))} · +1 ❤️</small>
       </button>`).join('')}
     </div>`;
   }
@@ -134,10 +135,9 @@
   function videoMarkup(tier, durationMs){
     return `<section class="patreon-tier-video" style="--tier-accent:${tier.accent}">
       <div class="patreon-tier-video-frame">
-        <video id="patreonTierVideo" src="${tier.video}" lang="${tier.language}" poster="${tier.image}" preload="auto" playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback" tabindex="0" aria-label="${escapeHtml(copy('tap'))}">
+        <video id="patreonTierVideo" src="${tier.video}" lang="${tier.language}" poster="${tier.image}" preload="auto" playsinline muted disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback" tabindex="0" aria-label="${escapeHtml(copy('tap'))}" aria-describedby="patreonVideoCaption">
           ${escapeHtml(copy('error'))}
         </video>
-        <button id="patreonVideoSound" class="patreon-tier-video-sound" type="button" aria-pressed="false" aria-label="${escapeHtml(copy('soundOff'))}">🔊 ${escapeHtml(copy('soundOn'))}</button>
       </div>
       <div class="patreon-tier-video-caption show" lang="${tier.language}"><p id="patreonVideoCaption">${escapeHtml(tier.slides[0][1])}</p></div>
       <div class="patreon-tier-video-progress" role="progressbar" aria-label="${escapeHtml(copy('watch'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="patreonVideoProgress"></i></div>
@@ -220,18 +220,10 @@
     content.innerHTML = videoMarkup(tier, started.durationMs);
     content.querySelector('#patreonVideoCancel')?.addEventListener('click', closeOverlay);
     const video = content.querySelector('#patreonTierVideo');
-    const soundButton = content.querySelector('#patreonVideoSound');
-    const updateSoundButton = () => {
-      if(!video || !soundButton) return;
-      const muted = video.muted || video.volume === 0;
-      soundButton.textContent = (muted ? '🔇 ' : '🔊 ') + copy(muted?'soundOff':'soundOn');
-      soundButton.setAttribute('aria-pressed', String(muted));
-      soundButton.setAttribute('aria-label', copy(muted?'soundOn':'soundOff'));
-    };
     if(video){
-      video.muted = false;
-      video.defaultMuted = false;
-      video.volume = 0.9;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
     }
     video?.addEventListener('click', () => video.paused ? video.play().catch(() => {}) : video.pause());
     video?.addEventListener('keydown', event => {
@@ -239,15 +231,14 @@
       event.preventDefault();
       video.paused ? video.play().catch(() => {}) : video.pause();
     });
-    video?.addEventListener('volumechange', updateSoundButton);
-    video?.addEventListener('ratechange', () => { if(video.playbackRate!==1) video.playbackRate=1; });
-    soundButton?.addEventListener('click', event => {
-      event.stopPropagation();
-      if(!video) return;
-      video.muted = !video.muted;
-      if(!video.muted && video.volume === 0) video.volume = 0.9;
-      updateSoundButton();
+    // Caption-only media has no audio stream or sound control. Keep it muted
+    // if a browser or accessibility action changes a native volume property.
+    video?.addEventListener('volumechange', () => {
+      if(!video.muted) video.muted=true;
+      if(video.volume!==0) video.volume=0;
     });
+    video?.addEventListener('ratechange', () => { if(video.playbackRate!==1) video.playbackRate=1; });
+    video?.addEventListener('timeupdate', () => tickVideo(tier));
     video?.addEventListener('ended', () => completeVideo(tier), {once:true});
     video?.addEventListener('error', () => {
       stopWatching(true);
@@ -258,7 +249,6 @@
       const note = content.querySelector('.patreon-tier-video-note');
       if(note) note.textContent = copy('tap');
     });
-    updateSoundButton();
     tickVideo(tier);
     watchTimer = setInterval(() => tickVideo(tier), 100);
   }
@@ -315,13 +305,25 @@
     if(!shouldShow) return;
     if(status.eligible){
       card.classList.remove('cooldown');
-      card.innerHTML = `<span>❤️ +1 · Patreon</span><h4>${escapeHtml(copy('title'))}</h4><p>${escapeHtml(copy('intro'))}</p><button id="openPatreonHeartVideos" class="primary" type="button">${escapeHtml(copy('watch'))}</button>`;
-      card.querySelector('#openPatreonHeartVideos')?.addEventListener('click', openOverlay);
+      updateCardContent(card, `<span>❤️ +1 · Patreon</span><h4>${escapeHtml(copy('title'))}</h4><p>${escapeHtml(copy('intro'))}</p><button id="openPatreonHeartVideos" class="primary" type="button">${escapeHtml(copy('watch'))}</button>`);
     }else{
       card.classList.add('cooldown');
       const wait = formatCooldown(status.remainingMs);
-      card.innerHTML = `<span>❤️ +1 · Patreon</span><h4>⏳ ${knownLanguage()==='en'?'Available again in ':''}${escapeHtml(wait)}</h4><p>${escapeHtml(copy('intro'))}</p><button type="button" disabled>${escapeHtml(copy('watch'))}</button>`;
+      updateCardContent(card, `<span>❤️ +1 · Patreon</span><h4>⏳ ${knownLanguage()==='en'?'Available again in ':''}${escapeHtml(wait)}</h4><p>${escapeHtml(copy('intro'))}</p><button type="button" disabled>${escapeHtml(copy('watch'))}</button>`);
     }
+  }
+
+  function updateCardContent(card, markup){
+    const previous=cardViews.get(card);
+    const button=card.querySelector('#openPatreonHeartVideos');
+    // Frequent progress/reward refreshes must not detach the Watch button
+    // between pointer-down and click. Redraw only when its displayed content
+    // changes, or another renderer replaced the owned button.
+    if(previous?.markup===markup && previous.button===button) return;
+    card.innerHTML=markup;
+    const nextButton=card.querySelector('#openPatreonHeartVideos');
+    nextButton?.addEventListener('click',openOverlay);
+    cardViews.set(card,{markup,button:nextButton});
   }
 
   window.LanguageMinerPatreonHeartVideos = Object.freeze({refresh, open:openOverlay});

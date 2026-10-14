@@ -1,32 +1,34 @@
 # Educational and advertising claims register
 
-Audit date: 2026-08-15
+Source/evidence review: 2026-10-14. The historical register originated 2026-08-15. This is a project copy/evidence guide, not approval of every advertisement or legal certification.
 
-## Claims now permitted in the game
+## Claims supported only within their stated scope
 
-- “Practice,” “review,” “course progress,” and “in-game mastery” when the metric is calculated from the player's recorded answers.
-- “JLPT N5-oriented practice,” “CEFR A1-oriented practice,” and comparable framework wording when the app also displays the independent/non-certification notice.
-- Exact, verifiable product facts such as the number of bundled lessons, questions, review cards, or supported interface languages.
-- “Fastest perfect time” only when the attempt rules and stored timing method are shown.
-- Benefits phrased as possibilities: “helps learners practice,” “gives teachers a read-only progress view,” or “supports spaced review.”
+- Practice, review, course progress and in-game mastery describe game activity. Mastery/accuracy must reflect the released metric and distinguish assistance from independent recall. Historical mastery was not retrospectively certified or reset by the October fixes.
+- JLPT N5-oriented practice, CEFR A1-oriented practice and similar wording require accurate actual content plus the independent/non-certification notice. They do not imply complete exam coverage, official alignment, accreditation or guaranteed results.
+- Product counts require checking the exact edition and counting method. October shared-vocabulary checks cover 1,000 rows, 22,780 current forms and 17 languages; they do not establish equal depth, full courses or certified accuracy for every language.
+- Describe tested features and modest purposes, such as vocabulary practice, recorded pronunciation and scheduled review. "Helps learners practice" is a purpose statement, not evidence of a measured learning benefit.
+- Describe teacher summary access only where the released edition actually provides it and consent/authorization behavior is verified. Website cloud and Play offline editions differ.
+- Advertised prices/benefits must match active checkout and entitlement logic in the relevant edition. Patreon and Play subscriptions are separate. The Android candidate has no configured verifier and must not be advertised as accepting working subscriptions.
 
-## Claims that require evidence before publication
+## Stronger claims require substantiation
 
-- A measured percentage improvement in learning, retention, grades, test scores, or time-to-fluency.
-- “Proven,” “guaranteed,” “best,” “complete fluency,” “official preparation,” or “certified.”
-- A claim that the app covers an entire external exam or guarantees a passing score.
-- Testimonials that state results unless the result is typical and substantiated, or the atypical result is clearly disclosed.
-- “Safe for children” as an absolute claim. Use specific statements about the implemented controls instead.
+- Measured learning, retention, grade, external test-score or time-to-fluency improvement requires suitable evaluation, calculations and limitations.
+- Proven, guaranteed, official, certified, full proficiency/exam coverage and objective comparisons require evidence appropriate to their meaning. "Best" is context dependent; do not approve an unsupported objective comparison as fact.
+- Results testimonials need truthful experiences, appropriate substantiation and clear expected-results/material-relationship disclosures. A generic "results may vary" disclaimer does not establish substantiation.
+- Avoid absolute "safe for children" or "all languages are accurate" claims. State specific verified controls and review coverage. Intended all-age availability is not child-safety certification.
+- Code tests and sampled playthroughs establish only exercised behavior. They do not prove teaching effectiveness, native-language accuracy or external proficiency.
 
-## Implemented wording controls
+FTC guidance requires truthful advertising and supporting evidence before publication. See [FTC Advertising FAQs](https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business).
 
-- Expedition maps display: “Independent practice pathway.”
-- The map notice states that framework names describe practiced skills and that Language Miner does not issue CEFR, JLPT, TOPIK, HSK, or DALF certification.
-- The final map destination is “Advanced practice milestone,” not “Master Mine.”
-- The Japanese N1 route is named “JLPT N1 Practice Mine.”
-- Policies and third-party notices state that Language Miner is independent and unaffiliated.
-- Terms explain that scores are internal estimates, not professional, school, or certification results.
+## Current score and source meaning
 
-## Evidence file to maintain
+- Maps display Independent practice pathway and non-certification notices for CEFR, JLPT, TOPIK, HSK and DALF. Practice routes and milestones describe game organization.
+- Terms explain internal metrics and educational limitations; they do not establish professional, school or certification results.
+- October N5 assessments now score submitted first answers to eligible real questions. They are internal practice assessments, not official JLPT exams, standardized proficiency estimates or qualification evidence. Canceled/incomplete sessions generate no score; old estimated scores do not enter the new assessment best score.
+- Detected reveals/hints count as practice without independent-recall, mastery or XP credit in the tested handlers. Historical scores and untested pathways must not be represented as newly certified independent recall.
+- Recorded wording flags were resolved and technical audio/picture checks passed. Qualified native editorial review remains incomplete. Do not advertise comprehensive language certification.
 
-For every public campaign, retain the final copy, screenshots/video, audience, publication dates, raw study data supporting quantified claims, calculation method, material limitations, and approval record. Patreon tier descriptions must match the entitlement logic in the released build on the date advertised.
+## Evidence to retain
+
+Retain exact final copy/media, edition/version, audience, publication dates, feature/count definitions, supporting evaluations or tests, limitations and review decisions. For memberships, retain the active catalog/price and verified entitlement behavior on the advertised date. Recheck claims after material scoring, content, checkout or policy changes.
