@@ -1,0 +1,354 @@
+{
+  "version": "6.4.289",
+  "baseCommit": "16cf229ed9ed3faccb567afe67313830fb75fb91",
+  "cacheRevision": "learning-quality-r122",
+  "date": "2026-10-14",
+  "scope": "Merged static website source; isolated VM tests; no live save, service, browser, publish, commit or push",
+  "scenarioCount": 79,
+  "suites": [
+    {
+      "command": "node tests/assisted-answer.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "PASS real kanji help followed by the final rendered answer chain earns no independent progress or rewards\nPASS wrong assisted attempt and later correct retry are counted once without heart loss\nPASS fresh unassisted kanji answer still updates actual question, Academy, analytics, XP and reward wrappers\nPASS a first independent wrong answer remains scored once; correct retries add nothing\nPASS revealing help after an already scored wrong answer cannot relabel it or erase the miss\nPASS the actual elimination hint marks kana practice as assisted, while a fresh kana answer still scores\nPASS helped advanced course questions cannot reach the JLPT item-mastery wrapper\nPASS studying a reference card records the visit without granting its former mastery bonus\nPASS helped Smart Review is assisted once, never remembered, and schedules relearning\nPASS a helped Smart Review miss followed by a correct retry cannot become remembered\nPASS independent Smart Review still counts remembered without ordinary course rewards\nPASS multilingual assisted practice bypasses the actual course scorer and economy, once\nPASS fresh multilingual recall still scores and its post-wrong retry earns no extra progress\nPASS 13 assisted-answer regression scenarios using current runtime handlers; isolated VM, no browser or live saves.\n",
+      "stderr": ""
+    },
+    {
+      "command": "node tests/n5-assessment.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "PASS 20 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS 50 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS 100 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS wrong first answers score zero even when mastery is already high\nPASS mixed right/wrong answers score actual recall, not a mastery estimate\nPASS repeated answer clicks, invalid answers and repeated Finish cannot duplicate scoring\nPASS partial progress and Cancel are not a completed test or a saved score\nPASS closing Academy aborts and releases assessment silence\nPASS profile change aborts before an old callback can write to the new profile\nPASS profile reload, same-ID save replacement and course-tab change invalidate sessions\nPASS too few eligible questions, placeholders and exposed answers cannot fake a result\nPASS valid decks exclude invalid items and refresh stale Japanese wording without rewriting the bank\nPASS a fresh runtime after refresh does not silently complete an unfinished assessment\nN5 assessment regression checks passed: 13 scenarios; actual shipped bank, recorder, UI click flow and offline integration.\n",
+      "stderr": ""
+    },
+    {
+      "command": "node tests/listening-clues.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "PASS eligibility retains real clues, rejects empty and reverse prompts, and waits for loading voices\nPASS Listening mine chooses a playable clue and does not score skipped reverse or empty entries\nPASS empty Listening lesson offers Reading and records no score or heart change\nPASS switching an active reverse question to Listening selects a real clue without scoring\nPASS switching a playable question retains it instead of taking a new question\nPASS replay waits for actual started and completed events\nPASS unrelated text or language events never change a replay status\nPASS audio, recording and device-voice failures provide a usable retry and written fallback\nPASS real recording promise rejection changes local Listening status and never uses Play device speech\nPASS synchronous refusal and thrown replay errors do not claim playback started\nPASS events for a replaced card cannot change detached feedback\nPASS reapplying the context removes old listeners and waits for a new request\nPASS cancellation reports stopped playback and offers replay without claiming completion\nPASS written Listening clues mark assistance before showing hidden text\nPASS silent tests and Smart Review keep their normal presentation without Listening controls\nListening clue regression suite: 15 checks passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": "node tests/answer-explanations.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "PASS generated missing-particle question teaches its rule, translation and completed displayed sentence\nPASS wrong particle choice keeps the correct rule and completed example, and explains how to retry\nPASS generated Academy grammar uses its existing definition and source example\nPASS generated advanced grammar uses its own course definition and example\nPASS generated vocabulary question uses the actual 1000-word bank for reading and meaning\nPASS vocabulary reading stays labeled Reading without duplicating it as an Example\nPASS generated reading question separates its translation from its Reading field\nPASS generated sentence preserves both the available translation and Japanese reading\nPASS HTML from help, answer, choice, translation and example stays plain and escaped\nPASS missing optional question fields remain safe without inventing a grammar rule or example\nPASS explanations preference suppresses both markup and the visible explanation panel\nPASS silent questions, active guardian tests and active N5 assessments reveal no teaching feedback\nPASS show API appends teaching inside the current question without changing scored progress\nPASS assisted-answer branch renders teaching while adding no recall/mastery/XP or heart change\nPASS v6 final answer wrapper uses accepted alternate answers to choose correct teaching feedback\nPASS multilingual correct, wrong and assisted consumers include teaching and respect the preference\nPASS explanation regression scenarios: 16 passed, 0 failed; current source in isolated VM.\n",
+      "stderr": ""
+    },
+    {
+      "command": "node tests/save-status.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "PASS main save: QuotaExceededError reports failure, never saved, retains cloud rescue\nPASS main save: SecurityError reports failure, never saved, retains cloud rescue\nPASS main save: successful retry emits exactly one saved event and writes current state\nPASS main save: no active profile does not persist, announce saved, or schedule cloud\nPASS main save: JSON serialization failure is handled like a failed write\nPASS snapshots: malformed JSON, object, null, and invalid rows cannot crash recovery\nPASS snapshots: QuotaExceededError does not escape or advance timestamp; later retry succeeds\nPASS snapshots: SecurityError does not escape or advance timestamp; later retry succeeds\nPASS snapshots: serialization error preserves timestamp and existing recovery copy\nPASS snapshots: guest/throttled skips return false and successful rotation retains three rows\nPASS v6 save wrapper: preserves actual result and a due snapshot never throws through save\nPASS courses: failed write returns false and uses a separate failed event\nPASS courses: quota/security failure preserves pending progress across reads and cloud export\nPASS courses: pending settings never bleed across accounts and successful retry persists them\nPASS courses: corrupt storage is safely read and a serialization failure is reported\nPASS courses: a local profile does not use an unrelated cloud session; older name keys still load safely\nPASS cloud: failed local writes still schedule sync and a server confirmation is reported separately\nPASS cloud: missing confirmation and rejected transport remain retryable errors\nPASS cloud: late success after a player switch never confirms the new player or changes its revision\nPASS cloud: a conflict cannot overwrite session progress when its recovery backup fails\nPASS status: current-player records are isolated, copied for readers, and hidden after logout\nPASS snapshot restore: a failed durable write keeps prior progress and reports failure; successful restore persists\n22/22 save-status regressions passed (isolated VM fixtures; no device/cloud verification).\n",
+      "stderr": ""
+    }
+  ],
+  "syntax": [
+    {
+      "command": "node --check game-6460.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check recovery-6460.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check v5-6400.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check v6.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check multilingual-preview.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check practice-modes.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check academy-assessment.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check adventure.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check sw.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check update-guardian.js",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check tests/assisted-answer.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check tests/n5-assessment.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check tests/listening-clues.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check tests/answer-explanations.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "node --check tests/save-status.test.cjs",
+      "passed": true,
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "scriptStyleReferences": {
+    "count": 90,
+    "missing": []
+  },
+  "offlineShell": {
+    "criticalCount": 61,
+    "appCount": 228,
+    "missing": [],
+    "assessmentIncluded": true
+  },
+  "preserved": [
+    {
+      "file": "daily-golem-art.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "daily-golem.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "daily-golem-cel-heads.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "daily-golem-cel-wardrobe.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "patreon-heart-videos.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "patreon-reel-locales.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "multilingual-course-data.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "vocabulary-sense-fixes.js",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "reward-animation/base.webp",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "reward-animation/heads-1.webp",
+      "unchangedFromLiveBase": true
+    },
+    {
+      "file": "reward-animation/heads-2.webp",
+      "unchangedFromLiveBase": true
+    }
+  ],
+  "sharedSourceComparison": [
+    {
+      "file": "game-6460.js",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "recovery-6460.js",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "v5-6400.js",
+      "normalizedSameAsAndroidSource": false
+    },
+    {
+      "file": "v6.js",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "multilingual-preview.js",
+      "normalizedSameAsAndroidSource": false
+    },
+    {
+      "file": "practice-modes.js",
+      "normalizedSameAsAndroidSource": false
+    },
+    {
+      "file": "academy-assessment.js",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "styles.css",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "v6-6460.css",
+      "normalizedSameAsAndroidSource": true
+    },
+    {
+      "file": "index.html",
+      "normalizedSameAsAndroidSource": false
+    },
+    {
+      "file": "sw.js",
+      "normalizedSameAsAndroidSource": false
+    },
+    {
+      "file": "adventure.js",
+      "normalizedSameAsAndroidSource": true
+    }
+  ],
+  "hashes": [
+    {
+      "file": "README.md",
+      "sha256": "aab1d9e45300c530829ac5983e6c38eb9d4dfca71254da82026d2609fb7bb145"
+    },
+    {
+      "file": "RELEASE-NOTES-v6.4.289.md",
+      "sha256": "0eeb6e2ef885e1589f76947252b5800903dcaae2f245d5ea52d805f0142f7362"
+    },
+    {
+      "file": "index.html",
+      "sha256": "d940968ca6c0a8f33dd82eff74e58cb82dced56915abdb3eae3b602e854b6e19"
+    },
+    {
+      "file": "sw.js",
+      "sha256": "aab59809e0ea2d0ed69156647e25a97dbc0ebe17407f825ee4d136a4ee7cde8c"
+    },
+    {
+      "file": "update-guardian.js",
+      "sha256": "a174d55ba0dbd7dccb5e8bb01f327818bafa013f6abae6865143bb74f06e9885"
+    },
+    {
+      "file": "styles.css",
+      "sha256": "a8ee90c486fe6ae0f06bbb421470308de0e13af25d811a2b658d778729a6d95b"
+    },
+    {
+      "file": "v6-6460.css",
+      "sha256": "9df564466621d80306d2ee10ceb27d755816f70bd7881a3a0975261592dcf958"
+    },
+    {
+      "file": "game-6460.js",
+      "sha256": "60ab56b585d661b7fee735967bd77343d3764b0a5c747cfd8c375bf42380778c"
+    },
+    {
+      "file": "recovery-6460.js",
+      "sha256": "0cee53cd7f3a942082333de2ac2af557ba37f2fdc3d81cf47b0a6e2e682c1334"
+    },
+    {
+      "file": "v5-6400.js",
+      "sha256": "3af8a825a5a24799ad70135448b58ce1f55532f80e4e102cd2218ca6bf77c24a"
+    },
+    {
+      "file": "v6.js",
+      "sha256": "8abc4848b05def92d20b53b0bb8cd337e58549051aef0e04254880769474db27"
+    },
+    {
+      "file": "multilingual-preview.js",
+      "sha256": "89fb70df711939498b25f200569d024d6acfca39a996d4958ca93940a2d73e5b"
+    },
+    {
+      "file": "practice-modes.js",
+      "sha256": "37cd918db2d566b07e5f08b72b28b53c904f1c81fad0583118791746f3fd403b"
+    },
+    {
+      "file": "academy-assessment.js",
+      "sha256": "e99bebfca40a5dd4422b4f1487d4d7ce4892d6d11f999734005e65e8348632f1"
+    },
+    {
+      "file": "adventure.js",
+      "sha256": "2c30e6fcf54df9db7fdf3ccc40c4c1a63bb9cae9cd9b38baee07bc6ee6537659"
+    },
+    {
+      "file": "tests/assisted-answer.test.cjs",
+      "sha256": "ba3019ac37f65055d4406720a13b2a990d9a3dd63029916f83aa5645db0ffbb0"
+    },
+    {
+      "file": "tests/n5-assessment.test.cjs",
+      "sha256": "6011ef781751fbe8c7627e70f1e175df104615b0e88e2688896301dd3916d8e2"
+    },
+    {
+      "file": "tests/listening-clues.test.cjs",
+      "sha256": "6d3a4a07ceb3d69b3287123ddb46d7894958bccdc1c63ccc1f306fb21c205e94"
+    },
+    {
+      "file": "tests/answer-explanations.test.cjs",
+      "sha256": "8e862d2922de51013555b4ee8824aa6097bad763cca963c990e7d538d3728f6b"
+    },
+    {
+      "file": "tests/save-status.test.cjs",
+      "sha256": "c81b6dfdd25c5f20321d7bce3f16079973c5f6597cba554f65f5a9281d96de5e"
+    },
+    {
+      "file": "tests/README.md",
+      "sha256": "bf4e402c77c945e7b7d65de6db64c033a85a40ec44d98cb4fadc795e57d4a178"
+    }
+  ],
+  "passed": true,
+  "browserSmoke": {
+    "scope": "Actual merged source at isolated localhost origin; synthetic QA profile; live services disabled",
+    "extraLargeText": "Enabled through Settings",
+    "hintedAnswer": "Assisted feedback; XP and lesson mastery stayed zero",
+    "n5Assessment": "Actual answer controls advanced through question 9; Cancel returned No result yet",
+    "completedBrowserAssessment": false,
+    "liveProgressTouched": false,
+    "toolLimit": "A longer answer batch timed out in the browser-control tool; no completed assessment score is claimed for this smoke run"
+  }
+}

@@ -583,11 +583,11 @@ function loadProfile(profile,verifiedCloudAdmin=false){
   cloudSaveEpoch++;clearTimeout(cloudSaveTimer);cloudSaveTimer=null;
   activeProfileId=profile.id;
   isDeveloperSession=verifiedCloudAdmin===true&&!!profile.cloudUserId;
-  localStorage.setItem(ACTIVE_PROFILE_KEY,profile.id);
+  try{localStorage.setItem(ACTIVE_PROFILE_KEY,profile.id);}catch{setGameSaveStatus('local','error','This device could not remember the selected player. Progress is kept in this session.');}
   setAuthOverlayVisible(false);
   let raw=null;
   try{raw=JSON.parse(localStorage.getItem(profileStorageKey(profile.id)));}catch{}
-  state=normalizeState(raw);
+  state=normalizeState(pendingGameSaves.get(profile.id)||raw);
   const tutorStateRepaired=repairTutorAccessState();
   const dailyStateChanged=applyDailyDecay();
   const unlockedGemRewards=grantUnlockedGemRewards();
@@ -621,21 +621,67 @@ window.languageMinerApplyVerifiedAdminIdentity=identity=>{if(window.LANGUAGE_MIN
 window.languageMinerLogout=logout;
 const CLOUD_COURSE_STORAGE_PREFIX="lm_multilingual_functional_preview_v1:";
 let cloudSaveRevision=0,cloudSaveTimer=null,cloudSaveApplying=false,cloudSaveEpoch=0,cloudSaveFlight=null,cloudResetAt='';
+// These recovery/status records belong only to this browser session and player.
+// Failed storage must not be presented as durable progress or leak on switching.
+const pendingGameSaves=new Map(),gameSaveStatuses=new Map();
+let gameSaveRetryFlight=null;
+function setGameSaveStatus(channel,status,message,profileId=activeProfileId){
+  if(!profileId)return false;
+  const record=gameSaveStatuses.get(profileId)||{};
+  record[channel]={status:String(status),message:String(message||''),at:Date.now()};gameSaveStatuses.set(profileId,record);
+  if(profileId===activeProfileId){try{renderGameSaveStatus();window.dispatchEvent(new CustomEvent('lm-save-status-changed',{detail:{profileId,channel,status:String(status)}}));}catch(error){console.warn('Language Miner save status could not be displayed',error);}}
+  return true;
+}
+function renderGameSaveStatus(){
+  let box=document.getElementById('lmSaveStatus');
+  if(!activeProfileId){if(box)box.hidden=true;return;}
+  const parent=document.querySelector('.app > header');if(!parent)return;
+  if(!box){box=document.createElement('section');box.id='lmSaveStatus';box.className='lm-save-status';box.setAttribute('aria-label','Save status');box.innerHTML='<div class="lm-save-status-copy" role="status" aria-live="polite" aria-atomic="true"></div><button type="button">Retry saving</button>';parent.after(box);box.querySelector('button').onclick=()=>retryGameSaves();}
+  const record=gameSaveStatuses.get(activeProfileId)||{},labels={local:'Device progress',courses:'Course progress',snapshots:'Safety snapshots',cloud:'Cloud sync'};
+  const rows=Object.entries(labels).filter(([channel])=>record[channel]?.message),hasError=rows.some(([channel])=>record[channel].status==='error');
+  box.hidden=!rows.length;box.dataset.saveState=hasError?'error':'saved';
+  const copy=box.querySelector('.lm-save-status-copy'),summary=rows.map(([channel,label])=>`${label}: ${record[channel].message}`).join('\n');
+  if(copy.dataset.saveSummary!==summary){copy.replaceChildren();rows.forEach(([channel,label])=>{const line=document.createElement('p');line.textContent=`${label}: ${record[channel].message}`;copy.append(line);});copy.dataset.saveSummary=summary;}
+  const retry=box.querySelector('button');retry.hidden=!hasError;retry.disabled=!!gameSaveRetryFlight;
+}
+async function retryGameSaves(){
+  if(!activeProfileId)return false;if(gameSaveRetryFlight)return gameSaveRetryFlight;
+  const profileId=activeProfileId,epoch=cloudSaveEpoch,record=gameSaveStatuses.get(profileId)||{},snapshotFailed=record.snapshots?.status==='error';
+  gameSaveRetryFlight=(async()=>{
+    const local=save(),courses=window.LanguageMinerCourseCloud?.retryPendingCurrent?.()??true;
+    const snapshotSaved=!snapshotFailed||window.LanguageMinerSafetySnapshots?.create?.(true)===true;
+    if(profileId!==activeProfileId||epoch!==cloudSaveEpoch)return false;
+    const profile=readProfiles().find(item=>item.id===profileId);
+    const cloud=profile?.cloudUserId?await pushCloudSave():null;
+    return local&&courses&&snapshotSaved&&gameSaveStatuses.get(profileId)?.snapshots?.status!=='error'&&(!profile?.cloudUserId||!!cloud);
+  })();
+  renderGameSaveStatus();
+  try{return await gameSaveRetryFlight;}catch{if(profileId===activeProfileId&&epoch===cloudSaveEpoch)setGameSaveStatus('cloud','error','Saving could not finish. Progress remains in this session. Retry saving.');return false;}
+  finally{gameSaveRetryFlight=null;renderGameSaveStatus();}
+}
+window.LanguageMinerSaveStatus=Object.freeze({current:()=>{const record=activeProfileId&&gameSaveStatuses.get(activeProfileId)||{};return Object.fromEntries(Object.entries(record).map(([channel,value])=>[channel,{...value}]));},retry:retryGameSaves,refresh:renderGameSaveStatus});
+window.addEventListener('jm-profile-loaded',renderGameSaveStatus);
+window.addEventListener('jm-profile-logged-out',renderGameSaveStatus);
 function cloudCourseAccountKey(userId){return `cloud:${userId}`;}
 function readCloudCourseSettings(userId){try{return JSON.parse(localStorage.getItem(CLOUD_COURSE_STORAGE_PREFIX+cloudCourseAccountKey(userId))||"null")||{};}catch{return {};}}
-function writeCloudCourseSettings(userId,value){try{localStorage.setItem(CLOUD_COURSE_STORAGE_PREFIX+cloudCourseAccountKey(userId),JSON.stringify(value&&typeof value==="object"?value:{}));}catch{}}
+function writeCloudCourseSettings(userId,value){try{localStorage.setItem(CLOUD_COURSE_STORAGE_PREFIX+cloudCourseAccountKey(userId),JSON.stringify(value&&typeof value==="object"?value:{}));return true;}catch{return false;}}
 function applyCloudSaveRecord(record,profile,renderNow=false){
   if(!record||!profile?.cloudUserId)return false;cloudSaveApplying=true;
   try{
     const remoteState=record.game_state&&typeof record.game_state==="object"?record.game_state:{},remoteCourses=record.course_settings&&typeof record.course_settings==="object"?record.course_settings:{};
     const reset=!!record.admin_reset_at&&String(record.admin_reset_at)!==cloudResetAt;
-    localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(normalizeState(remoteState)));writeCloudCourseSettings(profile.cloudUserId,remoteCourses);cloudSaveRevision=Math.max(0,Number(record.revision)||0);cloudResetAt=String(record.admin_reset_at||'');
+    const normalized=normalizeState(remoteState);let localSaved=false;
+    try{localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(normalized));localSaved=true;pendingGameSaves.delete(profile.id);}catch{pendingGameSaves.set(profile.id,normalized);}
+    const courseSaved=writeCloudCourseSettings(profile.cloudUserId,remoteCourses);cloudSaveRevision=Math.max(0,Number(record.revision)||0);cloudResetAt=String(record.admin_reset_at||'');
+    setGameSaveStatus('local',localSaved?'saved':'error',localSaved?'Progress saved on this device.':'Cloud progress is available in this session, but this device could not save it. Retry saving.',profile.id);
+    if(!courseSaved)setGameSaveStatus('courses','error','This device could not save the cloud course progress. Retry saving.',profile.id);
     if(activeProfileId===profile.id){state=normalizeState(remoteState);if(window.LanguageMinerCourseCloud?.importCurrent)window.LanguageMinerCourseCloud.importCurrent(remoteCourses,{reset});else window.dispatchEvent(new CustomEvent("lm-cloud-save-applied"));if(renderNow)render();}
     return true;
   }finally{cloudSaveApplying=false;}
 }
 function scheduleCloudSave(delay=900){
   if(cloudSaveApplying||!activeProfileId)return;const profile=readProfiles().find(item=>item.id===activeProfileId),session=window.languageMinerCloudAuth?.getSession?.();if(!profile?.cloudUserId||session?.user?.id!==profile.cloudUserId)return;
+  setGameSaveStatus('cloud','pending','Changes are waiting to sync.');
   if(cloudSaveFlight?.epoch===cloudSaveEpoch){cloudSaveFlight.queued=true;return;}
   clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(()=>{cloudSaveTimer=null;pushCloudSave();},Math.max(0,Number(delay)||0));
 }
@@ -649,25 +695,28 @@ async function pushCloudSave(){
   flight.promise=(async()=>{
     let result=null,lastSent='';
     try{
+      if(current())setGameSaveStatus('cloud','saving','Saving changes to your account.');
       do{
         flight.queued=false;if(!current())break;
         const serialized=snapshot();if(serialized===lastSent)break;lastSent=serialized;
         result=await cloud.savePlayerState({...JSON.parse(serialized),displayName:profile.name||"Player",email:profile.email||session.user?.email||"",baseRevision:cloudSaveRevision},session);
         if(!current())return null;
-        if(!result)return null;
+        if(!result||![true,false].includes(result.accepted)){setGameSaveStatus('cloud','error','The server did not confirm this save. Retry saving.');return null;}
         if(result.accepted===false){
           // Keep a recoverable local copy before accepting another device's or an admin's authoritative save.
-          try{localStorage.setItem('lm_cloud_conflict_backup:'+profile.id,JSON.stringify({savedAt:Date.now(),baseRevision:cloudSaveRevision,...JSON.parse(snapshot())}));}catch{}
+          let backupSaved=false;try{localStorage.setItem('lm_cloud_conflict_backup:'+profile.id,JSON.stringify({savedAt:Date.now(),baseRevision:cloudSaveRevision,...JSON.parse(snapshot())}));backupSaved=true;}catch{}
           const reset=!!result.admin_reset_at&&String(result.admin_reset_at)!==cloudResetAt;
+          if(!backupSaved&&!reset){setGameSaveStatus('cloud','error','A newer cloud save exists. This device’s progress is still in this session because a recovery copy could not be saved. Retry when device storage is available.');return null;}
           applyCloudSaveRecord(result,profile,true);flight.queued=false;
-          setMessage(reset?"An administrator reset was applied to this device.":"A newer cloud save was loaded. A recovery copy of this device’s progress was kept.","correct");break;
+          setMessage(reset?"An administrator reset was applied to this device.":"A newer cloud save was loaded. A recovery copy of this device’s progress was kept.","correct");setGameSaveStatus('cloud','saved',reset?'The administrator’s cloud reset was loaded.':'The newer cloud save was loaded; the previous device progress has a recovery copy.');break;
         }
         cloudSaveRevision=Math.max(cloudSaveRevision,Number(result.revision)||0);
         window.dispatchEvent(new CustomEvent('lm-cloud-save-clock',{detail:{user:profile.cloudUserId,updatedAt:result.updated_at}}));
+        setGameSaveStatus('cloud','saved','The server confirmed your progress.');
         if(snapshot()!==serialized)flight.queued=true;
       }while(flight.queued&&current());
       return result;
-    }catch(error){console.warn("Language Miner cloud save is temporarily unavailable.",error);return null;}
+    }catch(error){console.warn("Language Miner cloud save is temporarily unavailable.",error);if(current())setGameSaveStatus('cloud','error','Cloud saving is unavailable. Device saves remain separate; retry when connected.');return null;}
     finally{if(cloudSaveFlight===flight)cloudSaveFlight=null;}
   })();
   return flight.promise;
@@ -711,13 +760,16 @@ window.languageMinerCommitDailyGolem=async function(expectedDay){
   }finally{cloudSaveApplying=false;dailyGolemCommitFlight=false;}
 };
 window.addEventListener("lm-course-settings-saved",()=>scheduleCloudSave());
+window.addEventListener("lm-course-settings-save-failed",()=>scheduleCloudSave());
 function save(){
-  if(!activeProfileId) return;
+  if(!activeProfileId)return false;
   syncGemButtonUnlocks();
-  try{ localStorage.setItem(profileStorageKey(activeProfileId),JSON.stringify(state)); }
-  catch(err){ console.error("Language Miner save failed",err); }
+  let saved=false;
+  try{localStorage.setItem(profileStorageKey(activeProfileId),JSON.stringify(state));saved=true;pendingGameSaves.delete(activeProfileId);setGameSaveStatus('local','saved','Progress saved on this device.');}
+  catch(err){pendingGameSaves.set(activeProfileId,state);console.error("Language Miner save failed",err);setGameSaveStatus('local','error','This device could not save your latest progress. It remains in this session. Retry saving before closing the game.');window.dispatchEvent(new CustomEvent('lm-player-progress-save-failed',{detail:{profileId:activeProfileId,error:String(err?.name||'SaveError')}}));}
   scheduleCloudSave();
-  window.dispatchEvent(new Event('lm-player-progress-saved'));
+  if(saved)window.dispatchEvent(new Event('lm-player-progress-saved'));
+  return saved;
 }
 const LEARNING_REPORT_MAX_ATTEMPTS=500;
 function normalizeLearningReport(value){
@@ -1236,7 +1288,7 @@ function renderPath(){
       detail=`${STAGE_XP_REQUIREMENTS[i].toLocaleString()} XP • ${mastery}% mastery`;
     }else{
       badge=i===current?"Current":`${Math.floor(progress/STAGE_XP_REQUIREMENTS[i]*100)}% XP`;
-      detail=`${progress.toLocaleString()}/${STAGE_XP_REQUIREMENTS[i].toLocaleString()} XP • ${mastery}/${masteryNeed}% mastery`;
+      detail=`${progress.toLocaleString()}/${STAGE_XP_REQUIREMENTS[i].toLocaleString()} XP • ${mastery}% mastery · ${masteryNeed}% needed`;
     }
     d.innerHTML=`<div><strong>${s.label}</strong><div class="small">${detail}</div></div><span class="badge">${badge}</span>`;
     p.appendChild(d);
@@ -1571,7 +1623,7 @@ function buyOrEquipMineCosmetic(type,item){
 }
 
 let feedbackAudioContext=null;
-function silentTestingActive(question=state.active){return question?.silentTesting===true||state.v5?.boss?.status==='active';}
+function silentTestingActive(question=state.active){return window.LanguageMinerAcademyAssessment?.active?.()===true||question?.silentTesting===true||state.v5?.boss?.status==='active';}
 function playFeedbackSound(correct){
   if(silentTestingActive()) return;
   if(state.soundEnabled===false) return;
@@ -1632,6 +1684,7 @@ const VOICE_LANGUAGE_PROFILES={
 const VOICE_LANGUAGE_ALIASES={english:'en-US',spanish:'es-ES',russian:'ru-RU',japanese:'ja-JP',korean:'ko-KR',chinese:'zh-CN',mandarin:'zh-CN',italian:'it-IT',french:'fr-FR',german:'de-DE',portuguese:'pt-BR','brazilian portuguese':'pt-BR',vietnamese:'vi-VN',thai:'th-TH',turkish:'tr-TR',indonesian:'id-ID',polish:'pl-PL',greek:'el-GR',ukrainian:'uk-UA'};
 let languageMinerVoices=[],languageMinerVoiceSignature='',languageMinerVoiceEnumerationSettled=false,pendingLanguageMinerSpeech=null,languageMinerVoiceWaitTimer=0;
 function refreshLanguageMinerVoices(){
+  if(window.LANGUAGE_MINER_PLAY_EDITION){languageMinerVoices=[];languageMinerVoiceEnumerationSettled=true;return languageMinerVoices;}
   if(!('speechSynthesis'in window))return languageMinerVoices;
   const voices=speechSynthesis.getVoices(),signature=voices.map(voice=>`${voice.name}|${voice.lang}|${voice.voiceURI}`).join('\n'),changed=signature!==languageMinerVoiceSignature;
   languageMinerVoices=voices;languageMinerVoiceSignature=signature;
@@ -1639,7 +1692,7 @@ function refreshLanguageMinerVoices(){
   if(changed){document.documentElement.dataset.lmNativeVoiceCount=String(voices.length);window.dispatchEvent(new CustomEvent('language-miner-native-voices-changed',{detail:{count:voices.length}}));}
   return voices;
 }
-if('speechSynthesis'in window){
+if(!window.LANGUAGE_MINER_PLAY_EDITION&&'speechSynthesis'in window){
   refreshLanguageMinerVoices();
   speechSynthesis.addEventListener?.('voiceschanged',()=>{languageMinerVoiceEnumerationSettled=true;refreshLanguageMinerVoices();window.dispatchEvent(new CustomEvent('language-miner-native-voices-changed',{detail:{count:languageMinerVoices.length,settled:true}}));flushPendingLanguageMinerSpeech();});
   setTimeout(()=>{languageMinerVoiceEnumerationSettled=true;refreshLanguageMinerVoices();window.dispatchEvent(new CustomEvent('language-miner-native-voices-changed',{detail:{count:languageMinerVoices.length,settled:true}}));flushPendingLanguageMinerSpeech();},1800);
@@ -1685,18 +1738,21 @@ function configureLanguageMinerUtterance(utterance,languageTag,rate=state.voiceR
   const profile=voiceLanguageProfile(languageTag),tuning=voiceTuning(rate,profile.tag),voice=nativeVoice||styledVoice(voiceCandidates(profile.tag),tuning.gender,profile.tag);utterance.lang=voice?.lang||profile.tag;utterance.rate=tuning.rate;utterance.pitch=tuning.pitch;utterance.volume=tuning.volume;if(voice)utterance.voice=voice;return utterance;
 }
 let lastLanguageMinerSpeechRequest=null;
-function nativeVoiceAvailability(languageTag='ja-JP'){
+function nativeVoiceAvailability(languageTag='ja-JP',text){
+  const profile=voiceLanguageProfile(languageTag);
+  if(window.LANGUAGE_MINER_PLAY_EDITION&&typeof text==='string'&&!window.LanguageMinerPronunciation?.lookup(text,languageTag,state.voiceGender))return {status:'missing',label:profile.label,requestedTag:profile.tag,installedVoiceCount:0,sameLanguageVoiceCount:0,exactLocaleVoiceCount:0,source:'bundled-neural',selectedVoice:null};
   const recorded=window.LanguageMinerPronunciation?.voice(languageTag,state.voiceGender);
   if(recorded){const p=window.LanguageMinerPronunciation.pack(languageTag);return {status:'ready',label:p.label,requestedTag:p.locale,installedVoiceCount:languageMinerVoices.length,sameLanguageVoiceCount:p.voices.length,exactLocaleVoiceCount:p.voices.length,source:'bundled-neural',selectedVoice:{name:recorded.name+' · Neural',lang:p.locale,localService:true,default:false}};}
 
-  const profile=voiceLanguageProfile(languageTag),candidates=voiceCandidates(profile.tag),exact=candidates.filter(voice=>normalizedVoiceTag(voice.lang)===profile.requested),selected=styledVoice(candidates,state.voiceGender,profile.tag),status=selected?'ready':languageMinerVoiceEnumerationSettled?'missing':'loading';
+  if(window.LANGUAGE_MINER_PLAY_EDITION)return {status:'missing',label:profile.label,requestedTag:profile.tag,installedVoiceCount:0,sameLanguageVoiceCount:0,exactLocaleVoiceCount:0,source:'bundled-neural',selectedVoice:null};
+  const candidates=voiceCandidates(profile.tag),exact=candidates.filter(voice=>normalizedVoiceTag(voice.lang)===profile.requested),selected=styledVoice(candidates,state.voiceGender,profile.tag),status=selected?'ready':languageMinerVoiceEnumerationSettled?'missing':'loading';
   return {status,label:profile.label,requestedTag:profile.tag,installedVoiceCount:languageMinerVoices.length,sameLanguageVoiceCount:candidates.length,exactLocaleVoiceCount:exact.length,selectedVoice:selected?{name:selected.name,lang:selected.lang,localService:Boolean(selected.localService),default:Boolean(selected.default)}:null};
 }
 function nativeVoiceUnavailable(profile,text=''){
-  const message=`A native ${profile.label} voice is not installed on this device. Install or enable the ${profile.tag} text-to-speech voice in your device settings, then reopen Language Miner.`;
-  document.documentElement.dataset.lmSpeechStatus='missing-native-voice';document.documentElement.dataset.lmSpeechRequested=profile.tag;delete document.documentElement.dataset.lmSpeechLanguage;delete document.documentElement.dataset.lmSpeechVoice;setMessage(message,'wrong');
-  lastLanguageMinerSpeechRequest={text,language:profile.base,requestedTag:profile.tag,resolvedTag:'',voice:'',voiceLanguage:'',rate:0,pitch:1,status:'missing-native-voice'};
-  window.dispatchEvent(new CustomEvent('language-miner-native-voice-missing',{detail:{language:profile.base,label:profile.label,tag:profile.tag,message}}));return false;
+  const bundledOnly=Boolean(window.LANGUAGE_MINER_PLAY_EDITION),status=bundledOnly?'missing-bundled-audio':'missing-native-voice',message=bundledOnly?`Bundled ${profile.label} pronunciation is unavailable for this item. You can continue in Word mode.`:`A native ${profile.label} voice is not installed on this device. Install or enable the ${profile.tag} text-to-speech voice in your device settings, then reopen Language Miner.`;
+  document.documentElement.dataset.lmSpeechStatus=status;document.documentElement.dataset.lmSpeechRequested=profile.tag;delete document.documentElement.dataset.lmSpeechLanguage;delete document.documentElement.dataset.lmSpeechVoice;setMessage(message,'wrong');
+  lastLanguageMinerSpeechRequest={text,language:profile.base,requestedTag:profile.tag,resolvedTag:'',voice:'',voiceLanguage:'',rate:0,pitch:1,status};
+  window.dispatchEvent(new CustomEvent(bundledOnly?'language-miner-bundled-audio-missing':'language-miner-native-voice-missing',{detail:{language:profile.base,label:profile.label,tag:profile.tag,text,message}}));return false;
 }
 function deliverLanguageMinerSpeech(request,mayWait=true){
   if(silentTestingActive()||(!state.voiceEnabled&&!request.manual))return false;
@@ -1713,6 +1769,7 @@ function deliverLanguageMinerSpeech(request,mayWait=true){
     });
   }
   recordings?.cancel();
+  if(window.LANGUAGE_MINER_PLAY_EDITION)return nativeVoiceUnavailable(voiceLanguageProfile(request.languageTag),request.text);
   if(!('speechSynthesis' in window)){return nativeVoiceUnavailable(voiceLanguageProfile(request.languageTag),request.text);}
 
   const profile=voiceLanguageProfile(request.languageTag),nativeVoice=styledVoice(voiceCandidates(profile.tag),state.voiceGender,profile.tag);
@@ -1821,6 +1878,15 @@ function quickMineAction(){
   if(target) setTimeout(()=>target.scrollIntoView({behavior:"smooth",block:"center"}),60);
 }
 
+function listeningQuestionEligible(question){
+  if(!question||typeof question!=='object')return false;
+  const candidate={...question,...question.pictureOriginalQuestion,opts:[...(question.pictureOriginalQuestion?.opts||question.opts||[])]};
+  window.LanguageMinerVocabulary?.refreshJapanese(candidate);
+  const text=japaneseSpeechText(candidate);
+  if(!text||candidate.silentTesting||candidate.smartReview||candidate.dailyRefresher)return false;
+  if(window.LanguageMinerSpeech?.availability?.(candidate.speechLanguage||candidate.learningLanguage||'ja',text)?.status==='missing')return false;
+  return true;
+}
 function mine(){
   if(window.LanguageMinerPracticeModes?.current()==='writing'){window.LanguageMinerPracticeModes.openWriting();return;}
   ensureHeartRecovery();
@@ -1860,6 +1926,15 @@ function mine(){
     return;
   }
   if(window.LanguageMinerPracticeModes?.current()==='picture'){const pictured=pool.filter(q=>window.LanguageMinerPictures?.questionArt(q,q.learningLanguage||'ja'));if(pictured.length)pool=pictured;}
+  if(window.LanguageMinerPracticeModes?.current()==='listening'){
+    pool=pool.filter(listeningQuestionEligible);
+    if(!pool.length){
+      state.active=null;state.answered=false;window.LanguageMinerSpeech?.cancel();
+      const area=document.getElementById('challengeArea');
+      if(area){area.innerHTML='<div class="empty" role="status">No playable listening clues are available in this lesson. Continue with Reading practice.<br><button id="listeningReadingFallback" type="button">Switch to Reading</button></div>';document.getElementById('listeningReadingFallback')?.addEventListener('click',()=>{window.LanguageMinerPracticeModes.select('reading');mine();});}
+      setMessage('No listening question was scored. Choose Reading or another lesson.','');render();return;
+    }
+  }
   const recent=new Set(state.recentQuestionIds||[]);
   let candidates=pool.filter(q=>!recent.has(q.id));
   if(!candidates.length) candidates=pool;
@@ -1868,6 +1943,8 @@ function mine(){
   state.recentQuestionIds=[...(state.recentQuestionIds||[]),q.id].slice(-Math.min(20,Math.max(5,pool.length-1)));
   q={...q};
   delete q.practiceFirstAnswer;
+  delete q.assistedPractice;
+  delete q.assistanceReason;
   state.active=q;
   state.answered=false;
   state.shieldArmed=false;
@@ -1901,7 +1978,7 @@ function showQuestion(q){
   window.LanguageMinerPracticeModes?.prepareQuestion(q);
   const area=document.getElementById("challengeArea");
   const displayedQuestion=questionDisplay(q);
-  const showKanjiHelp=Boolean(q.help&&questionShowsKanji(q,displayedQuestion));
+  const showKanjiHelp=Boolean(!silentTestingActive(q)&&q.help&&questionShowsKanji(q,displayedQuestion));
   const helpButton=showKanjiHelp?'<button id="kanjiHelpBtn" class="kanji-help-btn" type="button">📖 I don’t know this yet — add to review</button>':'';
   const helpBox=showKanjiHelp?'<div id="kanjiHelpBox" class="kanji-help-box" hidden></div>':'';
   const spoken=japaneseSpeechText(q);
@@ -1914,6 +1991,7 @@ function showQuestion(q){
   if(showKanjiHelp){
     document.getElementById("kanjiHelpBtn").addEventListener("click",()=>{
       const box=document.getElementById("kanjiHelpBox");
+      markQuestionAssisted(q,'answer-help');
       box.innerHTML=q.help;
       box.hidden=false;
       document.getElementById("kanjiHelpBtn").disabled=true;
@@ -1936,6 +2014,25 @@ function quizOptionsForDifficulty(options,answer){
   return shuffle([correct,...wrong.slice(0,Math.max(1,limit-1))].filter(Boolean));
 }
 
+function markQuestionAssisted(q,reason='help'){
+  if(!q||silentTestingActive(q)||q.practiceFirstAnswer||q===state.active&&state.answered)return false;
+  q.assistedPractice=true;q.assistanceReason=reason;save();return true;
+}
+function recordAssistedPractice(q,correct){
+  if(q.practiceFirstAnswer)return;
+  const stats=state.assistedPracticeStats&&typeof state.assistedPracticeStats==='object'?state.assistedPracticeStats:{};
+  stats.attempts=Math.max(0,Number(stats.attempts)||0)+1;
+  stats.correct=Math.max(0,Number(stats.correct)||0)+(correct?1:0);
+  state.assistedPracticeStats=stats;q.practiceFirstAnswer={correct,assisted:true};markPracticeToday();
+}
+function answerAssistedPractice(q,correct,button){
+  recordAssistedPractice(q,correct);playFeedbackSound(correct);
+  if(button){button.disabled=true;button.style.background=correct?'#225f49':'#6d2933';}
+  if(correct){state.answered=true;document.querySelectorAll('#answers button').forEach(item=>item.disabled=true);}
+  save();render();window.LanguageMinerExplanation?.show?.(q,button?.textContent||'',correct);
+  setMessage(correct?'Assisted practice complete. No recall accuracy, mastery, XP or rewards added. Select Next to try a fresh question.':`Assisted practice: the answer is ${stripMarkup(q.a)}. Try again; no hearts or mastery are changed.`,correct?'correct':'wrong');
+}
+window.LanguageMinerPracticeEvidence=Object.freeze({markAssisted:markQuestionAssisted,recordAssisted:recordAssistedPractice});
 function recordQuestionAttempt(q,correct){
   if(!q?.id) return;
   const previous=state.questionStats[q.id]||{attempts:0,correct:0};
@@ -2001,7 +2098,7 @@ function answer(opt,button){
     const nextCheckpointDrop=GEM_CHECKPOINT_DROPS.find(drop=>drop.stage===answeredStage&&!gemCheckpointClaimed(drop));
     const checkpointText=checkpointDrops.length?` 💎 Checkpoint reward: ${checkpointDrops.map(drop=>`${drop.gem.icon} ${drop.gem.name}`).join(", ")}.`:nextCheckpointDrop?` Next gem drop: ${nextCheckpointDrop.gem} at checkpoint ${nextCheckpointDrop.checkpoint} (${nextCheckpointDrop.checkpoint*20}% course XP).`:" All gemstone checkpoints in this mine are claimed.";
     const unlockRewardText=unlockedGemRewards.length?` Mine access reward: ${unlockedGemRewards.length} newly unlocked gemstone${unlockedGemRewards.length===1?'':'s'} added to your save.`:"";
-    setMessage(`Correct! +${xpGain} Mine XP. Mine mastery: ${currentMastery}/${STAGE_MASTERY_REQUIREMENTS[answeredStage]}%.${checkpointText}${unlockRewardText}${masteryText}${clearText}`,"correct");
+    setMessage(`Correct! +${xpGain} Mine XP. Mine mastery: ${currentMastery}% · ${STAGE_MASTERY_REQUIREMENTS[answeredStage]}% needed.${checkpointText}${unlockRewardText}${masteryText}${clearText}`,"correct");
     try{ floatText(checkpointDrops.length?`${checkpointDrops.at(-1).gem.icon} Checkpoint drop!`:`+${xpGain} XP`); }catch(err){ console.error("Reward animation failed",err); }
   }else{
     playFeedbackSound(false);
@@ -2030,10 +2127,11 @@ function answer(opt,button){
   }
 }
 function useHint(){
-  if(!state.active || state.answered || state.hints<1) return;
+  if(!state.active || state.answered || state.hints<1 || silentTestingActive()) return;
   const wrong=[...document.querySelectorAll("#answers button")].filter(b=>!b.disabled && b.textContent!==state.active.a);
   if(wrong.length){
     wrong[Math.floor(Math.random()*wrong.length)].disabled=true;
+    markQuestionAssisted(state.active,'elimination-hint');
     state.hints--;
     setMessage("Hint used: one incorrect answer was removed.","");
     render();
@@ -2288,7 +2386,7 @@ const ADMIN_PERMISSION_NAMES=Object.freeze({economy:'Economy',health:'Hearts & H
 function adminPermissionAllowed(permission){return window.languageMinerAdminAllows?.(permission)===true;}
 let selectedAdminPlayerId="",adminPlayerResultsCache=[],adminPlayerSearchRequest=0;
 function adminEscape(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));}
-function adminPlayerAccountKey(profile){return profile?.cloudUserId?`cloud:${profile.cloudUserId}`:`local:${profile?.name||"preview-player"}`;}
+function adminPlayerAccountKey(profile){return profile?.cloudUserId?`cloud:${profile.cloudUserId}`:`local:${profile?.id||profile?.name||"preview-player"}`;}
 function storedPlayerState(profile){let raw=null;try{raw=JSON.parse(localStorage.getItem(profileStorageKey(profile.id)));}catch{}return normalizeState(raw);}
 function localAdminPlayerResults(term){
   const active=readProfiles().find(profile=>profile.id===activeProfileId);return readProfiles().filter(profile=>profile.id!==activeProfileId&&(!active?.cloudUserId||profile.cloudUserId!==active.cloudUserId)&&!(window.LANGUAGE_MINER_PREVIEW&&profile.name===active?.name)).filter(profile=>!term||[profile.name,profile.email,profile.id,profile.cloudUserId].some(value=>String(value||"").toLowerCase().includes(term))).sort((a,b)=>Number(b.lastPlayed||0)-Number(a.lastPlayed||0)).map(profile=>{const playerState=storedPlayerState(profile);return {selectionId:`local:${profile.id}`,source:profile.cloudUserId&&window.LANGUAGE_MINER_PREVIEW?"preview-global":"local",profile,name:profile.name||"Player",email:profile.email||"",userId:profile.cloudUserId||"",level:Math.max(1,Number(playerState.level)||1),detail:stages[Math.max(0,Math.min(stages.length-1,Number(playerState.selectedStage)||0))]?.label||"Hiragana"};});
@@ -2337,7 +2435,7 @@ async function resetSelectedPlayerData(){
   }
   const profiles=readProfiles(),profile=profiles.find(item=>item.id===selected.profile?.id&&item.id!==activeProfileId);if(!profile)throw new Error("That preview player profile is no longer available.");
   const accountKey=adminPlayerAccountKey(profile),courseResult=window.LanguageMinerCourseAdmin?.resetForAccount?.(accountKey,target)||null,playerState=applyResetTargetToPlayerState(storedPlayerState(profile),target,String(courseResult?.learning||"ja"));
-  localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(playerState));profile.adminResetAt=Date.now();profile.adminResetTarget=target;writeProfiles(profiles);await renderAdminPlayerSearch();return `${profile.name||"Player"}: ${label} was reset successfully in this preview.`;
+  localStorage.setItem(profileStorageKey(profile.id),JSON.stringify(playerState));pendingGameSaves.delete(profile.id);profile.adminResetAt=Date.now();profile.adminResetTarget=target;writeProfiles(profiles);await renderAdminPlayerSearch();return `${profile.name||"Player"}: ${label} was reset successfully in this preview.`;
 }
 async function runAdminAction(action){
   if(!isDeveloperSession){developerMessage("Administrator access required.",true);return;}
@@ -2529,7 +2627,7 @@ const N5_READING_PASSAGES=[
 ];
 
 function academyItemMastery(id){return Math.max(0,Math.min(100,Number(state.n5AcademyMastery?.[id])||0));}
-function academyMaster(id,amount=25){state.n5AcademyMastery[id]=Math.min(100,academyItemMastery(id)+amount);save();renderAcademy();renderAcademySummary();}
+function academyMaster(id){state.referenceStudy=state.referenceStudy&&typeof state.referenceStudy==='object'?state.referenceStudy:{};state.referenceStudy[id]=Date.now();markPracticeToday();save();renderAcademy();renderAcademySummary();setMessage('Reference studied. Answer a fresh practice question without help to earn mastery.','');}
 function academyCounts(){
  const vocabKnown=Object.keys(state.n5AcademyMastery||{}).filter(k=>k.startsWith('vocab:')&&academyItemMastery(k)>=75).length;
  const kanjiKnown=N5_KANJI_LIST.filter(k=>academyItemMastery('kanji:'+k)>=75).length;
@@ -2543,7 +2641,7 @@ let academyTab='overview';
 function openAcademy(){if(!isStageUnlocked(2)){setMessage('Complete the Katakana Mine requirements to unlock JLPT N5.','wrong');return;}document.getElementById('academyOverlay').classList.add('open');document.getElementById('academyOverlay').setAttribute('aria-hidden','false');renderAcademy();}
 function closeAcademy(){document.getElementById('academyOverlay').classList.remove('open');document.getElementById('academyOverlay').setAttribute('aria-hidden','true');}
 function progressBar(value){return `<div class="academy-progress"><div style="width:${Math.max(0,Math.min(100,value))}%"></div></div>`;}
-function academyCard(id,title,sub,body){const m=academyItemMastery(id);return `<article class="study-card"><div class="study-card-head"><div><strong>${title}</strong><div class="small">${sub}</div></div><span class="badge">${m}%</span></div>${progressBar(m)}<div class="study-card-body">${body}</div><button class="academy-study-btn" data-master-id="${id}" type="button">Study +25%</button></article>`;}
+function academyCard(id,title,sub,body){const m=academyItemMastery(id);return `<article class="study-card"><div class="study-card-head"><div><strong>${title}</strong><div class="small">${sub}</div></div><span class="badge">${m}%</span></div>${progressBar(m)}<div class="study-card-body">${body}</div><button class="academy-study-btn" data-master-id="${id}" type="button">Mark as studied</button></article>`;}
 function academyVocabularyBank(){
  return n5CompleteVocabulary.map(([jp,reading,en])=>({jp,reading,en}));
 }
@@ -2563,7 +2661,7 @@ function renderAcademy(){
  if(academyTab==='reading')box.innerHTML=`<div class="academy-toolbar"><strong>Reading Passage Mine</strong><span>Short passages without automatic furigana.</span></div><div class="study-grid">${N5_READING_PASSAGES.map((p,i)=>academyCard('reading:'+i,p[0],`★${'★'.repeat(Math.min(3,Math.floor(i/4)))}`,`<p class="jp-passage">${p[1]}</p><p><strong>${p[2]}</strong><br>${p[3]}</p>`)).join('')}</div>`;
  if(academyTab==='listening')box.innerHTML=`<div class="academy-toolbar"><strong>Listening Practice</strong><span>Uses your browser’s Japanese speech voice when available.</span></div><div class="study-grid">${N5_READING_PASSAGES.slice(0,8).map((p,i)=>`<article class="study-card"><strong>Listening ${i+1}</strong><p class="jp-passage listening-hidden" id="listenText${i}">${p[1]}</p><button data-speak="${i}" type="button">▶ Play Japanese</button><button data-reveal-listen="${i}" type="button">Reveal text</button></article>`).join('')}</div>`;
  if(academyTab==='review'){const due=[...N5_KANJI_LIST.slice(0,30).map(k=>['kanji:'+k,k]),...N5_GRAMMAR_POINTS.slice(0,20).map((g,i)=>['grammar:'+i,g[0]])].filter(([id])=>academyItemMastery(id)<75).slice(0,12);box.innerHTML=`<div class="academy-toolbar"><strong>Today’s Review</strong><span>${due.length} cards due</span></div><div class="review-list">${due.map(([id,label])=>`<button data-review-id="${id}" type="button"><span>${label}</span><strong>${academyItemMastery(id)}%</strong></button>`).join('')||'<p>Everything due today is mastered. Great work!</p>'}</div>`;}
- if(academyTab==='tests')box.innerHTML=`<div class="academy-test-grid"><article class="study-card"><h3>Mini N5 Test</h3><p>20 mixed vocabulary, kanji, grammar, and reading questions.</p><button data-start-test="20" class="primary" type="button">Start 20-question test</button></article><article class="study-card"><h3>Half N5 Exam</h3><p>50 mixed questions. Best attempted after 50% readiness.</p><button data-start-test="50" type="button">Start 50-question test</button></article><article class="study-card"><h3>Full N5 Simulation</h3><p>100 mixed questions with listening-style prompts.</p><button data-start-test="100" type="button">Start simulation</button></article><article class="study-card"><h3>Best score</h3><p class="big-test-score">${state.academyTestBest}%</p></article></div>${academyFastestRecordsMarkup()}`;
+ if(academyTab==='tests'){const best=window.LanguageMinerAcademyAssessment?.bestScore?.();box.onclick=null;box.innerHTML=`<p class="course-instruction">Untimed practice assessments with real answered questions from vocabulary, kanji, grammar, and reading. These are not official JLPT exams and do not award XP, mastery, or rewards. Closing or refreshing ends an unfinished assessment.</p><div class="academy-test-grid"><article class="study-card"><h3>Mini N5 assessment</h3><p>20 mixed questions.</p><button data-start-test="20" class="primary" type="button">Start 20 questions</button></article><article class="study-card"><h3>Half N5 assessment</h3><p>50 mixed questions.</p><button data-start-test="50" type="button">Start 50 questions</button></article><article class="study-card"><h3>Full N5 assessment</h3><p>100 mixed questions.</p><button data-start-test="100" type="button">Start 100 questions</button></article><article class="study-card"><h3>Best completed assessment</h3><p class="big-test-score">${best===null||best===undefined?'No result yet':best+'%'}</p><p>Only completed, answered assessments count. Older simulated scores are excluded.</p></article></div>${academyFastestRecordsMarkup()}`;}
  box.querySelector('#hubEnterMineBtn')?.addEventListener('click',enterN5Mine);
  box.querySelectorAll('[data-master-id]').forEach(b=>b.addEventListener('click',()=>academyMaster(b.dataset.masterId)));
  box.querySelectorAll('[data-vocab-lesson]').forEach(b=>b.addEventListener('click',()=>showVocabLesson(Number(b.dataset.vocabLesson))));
@@ -2576,7 +2674,7 @@ function renderAcademy(){
 function showVocabLesson(i){const words=academyVocabularyBank().slice(i*25,i*25+25),box=document.getElementById('vocabLessonWords');if(!box)return;box.innerHTML=words.length?words.map((w,j)=>academyCard('vocab:'+(i*25+j),w.jp,w.reading,`<p>${w.en}</p>`)).join(''):`<p class="academy-callout">This lesson is reserved in the 1,000-word progression. Additions to the course bank will populate it without changing player progress.</p>`;box.querySelectorAll('[data-master-id]').forEach(b=>b.addEventListener('click',()=>academyMaster(b.dataset.masterId)));}
 function showKanjiDetail(k){const info=N5_KANJI_INFO[k]||['—','repetition mark'];const i=N5_KANJI_LIST.indexOf(k),examples=(typeof n5Vocab!=='undefined'?n5Vocab:[]).filter(x=>x[0].includes(k)).slice(0,4);const box=document.getElementById('kanjiDetail');box.innerHTML=academyCard('kanji:'+k,`<span class="kanji-hero">${k}</span>`,`${i+1} of 120`,`<p><strong>Readings:</strong> ${info[0]}</p><p><strong>Meaning:</strong> ${info[1]}</p><p><strong>Example words:</strong> ${examples.length?examples.map(x=>`${x[0]} (${x[1]}) — ${x[2]}`).join('<br>'):'Reference examples unlock as vocabulary grows.'}</p><p class="small">Stroke-order reference: write top-to-bottom and left-to-right, following standard kanji stroke principles.</p>`);box.querySelector('[data-master-id]').addEventListener('click',()=>academyMaster('kanji:'+k));}
 
-function startAcademyTest(count){const pool=questions.filter(q=>q.stage===2&&questionAllowedForSession(q));if(!pool.length)return;let score=0;for(let i=0;i<count;i++){const q=pool[Math.floor(Math.random()*pool.length)];if(Math.random()<(questionMasteryScore(state.questionStats[q.id])/100*.6+.25))score++;}const pct=Math.round(score/count*100);state.academyTestBest=Math.max(state.academyTestBest,pct);recordLearningAssessment({group:'practiceTest',type:'N5 Academy practice simulation',course:'Japanese',level:'JLPT N5',score:pct,correct:score,total:count,answered:count,passed:pct>=75,completedAt:Date.now(),finishReason:'simulation'});alert(`Practice simulation complete: ${score}/${count} (${pct}%).\n\nThis simulation estimates performance from your recorded mastery. Mine questions directly to improve it.`);renderAcademy();}
+function startAcademyTest(count){return window.LanguageMinerAcademyAssessment?.start?.(count)??false;}
 
 // Add academy kanji and grammar to the N5 mine question pool.
 N5_KANJI_LIST.slice(0,120).forEach((k,i)=>{const info=N5_KANJI_INFO[k]||['—','repetition mark'];addQuestion({stage:2,tier:'intermediate',q:k,concealedPrompt:k,displayChallenge:k,speechText:readingSpeechText(info[0]),prompt:'Choose this kanji’s meaning.',a:info[1],opts:shuffle([info[1],...shuffle(Object.values(N5_KANJI_INFO).map(v=>v[1]).filter(v=>v!==info[1])).slice(0,3)]),help:`${k}: ${info[0]} — ${info[1]}`,kind:'academy-kanji'});});
@@ -4360,9 +4458,10 @@ function handleJlptReviewCheckpointAction(target){
   return false;
 }
 const closeAcademyV6417Review=closeAcademy;
-closeAcademy=function(){clearJlptReviewQuizClock();if(academyView)academyView.checkpointQuiz=null;syncJlptReviewQuizTabs(false);return closeAcademyV6417Review();};
+closeAcademy=function(){window.LanguageMinerAcademyAssessment?.cancel?.(false);clearJlptReviewQuizClock();if(academyView)academyView.checkpointQuiz=null;syncJlptReviewQuizTabs(false);return closeAcademyV6417Review();};
 const renderAcademyV6417Review=renderAcademy;
 renderAcademy=function(){
+  if(window.LanguageMinerAcademyAssessment?.render?.())return;
   if(academyView.checkpointQuiz){updateAcademyChrome();const box=document.getElementById("academyContent");if(!box)return;syncJlptReviewQuizTabs(true);box.innerHTML=renderJlptReviewCheckpointQuiz();box.onclick=event=>{const target=event.target.closest("button");if(target)handleJlptReviewCheckpointAction(target);};if(!academyView.checkpointQuiz.finished)startJlptReviewQuizClock();return;}
   syncJlptReviewQuizTabs(false);return renderAcademyV6417Review();
 };
@@ -4394,6 +4493,7 @@ renderAcademy=function(){
   function courseSettings(profile){
     const keys=[];
     if(profile.cloudUserId)keys.push(`cloud:${profile.cloudUserId}`);
+    if(profile.id)keys.push(`local:${profile.id}`);
     if(profile.name)keys.push(`local:${profile.name}`);
     for(const key of keys){
       try{const value=JSON.parse(localStorage.getItem(COURSE_STORAGE_PREFIX+key)||'null');if(value&&typeof value==='object')return clone(value);}catch{}

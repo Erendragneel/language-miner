@@ -28,6 +28,7 @@ answer=function(opt,button){
  const q=state.active;
  if(silentTestingActive(q)||q.smartReview===true||q.dailyRefresher===true)return answerV643(opt,button);
  const correct=window.LanguageMinerVocabulary?.japaneseAccepts(q,opt,document.querySelector('#challengeArea .question')?.textContent)||opt===q.a;
+ if(q.assistedPractice===true)return answerAssistedPractice(q,correct,button);
  if(q.practiceFirstAnswer){
   playFeedbackSound(correct);
   if(button){button.disabled=true;button.style.background=correct?'#225f49':'#6d2933';}

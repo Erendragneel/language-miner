@@ -313,6 +313,8 @@ body[data-reduced-motion="true"] .v6-coach-character,body[data-reduced-motion="t
 @media(max-width:600px){.jlpt-review-quiz>header{align-items:stretch;flex-direction:column}.jlpt-review-timer{align-self:flex-start;min-width:100px;font-size:24px}.jlpt-review-question{padding:16px 12px}.jlpt-review-question-display{min-height:56px;font-size:27px}.jlpt-review-quiz-result{padding:24px 15px}.jlpt-review-result-score{font-size:52px}}
 
 /* v6.4.18 keep Kōji permanently aligned above the round menu button */
+.lm-teaching-feedback p{line-height:1.6;margin:.7em 0}
+.lm-teaching-rule{white-space:pre-line}
 .v6-coach-dock{position:fixed;inset:0;z-index:945;pointer-events:none}
 .v6-coach-character,.v6-coach-dock.open .v6-coach-popover{pointer-events:auto}
 .v6-coach-character{position:fixed;right:11px;bottom:90px}
@@ -613,3 +615,6 @@ body[data-reduced-motion="true"] .complete-guide-card{transition:none}.complete-
 .v6-install-instructions{margin-top:12px;padding:12px 14px;border:1px solid #65e6bd66;border-radius:14px;background:#081b2be6;color:#dce9ff}.v6-install-instructions[hidden]{display:none}.v6-install-instructions strong{display:block;color:#81f2cf}.v6-install-instructions p{margin:6px 0 9px;font-size:12px;line-height:1.45}.v6-install-instructions a{display:inline-flex;padding:7px 10px;border:1px solid #79e8c9;border-radius:999px;color:#a8ffe7;font-size:11px;font-weight:900;text-decoration:none}.v6-install-instructions a:hover{background:#173c42}
 @media(max-width:700px){.v6-help-community article{grid-template-columns:auto 1fr}.v6-help-community article>button{grid-column:1/-1;width:100%}.v6-voice-choice>div{display:grid}.v6-voice-choice button{width:100%}}
 .v6-answer-explanation h3{color:#f5f8ff}.v6-answer-explanation strong{color:inherit}
+/* Keep the floating shortcut clear of the active question and its teaching feedback. */
+.app:has(#challengeArea .question-card,#challengeArea .lm-course-question) > #quickMineBtn{display:none!important}
+.lm-save-status{display:flex;align-items:center;gap:12px;margin:8px 0;padding:10px 14px;border:1px solid #507c70;border-radius:12px;background:#102b28;color:#e0f6ef}.lm-save-status[hidden]{display:none}.lm-save-status-copy{min-width:0;flex:1}.lm-save-status-copy p{margin:3px 0;font-size:12px;line-height:1.4;overflow-wrap:anywhere}.lm-save-status[data-save-state="error"]{border-color:#e5b95b;background:#352b15;color:#fff1c7}.lm-save-status button{flex:0 0 auto;min-height:44px}.lm-save-error{color:#ffdc92}.lm-save-status button:focus-visible{outline:3px solid #ffe171;outline-offset:3px}@media(max-width:600px){.lm-save-status{align-items:stretch;flex-direction:column}.lm-save-status button{width:100%}}

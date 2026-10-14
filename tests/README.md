@@ -28,3 +28,25 @@ The wardrobe unit suite covers immutable outfit snapshots, material masks, regis
 The cel scene suite verifies the approved 5.2-second frame sequence without deforming complete drawings; visible fractures, separated shell pieces, and the emerging gem; all four skin tones and three glove finishes; equipped pickaxe appearance; prismatic rewards; portrait and landscape layouts; reduced motion and disabled character animations; immutable outfits; failed/stalled loading recovery; animator disposal; preview isolation; account-change protection; and the single authoritative reward commit after Skip. Phase screenshots are saved under `work/`. Old skeleton-specific wrist and joint assertions were replaced with complete-frame proportion checks. No 3D model is loaded.
 
 `tests/practice-modes.test.cjs` checks shared map controls, real practice presentation, audio fallback, handwriting, persistence, exam isolation, and mobile layouts. Set `PRACTICE_TEST_URL` for a deployed build; account/save traffic is mocked.
+
+
+## Learning quality regression checks
+
+Run from the repository root:
+
+1. `node tests/assisted-answer.test.cjs`
+2. `node tests/n5-assessment.test.cjs`
+3. `node tests/listening-clues.test.cjs`
+4. `node tests/answer-explanations.test.cjs`
+5. `node tests/save-status.test.cjs`
+
+These deterministic suites execute current runtime handlers in disposable VM
+fixtures. They cover independent versus assisted progress, answer-based N5
+assessment scores and session cancellation, listening selection/playback events,
+teaching feedback, storage failures, snapshot recovery, cloud outcomes, and
+profile isolation. They do not access real saves, accounts, services, or devices.
+
+Browser verification for the October 14 learning-quality fixes uses a fresh
+localhost origin with an explicit QA-only profile and disabled external requests.
+The verification report, screenshots, test output, and source hashes are under
+`work/learning-quality-2026-10-14/`. These scratch artifacts are not release assets.

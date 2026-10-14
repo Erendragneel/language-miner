@@ -193,15 +193,41 @@ coachAction=function(action,task={}){
  else if(action==='lesson'){const stage=Number(task.stage),section=String(task.section||'vocabulary'),level=Number(task.level)||0;selectStage(stage,false);openJlptSectionLessonReview(stage,section,level);}
  else if(action==='checkpoint'){openJlptReviewCheckpoint(Number(task.stage),String(task.section||'vocabulary'),Number(task.evenLesson));}
 };
+function buildAnswerExplanation(q,chosen,correct){
+ const plain=value=>stripMarkup(String(value??'').replace(/<br\s*\/?\s*>/gi,'\n')).replace(/&(amp|lt|gt|quot|#39);/g,(_,name)=>({amp:'&',lt:'<',gt:'>',quot:'"','#39':"'"}[name])).trim();
+ const answer=plain(q.a??q.answer),help=plain(q.help),grammar=/grammar/.test(q.kind||q.sourceSection||q.mode||'');
+ const entry=q.vocabularyKey?window.N5_VOCABULARY_1000?.find(row=>row[0]===q.vocabularyKey):null;
+ const translation=help.match(/(?:Full meaning|Meaning):\s*(.+?)(?=\.\s*Reading:|\n|$)/i)?.[1];
+ let rule=help.replace(/\s*Full meaning:\s*[^\n]+/i,'').trim(),example=plain(q.example||''),meaning=plain(q.meaning||q.en||entry?.[2]||translation||''),reading=plain(q.reading||q.kana||entry?.[1]||q.speechText||'');
+ if(grammar){
+  const point=typeof N5_GRAMMAR_POINTS!=='undefined'?N5_GRAMMAR_POINTS.find(row=>row[0]===answer):null;
+  const index=Number(String(q.courseId||'').split(':').at(-1));
+  const advanced=q.courseId&&typeof JLPT_COURSES!=='undefined'?JLPT_COURSES[Number(q.stage)]?.grammar?.[index]:null;
+  if(point||advanced){const row=advanced||point;rule=`${plain(row[0])} — ${plain(row[1])}`;example=plain(row[2]);}
+  if(String(q.q||'').includes('___'))example=plain(q.q).replace(/___/g,answer);
+  else if(!example)example=plain(q.q||q.item?.forms?.[q.learningLanguage]||answer).replace(/___/g,answer);
+ }
+ if(!rule&&meaning)rule='Compare the expression with its translation. Notice how the words express the same idea.';
+ if(!example&&/[ぁ-んァ-ヶ一-龯]/.test(String(q.q||'')))example=plain(q.q).replace(/___/g,answer);
+ // A vocabulary reading is pronunciation support, not a usage example.
+ if(!grammar&&(example===reading||example===answer))example='';
+ return {answer,chosen:plain(chosen),correct:!!correct,reading:reading!==answer?reading:'',meaning:meaning!==answer?meaning:'',rule,example};
+}
+function answerTeachingMarkup(q,chosen,correct){
+ if(!q||!state.v6?.explanations||silentTestingActive(q))return '';
+ const info=buildAnswerExplanation(q,chosen,correct),paragraph=(label,value)=>value?`<p><strong>${label}:</strong> ${esc6(value)}</p>`:'';
+ return `<div class="lm-teaching-feedback">${!correct&&info.chosen?paragraph('Your answer',info.chosen):''}${paragraph('Reading',info.reading)}${paragraph('Translation',info.meaning)}${info.rule?`<p class="lm-teaching-rule">${esc6(info.rule)}</p>`:''}${paragraph('Example',info.example)}${!correct?'<p>Compare your choice with the rule and example. Try this item again in Smart Review.</p>':''}</div>`;
+}
 function explanation(q,chosen,correct){
- if(!state.v6.explanations||!q)return;
+ if(!state.v6.explanations||!q||silentTestingActive(q))return;
  // Keep feedback inside the question it describes. Replacing the question
  // (including language changes and tests) also removes its answer and actions.
  let box=document.getElementById('v6AnswerExplanation');if(!box){box=document.createElement('section');box.id='v6AnswerExplanation';box.className='v6-answer-explanation';document.getElementById('challengeArea')?.append(box);}
- const answer=q.a||'',reading=q.speechText||q.reading||q.kana||'',meaning=q.meaning||q.en||'',listenText=japaneseAnswerSpeechText(q);
- box.innerHTML=`<span>${correct?'✅ WHY IT WORKS':'📘 LEARN FROM THIS'}</span><h3>Correct answer: ${esc6(answer)}</h3>${reading&&reading!==answer?`<p><strong>Reading:</strong> ${esc6(reading)}</p>`:''}${meaning?`<p><strong>Meaning:</strong> ${esc6(meaning)}</p>`:''}<p>${correct?'You matched the prompt correctly.':'Your choice was '+esc6(chosen)+'. Compare it with the correct answer, then use Smart Review to see this item again.'}</p><div><button data-v6-explain="listen" ${listenText?'':'disabled'}>🔊 Hear Japanese</button><button data-v6-explain="review">🧠 Review later</button></div>`;
+ const answer=q.a||'',listenText=japaneseAnswerSpeechText(q);
+ box.innerHTML=`<span>${correct?'✅ WHY IT WORKS':'📘 LEARN FROM THIS'}</span><h3>Correct answer: ${esc6(answer)}</h3>${answerTeachingMarkup(q,chosen,correct)}<div><button data-v6-explain="listen" ${listenText?'':'disabled'}>🔊 Hear Japanese</button><button data-v6-explain="review">🧠 Review later</button></div>`;
  box.querySelector('[data-v6-explain="listen"]').onclick=()=>{if(listenText)speakJapanese(listenText);};box.querySelector('[data-v6-explain="review"]').onclick=()=>{if(state.v5?.srs&&q.id){state.v5.srs[q.id]={ease:1.8,interval:1,dueAt:Date.now()};save();setMessage('Added to Smart Review.','correct');}};
 }
+window.LanguageMinerExplanation=Object.freeze({model:buildAnswerExplanation,markup:answerTeachingMarkup,show:explanation});
 function applySettings(){ensureV6();window.LanguageMinerMusic?.sync();document.documentElement.dataset.textSize=state.v6.textSize;document.body.dataset.reducedMotion=String(!!state.v6.reducedMotion);document.body.dataset.highContrast=String(!!state.v6.highContrast);document.body.dataset.colorAssist=String(!!state.v6.colorAssist);syncCompanionDisplayButton();}
 function openSettings(){
  ensureV6();
@@ -232,15 +258,24 @@ function openSettings(){
  document.getElementById('v6TestVoice').onclick=testCurrentLearningVoice;
  [['v6Sfx','sfxVolume','v6SfxOut']].forEach(([id,key,out])=>{const e=document.getElementById(id),o=document.getElementById(out);e.value=state.v6[key];o.textContent=e.value+'%';e.oninput=()=>{state.v6[key]=Number(e.value);o.textContent=e.value+'%';save();};});
  window.LanguageMinerMusic?.mount(document.getElementById('v6MusicPanel'));
- document.getElementById('v6SnapshotNow').onclick=()=>{createSnapshot(true);renderSnapshots();};
+ document.getElementById('v6SnapshotNow').onclick=()=>{const saved=createSnapshot(true);setSnapshotFeedback(saved?'Safety snapshot saved on this device.':'The safety snapshot could not be saved. Your existing recovery copies were kept. Retry saving.',!saved);renderSnapshots();};
  document.getElementById('v6ResetSave').onclick=()=>{if(window.resetJapaneseMinerSave?.())closeOverlay('settings');};
  initInstallApp();
  renderSnapshots();
 }
 function snapshotKey(){return SNAPSHOT_PREFIX+(activeProfileId||'guest');}
-function getSnapshots(){try{return JSON.parse(localStorage.getItem(snapshotKey())||'[]');}catch{return[];}}
-function createSnapshot(force=false){ensureV6();if(!activeProfileId)return;if(!force&&Date.now()-state.v6.lastSnapshot<120000)return;const rows=getSnapshots();rows.unshift({at:Date.now(),state:JSON.parse(JSON.stringify(state))});localStorage.setItem(snapshotKey(),JSON.stringify(rows.slice(0,3)));state.v6.lastSnapshot=Date.now();}
-function renderSnapshots(){const box=document.getElementById('v6SnapshotList');if(!box)return;const rows=getSnapshots();box.innerHTML=rows.map((r,i)=>`<button data-v6-restore="${i}"><strong>${new Date(r.at).toLocaleString()}</strong><small>Restore this snapshot</small></button>`).join('')||'<p>No snapshots yet.</p>';box.querySelectorAll('[data-v6-restore]').forEach(b=>b.onclick=()=>{const r=rows[Number(b.dataset.v6Restore)];if(r&&confirm('Restore this safety snapshot? Your current state will be replaced.')){state=normalizeState(r.state);repairTutorAccessState();ensureV6();save();render();closeOverlay('settings');setMessage('Safety snapshot restored.','correct');}});}
+function getSnapshots(){try{const rows=JSON.parse(localStorage.getItem(snapshotKey())||'[]');return Array.isArray(rows)?rows.filter(row=>row&&Number.isFinite(Number(row.at))&&Number(row.at)>0&&row.state&&typeof row.state==='object'&&!Array.isArray(row.state)).slice(0,3):[];}catch{return[];}}
+function setSnapshotFeedback(message,error=false){
+ const parent=document.querySelector('.v6-save-recovery');if(!parent)return;
+ let status=document.getElementById('v6SnapshotStatus');if(!status){status=document.createElement('p');status.id='v6SnapshotStatus';status.setAttribute('role','status');status.setAttribute('aria-live','polite');parent.append(status);}status.textContent=message;status.classList.toggle('lm-save-error',error);
+}
+function createSnapshot(force=false){
+ ensureV6();if(!activeProfileId)return false;if(!force&&Date.now()-state.v6.lastSnapshot<120000)return false;
+ try{const at=Date.now(),copy=JSON.parse(JSON.stringify(state)),rows=getSnapshots();copy.v6.lastSnapshot=at;rows.unshift({at,state:copy});localStorage.setItem(snapshotKey(),JSON.stringify(rows.slice(0,3)));state.v6.lastSnapshot=at;if(typeof setGameSaveStatus==='function')setGameSaveStatus('snapshots','saved','A safety snapshot is available on this device.');return true;}
+ catch(error){console.warn('Language Miner safety snapshot could not be saved',error);if(typeof setGameSaveStatus==='function')setGameSaveStatus('snapshots','error','A safety snapshot could not be saved. Existing recovery copies were kept. Retry saving.');return false;}
+}
+window.LanguageMinerSafetySnapshots=Object.freeze({create:createSnapshot});
+function renderSnapshots(){const box=document.getElementById('v6SnapshotList');if(!box)return;const rows=getSnapshots();box.innerHTML=rows.map((r,i)=>`<button data-v6-restore="${i}"><strong>${new Date(r.at).toLocaleString()}</strong><small>Restore this snapshot</small></button>`).join('')||'<p>No snapshots yet.</p>';box.querySelectorAll('[data-v6-restore]').forEach(b=>b.onclick=()=>{const r=rows[Number(b.dataset.v6Restore)];if(r&&confirm('Restore this safety snapshot? Your current state will be replaced.')){const previous=state;state=normalizeState(r.state);repairTutorAccessState();ensureV6();if(!save()){state=previous;save();render();setSnapshotFeedback('The restore could not be saved, so your current progress was kept. Retry saving before restoring again.',true);return;}render();closeOverlay('settings');setMessage('Safety snapshot restored and saved on this device.','correct');}});}
 function readAdminFeedbackInbox(){
  try{const rows=JSON.parse(localStorage.getItem(FEEDBACK_INBOX_KEY)||'[]');return Array.isArray(rows)?rows.filter(row=>row&&typeof row==='object').slice(0,FEEDBACK_INBOX_LIMIT):[];}catch{return[];}
 }
@@ -359,9 +394,9 @@ function openPatreon(){
 };
 window.openJapaneseMinerPatreon=()=>openPatreon();
 const oldShowQuestion=showQuestion;showQuestion=function(q){oldShowQuestion(q);renderCoach('question');};
-const oldAnswer=answer;answer=function(opt,button){const q=state.active,was=state.answered,correct=!!q&&opt===q.a;if(q&&!was&&/[\u3040-\u30ff\u3400-\u9fff]/.test(stripMarkup(opt)))speakJapanese(opt);oldAnswer(opt,button);if(q&&!was){explanation(q,opt,correct);renderCoach(correct?'correct':'wrong');}createSnapshot();};
+const oldAnswer=answer;answer=function(opt,button){const q=state.active,was=state.answered,correct=!!q&&(window.LanguageMinerVocabulary?.japaneseAccepts(q,opt,document.querySelector('#challengeArea .question')?.textContent)||opt===q.a);if(q&&!was&&/[\u3040-\u30ff\u3400-\u9fff]/.test(stripMarkup(opt)))speakJapanese(opt);oldAnswer(opt,button);if(q&&!was){explanation(q,opt,correct);renderCoach(correct?'correct':'wrong');}createSnapshot();};
 const oldRender=render;render=function(){ensureV6();oldRender();applySettings();renderCoach('refresh');addMenuItems();storyCheck();};
-const oldSave=save;save=function(){oldSave();if(state?.v6)createSnapshot();};
+const oldSave=save;save=function(){const saved=oldSave();if(saved&&state?.v6)createSnapshot();return saved;};
 const oldLoad=loadProfile;loadProfile=function(profile,...args){const result=oldLoad(profile,...args);ensureV6();applySettings();setTimeout(init,0);return result;};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCoach();document.querySelectorAll('.v6-overlay.open').forEach(o=>closeOverlay(o.id.includes('Tour')?'tour':o.id.includes('Settings')?'settings':'feedback'));}});
 document.addEventListener('click',e=>{if(e.target.closest?.('#beginJourneyBtn,#acceptPlacementBtn'))advertiseGuideAfterOnboarding();});

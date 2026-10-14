@@ -321,25 +321,32 @@
   function accountKey(){
     const profile=window.japaneseMinerActiveProfile?.();
     if(profile?.cloudUserId)return `cloud:${profile.cloudUserId}`;
+    if(profile?.id)return `local:${profile.id}`;
     const cloudId=window.languageMinerCloudAuth?.getSession?.()?.user?.id;
     if(cloudId)return `cloud:${cloudId}`;
     const player=profile?.name||document.getElementById('activePlayerName')?.textContent?.trim();
-    return `local:${player&&player!=='Not signed in'?player:'preview-player'}`;
+    return `local:${profile?.id|| (player&&player!=='Not signed in'?player:'preview-player')}`;
   }
+  const pendingCourseSettings=new Map();
+  function copyPendingCourseSettings(value){try{return structuredClone(value);}catch{return value;}}
   function readSettingsFor(targetAccountKey=accountKey()){
+    if(pendingCourseSettings.has(targetAccountKey))return copyPendingCourseSettings(pendingCourseSettings.get(targetAccountKey));
     try{
       let raw=localStorage.getItem(STORAGE_PREFIX+targetAccountKey);
       if(!raw&&targetAccountKey===accountKey()){
-        const profile=window.japaneseMinerActiveProfile?.(),player=profile?.name||document.getElementById('activePlayerName')?.textContent?.trim(),fallbacks=[player&&player!=='Not signed in'?`local:${player}`:'',window.languageMinerCloudAuth?.getSession?.()?.user?.id?`cloud:${window.languageMinerCloudAuth.getSession().user.id}`:''].filter(Boolean);
-        for(const fallback of fallbacks){if(fallback===targetAccountKey)continue;raw=localStorage.getItem(STORAGE_PREFIX+fallback);if(raw){localStorage.setItem(STORAGE_PREFIX+targetAccountKey,raw);break;}}
+        const profile=window.japaneseMinerActiveProfile?.(),player=profile?.name||document.getElementById('activePlayerName')?.textContent?.trim(),cloudId=window.languageMinerCloudAuth?.getSession?.()?.user?.id,fallbacks=[player&&player!=='Not signed in'?`local:${player}`:'',cloudId&&(!profile||profile.cloudUserId===cloudId)?`cloud:${cloudId}`:''].filter(Boolean);
+        for(const fallback of fallbacks){if(fallback===targetAccountKey)continue;raw=localStorage.getItem(STORAGE_PREFIX+fallback);if(raw){try{localStorage.setItem(STORAGE_PREFIX+targetAccountKey,raw);}catch{}break;}}
       }
       return JSON.parse(raw||'null')||{known:'en',learning:'ja',placements:{}};
     }catch{return {known:'en',learning:'ja',placements:{}};}
   }
-  function saveSettingsFor(targetAccountKey,next){try{localStorage.setItem(STORAGE_PREFIX+targetAccountKey,JSON.stringify(next));}catch{}}
+  function saveSettingsFor(targetAccountKey,next){
+    try{localStorage.setItem(STORAGE_PREFIX+targetAccountKey,JSON.stringify(next));pendingCourseSettings.delete(targetAccountKey);if(targetAccountKey===accountKey()&&typeof setGameSaveStatus==='function')setGameSaveStatus('courses','saved','Course progress saved on this device.');return true;}
+    catch(error){pendingCourseSettings.set(targetAccountKey,copyPendingCourseSettings(next));console.warn('Language Miner course progress could not be saved',error);if(targetAccountKey===accountKey()&&typeof setGameSaveStatus==='function')setGameSaveStatus('courses','error','Latest course progress remains in this session. This device could not save it; retry before closing.');return false;}
+  }
   function normalizeSettings(saved){saved=saved&&typeof saved==='object'?saved:{};saved.known=LANGUAGES[saved.known]?saved.known:'en';saved.learning=LANGUAGES[saved.learning]?saved.learning:'ja';saved.placements=saved.placements&&typeof saved.placements==='object'?saved.placements:{};saved.purposes=saved.purposes&&typeof saved.purposes==='object'&&!Array.isArray(saved.purposes)?saved.purposes:{};saved.progress=saved.progress&&typeof saved.progress==='object'?saved.progress:{};saved.guides=saved.guides&&typeof saved.guides==='object'?saved.guides:{};Object.keys(saved.purposes).forEach(id=>saved.purposes[id]=saved.purposes[id]==='travel'?'travel':'full');Object.values(saved.placements).forEach(record=>{if(record&&typeof record==='object'){record.elapsedTimeMs=courseAssessmentTime(record.elapsedTimeMs);record.fastestTimeMs=courseAssessmentTime(record.fastestTimeMs||record.elapsedTimeMs);}});Object.values(saved.progress).forEach(progress=>{if(!progress||typeof progress!=='object')return;progress.sectionAnswers=progress.sectionAnswers&&typeof progress.sectionAnswers==='object'&&!Array.isArray(progress.sectionAnswers)?progress.sectionAnswers:{};progress.bossFastestByMine=progress.bossFastestByMine&&typeof progress.bossFastestByMine==='object'&&!Array.isArray(progress.bossFastestByMine)?progress.bossFastestByMine:{};Object.keys(progress.bossFastestByMine).forEach(mine=>{const time=courseAssessmentTime(progress.bossFastestByMine[mine]);if(time)progress.bossFastestByMine[mine]=time;else delete progress.bossFastestByMine[mine];});Object.values(progress.reviewCheckpoints||{}).forEach(record=>{if(record&&typeof record==='object')record.fastestTimeMs=courseAssessmentTime(record.fastestTimeMs);});});return saved;}
   function readSettings(){return readSettingsFor(accountKey());}
-  function saveSettings(next,allowPlacementReset=false){if(!allowPlacementReset){const previous=readSettings();next.placements=next.placements||{};Object.entries(previous.placements||{}).forEach(([id,record])=>{if(placementRecordComplete(record))next.placements[id]=record;});}saveSettingsFor(accountKey(),next);window.dispatchEvent(new CustomEvent('lm-course-settings-saved'));}
+  function saveSettings(next,allowPlacementReset=false){if(!allowPlacementReset){const previous=readSettings();next.placements=next.placements||{};Object.entries(previous.placements||{}).forEach(([id,record])=>{if(placementRecordComplete(record))next.placements[id]=record;});}const key=accountKey(),saved=saveSettingsFor(key,next);window.dispatchEvent(new CustomEvent(saved?'lm-course-settings-saved':'lm-course-settings-save-failed',{detail:{accountKey:key}}));return saved;}
   function currentSettings(){return normalizeSettings(readSettings());}
   function signedIn(){
     const auth=document.getElementById('authOverlay'),player=document.getElementById('activePlayerName')?.textContent?.trim();
@@ -783,17 +790,19 @@
     const question=activePreviewQuestion;
     if(!question||button.disabled)return;
     const selected=button.dataset.lmCourseAnswer,correct=vocabularyAnswerAccepted(question,selected),buttons=[...document.querySelectorAll('[data-lm-course-answer]')];
-    if(question.practiceFirstAnswer){
+    if(question.assistedPractice||question.practiceFirstAnswer){
+      if(question.assistedPractice&&!question.practiceFirstAnswer)window.LanguageMinerPracticeEvidence?.recordAssisted?.(question,correct);
       button.disabled=true;button.classList.add(correct?'correct':'wrong');
       if(correct){buttons.forEach(item=>item.disabled=true);activePreviewQuestion=null;}
       const feedback=document.getElementById('lmCourseFeedback');
-      if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${correct?'Practiced! Your first answer remains recorded. No extra rewards or heart loss.':`Try again. The answer is ${escapeHtml(question.answer)}. This retry does not affect your accuracy or hearts.`}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button></div>`;document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);}
+      if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${question.assistedPractice?'Assisted practice: no recall accuracy, mastery, XP, rewards or heart loss. ':''}${correct?'Practiced! Your first answer remains recorded. No extra rewards or heart loss.':`Try again. The answer is ${escapeHtml(question.answer)}. This retry does not affect your accuracy or hearts.`}${window.LanguageMinerExplanation?.markup?.(question,selected,correct)||""}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button></div>`;document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);}
+      if(question.assistedPractice)save();
       syncMultilingualQuickMineButton();return;
     }
     if(question?.mode==='boss'){answerCourseBossQuestion(button);return;}
     buttons.forEach(item=>{item.disabled=true;if(vocabularyAnswerAccepted(question,item.dataset.lmCourseAnswer))item.classList.add('correct');else if(item===button)item.classList.add('wrong');});const economy=recordCourseMastery(question,correct);
     window.LanguageMinerPictures?.revealAfterAnswer(document.getElementById('challengeArea'));
-    const feedback=document.getElementById('lmCourseFeedback'),alphabetAnswer=question.mode==='alphabet'?`${question.answer} — ${question.label}`:question.answer,lessons=courseSectionLessons(selectedCourseSection,selectedCourseMine),nextLesson=selectedCourseLesson+1,nextLessonReady=Boolean(lessons[nextLesson])&&courseLessonUnlocked(selectedCourseSection,nextLesson,selectedCourseMine),answerCopy=correct?`✓ ${escapeHtml(ui('correct'))} — <strong>${escapeHtml(alphabetAnswer)}</strong>${economy?.treasureAmount?`<span class="lm-inline-reward">🪙 +${Number(economy.treasureAmount).toLocaleString()} Nuggets</span>`:''}`:escapeHtml(ui('notQuite',{answer:alphabetAnswer}));if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${answerCopy}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button>${nextLessonReady?`<button id="lmContinueCourseLesson" class="lm-continue-course-lesson" type="button">${escapeHtml(ui('continueLesson',{lesson:nextLesson+1}))}</button>`:''}</div>`;}
+    const feedback=document.getElementById('lmCourseFeedback'),alphabetAnswer=question.mode==='alphabet'?`${question.answer} — ${question.label}`:question.answer,lessons=courseSectionLessons(selectedCourseSection,selectedCourseMine),nextLesson=selectedCourseLesson+1,nextLessonReady=Boolean(lessons[nextLesson])&&courseLessonUnlocked(selectedCourseSection,nextLesson,selectedCourseMine),answerCopy=correct?`✓ ${escapeHtml(ui('correct'))} — <strong>${escapeHtml(alphabetAnswer)}</strong>${economy?.treasureAmount?`<span class="lm-inline-reward">🪙 +${Number(economy.treasureAmount).toLocaleString()} Nuggets</span>`:''}`:escapeHtml(ui('notQuite',{answer:alphabetAnswer}));if(feedback){feedback.className=`lm-course-feedback ${correct?'correct':'wrong'}`;feedback.innerHTML=`${answerCopy}${window.LanguageMinerExplanation?.markup?.(question,selected,correct)||""}<div class="lm-course-answer-actions"><button id="lmNextCourseQuestion" class="lm-next-course-question" type="button">${escapeHtml(ui('nextQuestion'))}</button>${nextLessonReady?`<button id="lmContinueCourseLesson" class="lm-continue-course-lesson" type="button">${escapeHtml(ui('continueLesson',{lesson:nextLesson+1}))}</button>`:''}</div>`;}
     if(correct)activePreviewQuestion=null;
     else{question.practiceFirstAnswer={correct:false,selected};buttons.forEach(item=>{item.disabled=item===button;item.classList.remove('correct');});if(feedback)feedback.insertAdjacentHTML('afterbegin','<p>Your first answer is recorded. Try again for practice with no extra heart loss.</p>');}
     document.getElementById('lmNextCourseQuestion')?.addEventListener('click',advanceCourseQuestion);document.getElementById('lmContinueCourseLesson')?.addEventListener('click',()=>startCourseLesson(selectedCourseSection,nextLesson,selectedCourseMine));syncMultilingualQuickMineButton();if(targetVoiceAvailability().status==='ready')speakTarget(question.spoken||question.answer);
@@ -1018,7 +1027,7 @@
     selectedCourseMine=mineIndex;selectedCourseSection=section;selectedCourseLesson=lesson;activePreviewQuestion=null;const progress=languageProgress();progress.selectedMine=mineIndex;progress.selectedSection=section;progress.selectedLesson=lesson;saveLanguageProgress(progress);expandedCourseMines.add(mineIndex);updateFoundationProgress();return true;
   }
   window.LanguageMinerCourseAdmin=Object.freeze({unlockAll:adminUnlockAllLanguages,resetLanguage:adminResetLanguage,resetAll:adminResetAllLanguages,resetBossesAndReviews:adminResetBossesAndReviews,resetPlacement:adminResetPlacement,resetAllPlacements:adminResetAllPlacements,resetForAccount:adminResetForAccount,currentLanguage:()=>multilingualAdminAllowed()?learning:null,status:adminCourseStatus});
-  window.LanguageMinerCourseCloud=Object.freeze({exportCurrent:()=>cloneSettings(currentSettings()),importCurrent:(value,options={})=>{const settings=normalizeSettings(cloneSettings(value));saveSettings(settings,true);refreshAfterAdmin(settings,{reset:options.reset===true});return settings;},resetSnapshot:(value,target)=>resetSettingsSnapshot(value,target)});
+  window.LanguageMinerCourseCloud=Object.freeze({exportCurrent:()=>copyPendingCourseSettings(currentSettings()),retryPendingCurrent:()=>pendingCourseSettings.has(accountKey())?saveSettings(copyPendingCourseSettings(pendingCourseSettings.get(accountKey()))):true,importCurrent:(value,options={})=>{const settings=normalizeSettings(cloneSettings(value));saveSettings(settings,true);refreshAfterAdmin(settings,{reset:options.reset===true});return settings;},resetSnapshot:(value,target)=>resetSettingsSnapshot(value,target)});
   window.LanguageMinerCourseFlashcards=Object.freeze({open(mine,section,lesson,index){
     if(!['alphabet','vocabulary'].includes(section)||!courseMineUnlocked(mine)||!courseLessonReplayable(section,lesson,mine))return false;
     const items=courseSectionLessons(section,mine)[lesson];if(!items)return false;const targetLanguage=learning;

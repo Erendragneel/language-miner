@@ -1,6 +1,6 @@
-# Language Miner v6.4.288
+# Language Miner v6.4.289
 
-Current web update: [reviewed game and language fixes](RELEASE-NOTES-v6.4.288.md). The full AI linguistic review covers 22,780 forms; qualified review and audio work remain open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
+Current web update: [learning accuracy and reliable progress](RELEASE-NOTES-v6.4.289.md). The full AI linguistic review covers 22,780 forms; qualified review and audio work remain open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
 
 ## Illustrated Expedition Hub
 

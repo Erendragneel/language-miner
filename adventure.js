@@ -17,6 +17,14 @@
  const mobile=document.createElement('nav');mobile.className='adventure-mobile';mobile.setAttribute('aria-label','Mobile navigation');mobile.innerHTML=[['notebook','▤','Notebook'],['explore','◇','Explore'],['progress','▥','Progress'],['menu','☰','Menu']].map(([id,icon,label])=>`<button data-adventure="${id}"><span aria-hidden="true">${navIcon(id,icon)}</span>${label}</button>`).join('');document.body.append(mobile);
  document.addEventListener('click',e=>{const b=e.target.closest('[data-adventure]');if(!b)return;setTimeout(()=>{if(b.dataset.adventure!=='menu')window.closeGameMenu?.();actions[b.dataset.adventure]?.();},0);});
  const next=document.createElement('button');next.id='adventureContinue';next.textContent='Next question →';next.onclick=()=>{document.getElementById('quickMineBtn')?.click();update();};document.querySelector('#challengeArea').parentElement.append(next);
+ function updateContinue(){
+  const profile=window.japaneseMinerActiveProfile?.(),native=document.querySelector('#challengeArea .question-card');
+  next.hidden=!profile;
+  next.textContent=native&&typeof state==='object'?(state.active&&!state.answered?'Resume':state.active?.smartReview?'Next Review':'Next'):(document.getElementById('quickMineLabel')?.textContent?.trim()||'Start or return to question');
+ }
+ const continueObserver=new MutationObserver(updateContinue);
+ continueObserver.observe(document.getElementById('challengeArea'),{childList:true,subtree:true,attributes:true,attributeFilter:['disabled']});
+ if(document.getElementById('quickMineLabel'))continueObserver.observe(document.getElementById('quickMineLabel'),{childList:true,subtree:true,characterData:true});
  let avatarAppearanceKey="";
  function update(){
   const profile=window.japaneseMinerActiveProfile?.();document.body.classList.toggle('adventure-signed-in',!!profile);
@@ -36,7 +44,7 @@
   const summary=window.LanguageMinerReadOnly?.learnerSummary?.(window.japaneseMinerActiveProfile?.()?.id);
   if(summary){const day=new Date(),key=`${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`,ms=summary.activity.days.find(x=>x.date===key)?.milliseconds||0;document.getElementById('adventureMetrics').innerHTML=`<p><b>${Math.floor(ms/60000)} min</b><span>studied today</span></p><p><b>${summary.course.lessons.counts.completed}</b><span>lessons complete</span></p><p><b>${summary.activity.currentStreak} days</b><span>current streak</span></p>`;}
   const title=document.querySelector('.mine-title');const label=document.getElementById('stageName')?.textContent;if(title&&label&&title.textContent!==label)title.textContent=label;
-  next.hidden=!profile;next.textContent=document.getElementById('quickMineLabel')?.textContent?.trim()||'Start or return to question';
+  updateContinue();
  }
  window.addEventListener('jm-recolors-ready',update);document.addEventListener('click',e=>{if(e.target.closest('[data-character-key],[data-avatar-fashion-key],[data-holiday-special],#randomizeCharacterBtn'))setTimeout(update,0)});
  window.addEventListener('jm-profile-loaded',update);window.addEventListener('jm-profile-logged-out',update);update();setInterval(update,3000);
