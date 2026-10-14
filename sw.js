@@ -1,16 +1,18 @@
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.289-learning-quality-r122';
-const BUILD_VERSION='6.4.289';
+const CACHE_NAME='language-miner-v6.4.290-web-content-r123';
+const BUILD_VERSION='6.4.290';
+const PICTURE_CACHE='lm-picture-assets-clarity-r120';
+const PRONUNCIATION_CACHE='lm-pronunciation-azure-20261008';
 const META_CACHE='language-miner-update-guardian-meta';
 const META_REQUEST='./__language_miner_update_guardian__.json';
-const CRITICAL_SHELL=["./reward-animation/jacket-haori.webp","./reward-animation/jacket-academy.webp","./reward-animation/jacket-explorer.webp","./reward-animation/holiday-new-year.webp","./reward-animation/holiday-winter-academy.webp","./reward-animation/holiday-holiday-explorer.webp","./reward-animation/holiday-summer-matsuri.webp","./reward-animation/shoes-sneakers.webp","./reward-animation/shoes-geta.webp","./menu-wallpapers/art-azure-passage-v2.webp","./accessory-layer-glasses.png","./accessory-layer-headband.png","./accessory-layer-scarf.png","./accessory-layer-earrings.png","./daily-golem-cel-heads.js","./daily-golem-cel-wardrobe.js","./reward-animation/base.webp","./reward-animation/heads-1.webp","./reward-animation/heads-2.webp",'./patreon-reel-locales.js','./patreon-heart-videos.js','./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./short-stories.js','./short-stories-data.js','./short-stories.css','./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./academy-assessment.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
+const CRITICAL_SHELL=["./reward-animation/jacket-haori.webp","./reward-animation/jacket-academy.webp","./reward-animation/jacket-explorer.webp","./reward-animation/holiday-new-year.webp","./reward-animation/holiday-winter-academy.webp","./reward-animation/holiday-holiday-explorer.webp","./reward-animation/holiday-summer-matsuri.webp","./reward-animation/shoes-sneakers.webp","./reward-animation/shoes-geta.webp","./menu-wallpapers/art-azure-passage-v2.webp","./accessory-layer-glasses.png","./accessory-layer-headband.png","./accessory-layer-scarf.png","./accessory-layer-earrings.png","./daily-golem-cel-heads.js","./daily-golem-cel-wardrobe.js","./reward-animation/base.webp","./reward-animation/heads-1.webp","./reward-animation/heads-2.webp",'./patreon-reel-locales.js','./patreon-heart-videos.js','./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./short-stories.js','./short-stories-data.js','./short-stories.css','./coal-nugget-v1.png','./scientific-gem-atlas.png','./native-pronunciation.js','./picture-pronunciation.js','./pronunciation-pack.js','./flashcards.css','./flashcards.js','./illustrated-learning.css','./illustrated-learning.js','./picture-catalog.js','./alphabet-picture-clarity.js','./picture-clarity.js','./vocabulary-safety.js','./vocabulary-sense-fixes.js','./wording-resolutions.js','./audio-form-corrections.js','./current-form-pronunciation.js','./n5-vocabulary-1000.js','./index.html','./styles.css','./multilingual-course-data.js','./travel-phrases-200.js','./game-6460.js','./academy-assessment.js','./cultural-event-localization.js','./cultural-events.js','./v5-6400.js','./v6.js','./cloud-auth.js','./parent-teacher-center.js','./update-guardian.js','./owner-admin-controls.js'];
 const APP_SHELL=["./accessory-layer-glasses.png","./accessory-layer-headband.png","./accessory-layer-scarf.png","./accessory-layer-earrings.png","./daily-golem-cel-heads.js","./daily-golem-cel-wardrobe.js","./reward-animation/base.webp","./reward-animation/heads-1.webp","./reward-animation/heads-2.webp","./reward-animation/jacket-haori.webp","./reward-animation/jacket-academy.webp","./reward-animation/jacket-explorer.webp","./reward-animation/holiday-new-year.webp","./reward-animation/holiday-winter-academy.webp","./reward-animation/holiday-holiday-explorer.webp","./reward-animation/holiday-summer-matsuri.webp","./reward-animation/shoes-sneakers.webp","./reward-animation/shoes-geta.webp",'./patreon-reel-locales.js','./patreon-reels/v285/tier-1.jpg','./patreon-reels/v285/tier-2.jpg','./patreon-reels/v285/tier-3.jpg','./practice-modes.js','./practice-modes.css','./daily-golem-hands-v1.webp','./daily-golem-art.js','./daily-golem-stone-v2.webp','./daily-golem-prismatic-v2.webp','./daily-golem-model.js','./daily-golem.js','./daily-golem-localization.js','./daily-golem.css','./mine-golem-v1.png','./short-stories.js','./short-stories-data.js','./short-stories.css',
  './menu-wallpapers/classic-v2.webp','./menu-wallpapers/sakura-grotto-v2.webp','./menu-wallpapers/crystal-cathedral-v2.webp','./menu-wallpapers/bamboo-tunnel-v2.webp','./menu-wallpapers/sunken-mine-v2.webp','./menu-wallpapers/magma-forge-v2.webp','./menu-wallpapers/aurora-cavern-v2.webp','./menu-wallpapers/galaxy-depths-v2.webp','./menu-wallpapers/art-azure-passage-v2.webp','./menu-wallpapers/art-amethyst-dream-v2.webp','./menu-wallpapers/art-moonlit-ice-v2.webp','./menu-wallpapers/art-sapphire-river-v2.webp','./menu-wallpapers/art-emerald-moss-v2.webp','./menu-wallpapers/art-rose-quartz-v2.webp','./menu-wallpapers/art-golden-topaz-v2.webp','./menu-wallpapers/art-ruby-forge-v2.webp','./menu-wallpapers/art-aurora-prism-v2.webp','./menu-wallpapers/art-celestial-galaxy-v2.webp','./menu-wallpapers/art-opal-hollow-v2.webp','./menu-wallpapers/art-ancient-lantern-v2.webp',
  './patreon-previews.js','./patreon-previews.css',
  './gem-buttons.js','./gem-buttons.css',
  './navigation-symbols.js','./mobile-pocket.js','./mobile-pocket.css','./pickaxe-finishes.js','./pickaxe-finishes.css','./pose-textures.js','./pose-wardrobe.js','./player-lesson-pose-v1.png',
  './adventure.js','./adventure.css','./adventure-reference.js','./adventure-reference.css',
- './picture-catalog.js',
+ './picture-catalog.js','./alphabet-picture-clarity.js','./picture-clarity.js',
  './picture-assets/person.webp',
  './picture-assets/ant-a.webp',
  './picture-assets/dog-i.webp',
@@ -24,7 +26,7 @@ const APP_SHELL=["./accessory-layer-glasses.png","./accessory-layer-headband.png
  './picture-assets/sun-v2.webp',
  './picture-assets/moon-v2.webp',
   './vocabulary-safety.js',
-  './vocabulary-sense-fixes.js',
+  './vocabulary-sense-fixes.js','./wording-resolutions.js','./audio-form-corrections.js','./current-form-pronunciation.js',
   './pronunciation-pack.js',
   './picture-pronunciation.js',
   './native-pronunciation.js',
@@ -287,17 +289,22 @@ self.addEventListener('fetch',event=>{
   if(url.origin!==self.location.origin)return;
   if(url.pathname.includes('/picture-assets/')){
     event.respondWith((async()=>{
-      const cache=await caches.open('lm-picture-assets-v1');
+      const cache=await caches.open(PICTURE_CACHE);
       const cached=await cache.match(request);if(cached)return cached;
-      const response=await fetch(request);
+      const response=await fetch(new Request(request,{cache:'reload'}));
       if(response.ok){try{await cache.put(request,response.clone());}catch{ /* A full cache must not prevent viewing an illustration. */ }}
       return response;
     })());return;
   }
   if((url.pathname.includes('/audio/voices/')||url.pathname.includes('/audio/stories/')||(url.pathname.includes('/patreon-reels/')&&url.pathname.endsWith('.mp4')))){
     event.respondWith((async()=>{
-      const cache=await caches.open(url.pathname.includes('/patreon-reels/')?'lm-reward-reels-v285':'lm-pronunciation-v1'),headers=new Headers(request.headers);headers.delete('range');
-      const fullRequest=new Request(request,{headers});let response=await cache.match(fullRequest);
+      const isReel=url.pathname.includes('/patreon-reels/');
+      const cache=await caches.open(isReel?'lm-reward-reels-v285':PRONUNCIATION_CACHE),headers=new Headers(request.headers);headers.delete('range');
+      // Older cached pages can finish their session while the complete updater
+      // installs the new lookup code. Both paths share the corrected audio cache.
+      const legacyAudio=!isReel&&url.hostname==='erendragneel.github.io'&&url.pathname.startsWith('/language-miner/audio/');
+      const canonicalUrl=legacyAudio?url.href.replace('/language-miner/audio/','/language-miner-audio/audio/'):request.url;
+      const fullRequest=new Request(canonicalUrl,{headers,cache:isReel?request.cache:'reload'});let response=await cache.match(fullRequest);
       if(!response){response=await fetch(fullRequest);if(response.status===200){try{await cache.put(fullRequest,response.clone());}catch{ /* Storage limits must not prevent playback. */ }}}
       const range=request.headers.get('range');if(!range||response.status!==200)return response;
       const match=/^bytes=(\d*)-(\d*)$/.exec(range);if(!match)return response;
@@ -319,7 +326,10 @@ self.addEventListener('fetch',event=>{
   }
   event.respondWith((async()=>{
     const chosen=await selectedCache();
-    if(request.mode==='navigate')return (await cacheMatch(chosen,'./index.html'))||fetch(request);
+    if(request.mode==='navigate'){
+      const isDocument=/\.(?:html|txt|md|json|pdf)$/i.test(url.pathname)&&!url.pathname.endsWith('/index.html');
+      return (await cacheMatch(chosen,isDocument?request:'./index.html'))||fetch(request);
+    }
     const cached=await cacheMatch(chosen,request);
     if(cached)return cached;
     return fetch(request);

@@ -14,7 +14,9 @@ onigiri:{file:'onigiri-o.webp',alt:'Japanese onigiri rice balls',label:'onigiri'
 };
 const meanings={'person':'person','sun':'sun','day/sun':'sun','moon':'moon','moon/month':'moon','ant':'ant','dog':'dog','rabbit':'rabbit','pencil':'pencil','onigiri':'onigiri','rice ball':'onigiri','rice balls':'onigiri'};
 const sounds=[{chars:'あア',key:'ant',example:'あり',reading:'ari',sound:'a',kind:'insect'},{chars:'いイ',key:'dog',example:'いぬ',reading:'inu',sound:'i',kind:'animal'},{chars:'うウ',key:'rabbit',example:'うさぎ',reading:'usagi',sound:'u',kind:'animal'},{chars:'えエ',key:'pencil',example:'えんぴつ',reading:'enpitsu',sound:'e',kind:'writing tool'},{chars:'おオ',key:'onigiri',example:'おにぎり',reading:'onigiri',sound:'o',kind:'food'}];
-function imageFor(item,{language}={}){
+function imageFor(item,{language,knownLanguage,known}={}){
+ if(window.LanguageMinerPictureClarity)return window.LanguageMinerPictureClarity.artFor(item,{language:language||'ja',knownLanguage:knownLanguage||known});
+ if(item?.contextOnly)return null;
  const catalog=window.LanguageMinerPictureCatalog;
  const catalogKey=String(item?.forms?.en||item?.en||'').trim().toLowerCase().replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ');
  const catalogArt=item?.symbol?catalog?.symbols?.[language]?.[item.symbol]:(item?.forms?catalog?.vocabulary?.[item.id]:catalog?.japanese?.[item?.jp])||catalog?.meanings?.[catalogKey];
@@ -22,16 +24,17 @@ function imageFor(item,{language}={}){
  if(item?.symbol){if(language!=='ja')return null;const match=sounds.find(m=>m.chars.includes(item.symbol)&&Array.from(item.symbol).length===1);if(!match)return null;return {...assets[match.key],kind:'sound',clueSpeech:match.example,question:`Which character starts the Japanese word for this ${match.kind}?`,explanation:`${match.example} (${match.reading}) starts with the sound ${match.sound}, written ${item.symbol}. The image is a first-sound clue, not the meaning of the character.`};}
  const meaning=String(item?.forms?.en||item?.en||'').trim().toLowerCase().replace(/\s*\/\s*/g,'/');const asset=assets[meanings[meaning]];return asset?{...asset,kind:'meaning'}:null;
 }
-function markup(item,{language='ja',section='vocabulary'}={}){if(!item)return '';const asset=imageFor(item,{language});if(asset)return `<figure class="lm-picture"><img src="picture-assets/${asset.file}" alt="${esc(asset.alt)}" loading="lazy"><figcaption>${esc(asset.kind==='sound'?asset.explanation:`Picture meaning: ${asset.label}`)}</figcaption></figure>`;return '';}
+function markup(item,{language='ja',section='vocabulary',knownLanguage,known}={}){if(!item||!['alphabet','vocabulary'].includes(section))return '';const asset=imageFor(item,{language,knownLanguage:knownLanguage||known});if(asset)return `<figure class="lm-picture ${asset.clarity?'lm-picture-clarity':''}"><img src="picture-assets/${esc(asset.file)}" alt="${esc(asset.alt)}" loading="lazy"><figcaption>${esc(asset.explanation||`Picture meaning: ${asset.label}`)}</figcaption></figure>`;return '';}
 let pictures=true;try{pictures=localStorage.getItem('lm-picture-display-v1')!=='off'}catch{}document.documentElement.classList.toggle('lm-pictures-off',!pictures);
-function questionArt(q,language='ja'){
+function questionArt(q,language='ja',knownLanguage){
  if(!q)return null;
  if(q.sourceSection&&!['alphabet','vocabulary'].includes(q.sourceSection))return null;
- if(q.item||q.unit)return imageFor(q.item||q.unit,{language});
+ const known=knownLanguage||q.knownLanguage;
+ if(q.item||q.unit)return imageFor(q.item||q.unit,{language,knownLanguage:known});
  const symbol=q.kana||((q.stage===0||q.stage===1)?q.q:null);
- if(symbol)return imageFor({symbol},{language});
+ if(symbol)return imageFor({symbol},{language,knownLanguage:known});
  const jp=q.vocabularyKey||q.concealedPrompt||q.displayChallenge||q.q;
- return imageFor({jp},{language});
+ return imageFor({jp,reading:q.speechText},{language,knownLanguage:known});
 }
 function applyDifficulty(area){
  const card=area?.querySelector('.question-card,.lm-course-question');if(!card)return;
@@ -45,12 +48,12 @@ function applyDifficulty(area){
  card.querySelector('.lm-quiz-scene')?.classList.toggle('lm-hard-recall',hidden);
 }
 function revealAfterAnswer(area){const card=area?.querySelector('.question-card,.lm-course-question');if(card)card.dataset.pictureAnswered='true';applyDifficulty(area);}
-function decorateQuestion(area,q,language='ja'){
+function decorateQuestion(area,q,language='ja',knownLanguage){
  const card=area?.querySelector('.question-card,.lm-course-question');
  if(!card)return;
- const art=questionArt(q,language);if(!art)return;
+ const art=questionArt(q,language,knownLanguage);if(!art)return;
  const answers=card.querySelector('.answers,.lm-answer-grid');if(!answers)return;
- const scene=document.createElement('div');scene.className='lm-quiz-scene';
+ const scene=document.createElement('div');scene.className='lm-quiz-scene'+(art.clarity?' lm-quiz-clarity':'');
  const img=document.createElement('img');img.className='lm-quiz-art';img.src='picture-assets/'+(art.file==='pencil-e.webp'?'pencil-storybook-v1.png':art.file);img.alt=art.alt||'';
  scene.appendChild(img);
  const copy=document.createElement('div');copy.className='lm-quiz-copy';

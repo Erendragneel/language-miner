@@ -1,6 +1,6 @@
-# Language Miner v6.4.289
+# Language Miner v6.4.290
 
-Current web update: [learning accuracy and reliable progress](RELEASE-NOTES-v6.4.289.md). The full AI linguistic review covers 22,780 forms; qualified review and audio work remain open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
+Current web update: [corrected wording, recorded audio, and clearer pictures](RELEASE-NOTES-v6.4.290.md). The website now includes the content corrections already installed in the Android testing candidate and preserves the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). The recorded AI wording review covers 22,780 forms; qualified native review remains open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
 
 ## Illustrated Expedition Hub
 
@@ -10,11 +10,13 @@ Inside an unlocked Expedition Hub lesson, click a character or vocabulary word t
 
 Character pictures are tied to real example words, spelling gaps, syllable components, or explicitly identified traditional letter associations. Abstract vocabulary includes a short context clue when a picture alone would be ambiguous. See [ARTWORK-CLUE-NOTES.md](ARTWORK-CLUE-NOTES.md) for those conventions and [ARTWORK-COVERAGE.json](ARTWORK-COVERAGE.json) for the current coverage report.
 
-Illustration coverage is complete for all 625 writing symbols, all 941 available shared vocabulary entries across 17 languages, and all 1,080 Japanese vocabulary entries. The 59 known invalid shared translation rows remain withheld. The separate native-language editorial review described in [VOCABULARY-REVIEW.md](VOCABULARY-REVIEW.md) is unfinished. Picture-specific questions and context are currently in English; target words and recorded answers follow the selected learning language.
+The website includes all 1,000 shared vocabulary entries across 17 languages and the reviewed associations for 625 writing symbols. The picture correction pass adds precise context, quantity, relation, and action diagrams, revised illustrations, and selected known-language captions. Reading and Listening keep picture clues hidden until grading. The recorded wording flags have corrections or explicit context; the separate qualified native-language editorial review described in [VOCABULARY-REVIEW.md](VOCABULARY-REVIEW.md) is unfinished.
 
 ## Native pronunciation, writing coach, and music build
 
-This local build includes two native-language neural speakers for each of the 17 learning languages, the upgraded writing coach, and three original Boppy background tracks. Use Menu → Settings → Question support to choose a speaker and voice speed. Open `voice-preview.html` to compare the voices without changing game progress.
+This build includes paid Azure prebuilt neural recordings for two speakers in each of the 17 learning languages, current-form lookup coverage, story recordings, the writing coach, and three original Boppy background tracks. Playback uses the existing static recordings; it does not generate new Azure speech. Use Menu → Settings → Question support to choose a speaker and voice speed.
+
+The live website loads pronunciation and stories from the companion [Language Miner audio site](https://erendragneel.github.io/language-miner-audio/), on the same GitHub Pages origin. Its [source repository](https://github.com/Erendragneel/language-miner-audio) holds the recording files and hashes. The game repository holds code, music, pictures, and Patreon reels. This keeps each published site below 1 GB without re-encoding recordings. A source-only game download needs the companion repository's `audio/voices` and `audio/stories` folders placed inside the game folder for local playback; this workspace retains those copies. Recorded playback remains available offline after the browser caches the requested clips.
 
 See [NATIVE-VOICES-UPDATE.md](NATIVE-VOICES-UPDATE.md) for pronunciation coverage and audio-source details, and [WRITING-UPDATE.md](WRITING-UPDATE.md) for the writing changes.
 

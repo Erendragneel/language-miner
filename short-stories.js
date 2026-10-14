@@ -8,7 +8,7 @@ function sync(){if(!dialog)return;dialog.querySelector('[data-play]').textConten
 function status(text){dialog.querySelector('[role=status]').textContent=text;}
 async function playAt(n){
  stop();index=n;playing=true;const id=token;
- audio=new Audio(`audio/stories/v1/${context.learning}/${story}-${index}.mp3`);
+ audio=new Audio(`${window.LanguageMinerPronunciation?.audioBase?.()||''}audio/stories/v1/${context.learning}/${story}-${index}.mp3?v=azure-paid-20261008`);
  audio.playbackRate=Number(dialog.querySelector('[data-speed]').value);
  audio.onended=()=>{if(id!==token)return;if(index<5)playAt(index+1);else{stop();status('Story complete. Listen again whenever you like.');}};
  audio.onerror=()=>{if(id!==token)return;stop();status('Audio could not load. Check your connection and tap Listen to try again.');};

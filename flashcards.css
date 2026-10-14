@@ -24,3 +24,9 @@
  #lmFlashcard .is-picture .lm-fc-scene-copy{padding:18px 20px 28px;background:linear-gradient(0deg,#101d33 85%,#101d33e0)}
  #lmFlashcard .is-picture .lm-fc-context{font-size:15px;margin-right:0}
 }
+/* A contained foreground image keeps every diagram panel and subject in view. */
+#lmFlashcard .lm-fc-scene.lm-fc-clarity,#lmFlashcard .lm-fc-scene.lm-fc-clarity.is-picture{display:block;min-height:0;padding-top:0;background:#101d33}
+#lmFlashcard .lm-fc-clarity-art{display:block;width:100%;height:auto;max-height:350px;object-fit:contain;object-position:center;background:#101d33}
+#lmFlashcard .lm-fc-clarity .lm-fc-scene-copy{padding:20px 24px;background:none}
+#lmFlashcard .lm-fc-clarity .lm-fc-scene-note{position:static;display:block;padding:0 24px 16px;font-size:11px;line-height:1.5}
+@media(max-width:560px){#lmFlashcard .lm-fc-clarity-art{max-height:280px}#lmFlashcard .lm-fc-clarity .lm-fc-scene-copy{padding:16px}#lmFlashcard .lm-fc-clarity .lm-fc-scene-note{padding:0 16px 14px}}

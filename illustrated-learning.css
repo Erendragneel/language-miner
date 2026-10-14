@@ -14,3 +14,16 @@
  #challengeArea .answers[hidden]{display:none!important}
  #challengeArea .lm-child-recall .lm-quiz-art{visibility:hidden}
  body.lm-child-lesson #hintBtn,body.lm-child-lesson #shieldBtn,body.lm-child-lesson #v6CoachButton{display:none!important}
+/* Reviewed pictures and diagrams remain fully visible, including small quantities and relationships. */
+.lm-picture-clarity img{object-fit:contain!important;height:auto!important;max-height:340px;background:#101c30}
+#challengeArea .lm-quiz-scene.lm-quiz-clarity{display:flex;flex-direction:column;padding-top:0;min-height:0}
+#challengeArea .lm-quiz-clarity::before{display:none}
+#challengeArea .lm-quiz-clarity .lm-quiz-art{position:relative;inset:auto;z-index:0;object-fit:contain;object-position:center;width:100%;height:auto;max-height:350px;min-height:0}
+#challengeArea .lm-quiz-clarity .lm-quiz-copy{padding:18px 24px}
+#challengeArea .lm-quiz-clarity .lm-quiz-copy .prompt{max-width:100%}
+#challengeArea .lm-quiz-clarity.lm-hard-recall .lm-quiz-copy{padding:24px}
+@media(max-width:600px){#challengeArea .lm-quiz-clarity .lm-quiz-art{max-height:280px}#challengeArea .lm-quiz-clarity .lm-quiz-copy{padding:16px}}
+/* Keep the reviewed scene intact when the adventure and mobile themes override clue sizing. */
+#challengeArea .lm-quiz-scene.lm-quiz-clarity{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;height:auto!important;min-height:0!important}
+#challengeArea .lm-quiz-scene.lm-quiz-clarity .lm-quiz-art{position:relative!important;grid-column:auto!important;grid-row:auto!important;width:100%!important;height:auto!important;max-height:350px!important;object-fit:contain!important}
+@media(max-width:600px){#challengeArea .lm-quiz-scene.lm-quiz-clarity .lm-quiz-art{max-height:280px!important}}

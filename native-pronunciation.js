@@ -6,10 +6,15 @@
  let current=null,revision=0;
  function pack(tag){return window.LANGUAGE_MINER_PRONUNCIATION_PACK?.languages?.[language(tag)]||null;}
  function voice(tag,gender='female'){return pack(tag)?.voices.find(v=>v.gender===gender)||null;}
+ function audioBase(){
+  const configured=window.LANGUAGE_MINER_AUDIO_BASE;
+  if(typeof configured==='string')return configured?configured.replace(/\/?$/,'/'):'';
+  return window.location?.protocol==='https:'&&window.location?.hostname==='erendragneel.github.io'?'https://erendragneel.github.io/language-miner-audio/':'';
+ }
  function lookup(text,tag,gender='female'){
   const p=pack(tag),v=voice(tag,gender),id=p?.aliases[normalize(text)];
-  const revision=p?.revisions?.[v?.id]?.[id];
-  return id&&v?{id,voice:v,locale:p.locale,url:`audio/voices/${v.id}/${id}.mp3${revision?'?v='+revision:''}`}:null;
+  const revision=p?.revisions?.[v?.id]?.[id]||'azure-paid-20261008';
+  return id&&v?{id,voice:v,locale:p.locale,url:`${audioBase()}audio/voices/${v.id}/${id}.mp3${revision?'?v='+revision:''}`}:null;
  }
  function cancel(){revision++;const old=current;current=null;if(old){old.audio.pause();old.audio.removeAttribute('src');old.audio.load();old.finish('canceled');}}
  function play(text,tag,options={}){
@@ -29,5 +34,5 @@
  }
  document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
  window.addEventListener('pagehide',cancel);
- window.LanguageMinerPronunciation=Object.freeze({pack,voice,lookup,play,cancel,normalize,isSpeaking:()=>Boolean(current),current:()=>current?{...current.clip}:null});
+ window.LanguageMinerPronunciation=Object.freeze({pack,voice,audioBase,lookup,play,cancel,normalize,isSpeaking:()=>Boolean(current),current:()=>current?{...current.clip}:null});
 })();

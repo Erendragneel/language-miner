@@ -1,5 +1,9 @@
 /work/
 /outputs/
+# Pronunciation and stories are published in Erendragneel/language-miner-audio.
+# Local copies remain available for previews and paired offline packages.
+/audio/voices/
+/audio/stories/
 node_modules/
 .env
 .env.local

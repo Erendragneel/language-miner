@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-14",
+  "websiteOnly": true,
+  "nativeCertification": false,
+  "changedFiles": [
+    {
+      "file": "v5-6400.js",
+      "bytes": 148945,
+      "sha256": "42e6aed979ecbc87a1bff959b7c972b2bc1f0b02f1a0c4084df50a8c273533a8"
+    },
+    {
+      "file": "multilingual-preview.js",
+      "bytes": 169207,
+      "sha256": "00524acb0a0285746777d7f6fa53235c13b293e5b677b0f0057e8262e3dd9d86"
+    },
+    {
+      "file": "vocabulary-safety.js",
+      "bytes": 7165,
+      "sha256": "1e1b614a107746646080b0ca39fdb66f10d7bcf831255a56120105a45ed98035"
+    },
+    {
+      "file": "wording-resolutions.js",
+      "bytes": 313915,
+      "sha256": "cd5782df8254916c1c2798b97cd958a0313d58df3b6369b5c5c805994ad2c8e4"
+    },
+    {
+      "file": "audio-form-corrections.js",
+      "bytes": 84976,
+      "sha256": "659ec970cf69c0d88cf88d63068fa978b1de66b0f13e765c4431249e672f4c4e"
+    },
+    {
+      "file": "tests/current-wording.test.cjs",
+      "bytes": 8897,
+      "sha256": "632d2c61275a14d333d29190f8d8330063f956068956bccee28268876810975b"
+    },
+    {
+      "file": "reviews/wording-2026-10-05/resolved-forms.json",
+      "bytes": 1576716,
+      "sha256": "b8fce9c4e564390662a157f2cd0c4fd25c13179f6742bfb77bb1537aeb2bdd2b"
+    },
+    {
+      "file": "reviews/wording-2026-10-05/summary.json",
+      "bytes": 957,
+      "sha256": "f21f9480a823005cf27eec25e9af6c8a52e302a0389c93bcb0593271688c5d9e"
+    }
+  ],
+  "preservedIdenticalData": [
+    "multilingual-course-data.js",
+    "travel-phrases-200.js",
+    "vocabulary-sense-fixes.js",
+    "n5-vocabulary-1000.js"
+  ],
+  "tests": {
+    "currentWording": {
+      "passed": true,
+      "recordedFlaggedForms": 5788,
+      "currentForms": 22780,
+      "availableVocabulary": 1000,
+      "changedSavedCards": 6171,
+      "completeTravelLanguageSets": 17,
+      "checks": [
+        "stable IDs and progress metadata",
+        "native key alias",
+        "future held lesson progression",
+        "actual web shell order"
+      ]
+    },
+    "historicalLanguageReview": {
+      "passed": true
+    },
+    "historicalFullReview": {
+      "passed": true
+    },
+    "n5Assessment": {
+      "passed": true,
+      "scenarios": 13
+    }
+  }
+}

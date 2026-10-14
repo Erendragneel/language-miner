@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-14",
+  "version": "6.4.290",
+  "scope": "Final staged website source review; no live account or player-storage changes, paid calls, Android rebuild, or publication performed by this audit.",
+  "passed": true,
+  "shell": {
+    "scripts": 67,
+    "syntaxParsed": 68,
+    "styles": 28,
+    "missingDirectReferences": 0,
+    "offline": {
+      "CRITICAL_SHELL": {
+        "references": 66,
+        "missing": []
+      },
+      "APP_SHELL": {
+        "references": 233,
+        "missing": []
+      }
+    },
+    "requiredModuleOrderCorrect": true,
+    "releaseIdentity": "6.4.290 / web-content-r123"
+  },
+  "content": {
+    "currentForms": 22780,
+    "languages": 17,
+    "vocabularyAvailable": 1000,
+    "vocabularyTotal": 1000,
+    "recordedWordingFlagsResolved": true,
+    "qualifiedNativeEditorialReviewComplete": false
+  },
+  "pictures": {
+    "sharedVocabularyMappings": 1000,
+    "languages": 17,
+    "activeSharedDiagrams": 149,
+    "nativeDiagrams": 2,
+    "nativeContextRecords": 74,
+    "alphabetExamples": 625,
+    "alphabetCorrections": 9,
+    "visualMismatchRepairs": 41,
+    "referencedAssets": 998,
+    "referencedAssetBytes": 107317349,
+    "all998ReferencedAssetsHashMatched": true,
+    "correctedRuntimeHashesMatched": true,
+    "testsPassed": [
+      "picture-clarity.test.cjs",
+      "alphabet-picture-clarity.test.cjs",
+      "context-picture-diagrams.test.cjs",
+      "action-picture-scenes.test.cjs"
+    ],
+    "browserIntegration": "Parent performs isolated Cua checks; no browser CLI run."
+  },
+  "audio": {
+    "architecture": "Static companion GitHub Pages site on the same origin",
+    "productionBase": "https://erendragneel.github.io/language-miner-audio/",
+    "manifestFiles": 61240,
+    "manifestBytes": 939574080,
+    "pronunciationClips": 61036,
+    "storyClips": 204,
+    "localCurrentFormLookups": 45560,
+    "productionCurrentFormLookups": 45560,
+    "uniqueCurrentFormRecordings": 43576,
+    "generalAliasLookups": 64092,
+    "uniqueGeneralAliasRecordings": 61036,
+    "mockedAudioCompletions": 91120,
+    "deviceSpeechAttempts": 0,
+    "networkOrPaidCalls": 0,
+    "fileHashes": "All 61,240 source and copied MP3 hashes match paid receipts and Android inventory; companion committed blob OIDs match verified bytes, and git fsck passed.",
+    "testsPassed": [
+      "paid-web-audio.test.cjs",
+      "content-media-cache.test.cjs"
+    ],
+    "offline": "Requested clips cached; corrected recordings and pictures bypass obsolete caches. Full and ranged audio responses tested.",
+    "sourceDownload": "README explains companion recording folders required for local playback.",
+    "legacyUrlMigration": "Legacy /language-miner/audio paths are rewritten to the companion site and share the canonical paid cache. Fresh final cache/range VM suite passed after this compatibility change."
+  },
+  "preserved": {
+    "baseCommit": "d17f2831283dab40e0435653f2d7a5551f7ff75b",
+    "representativeFiles": [
+      {
+        "file": "daily-golem-art.js",
+        "unchanged": true
+      },
+      {
+        "file": "daily-golem.js",
+        "unchanged": true
+      },
+      {
+        "file": "daily-golem-cel-heads.js",
+        "unchanged": true
+      },
+      {
+        "file": "daily-golem-cel-wardrobe.js",
+        "unchanged": true
+      },
+      {
+        "file": "patreon-heart-videos.js",
+        "unchanged": true
+      },
+      {
+        "file": "patreon-reel-locales.js",
+        "unchanged": true
+      },
+      {
+        "file": "multilingual-course-data.js",
+        "unchanged": true
+      },
+      {
+        "file": "vocabulary-sense-fixes.js",
+        "unchanged": true
+      },
+      {
+        "file": "reward-animation/base.webp",
+        "unchanged": true
+      },
+      {
+        "file": "reward-animation/heads-1.webp",
+        "unchanged": true
+      },
+      {
+        "file": "reward-animation/heads-2.webp",
+        "unchanged": true
+      }
+    ],
+    "websitePatreonAndDiscordRetained": true,
+    "liveProgressUntouched": true
+  },
+  "regressions": {
+    "targetedGameplayScenarios": 79,
+    "targetedGameplaySuites": 5,
+    "targetedEvidence": "Parent reports all 79 passed after final merges; unchanged suites were not repeated by this audit.",
+    "pictureSuites": 4,
+    "additionalFinalTests": [
+      "paid-web-audio.test.cjs",
+      "content-media-cache.test.cjs",
+      "release-identity.test.cjs",
+      "document-navigation.test.cjs",
+      "reward-reel-cache.test.cjs"
+    ]
+  },
+  "hashes": {
+    "index.html": "05cc4d187869e242a1127c2373af2558e5385c6c065d5f639be6efb2a03b23a2",
+    "sw.js": "fa780474197b34d7828fc24e8d439b12adc5e7a4b72032f6962774b46aeaafd0",
+    "update/preview.html": "07809cd01151067e312427c315c2889350765f113e96a6aec79620c3c4380e5f",
+    "native-pronunciation.js": "bddf7af415554d9dd796acf07b704325ad6bfff1a0cf9134130dfd797d353f59",
+    "short-stories.js": "116a91a9a61d4ffc48cbba570b59bc4b04937bf8b8b4b66b973617ed2ed20efb",
+    "paid-audio-manifest.json": "82c6fb55ff1d959bab5cbdaec50ad913787bfe978fa71701c649ba8ae1773c8a"
+  },
+  "hashRefresh": "Final SW hash refreshed after reproducing and correcting document navigation; document, media/range, reward-reel, release identity, and syntax checks passed.",
+  "documentNavigation": {
+    "fixed": true,
+    "priorBugReproduced": true,
+    "cachedGamePreserved": true,
+    "privacyTermsNoticesReadable": true,
+    "offlineCachedPrivacyReadable": true,
+    "completeUpdaterNetworkBypassPreserved": true,
+    "actualWorkerVmTestPassed": true
+  },
+  "browser": {
+    "isolatedPictureContextAndContainmentPassed": true,
+    "readingAndListeningHideAnswerPicturesBeforeGrade": true,
+    "localSpanishAndJapaneseBothVoicesPlaybackCompleted": true,
+    "actualReturningClientUpdaterPassed": true,
+    "returningClientVersion": "6.4.289 -> 6.4.290",
+    "mineXpRetained": 37,
+    "nuggetsRetained": 19,
+    "profileRetained": true,
+    "livePlayerDataAccessed": false,
+    "scope": "Real browser updater flow tested against 802cd337 before the document-only routing follow-up; unchanged updater and game paths retained. The follow-up public-host document branch was exercised by the actual worker VM suite."
+  }
+}

@@ -199,11 +199,15 @@ function reviewMatchesCourse(question){return reviewLanguage(question)===(window
 function restoreReviewItem(question){
  if(!String(question?.id||'').startsWith('multilingual:'))return question;
  const parts=question.id.split(':'),language=reviewLanguage(question),known=question.knownLanguage||parts.at(-1)||'en',section=parts[3],itemId=parts.slice(4,-1).join(':'),data=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA,items=data?.[section==='travel'?'sentences':section],item=items?.find?.(entry=>String(entry.id)===itemId);
- const challenge=question.learningLanguage?(question.displayChallenge||question.q):(item?.forms?.[known]||'🔊');
- return {...question,learningLanguage:language,knownLanguage:known,speechLanguage:language,q:challenge,displayChallenge:challenge};
+ if(section!=='alphabet'&&(!item||window.LanguageMinerVocabulary?.available(item,language,known)===false))return null;
+ const challenge=item?.forms?.[known]||(question.displayChallenge||question.q||'🔊');
+ if(!item)return {...question,learningLanguage:language,knownLanguage:known,speechLanguage:language,q:challenge,displayChallenge:challenge};
+ const answer=item.forms[language],options=[answer];
+ for(const candidate of items){if(window.LanguageMinerVocabulary?.available(candidate,language,known)===false)continue;const value=candidate.forms?.[language];if(value&&!options.includes(value))options.push(value);if(options.length===4)break;}
+ return {...question,learningLanguage:language,knownLanguage:known,speechLanguage:language,q:challenge,displayChallenge:challenge,prompt:`Translate: ${challenge}`,a:answer,opts:options,speechText:answer};
 }
 function smartReviewQuestionCatalog(){
- ensureV5();const catalog=new Map();questions.forEach(question=>{if(question?.id)catalog.set(String(question.id),question);});Object.values(state.v5.reviewItems).forEach(question=>{if(question?.id&&!catalog.has(String(question.id)))catalog.set(String(question.id),restoreReviewItem(question));});return [...catalog.values()];
+ ensureV5();const catalog=new Map();questions.forEach(question=>{if(question?.id)catalog.set(String(question.id),question);});Object.values(state.v5.reviewItems).forEach(question=>{if(question?.id&&!catalog.has(String(question.id))){const restored=restoreReviewItem(question);if(restored)catalog.set(String(question.id),restored);}});return [...catalog.values()];
 }
 function enqueueSmartReviewItem(item={}){
  ensureV5();const id=String(item.id||'').trim(),answer=String(item.a??item.answer??'').trim(),rawOptions=Array.isArray(item.opts)?item.opts:Array.isArray(item.options)?item.options:[],opts=[...new Set(rawOptions.map(option=>String(option)).filter(Boolean))];if(answer&&!opts.includes(answer))opts.push(answer);if(!id||!answer||opts.length<2)return false;const stage=Math.max(0,Math.min(stages.length-1,Number(item.stage)||0));if(!questions.some(question=>String(question.id)===id))state.v5.reviewItems[id]={id,stage,q:String(item.q||item.displayChallenge||item.prompt||answer),displayChallenge:String(item.displayChallenge||item.q||item.prompt||answer),prompt:String(item.prompt||'Choose the correct answer.'),a:answer,opts,speechText:String(item.speechText||item.spoken||item.q||''),learningLanguage:item.learningLanguage,knownLanguage:item.knownLanguage,speechLanguage:item.speechLanguage,kind:'review-only'};const previous=state.v5.srs[id]&&typeof state.v5.srs[id]==='object'?state.v5.srs[id]:{interval:0,ease:2.3,reps:0};state.v5.srs[id]={...previous,dueAt:Date.now(),lastQueuedAt:Date.now()};save();return true;
@@ -242,7 +246,7 @@ function showNextSmartReviewQuestion(session=activeSmartReviewSession()){
  while(session.index<session.questionIds.length){
   const question=smartReviewQuestionForSession(session);if(!question){session.index++;continue;}
   state.selectedStage=Math.max(0,Number(question.stage)||0);
-  const current=state.active?.smartReview===true&&String(state.active.id)===String(question.id)&&Number(state.active.smartReviewStartedAt)===Number(session.startedAt)&&!state.answered;
+  const current=state.active?.smartReview===true&&String(state.active.id)===String(question.id)&&Number(state.active.smartReviewStartedAt)===Number(session.startedAt)&&!state.answered&&state.active.a===question.a&&state.active.q===question.q&&JSON.stringify([...(state.active.opts||[])].sort())===JSON.stringify([...(question.opts||[])].sort());
   state.active=current?state.active:{...question,opts:Array.isArray(question.opts)?shuffle([...question.opts]):question.opts,smartReview:true,smartReviewStartedAt:session.startedAt,smartReviewPosition:session.index+1,smartReviewTotal:session.questionIds.length};
   state.answered=false;state.shieldArmed=false;showQuestion(state.active);render();decorateSmartReviewQuestion(session);setMessage(`Smart Review ${session.index+1} of ${session.questionIds.length}. Complete this saved queue before returning to your lesson.`,'');if(state.voiceEnabled&&state.autoSpeak)setTimeout(()=>speakActiveQuestion(),180);save();return true;
  }

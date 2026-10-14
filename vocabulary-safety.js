@@ -1,7 +1,12 @@
 /* Vocabulary integrity helpers. Exact alternatives only; no fuzzy answer matching. */
 (function(){
   'use strict';
+  // BEGIN GENERATED CONTENT HOLDS
+  const contentHolds={};
+  // END GENERATED CONTENT HOLDS
   const normalize=value=>String(value??'').normalize('NFKC').replace(/\s+/g,' ').trim();
+  const sectionByItem=new WeakMap();
+  for(const section of ['vocabulary','grammar','sentences'])for(const row of window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section]||[])sectionByItem.set(row,section);
   // Keep IDs and lesson positions stable while withholding a Japanese-only
   // combination of senses that is not one answer in the translated courses.
   for(const item of window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.vocabulary||[]){
@@ -23,6 +28,8 @@
   const isMeaning=q=>Boolean(q?.vocabularyKey&&/choose the (?:best )?meaning/i.test(q.prompt||''));
   function refreshJapanese(q){
     if(!q?.vocabularyKey)return;
+    const canonical=window.LanguageMinerJapaneseKeyAliases?.[q.vocabularyKey];if(canonical){const oldKey=q.vocabularyKey;q.vocabularyKey=canonical;for(const field of ['q','a','displayChallenge','concealedPrompt'])if(q[field]===oldKey)q[field]=canonical;if(q.opts)q.opts=q.opts.map(v=>v===oldKey?canonical:v);}
+
     const entry=rows().find(r=>r[0]===q.vocabularyKey);if(!entry)return;
     const meaning=isMeaning(q),reading=/choose the (?:correct )?reading/i.test(q.prompt||'');
     if(!meaning&&!reading)return;
@@ -71,14 +78,23 @@
     const item=question.item||data.find(r=>r.id===id);
     const prompt=item?.forms?.[known]||question.meaning||question.display;
     if(!prompt)return false;
-    return data.some(r=>available(r)&&normalize(r.forms?.[known])===normalize(prompt)&&normalize(r.forms?.[learning])===normalize(selected));
+    return data.some(r=>available(r,learning,known)&&normalize(r.forms?.[known])===normalize(prompt)&&normalize(r.forms?.[learning])===normalize(selected));
   }
-  function available(item){return item?.contentReview?.blocked!==true;}
+  function available(item,learning,known){
+    if(item?.contentReview?.blocked===true)return false;
+    // Resolve by object identity or stable ID plus wording: IDs overlap between
+    // sections, and native Japanese lists use a different content system.
+    const data=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA||{};
+    const section=item&&sectionByItem.get(item)||['vocabulary','grammar','sentences'].find(s=>(data[s]||[]).some(r=>r.id===item?.id&&r.forms&&item?.forms&&Object.keys(r.forms).every(l=>r.forms[l]===item.forms[l])));
+    const held=section&&contentHolds[section+':'+item.id];
+    if(!held)return true;
+    return learning||known?!held[learning]&&!held[known]:false;
+  }
   function refreshMultilingual(question,learning,known,promptForMeaning){
     const section=question?.sourceSection||question?.section||question?.mode;
     if(!['vocabulary','grammar','sentences','travel'].includes(section)||!question.item?.forms)return false;
     const current=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section==='travel'?'sentences':section]?.find(r=>r.id===question.item.id);
-    if(!current||!available(current))return false;
+    if(!current||!available(current,learning,known))return false;
     const answer=current.forms[learning],meaning=current.forms[known];
     if(!answer||!meaning||question.item.forms[learning]===answer&&question.item.forms[known]===meaning)return false;
     const oldAnswer=question.answer;question.item=current;question.answer=answer;question.meaning=meaning;question.spoken=answer;

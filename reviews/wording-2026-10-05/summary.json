@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-05",
+  "originalFlaggedForms": 5788,
+  "resolvedFlaggedForms": 5788,
+  "remainingFlaggedForms": 0,
+  "authoredRows": 422,
+  "changedForms": 6171,
+  "missingExactAudioForms": 5906,
+  "nativeCertifiedForms": 0,
+  "releaseApproved": false,
+  "reviewType": "AI wording resolution with targeted source checks; native speaker review still required",
+  "sourceSha256": "641c460902568d23d041627c6cf6b6111a3dfefd047d0e7be084a4e2a14aae1b",
+  "sources": [
+    "https://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/search.html?dq=&lq=%CF%86%CE%B9%CF%83%CF%84%CE%AF%CE%BA%CE%B9",
+    "https://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/search.html?lq=%CF%80%CE%AD%CE%BD%CE%B1",
+    "https://laits.utexas.edu/japanese/joshu/vocabulary/vocablist/voc.irr_keigokenjogo.php",
+    "https://www.bunka.go.jp/seisaku/bunkashingikai/kokugo/keigo/keigo_11/pdf/kokugo_bunkakai190115_siryou2.pdf"
+  ]
+}
