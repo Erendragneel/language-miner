@@ -8,6 +8,7 @@ Improves learning accuracy, teaching feedback, and progress recovery while prese
 - Explanations show existing translations, readings, rules, and relevant completed examples. They avoid inventing missing teaching content.
 - Progress saving reports device, course, cloud, and recovery outcomes separately. Failed writes retain pending session progress and offer Retry; a failure cannot announce a successful save.
 - Keeps Academy controls above mobile navigation, hides the floating gem during a study question, and updates Resume/Next labels immediately.
+- Aligns the complete updater with this release so older cached installations can verify and open the current version while retaining player storage.
 
 79 deterministic regression scenarios passed against the merged release source. Browser evidence for the original fixes used a disposable local profile; physical Android testing and real billing verification remain separate.
 
