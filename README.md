@@ -1,6 +1,6 @@
-# Language Miner v6.4.293
+# Language Miner v6.4.294
 
-Current web update: [original artwork and matching foot colors](RELEASE-NOTES-v6.4.293.md). The [documented hairstyle replacements](RELEASE-NOTES-v6.4.292.md) remain included. The [privacy and license disclosures](RELEASE-NOTES-v6.4.291.md) remain included. The previous [wording, recorded audio, and picture update](RELEASE-NOTES-v6.4.290.md) remains included. The website now includes the content corrections already installed in the Android testing candidate and preserves the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). The recorded AI wording review covers 22,780 forms; qualified native review remains open. Private gamer-tag linking is pending its database deployment. This website update is not a Google Play release.
+Current web update: [restored detailed standing characters](RELEASE-NOTES-v6.4.294.md), using the existing documented full-body character artwork and retaining appearance ownership. The [original artwork and matching foot colors](RELEASE-NOTES-v6.4.293.md), [hairstyle replacements](RELEASE-NOTES-v6.4.292.md), [privacy and license disclosures](RELEASE-NOTES-v6.4.291.md), and [wording, recorded audio, and picture corrections](RELEASE-NOTES-v6.4.290.md) remain included, along with the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). Qualified native-language editorial review remains open. Private gamer-tag linking is pending its database deployment. The Android testing release is verified separately.
 
 ## Illustrated Expedition Hub
 

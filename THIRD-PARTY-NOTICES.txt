@@ -190,3 +190,9 @@ are unchanged. No new purchases, provider generation, TTS, hosting, or licensor
 contact were used. ASSET-PROVENANCE.md and the private October 15 source/hash
 records document this scope. This is not comprehensive copyright/trademark,
 owner legal, Google Play policy, language-accuracy, or device certification.
+
+## Detailed standing character restoration — October 15, 2026 (6.4.294)
+
+This section supersedes the standing-character description in the earlier October 15 vector-body replacement. The owner reviewed and approved the local full-body preview before publication. Standing lesson characters, sidebar avatars, appearance previews and normal character actors now render the documented canonical full-body portrait family with its existing transparent wardrobe/color layers through pose-wardrobe.js. The native 941x1672 proportions are retained. Runtime compositing clips normal color layers to the canonical portrait silhouette; seasonal garments use the selected documented head and recolor exposed neck, hands and feet. Geta artwork includes white tabi socks where shown, rather than bare light-colored feet.
+
+The separate original sixteen-frame Daily Golem action geometry remains in pose-textures.js. None of the retired supplied-JPEG pose, its wardrobe rasters, hands, cel atlases or models is restored or read. No image generation, new recording, purchase, paid service or profile migration is part of this change. Saved IDs, ownership and balances retain their existing meaning. This records the actual source families and rendering behavior; it is not comprehensive legal, language, platform or device certification.
