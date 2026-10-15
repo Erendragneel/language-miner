@@ -1,9 +1,9 @@
 {
   "date": "2026-10-15",
   "websiteVersion": "6.4.293",
-  "androidVersion": "6.4.289-play.14",
-  "androidVersionCode": 14,
-  "androidSha256": "90D972C706BD77AF0553134B84CC962943EFD919D524F05AEC9407E69958EDFF",
+  "androidVersion": "6.4.289-play.15",
+  "androidVersionCode": 15,
+  "androidSha256": "5A8D4A3D4F210E0C92FC605A3A3024C86A38A5DD61029BF515485E603DD6760F",
   "additionalPaidRequests": 0,
   "newPaidResources": 0,
   "privacyPolicyVersion": "2026-10-14-v2",
@@ -51,26 +51,35 @@
     "oldSavedAppearanceIdsAndOwnershipRetained": true,
     "websiteReelFramesVerified": 29376,
     "freeReviewerDemoPrepared": true,
-    "freeReleaseNativeNetworkPermissionsAbsent": true
+    "freeReleaseNativeNetworkPermissionsAbsent": true,
+    "neutralAndroidVocabularyPicturesReplaced": 3,
+    "actualStagedPictureRoutesPassed": 975,
+    "stagedCommercialContentCasesPassed": 21,
+    "commercialPreviewSinglePlacement": true,
+    "browserHeartRecoveryPointerCloseStopRewardCooldownPassed": true,
+    "nativeDependencyAndDataReviewBoundToFinalCandidate": true,
+    "curricularStringValuesScreened": 100933,
+    "activeLanguageFormsScreened": 22780,
+    "additionalSourcePermissionPurchaseRequired": false
   },
   "remaining": {
     "nativeEditorialReview": "Native/fluent volunteer content review recommended; tests do not certify all language teaching or pronunciation. No paid certificate required.",
     "liveWebsiteCloudPrivacyOperations": "Deployment and operational verification still required",
-    "targetAudienceAndContentRating": "Owner declaration and contextual review still required",
-    "googlePlayDataSafety": "Final device/SDK verification and owner declaration still required",
-    "reviewerAccess": "Free temporary review demo is implemented. Validate entry, optional-feature access, reset/exit and normal-save isolation on the installed Android app and Google Play test track before review.",
-    "googlePlaySigningAndExport": "Factual sources inspected; owner declarations/platform acceptance not performed",
+    "targetAudienceAndContentRating": "Owner audience choice and contextual IARC submission required. Independent-use design recommends 9+; 6–8 needs adult-assisted tests and Under5 suitability is not established.",
+    "googlePlayDataSafety": "Exact offline native source/dependency/permission review completed and bound to signed play.15. Proposed no collection/sharing worksheet prepared; installed-device verification and actual submission remain.",
+    "reviewerAccess": "Free RAM-only reviewer demo prepared and hash-checked unchanged. Installed-device reset/exit, normal-save isolation and Google Play test-track access still need verification.",
+    "googlePlaySigningAndExport": "Technical signing/export assessment completed. Owner legal statements and platform acceptance not performed.",
     "subscriptions": "Verifier and products not activated; checkout remains disabled",
-    "realDeviceAndGooglePlayTesting": "Not completed"
+    "realDeviceAndGooglePlayTesting": "No device connected, no app entry or upload, no actual hardware testing. Applicable personal account: 12 continuously opted-in closed testers for 14 days, feedback, production-access application and Google review remain."
   },
   "releaseClearanceEstablished": false,
   "legalCertification": false,
   "uploadedToGooglePlay": false,
-  "checkedAt": "2026-10-15T01:15:06.251Z",
+  "checkedAt": "2026-10-15T03:41:58.774Z",
   "excludedHistoricalAssets": {
     "onlineHairstyleSheetPermission": "Unknown, confirmed by owner. No license purchased.",
     "fourOriginalPortraitsAndLayers": "Not used in current release; exact originals retained privately. No retroactive license claimed.",
-    "previousAndroidCandidate": "play.12 and play.13 retained unchanged; current original artwork and free review demo are in verified play.14.",
+    "previousAndroidCandidate": "play.12, play.13 and play.14 retained unchanged; current neutral illustrations and promotion cleanup are in verified play.15.",
     "currentOriginalArtRemediation": "Earlier logo/covers and supplied-pose input permissions remain unestablished. Current affected assets are replaced/excluded, with originals and historic artifacts preserved privately; no retroactive permission is claimed."
   },
   "reviewerAccess": {
@@ -86,8 +95,15 @@
     "paymentRequired": false,
     "networkRequired": false,
     "normalPlayerMembershipGranted": false,
-    "browserValidationClaimed": false,
+    "browserValidationClaimed": true,
     "deviceValidationClaimed": false,
-    "googlePlayValidationClaimed": false
+    "googlePlayValidationClaimed": false,
+    "browserValidationScope": "Earlier browser demo-flow receipt carried forward only after exact source/staged reviewer fingerprint checks; final play.15 staged heart reward flow separately observed. No installed Android or Google Play validation."
+  },
+  "auditLimits": {
+    "contentInventory": "18 bound files/45 objects/100,933 strings, 22,780 active forms; targeted visual/context screen, not fluent approval of every language or pixel/audio inspection of every asset.",
+    "licensing": "Specific identified current source gaps remediated using recovered permissions and original replacements; no blanket legal certification.",
+    "export": "Ordinary educational-game technical scope assessed, including authentication/signatures/DRM/entertainment; owner destination/end-user/end-use statements remain.",
+    "costUsd": 0
   }
 }
