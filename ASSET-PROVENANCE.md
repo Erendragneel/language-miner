@@ -479,3 +479,94 @@ Private evidence: `downstream-asset-audit.json`,
 This appendix resolves the exact four removed portrait-source issue for the
 current replacement files. It does not settle the separately named missing
 source records or establish comprehensive commercial-release clearance.
+
+
+## Current artwork replacements and exclusions — October 15, 2026
+
+This record supersedes the October 14 missing-source statements for the current
+logo/icon, three static membership covers, and supplied-JPEG lesson-pose family
+only where the replacement or exclusion is named below. Those originals have
+not received permission retroactively. Exact original files and historical
+release records remain privately retained outside the current release trees.
+This is a factual current-source record, not complete copyright/trademark
+clearance, owner legal approval, or a Google Play review decision.
+
+### Original vector brand and static membership covers
+
+`tools/original-brand/build.cjs` authors all geometry, layout, and text for the
+speech-crystal/book/pickaxe brand and the coat, companion, and settlement cover
+illustrations. Its seven editable SVG sources contain no raster image, model,
+third-party reference, or network input. Existing local Sharp/librsvg renders
+the PNG derivatives. SVG text uses locally rendered system fonts; no font file
+is embedded or redistributed.
+
+The same-path current replacements are `language-miner-logo.png`,
+`language-miner-icon-{32,180,192,512,1024}.png`,
+`language-miner-icon-maskable-{192,512}.png`, `icon-{180,192,512}.png`,
+`favicon.svg`, and the three `patreon-tier-{1,2,3}-*.png` membership covers.
+The covers retain the actual $1, $3, and $5 monthly tiers and current benefits.
+The 1024x500 store feature graphic comes from the authored
+`tools/original-brand/feature-graphic.svg`. The source, output, and private
+original-backup hashes are in `brand-art-remediation.json`; all 125 rendering,
+dimension, hash, backup, and offer-copy checks passed in
+`brand-art-verification.json` in the private October 15 audit.
+
+### Supplied-JPEG pose family
+
+Current standing miners and sixteen action frames use original vector body, garment, hand, footwear and pickaxe geometry in pose-textures.js. Face and hair crops use the documented canonical project portraits and existing color layers. Exposed feet, hands and neck use the selected skin palette; sandal and both yukata outfits are covered by regression tests for all four tones. Saved IDs, currency, ownership and reward controllers are unchanged. The retired supplied-JPEG pose, nine wardrobe rasters, hand sheet, twelve cel atlases and five associated model/texture files are excluded from current publication. Android staging explicitly excludes their packaged counterparts, including incremental staging. Exact originals are preserved privately. No current drawing or fallback loads those retired media paths.
+Current shared renderer SHA-256: 88ac4002a07b63b8c0673c067b050c233bf820a317a1076c8e48f6d0f43e453b.
+
+The ten canonical head styles continue to use the documented generated project
+miner family. Their recovered direct inputs do not include the marked online
+hairstyle sheet. The base concept's ancestry includes the separately audited
+purchased-avatar quality reference and its recorded EULA context; this record
+does not claim that complete ancestral chain had zero external references or
+that generated status alone proves every input right. The four old save/style
+aliases retain the October 14 mapping to those canonical heads and preserve
+existing ownership without a repeat purchase.
+
+### Website promotional scene correction
+
+The first six seconds of each of the 17 Tier 1 localized website videos now use
+the original geometric clothing and color-choice illustration authored in
+`tools/reward-reels/original-character.svg`. The same-path
+`tools/reward-reels/scenes/character.png` and Tier 1 poster are replaced too.
+No English text is burned into the shared scene: all 204 readable caption lines
+remain in their existing 17-language DOM caption sets.
+
+Each Tier 1 movie has 144 newly rendered frames. Its remaining 18 seconds,
+432 decoded frames and 432 compressed video packets, are exactly unchanged.
+The 34 Tier 2/3 movies remain byte-for-byte unchanged. All 51 current website
+movies have no audio stream and retain 24-second duration and 576 frames each;
+all 29,376 frames were decoded by the complete media check. The first-scene
+replacement does not change heart completion/cancellation or membership
+behavior. Original narrated and pre-replacement video files remain in verified
+private backups; their removed audio and art have not been licensed retroactively.
+
+Tier 2's summer wardrobe image is specifically earlier project art:
+`avatar-holiday-summer-matsuri-v1.png`, SHA-256
+`cdad03bf03a4a208a8b37b699b1e19e8b862674abe6be1a7a7473b70a92a0ddd`,
+is the exact file in the August 25 commit
+`2d452a5d9ee7759238b21359d32a0a32aeeb3b49`, before the September 16 supplied-JPEG
+lesson-pose generation. It is not a descendant of that later supplied-JPEG
+pose. This chronology is specific evidence, not blanket clearance of every
+unrelated image. The unchanged companions, wallpapers, settlement, arcade,
+and world scenes retain their separately documented source families.
+
+Private receipts: `website-character-reels-remediation.json`,
+`website-character-reels-frozen-paths.json`, and
+`website-character-reels-media-qa.json` in the October 15 audit.
+
+### Limits and unchanged recordings
+
+There were no new purchases, paid image generation, TTS requests, hosting, or
+licensor-contact messages in this remediation. The three paid Azure narrated
+Google Play promotional videos and 61,240 paid Azure pronunciation/story
+recordings are unchanged. Their separate source and output-use records remain
+applicable; this new artwork record does not grant new permission to old media.
+
+The named artwork evidence gaps are closed for the current replacement or
+excluded families only. Historical originals retain their unknown permissions.
+Language review, physical-device behavior, real Google Play billing, account
+verification, store declarations, owner signing/export decisions, and Google's
+review are separate launch steps and are not certified by this asset record.

@@ -26,7 +26,7 @@
     const language=knownLanguage(),locale=window.LanguageMinerPatreonReelLocales?.languages?.[language];
     if(!locale || locale.lines.length !== 12) return null;
     return {...base, language, title:`Patreon · ${base.tier} · ${locale.name}`,
-      image:`patreon-reels/v285/tier-${base.tier}.jpg`, video:`patreon-reels/v285/${language}/tier-${base.tier}.mp4?rev=caption-only-r291`,
+      image:`patreon-reels/v285/tier-${base.tier}.jpg`, video:`patreon-reels/v285/${language}/tier-${base.tier}.mp4?rev=caption-art-r293`,
       slides:locale.lines.slice((base.tier-1)*4,base.tier*4).map(line=>['',line])};
   }
   function seconds(value){

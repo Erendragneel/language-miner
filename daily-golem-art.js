@@ -1,4 +1,4 @@
-/* Sprite presentation and hand-drawn cel reward scene. No reward/save mutations. */
+/* Original vector miner presentation with existing golem/fracture/gem timing. No reward/save mutations. */
 (()=>{'use strict';
  let serial=0;
  // Short surface fractures stay on individual stone plates, away from gaps between limbs.
@@ -21,9 +21,9 @@
   const ends=exposure.reduce((a,n)=>{a.push((a.length?a[a.length-1]:0)+n/24);return a;},[]);
   const duration=5.2,impactAt=ends[9];
   // All placements use the same scene coordinates. Cels are never deformed.
-  const layout={width:1000,height:700,avatar:{x:0,y:28,size:630},golem:{x:590,y:417,width:285,height:240},hit:{x:673,y:603}};
+  const layout={width:1000,height:700,avatar:{x:45,y:76,size:630},golem:{x:590,y:417,width:285,height:240},hit:{x:671,y:611}};
   // Stage-coordinate offsets may register each full drawing; all pixels retain their shape.
-  const celOffsets=[[0,0],[-10.96,0],[-10.96,0],[43.84,0],[-8.77,-21.92],[-8.77,-19.73],[35.07,-21.92],[13.15,-21.92],[-6.58,15.34],[63.56,17.53],[76.71,19.73],[70.14,19.73],[15.34,54.79],[-10.96,52.6],[-4.38,52.6],[-2.19,54.79]].map(([x,y])=>({x:x*630/680,y:y*630/680}));
+  const celOffsets=Array.from({length:16},()=>({x:0,y:0}));
 
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
   const unit=v=>clamp(v,0,1),ease=v=>1-Math.pow(1-unit(v),3);
@@ -50,8 +50,9 @@
   if(!ctx)throw Error('Reward animation canvas unavailable');
   const controller={disposed:false,raf:0,observer:null,cancel:null};scenes.set(root,controller);
   const outfit=JSON.parse(canvas.dataset.celOutfit||'{}'),prismatic=canvas.dataset.tier==='7';
-  if(!window.LanguageMinerCelWardrobe?.prepare)throw Error('Reward animation wardrobe unavailable');
-  const [wardrobe,background,golem]=await limited(Promise.all([window.LanguageMinerCelWardrobe.prepare(outfit),image('menu-wallpapers/art-azure-passage-v2.webp'),image(prismatic?'daily-golem-prismatic-v2.webp':'daily-golem-stone-v2.webp')]));
+  const miner=window.LanguageMinerCelWardrobe||window.LanguageMinerOriginalArt;
+  if(!miner?.prepare)throw Error('Original reward animation wardrobe unavailable');
+  const [wardrobe,background,golem]=await limited(Promise.all([miner.prepare(outfit),image('menu-wallpapers/art-azure-passage-v2.webp'),image(prismatic?'daily-golem-prismatic-v2.webp':'daily-golem-stone-v2.webp')]));
   if(controller.disposed||!root.isConnected)throw Error('Reward animation closed');
   if(wardrobe.frames?.length!==16||wardrobe.width!==320||wardrobe.height!==327)throw Error('Reward animation wardrobe frames incomplete');
   const frames=wardrobe.frames,images={background,golem};
@@ -141,10 +142,16 @@
    }catch(error){settle(error);}};
    tick(performance.now());
   });
+  // Android retains its existing phase/wait controller; only presentation changes.
+  controller.transition=(name,milliseconds=0,quiet=false)=>{
+   cancelAnimationFrame(controller.raf);controller.raf=0;reduced=quiet;const targets={loading:0,wake:ends[1]*.6,windup:ends[5],strike:impactAt-.035,impact:impactAt+.025,recoil:impactAt+.14,crack:impactAt+.33,core:impactAt+.75,victory:impactAt+1.65,reward:duration},from=time,to=targets[name]??time,start=performance.now();phase=name;
+   const tick=now=>{controller.raf=0;if(controller.disposed||!root.isConnected)return;const t=quiet||milliseconds<=0?1:Math.min(1,(now-start)/milliseconds),e=name==='strike'?t*t*t:1-Math.pow(1-t,3);time=from+(to-from)*e;draw();if(t<1)controller.raf=requestAnimationFrame(tick);};tick(start);
+  };
   controller.observer=new ResizeObserver(resize);controller.observer.observe(canvas);resize();root.classList.add('dg-prepared');
  }
  function play(root,options){const controller=scenes.get(root);if(!controller?.play||controller.disposed)return Promise.reject(Error('Reward animation is not prepared'));return controller.play(options);}
+ function transition(root,name,milliseconds,reduced){const controller=scenes.get(root);if(!controller?.transition||controller.disposed)return root;controller.transition(name,milliseconds,reduced);return root;}
  function dispose(root){const controller=scenes.get(root);if(!controller)return;controller.disposed=true;controller.cancel?.();controller.cleanup?.();scenes.delete(root);}
  function state(root){return scenes.get(root)?.state?.()||null;}
- window.LanguageMinerDailyGolemArt=Object.freeze({art,scene,prepare,play,dispose,state});
+ window.LanguageMinerDailyGolemArt=Object.freeze({art,scene,prepare,play,transition,dispose,state});
 })();

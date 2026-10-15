@@ -70,7 +70,7 @@ const f=fixture();assert.equal(Object.keys(f.locales).length,17);
 }
 for(const [language,locale]of Object.entries(f.locales))for(let tier=1;tier<=3;tier++){
  const video=f.open(language,tier),caption=f.get('patreonVideoCaption');
- assert(video.getAttribute('src').endsWith(`/v285/${language}/tier-${tier}.mp4?rev=caption-only-r291`));
+ assert(video.getAttribute('src').endsWith(`/v285/${language}/tier-${tier}.mp4?rev=caption-art-r293`));
  assert.equal(video.getAttribute('lang'),language);assert.equal(video.getAttribute('aria-describedby'),'patreonVideoCaption');
  assert.equal(f.get('patreonVideoSound'),null,'Silent reel must offer no active sound control');
  assert(video.muted&&video.defaultMuted&&video.volume===0);
@@ -104,5 +104,5 @@ for(const played of [[],[[23.9,24]],[[0,1],[23,24]]]){
  const x=fixture();x.open();x.window.fire('lm-interface-language-changed');assert(x.get('patreonHeartVideoOverlay').hidden);assert.equal(x.state.cancels,1);assert.equal(x.state.claims,0);scenarios++;
 }
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'patreon-reels/v285/manifest.json'),'utf8'));
-assert.equal(manifest.audio.mode,'none');assert.equal(manifest.audio.narrationPresent,false);assert.equal(manifest.mediaRevision,'caption-only-r291');assert.equal(Object.keys(manifest.files).length,51);
+assert.equal(manifest.audio.mode,'none');assert.equal(manifest.audio.narrationPresent,false);assert.equal(manifest.mediaRevision,'caption-art-r293');assert.equal(Object.keys(manifest.files).length,51);
 console.log(`PASS ${scenarios} caption-only scenarios, completion, seek rejection, duplicate completion, replay, mute, rate, error and hidden/language-change cancellation`);

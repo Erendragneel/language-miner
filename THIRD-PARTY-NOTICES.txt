@@ -152,3 +152,41 @@ three static Patreon covers and product logo/icon are also unrecovered.
 No known four-portrait ancestry is evidenced for those files; these distinct
 source gaps remain open rather than being silently treated as rights-cleared.
 The exact four-portrait replacements do not establish complete release clearance.
+
+
+CURRENT ARTWORK REPLACEMENTS AND EXCLUSIONS — October 15, 2026
+
+The current Language Miner brand/icon family, three static $1/$3/$5 monthly
+membership covers, and store feature graphic are original code-authored SVG
+geometry and layout. Sources and local PNG builder: tools/original-brand/.
+No raster or model reference is used in this new vector art. Text is rendered
+with local system fonts; no font file is embedded or redistributed.
+
+Current standing miners and sixteen action frames use original vector body, garment, hand, footwear and pickaxe geometry in pose-textures.js. Face and hair crops use the documented canonical project portraits and existing color layers. Exposed feet, hands and neck use the selected skin palette; sandal and both yukata outfits are covered by regression tests for all four tones. Saved IDs, currency, ownership and reward controllers are unchanged. The retired supplied-JPEG pose, nine wardrobe rasters, hand sheet, twelve cel atlases and five associated model/texture files are excluded from current publication. Android staging explicitly excludes their packaged counterparts, including incremental staging. Exact originals are preserved privately. No current drawing or fallback loads those retired media paths.
+Current shared renderer SHA-256: 88ac4002a07b63b8c0673c067b050c233bf820a317a1076c8e48f6d0f43e453b.
+
+The ten canonical generated project head styles retain their recorded ancestry.
+The base concept includes the separately audited purchased-avatar quality cue;
+this notice does not claim zero external references or infer all input rights
+from AI-generation alone. The four legacy hairstyle IDs preserve the existing
+canonical mapping and saved ownership.
+
+All 51 localized website feature reels are silent with unchanged 24-second
+duration and all 204 readable DOM caption lines. The 17 Tier 1 videos now use
+original geometric clothing/color-choice art for their first six seconds.
+Each movie's remaining 432 frames and compressed packets are exactly unchanged;
+Tier 2/3 movies are unchanged. The same-path character scene PNG and Tier 1
+poster are replaced. Editable source: tools/reward-reels/original-character.svg.
+Tier 2's summer portrait SHA-256 is
+cdad03bf03a4a208a8b37b699b1e19e8b862674abe6be1a7a7473b70a92a0ddd;
+its exact August 25 file predates the September 16 supplied-JPEG pose family.
+
+Earlier unresolved statements about the replaced brand/covers and excluded
+supplied-JPEG family describe the historical files. They are superseded only
+for the named current replacement or exclusion. Historical originals remain
+privately preserved and their unknown permissions are not granted retroactively.
+The current three paid Azure Play promos and 61,240 pronunciation/story clips
+are unchanged. No new purchases, provider generation, TTS, hosting, or licensor
+contact were used. ASSET-PROVENANCE.md and the private October 15 source/hash
+records document this scope. This is not comprehensive copyright/trademark,
+owner legal, Google Play policy, language-accuracy, or device certification.

@@ -45,45 +45,5 @@ assert(buyStart>0&&buyEnd>buyStart);vm.runInContext('let pendingCosmetic=null;'+
 for(const next of Object.values(pairs)){window.fixture.setPending({type:'character',key:'hairStyle',value:next,price:2500,name:'Replacement'});window.fixture.buy();}
 assert.equal(counters.spend,0);assert.deepEqual(state.ownedCosmetics,JSON.parse(before).ownedCosmetics);
 assert.deepEqual(state.stageXp,JSON.parse(before).stageXp);assert.deepEqual(state.mastery,JSON.parse(before).mastery);assert.deepEqual(state.stones,JSON.parse(before).stones);
-// Run the actual pose normalizer/build path with real selected garment decisions.
-window.LanguageMinerPoseTextures={async head(o,portrait,hair,skin){counters.heads.push({o,portrait,hair,skin});return 'data:image/png;safe-head'},async materialMask(){return 'data:image/png;mask'}};
-window.LanguageMinerPickaxeFinishes={headPath:'M0 0',filter:()=>''};
-let current=null;window.getJapaneseMinerPoseOutfit=()=>current;
-const host={hidden:false,dataset:{},innerHTML:''};document.querySelector=selector=>selector==='.adventure-player-pose'?host:null;
-vm.runInContext(read('pose-wardrobe.js'),context);
-(async()=>{
- for(const [old,next]of Object.entries(pairs))for(const shoes of ['boots','sneakers','geta']){
-  current={profile:'pose-fixture',pickaxe:'gold'};
-  const avatar={isConnected:true,_poseKey:JSON.stringify({hairStyle:old}),dataset:{hairStyle:old,hairColor:'pink',skin:'deep',shirt:'academy',pants:'white',jacket:'none',gloves:'crystal',shoes,holidaySpecial:'none'},classList:{add(){}},querySelectorAll(){return []},querySelector(){return null},appendChild(layer){this.layer=layer}};
-  await window.LanguageMinerPoseWardrobe.syncAvatar(avatar);
-  assert(avatar.layer,'Pose replacement renders');assert(avatar.layer.innerHTML.includes('data-pose-head="'+next+'"'));
-  const last=counters.heads.at(-1);assert.equal(last.o.hairStyle,next);assert.equal(last.o.hairColor,'pink');assert.equal(last.o.skin,'deep');
-  assert.equal(last.portrait,portraits[next]+'?v=hair-clearance-20261014');assert(last.hair.includes(next+'/hair/pink'));assert(last.skin.includes(next+'/skin/deep'));
-  assert(avatar.layer.innerHTML.includes(shoes==='boots'?'player-lesson-pose-v1.png':'pose-wardrobe/shoes-'+shoes+'.png'));
-  assert(avatar._poseKey.includes('hair-clearance-20261014'));assert(!avatar._poseKey.includes(old));
- }
- // A pending old composition cannot overwrite a replacement after its asset epoch changes.
- let releaseOld,firstHead=true;const delayedHead=new Promise(resolve=>releaseOld=resolve);
- window.LanguageMinerPoseTextures.head=async()=>{if(firstHead){firstHead=false;await delayedHead;return 'data:image/png;old-composition'}return 'data:image/png;new-composition'};
- current={profile:'race-fixture',pickaxe:'gold'};
- const raceAvatar={isConnected:true,dataset:{hairStyle:'regalsweep',hairColor:'blue',skin:'warm',shirt:'academy',pants:'red',jacket:'none',gloves:'none',shoes:'sneakers',holidaySpecial:'none'},classList:{add(){}},querySelectorAll(){return []},querySelector(){return null},appendChild(layer){this.layer=layer}};
- const older=window.LanguageMinerPoseWardrobe.syncAvatar(raceAvatar);await Promise.resolve();const oldKey=raceAvatar._poseKey;
- current=null;for(const fn of events.get('jm-recolors-ready')||[])fn();current={profile:'race-fixture',pickaxe:'gold'};
- await window.LanguageMinerPoseWardrobe.syncAvatar(raceAvatar);assert.notEqual(raceAvatar._poseKey,oldKey);assert(raceAvatar.layer.innerHTML.includes('new-composition'));
- releaseOld();await older;assert(!raceAvatar.layer.innerHTML.includes('old-composition'),'Stale completion must not replace current safe artwork');
- const celAvailable=fs.existsSync(path.join(root,'daily-golem-cel-heads.js'));
- if(celAvailable){
-  // Execute the actual cel head selector; canonical bounds must be used, not legacy boxes.
-  const draws=[],loads=[];class Canvas{getContext(){return {canvas:this,drawImage(image,...args){draws.push({src:image.src,args})},getImageData(){return {data:new Uint8ClampedArray(this.canvas.width*this.canvas.height*4)}},putImageData(){}}}}
-  class CelImage{set src(s){this._src=s;loads.push(s);queueMicrotask(()=>this.onload())}get src(){return this._src}}
-  const celWindow={LanguageMinerHairStyles:safe},celContext=vm.createContext({window:celWindow,document:{createElement:()=>new Canvas()},Image:CelImage,Uint8ClampedArray,Uint8Array});
-  const celSource=read('daily-golem-cel-heads.js').replace('{apply,styles:Object.freeze(styles)}','{apply,head,styles:Object.freeze(styles)}');vm.runInContext(celSource,celContext);
-  for(const [old,next]of Object.entries(pairs))for(let view=0;view<3;view++){
-   const a=await celWindow.LanguageMinerCelHeads.head(old,view,'deep','pink'),b=await celWindow.LanguageMinerCelHeads.head(next,view,'deep','pink');assert.equal(a,b,'Legacy and canonical head share actual safe crop/neck geometry');
-  }
-  assert.equal(draws.length,12);assert(loads.every(x=>x.includes('?v=hair-clearance-20261014')));
-  const wardrobeSource=read('daily-golem-cel-wardrobe.js'),wardrobeWindow={LanguageMinerHairStyles:safe};vm.runInContext(wardrobeSource,vm.createContext({window:wardrobeWindow}));
-  for(const [old,next]of Object.entries(pairs)){const o=wardrobeWindow.LanguageMinerCelWardrobe.normalize({hairStyle:old,hairColor:'pink',skin:'deep',shoes:'geta'});assert.equal(o.hairStyle,next);assert.equal(o.shoes,'geta');assert.equal(o.skin,'deep');assert.equal(o.hairColor,'pink');}
- }
- console.log('Hair clearance: 4 retained saves, 10 honest shop choices, 2 actual purchase handlers, 12 color/footwear poses, stale composition race; '+(celAvailable?'12 safe cel crops':'cel modules absent in this source flavor')+'; no duplicate spending or learning-progress changes.');
-})().catch(error=>{console.error(error);process.exitCode=1});
+// Rendering geometry now has its own real original-art fixture; retain save/ownership cases here.
+console.log('Hair ownership: 4 retained legacy saves, 10 canonical choices, actual capturing/final purchase handlers, no duplicate spend or progress writes passed.');
