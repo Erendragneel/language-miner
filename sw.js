@@ -187,11 +187,11 @@ async function writeMeta(next){
   return next;
 }
 
-async function validateShell(cache){
+async function validateShell(cache,expectedVersion=BUILD_VERSION){
   const page=await cache.match('./index.html',{ignoreSearch:true});
   const html=page?.ok?await page.clone().text():'';
   const version=html.match(/<meta\s+name="language-miner-version"\s+content="([^"]+)"/i)?.[1];
-  if(version!==BUILD_VERSION)throw new Error('The hosted release is still publishing. Please retry shortly.');
+  if(version!==expectedVersion)throw new Error('The hosted release is still publishing. Please retry shortly.');
 
   for(const path of CRITICAL_SHELL){
     const response=await cache.match(path,{ignoreSearch:true});
@@ -201,11 +201,58 @@ async function validateShell(cache){
   }
 }
 
+// A partially published index can poison an otherwise installed build cache.
+// Stage a complete fresh shell outside the rollback-cache namespace first.
+let shellRefreshTask=null,shellRefreshSerial=0;
+function essentialShell(){return [...new Set([...CRITICAL_SHELL,...APP_SHELL.filter(path=>/\.(?:js|css|html|webmanifest)$/.test(path))])];}
+async function refreshShell(){
+  if(shellRefreshTask)return shellRefreshTask;
+  shellRefreshTask=(async()=>{
+    const stamp=Date.now()+'-'+(++shellRefreshSerial),temporaryName='lm-complete-shell-repair-'+BUILD_VERSION+'-'+stamp;
+    const temporary=await caches.open(temporaryName),paths=essentialShell();
+    try{
+      for(let i=0;i<paths.length;i+=6){
+        const batch=await Promise.allSettled(paths.slice(i,i+6).map(async path=>{
+          const url=new URL(path,self.location.href);
+          url.searchParams.set('lm_complete_update',BUILD_VERSION);url.searchParams.set('lm_fresh',stamp);
+          const response=await fetch(new Request(url.href,{cache:'no-store',credentials:'same-origin'}));
+          if(!response?.ok||!(await response.clone().arrayBuffer()).byteLength)throw new Error(`Fresh update download failed: ${path}`);
+          await temporary.put(path,response);
+        }));
+        const failed=batch.find(result=>result.status==='rejected');if(failed)throw failed.reason;
+      }
+      await validateShell(temporary);
+      const canonical=new Set(paths.map(path=>new URL(path,self.location.href).href));
+      const affected=request=>{const url=new URL(request.url);url.search='';return canonical.has(url.href);};
+      const target=await caches.open(CACHE_NAME),backup=[];
+      // Snapshot only replaced shell entries and aliases, never optional media.
+      for(const request of await target.keys())if(affected(request))backup.push([request,await target.match(request)]);
+      try{
+        // Keep the old index until all validated supporting files are copied.
+        for(const path of [...paths.filter(path=>path!=='./index.html'),'./index.html'])await target.put(path,(await temporary.match(path)).clone());
+        for(const request of await target.keys())if(new URL(request.url).search&&affected(request))await target.delete(request);
+        await validateShell(target);
+      }catch(error){
+        try{
+          // Free the replaced entries first so quota recovery can restore them.
+          for(const request of await target.keys())if(affected(request))await target.delete(request);
+          for(const [request,response]of backup)await target.put(request,response.clone());
+        }catch{
+          // A persistently full cache must not leave a mixed active shell selected.
+          if(await selectedCache()===CACHE_NAME)await choosePrevious('complete-update-copy-recovery',true);
+        }
+        throw error;
+      }
+    }finally{await caches.delete(temporaryName);}
+  })();
+  try{return await shellRefreshTask;}finally{shellRefreshTask=null;}
+}
+
 async function selectedCache(){
-  const meta=await readMeta(),keys=await caches.keys();
-  if(meta.selectedCache&&keys.includes(meta.selectedCache))return meta.selectedCache;
-  if(keys.includes(CACHE_NAME))return CACHE_NAME;
-  return keys.find(key=>key.startsWith(CACHE_PREFIX)&&key!==META_CACHE)||'';
+  const meta=await readMeta(),keys=await caches.keys(),bad=new Set(meta.badCaches||[]);
+  if(meta.selectedCache&&keys.includes(meta.selectedCache)&&!bad.has(meta.selectedCache))return meta.selectedCache;
+  if(keys.includes(CACHE_NAME)&&!bad.has(CACHE_NAME))return CACHE_NAME;
+  return keys.find(key=>key.startsWith(CACHE_PREFIX)&&key!==META_CACHE&&!bad.has(key))||'';
 }
 
 async function cacheMatch(cacheName,request){
@@ -219,27 +266,29 @@ async function statusPayload(){
   return {ok:true,buildCache:CACHE_NAME,selectedCache:await selectedCache(),previousCache:meta.previousCache||'',candidateCache:meta.candidateCache||'',badCaches:Array.isArray(meta.badCaches)?meta.badCaches:[],availableCaches:keys};
 }
 
-async function choosePrevious(reason='manual'){
+async function choosePrevious(reason='manual',verify=false){
   const meta=await readMeta(),keys=await caches.keys(),bad=new Set(Array.isArray(meta.badCaches)?meta.badCaches:[]);
   bad.add(CACHE_NAME);
-  const previous=(meta.previousCache&&keys.includes(meta.previousCache)?meta.previousCache:'')||keys.find(key=>key.startsWith(CACHE_PREFIX)&&key!==CACHE_NAME&&key!==META_CACHE&&!bad.has(key));
-  if(!previous)throw new Error('No verified previous build is stored on this device.');
+  const candidates=[...new Set([meta.previousCache,...keys.filter(key=>key.startsWith(CACHE_PREFIX))])].filter(key=>key&&keys.includes(key)&&key!==CACHE_NAME&&key!==META_CACHE&&!bad.has(key));
+  let previous='';
+  for(const candidate of candidates){
+    if(verify){try{const version=candidate.match(/-v(\d+\.\d+\.\d+)-/)?.[1];if(!version)throw Error('Unknown cached version');await validateShell(await caches.open(candidate),version);}catch{bad.add(candidate);continue;}}
+    previous=candidate;break;
+  }
+  if(!previous){
+    if(verify)await writeMeta({...meta,selectedCache:'',candidateCache:'',badCaches:[...bad]});
+    throw new Error('No verified previous build is stored on this device.');
+  }
   await writeMeta({...meta,selectedCache:previous,candidateCache:'',badCaches:[...bad],rollbackAt:Date.now(),rollbackReason:String(reason).slice(0,100)});
   return previous;
 }
 
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
-    try{
-      const cache=await caches.open(CACHE_NAME);
-      // Optional media must never block installing a phone update.
-      const essential=[...new Set([...CRITICAL_SHELL,...APP_SHELL.filter(path=>/\.(?:js|css|html|webmanifest)$/.test(path))])];
-      for(let i=0;i<essential.length;i+=6){
-        await cache.addAll(essential.slice(i,i+6).map(path=>new Request(path,{cache:'reload'})));
-      }
-      await validateShell(cache);
-      await self.skipWaiting();
-    }catch(error){await caches.delete(CACHE_NAME);throw error;}
+    // Optional media must never block installing a phone update. Failed fresh
+    // validation leaves any existing current/previous cache and saves intact.
+    await refreshShell();
+    await self.skipWaiting();
   })());
 });
 
@@ -264,7 +313,8 @@ self.addEventListener('message',event=>{
       if(data.type==='LM_GUARDIAN_STATUS'){reply(await statusPayload());return;}
       if(data.type==='LM_APPLY_COMPLETE_UPDATE'){
         if(data.build!==BUILD_VERSION)throw new Error('Waiting for the latest worker.');
-        await validateShell(await caches.open(CACHE_NAME));
+        try{await validateShell(await caches.open(CACHE_NAME));}
+        catch{await refreshShell();}
         const meta=await readMeta();
         await writeMeta({...meta,currentCache:CACHE_NAME,selectedCache:CACHE_NAME,candidateCache:CACHE_NAME,badCaches:(meta.badCaches||[]).filter(key=>key!==CACHE_NAME)});
         reply({ok:true,build:BUILD_VERSION,selectedCache:CACHE_NAME});return;
