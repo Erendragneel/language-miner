@@ -1,9 +1,9 @@
 {
   "date": "2026-10-15",
   "websiteVersion": "6.4.293",
-  "androidVersion": "6.4.289-play.13",
-  "androidVersionCode": 13,
-  "androidSha256": "F259E747ED028432BD87F601C167727E2E9766F5CAA72AA510D5552C2C81E673",
+  "androidVersion": "6.4.289-play.14",
+  "androidVersionCode": 14,
+  "androidSha256": "90D972C706BD77AF0553134B84CC962943EFD919D524F05AEC9407E69958EDFF",
   "additionalPaidRequests": 0,
   "newPaidResources": 0,
   "privacyPolicyVersion": "2026-10-14-v2",
@@ -18,7 +18,7 @@
     "captionRuntimeScenariosPassed": 63,
     "legacyUnreferencedNarratedVideosExcluded": 3,
     "androidSignedCandidateVerified": true,
-    "androidPackagedAssetsVerified": 62624,
+    "androidPackagedAssetsVerified": 62626,
     "androidLearningScenariosPassed": 79,
     "disabledBillingInitializationGuard": true,
     "historicalPortraitDerivativesHashMatched": 14,
@@ -49,14 +49,16 @@
     "websiteSilent24SecondReels": 51,
     "reelTrailingFramesUnchangedPerTier1": 432,
     "oldSavedAppearanceIdsAndOwnershipRetained": true,
-    "websiteReelFramesVerified": 29376
+    "websiteReelFramesVerified": 29376,
+    "freeReviewerDemoPrepared": true,
+    "freeReleaseNativeNetworkPermissionsAbsent": true
   },
   "remaining": {
     "nativeEditorialReview": "Native/fluent volunteer content review recommended; tests do not certify all language teaching or pronunciation. No paid certificate required.",
     "liveWebsiteCloudPrivacyOperations": "Deployment and operational verification still required",
     "targetAudienceAndContentRating": "Owner declaration and contextual review still required",
     "googlePlayDataSafety": "Final device/SDK verification and owner declaration still required",
-    "reviewerAccess": "Free stable access to restricted features or their omission is required before submitting a review-ready release.",
+    "reviewerAccess": "Free temporary review demo is implemented. Validate entry, optional-feature access, reset/exit and normal-save isolation on the installed Android app and Google Play test track before review.",
     "googlePlaySigningAndExport": "Factual sources inspected; owner declarations/platform acceptance not performed",
     "subscriptions": "Verifier and products not activated; checkout remains disabled",
     "realDeviceAndGooglePlayTesting": "Not completed"
@@ -64,11 +66,28 @@
   "releaseClearanceEstablished": false,
   "legalCertification": false,
   "uploadedToGooglePlay": false,
-  "checkedAt": "2026-10-15T00:33:20.229Z",
+  "checkedAt": "2026-10-15T01:15:06.251Z",
   "excludedHistoricalAssets": {
     "onlineHairstyleSheetPermission": "Unknown, confirmed by owner. No license purchased.",
     "fourOriginalPortraitsAndLayers": "Not used in current release; exact originals retained privately. No retroactive license claimed.",
-    "previousAndroidCandidate": "play.12 retained unchanged; current original artwork is in verified play.13.",
+    "previousAndroidCandidate": "play.12 and play.13 retained unchanged; current original artwork and free review demo are in verified play.14.",
     "currentOriginalArtRemediation": "Earlier logo/covers and supplied-pose input permissions remain unestablished. Current affected assets are replaced/excluded, with originals and historic artifacts preserved privately; no retroactive permission is claimed."
+  },
+  "reviewerAccess": {
+    "prepared": true,
+    "entryPoints": [
+      "Players & backups → Start free review demo",
+      "Toolbar → Review demo"
+    ],
+    "demoAccessTier": 3,
+    "verifiedPaidTier": 0,
+    "temporaryStateStorage": "memory",
+    "passwordRequired": false,
+    "paymentRequired": false,
+    "networkRequired": false,
+    "normalPlayerMembershipGranted": false,
+    "browserValidationClaimed": false,
+    "deviceValidationClaimed": false,
+    "googlePlayValidationClaimed": false
   }
 }
