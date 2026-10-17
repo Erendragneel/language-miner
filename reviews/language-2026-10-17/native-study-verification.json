@@ -1,0 +1,24 @@
+{
+  "reviewDate": "2026-10-17",
+  "implementation": {
+    "helper": "nativeCourseTeachingMarkup(section, text, answer)",
+    "currentViews": ["jlptSectionItemCard grammar", "jlptSectionItemCard reading"],
+    "referenceViews": ["v3RenderGrammar", "v3RenderReading", "renderAdvancedAcademy grammar", "renderAdvancedAcademy reading"],
+    "content": "Guarded reviewed rule, exact-example/passages English translation, and passage-specific reading evidence.",
+    "quizIsolation": "The unanswered v3RenderQuiz output excludes reference teaching markup; silent assessment/guardian state suppresses the helper. After a correct or wrong reference-quiz answer, exact source context supplies the reviewed explanation and translation; feedback remains until Continue. The existing mastery/Notebook callback runs once, and Continue awards nothing.",
+    "languageLabel": "English teaching guidance and translations explicitly labeled when the learner’s known language is not English.",
+    "privateTutor": "Ten particle prompts specify the requested role; Japanese, answers, options generation, order and IDs are unchanged.",
+    "privateVerbGrouping": "いく is correctly classified as U/godan. Only Ru/ichidan, U/godan and irregular are offered. The generic group prompt contains no exception hint; post-answer help teaches いった and いって. The same 54 verb questions remain in the same order with the same IDs.",
+    "speech": "Native per-text web audio checks require an exact bundled clip or an installed device voice. General language-pack status and Play bundled-only behavior are preserved."
+  },
+  "checks": [
+    {"command": "node tests/answer-explanations.test.cjs", "result": "pass", "scenarios": 29, "coverage": "138 native grammar examples, 10 public and 10 private particle prompts, 54 private verb questions with correct U/godan grouping and no prompt leak, 28 reading passages, 80 multilingual grammar rows, 17-language wrong-choice contrasts, actual native reference/lesson cards, 20 N5–N1 grammar/reading right/wrong reference-quiz paths, escaping, silent tests and unchanged scoring."},
+    {"command": "node tests/listening-clues.test.cjs", "result": "pass", "scenarios": 16},
+    {"command": "node tests/assisted-answer.test.cjs", "result": "pass", "scenarios": 13},
+    {"command": "node tests/n5-assessment.test.cjs", "result": "pass", "scenarios": 13},
+    {"command": "node --check game-6460.js", "result": "pass"},
+    {"command": "node tests/practice-modes.test.cjs", "result": "blocked-before-assertions", "reason": "Cannot find module playwright. No browser was opened and no browser assertions ran."}
+  ],
+  "costAndState": {"spending": 0, "playerStateAccess": false, "browserAccess": false, "publication": false, "androidRebuild": false},
+  "limits": ["No actual device playback was assessed.", "The source-backed VM verifies rendered markup and behavior; no visual browser or physical-phone review was performed in this subtask.", "English instructional notes do not replace the existing known-language translation or certify language accuracy by native teachers."]
+}

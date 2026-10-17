@@ -1,0 +1,158 @@
+{
+  "reviewDate": "2026-10-17",
+  "status": "complete",
+  "reviewer": "asian_language_review",
+  "nativeCertification": false,
+  "spending": 0,
+  "published": false,
+  "coverage": {
+    "shortStories": {
+      "file": "short-stories-data.js",
+      "languages": [
+        "ja",
+        "zh",
+        "ko",
+        "vi",
+        "th",
+        "id"
+      ],
+      "storiesRead": 12,
+      "sentenceLinesRead": 72,
+      "titlesRead": 12,
+      "allAssignedLinesRead": true,
+      "corrections": 0
+    },
+    "alphabets": {
+      "files": [
+        "multilingual-preview.js",
+        "additional-language-packs.js",
+        "game-6460.js",
+        "writing-practice.js"
+      ],
+      "unitsRead": {
+        "ja": 142,
+        "ko": 24,
+        "zh": 33,
+        "vi": 35,
+        "th": 58,
+        "id": 26
+      },
+      "unitsTotal": 318,
+      "allExistingUnitsRead": true,
+      "corrections": 3
+    },
+    "foundationGreetingsAndWords": {
+      "languages": [
+        "ja",
+        "zh",
+        "ko",
+        "vi",
+        "th",
+        "id"
+      ],
+      "conceptsPerLanguage": 10,
+      "formsRead": 60,
+      "corrections": 0
+    },
+    "promptTemplates": {
+      "languages": [
+        "ja",
+        "zh",
+        "ko",
+        "vi",
+        "th",
+        "id"
+      ],
+      "meaningAndAlphabetPromptsRead": true
+    }
+  },
+  "findings": [
+    "The two six-line stories and titles in every assigned language convey the English story naturally enough for their simple reading level. Minor tense/aspect or explicitly repeated name differences are normal translation choices and were retained.",
+    "Mandarin Pinyin n uses a displayed first-tone example nā but a recorded-character request 拿, which is second-tone ná. Fixing the display preserves the existing spoken example.",
+    "The Indonesian alphabet currently uses the older written Q name ki. Official EYD V now writes qi but still pronounces it ki.",
+    "Official Indonesian EYD V pronounces the written V name ve as fe. Correct the spoken field and resolve exact existing audio or show unavailable/device-voice fallback without mapping to a stale recording.",
+    "Korean basic Hangul units and Thai consonant/vowel names are consistent with their stated basic/core coverage. These lists are introductory, not complete phonological curricula.",
+    "Japanese じ/ぢ and ず/づ share standard ji/zu readings. Any reverse reading-to-character question must exclude the competing homophone or accept all valid matches."
+  ],
+  "sources": [
+    {
+      "title": "Taiwan Ministry of Education Concise Mandarin Dictionary: 拿",
+      "url": "https://dict.concised.moe.edu.tw/dictView.jsp?ID=12134&la=0&powerMode=0",
+      "supports": "拿 is ná."
+    },
+    {
+      "title": "Indonesian Ministry of Education EYD V: alphabet letters",
+      "url": "https://ejaan.kemendikdasmen.go.id/eyd/penggunaan-huruf/huruf-abjad/",
+      "supports": "Q written name qi, pronunciation ki; V written name ve, pronunciation fe; 26 letters."
+    },
+    {
+      "title": "Indonesian Ministry of Education older PUEBI alphabet",
+      "url": "https://repositori.kemendikdasmen.go.id/270/1/PUEBI.pdf",
+      "supports": "Older Q written name ki was valid; the current correction follows the newer EYD V convention."
+    }
+  ],
+  "teachingNotes": [
+    {
+      "language": "ko",
+      "note": "The 14 consonants and 10 vowels are the basic jamo set; tense/double consonants, compound vowels, syllable-block composition and batchim rules need additional instruction."
+    },
+    {
+      "language": "zh",
+      "note": "The list teaches 21 initials plus y/w spelling letters, six simple finals and four marked tones. It omits compound/nasal finals and a neutral-tone item, so it should be described as introductory rather than complete. The y/w entries are spelling conventions rather than ordinary consonantal initials."
+    },
+    {
+      "language": "zh",
+      "note": "Tone items use 妈/麻/马/骂 as examples, so explain that the tone marks apply to vowels inside the example syllable mā/má/mǎ/mà. Do not imply those recordings are pure isolated ā/á/ǎ/à vowels."
+    },
+    {
+      "language": "th",
+      "note": "The 58 units contain 44 traditional consonant symbols (including obsolete ฃ and ฅ) and 14 core vowel signs. Teach consonant classes, vowel combinations/length, live/dead syllables and tone marks separately."
+    },
+    {
+      "language": "vi",
+      "note": "Six written tones is the orthographic inventory. Some dialects merge spoken hỏi/ngã, so spelling and a single regional recording should not be described as six universally distinct sounds."
+    },
+    {
+      "language": "ja",
+      "note": "を/ヲ romanized wo preserves the written kana distinction; its common object-particle pronunciation is o. Likewise は/へ have wa/e particle pronunciations in grammar contexts."
+    },
+    {
+      "language": "ko",
+      "concept": "goodbye",
+      "note": "안녕히 가세요 is said to the person leaving; when you leave and the other person stays, use 안녕히 계세요."
+    },
+    {
+      "language": "id",
+      "concept": "goodbye",
+      "note": "Selamat tinggal is said by the person leaving to the person staying; selamat jalan is said to the person leaving."
+    }
+  ],
+  "limitations": [
+    "Text and displayed/script-name review only; bundled recordings were not listened to.",
+    "No stroke-path geometry review, no physical-device test, no live account or saved-game access.",
+    "No new recordings, spending, publication or Android build.",
+    "No substantive short-story corrections were forced merely to increase the change count."
+  ],
+  "reproducedRegression": {
+    "file": "game-6460.js",
+    "constructionLines": [
+      175,
+      176,
+      177
+    ],
+    "function": "makeKanaCharOpts",
+    "method": "Execute original helper plus original shuffle with Math.random replaced by deterministic LCG; no game initialization or player state.",
+    "seed": 99,
+    "seedRecurrence": "seed=(1664525*seed+1013904223)>>>0; random=seed/4294967296",
+    "prompt": "Which hiragana represents ji?",
+    "soleCorrect": "じ",
+    "options": [
+      "じ",
+      "ざ",
+      "ぢ",
+      "は"
+    ],
+    "alsoCorrect": "ぢ",
+    "safeFix": "Filter every distractor whose row reading equals the correct character reading before selecting three; preserve character IDs."
+  }
+}

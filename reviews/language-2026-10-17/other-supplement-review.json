@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-17",
+  "languages": [
+    "ru",
+    "tr",
+    "pl",
+    "el",
+    "uk"
+  ],
+  "reviewedStoryLines": 60,
+  "reviewedStoryTitles": 10,
+  "reviewedAlphabetUnits": 151,
+  "reviewedFoundationForms": 50,
+  "substantiveStoryCorrections": 0,
+  "alphabetCorrections": 0,
+  "notes": [
+    "Russian traditional Л name эль and modern эл are both attested; retain existing эл rather than unnecessarily replace its audio.",
+    "Greek letter-name variants such as γιώτα are valid modern names.",
+    "Short stories use ordinary idiomatic adaptations; no substantive meaning errors found in this group."
+  ],
+  "sources": [
+    {
+      "url": "https://gramota.ru/poisk?mode=spravka&query=%D1%8D%D0%BB%D1%8C&simple=0",
+      "supports": "Answer 317676 dated 2024-10-02 documents the modern эл variant alongside traditional эль."
+    },
+    {
+      "url": "https://www.greek-language.gr/certification/sites/greeklanguage.gr.certification/files/KLIK_A1_Ef_Glossary.pdf",
+      "supports": "The Centre for the Greek Language distinguishes adjective γρήγορος from adverb γρήγορα."
+    }
+  ],
+  "nativeCertification": false,
+  "noAudioChanges": true
+}

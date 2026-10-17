@@ -1,0 +1,321 @@
+{
+  "reviewDate": "2026-10-17",
+  "reviewer": "western_language_review",
+  "scope": "A complete independent AI text review of the supplied current Western-language snapshot. Proposed corrections are not yet runtime changes or native-speaker certification.",
+  "sourceFile": "reviews/language-2026-10-17/western-source.json",
+  "sourceSha256": "8cb1cf74060772cc40b0571653d8e5ac5ad766de9a1ad341dc253fc58a486e9d",
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt"
+  ],
+  "coverage": {
+    "vocabulary": {
+      "rowsRead": 1000,
+      "idRanges": [
+        [
+          1,
+          1000
+        ]
+      ],
+      "formsRead": 6000
+    },
+    "grammar": {
+      "rowsRead": 80,
+      "idRanges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "formsRead": 480
+    },
+    "sentences": {
+      "rowsRead": 260,
+      "idRanges": [
+        [
+          1,
+          120
+        ],
+        [
+          2001,
+          2140
+        ]
+      ],
+      "formsRead": 1560
+    },
+    "totalRowsRead": 1340,
+    "totalFormsRead": 8040,
+    "japaneseMeaningAnchorsRead": true,
+    "sourceAlreadyIncludesExistingWordingResolutions": true,
+    "batches": [
+      "vocabulary 1–100",
+      "vocabulary 101–200",
+      "vocabulary 201–300",
+      "vocabulary 301–400",
+      "vocabulary 401–500",
+      "vocabulary 501–600",
+      "vocabulary 601–700",
+      "vocabulary 701–800",
+      "vocabulary 801–900",
+      "vocabulary 901–1000",
+      "grammar 1–40",
+      "grammar 41–80",
+      "sentences positions 1–65 / IDs1–65",
+      "sentences positions66–130 / IDs66–120,2001–2010",
+      "sentences positions131–195 / IDs2011–2075 (no corrections found in this batch)",
+      "sentences positions196–260 / IDs2076–2140 (no corrections found in this batch)"
+    ],
+    "method": [
+      "Actually read every row and all six supplied forms in 16 compact batches, retaining Japanese and English anchors side by side.",
+      "Compared concrete meaning, word class, transitivity, inflection, deictic distance, idiomatic phrasing, register where specified, and relevant cultural conventions.",
+      "Kept correct regional alternatives and normal dictionary ellipsis; did not rewrite every duplicate synonym, capitalization difference, or merely acceptable stylistic variant.",
+      "Re-read the complete 161-entry before/after manifest for a second text pass.",
+      "Looked up selected specialist or uncertain lexical terms in primary dictionary sources listed below."
+    ]
+  },
+  "proposedCorrections": {
+    "file": "reviews/language-2026-10-17/western-corrections.json",
+    "total": 161,
+    "bySection": {
+      "vocabulary": 132,
+      "grammar": 10,
+      "sentences": 19
+    },
+    "byLanguage": {
+      "en": 16,
+      "es": 28,
+      "fr": 32,
+      "de": 25,
+      "it": 30,
+      "pt": 30
+    },
+    "examples": [
+      "German generic study: studieren → lernen; physical exercise: Übung → körperliche Bewegung/Sport.",
+      "French year before last: l'avant-dernière année → il y a deux ans.",
+      "French and Italian company false friends: corporation/corporazione → société/società.",
+      "Distinguish warm/hot, belly/stomach organ, vegetable/plant, desk/table, audible/listened to, and intransitive shake/transitive shake.",
+      "Clarify Japanese floor numbering; remove the literal pipe and Japanese clock example from the half answer.",
+      "Replace abstract-noun-only glosses with the intended common adjective uses for 複雑, 適当 and 熱心.",
+      "Replace literal radio-cassette phrases with established dictionary terms.",
+      "Correct Portuguese too versus very, and natural restaurant bill, shopping and phone-charging phrases."
+    ]
+  },
+  "crossLanguageCoordination": [
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "english": "belly / abdomen",
+      "status": "Root agreed and is aligning other languages."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "english": "fourth floor (Japan: ground level is floor 1)",
+      "status": "Root agreed; Western answers explicitly retain Japanese numbering rather than silently translating local floor 3."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "english": "half",
+      "status": "Root asked for clean noun-answer forms and will preserve the half-past-two example as a separate note."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "english": "without fail / definitely",
+      "status": "Root requested the necessity/certainty sense rather than conversational of course."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "english": "complicated / complex",
+      "status": "Root agreed and is aligning other languages."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "english": "to welcome; to go to meet; to greet",
+      "status": "Root notified to remove getting-acquainted/mutual-meeting false equivalents elsewhere."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "english": "to throw; to toss",
+      "status": "Root notified; other-language simple throw forms can remain."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "english": "appropriate; suitable",
+      "status": "Root agreed and is aligning other languages; the separate careless sense requires context."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "english": "enthusiastic; eager",
+      "status": "Root agreed and is aligning other languages."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "english": "This glass contains water.",
+      "status": "Root agreed to align the drinking-glass sense of コップ."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "english": "I need to charge my phone.",
+      "status": "Root notified; Western forms align the natural active expression with the Japanese anchor."
+    }
+  ],
+  "recommendedTeachingNotes": [
+    {
+      "section": "vocabulary",
+      "id": 114,
+      "note": "会う means to meet or see a person, including someone already familiar. Portuguese conhecer and German kennenlernen specifically emphasize first acquaintance."
+    },
+    {
+      "section": "vocabulary",
+      "id": 130,
+      "note": "暖かい is pleasantly warm weather/air. 暑い is hot weather; 熱い is an object/liquid hot to the touch."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "note": "お腹 names the belly/abdomen. 胃 is the internal stomach organ; casual stomachache expressions may use a broader body-region idiom."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "note": "Japan counts the ground/entrance level as 1階, so 4階 is the fourth level, equivalent to the third floor above the ground floor in ground-floor-plus-number systems."
+    },
+    {
+      "section": "vocabulary",
+      "id": 343,
+      "note": "A kōban is a small staffed Japanese neighborhood police station/post; it is not merely a telephone booth."
+    },
+    {
+      "section": "vocabulary",
+      "id": 439,
+      "note": "生徒 commonly refers to a school pupil or a learner under a teacher. German Schüler differs from university Student; French élève differs from higher-education étudiant."
+    },
+    {
+      "section": "vocabulary",
+      "id": 559,
+      "note": "どんな modifies a following noun: what kind of book? Standalone what uses a different grammatical construction in several languages."
+    },
+    {
+      "section": "vocabulary",
+      "id": 600,
+      "note": "杯 counts filled cups/glasses/bowls; the physical container comes from context. The existing Western glass forms are acceptable and do not require changing the English cup form solely for this counter."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "note": "半 means half. 二時半 is 2:30; German calls 2:30 halb drei, literally half [to] three. Keep this example outside the assessed answer/audio string."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "note": "必ず means without fail/definitely. In an instruction it can imply be sure to or must; it is not normally a polite reply meaning of course."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "note": "複雑 is commonly a na-adjective: 複雑な問題, a complicated problem. 複雑さ expresses the abstract noun complexity."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "note": "適当 can mean appropriate/suitable, but in a different context it can mean casual, careless, or perfunctory. The assessed isolated card selects the suitable sense; the careless sense needs its own example."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "note": "熱心 commonly describes someone enthusiastic, eager or diligent about an activity: 熱心な学生, an eager/diligent student. 熱心に勉強する means to study earnestly."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "note": "Practice a sport here means train/rehearse skills, not only play that sport regularly."
+    }
+  ],
+  "remainingLimitations": [
+    {
+      "issue": "Grammatical gender, articles and inflection are not fully taught by isolated forms.",
+      "evidence": "The snapshot supplies one string per language, with many default masculine adjective/person forms and articleless nouns.",
+      "implication": "A correct isolated translation does not by itself teach the appropriate feminine/plural form, agreement, or noun gender.",
+      "suggestedAction": "Add contextual examples and language-specific article/gender/inflection metadata; avoid treating unprovided gender variants as inherently wrong.",
+      "certification": false
+    },
+    {
+      "issue": "Politeness/register and regional variants need explicit learner context.",
+      "evidence": "Standalone grammar and sentence rows mix tú/usted and tu/vous, and the Portuguese material is mainly Brazilian while some neutral/European vocabulary remains. English you alone cannot specify these choices.",
+      "implication": "Most reviewed choices are valid, but a single universal one-to-one translation cannot express all social and regional distinctions.",
+      "suggestedAction": "Label selected register/dialect and show alternatives in notes; do not mechanically force every valid sentence into one register."
+    },
+    {
+      "issue": "Dictionary senses require contextual teaching beyond the corrected display strings.",
+      "evidence": "Examples include 適当 suitable versus careless, 上手/下手 skill at an activity, Japanese family honorifics, and counting filled containers.",
+      "implication": "The complete text review improves trustworthiness but cannot guarantee conversational teaching quality from a vocabulary string alone.",
+      "suggestedAction": "Use the concrete notes above and maintain sentence-level explanations; seek speaker review and learner feedback where available without purchasing services."
+    },
+    {
+      "issue": "Audio and answer matching must be reconciled by the root integrator.",
+      "evidence": "161 proposed displayed strings differ from the reviewed snapshot. No audio files were generated, paid services called, or recordings listened to in this subtask.",
+      "implication": "An old recorded clip must not be labeled as the corrected text merely because it shares an ID.",
+      "suggestedAction": "Invalidate mismatched exact-text recordings, use the existing safe no-cost fallback or clearly report unavailable pronunciation, and test alternate-answer handling."
+    },
+    {
+      "issue": "This is an AI text review, not native certification or complete efficacy evidence.",
+      "evidence": "Every assigned current row was read, but physical-device playback, lessons outside the supplied snapshot, live player histories, native-speaker validation, and longitudinal learning outcomes were outside this subtask.",
+      "implication": "Do not claim every language is perfect or that translation quality is now universally equal to a context-aware conversation.",
+      "suggestedAction": "Report the actual full reviewed coverage and specific fixes, retain honest review status, and continue targeted beta feedback."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.treccani.it/vocabolario/radioregistratore/",
+      "appliesTo": "vocabulary763 Italian",
+      "finding": "Treccani defines radioregistratore as a combined radio receiver and cassette audio recorder."
+    },
+    {
+      "url": "https://temporalraeweb.rae.es/dhle/radiocasete",
+      "appliesTo": "vocabulary763 Spanish",
+      "finding": "RAE records radiocasete as a radio receiver plus audio cassette player."
+    },
+    {
+      "url": "https://www.dictionnaire-academie.fr/article/A9R0174",
+      "appliesTo": "vocabulary763 French",
+      "finding": "Académie française defines radiocassette as a combined radio receiver and cassette recorder."
+    },
+    {
+      "url": "https://www.treccani.it/vocabolario/futon/",
+      "appliesTo": "vocabulary850 Italian",
+      "finding": "Treccani records futon as the Italian loanword for the Japanese mattress."
+    },
+    {
+      "url": "https://www.duden.de/rechtschreibung/Schueler",
+      "appliesTo": "vocabulary439 German",
+      "finding": "Duden distinguishes school pupil and disciple senses for Schüler."
+    }
+  ],
+  "changesOutsideOwnedFiles": false,
+  "liveGameOrPlayerAccess": false,
+  "runtimeEdits": false,
+  "published": false,
+  "androidBuildOrUpload": false,
+  "paidServicesUsed": false,
+  "additionalSpend": 0,
+  "validation": {
+    "correctionKeysUnique": true,
+    "everyBeforeLoadedDirectlyFromReviewedSnapshot": true,
+    "everyAfterNonemptyAndDifferent": true,
+    "sectionAndLanguageKeysValidated": true,
+    "sourceIdsAndJapaneseKeysPreserved": true
+  }
+}

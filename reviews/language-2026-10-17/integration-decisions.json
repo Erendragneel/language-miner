@@ -1,0 +1,10 @@
+{
+  "declined": [
+    {"key":"vocabulary:803:en","reason":"Sports meeting is valid British athletics usage; avoid changing an acceptable recorded regional form only for style."},
+    {"key":"grammar:57:it","reason":"The existing rain-stop phrase is understandable valid Italian; preserve its recording rather than rewrite only for idiom preference."},
+    {"key":"sentences:94:pt","reason":"Assistir filmes is common Brazilian Portuguese; preserve the valid regional construction and recording."}
+  ],
+  "refinements": [
+    {"key":"vocabulary:965:it","after":"Ho dimenticato la mia chiave.","reason":"Express accidentally forgetting one's key with a natural Italian sentence, avoiding the unnecessary sul posto addition."}
+  ]
+}

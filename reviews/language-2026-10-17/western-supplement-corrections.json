@@ -1,0 +1,20 @@
+[
+  {
+    "file": "short-stories-data.js",
+    "language": "it",
+    "storyIndex": 1,
+    "lineIndex": 5,
+    "field": "stories",
+    "before": "La pioggia smette, ma Leo vuole leggere un'altra pagina.",
+    "after": "Smette di piovere, ma Leo vuole leggere un’altra pagina.",
+    "reason": "Use the idiomatic weather expression smettere di piovere for the rain stopping; preserve the story’s present tense and Leo wanting one more page."
+  },
+  {
+    "file": "multilingual-preview.js",
+    "language": "de",
+    "field": "ALPHABET_SYSTEMS.de.summary",
+    "before": "26 letters · Ä, Ö, Ü, and ß",
+    "after": "26 basic letters + Ä, Ö, Ü, and ß",
+    "reason": "The course has 30 units: 26 basic Latin letters plus the three umlauts and Eszett. Explicitly distinguish the 26-letter base alphabet from the four additional written characters."
+  }
+]

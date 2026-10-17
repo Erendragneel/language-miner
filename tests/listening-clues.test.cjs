@@ -152,6 +152,20 @@ check('real recording promise rejection changes local Listening status and never
   f.calls.audio[0].reject(new Error('Decode failed'));assert.match(p.status.textContent,/unavailable/);
   assert.match(f.calls.messages.at(-1).text,/Bundled Japanese pronunciation is unavailable/);
 });
+check('web per-text availability requires an exact recording or an installed device voice',()=>{
+  const f=fixture({audio:true});f.window.LANGUAGE_MINER_PLAY_EDITION=false;
+  assert.equal(f.context.nativeVoiceAvailability('ja-JP').status,'ready','general language-pack status stays available');
+  assert.equal(f.context.nativeVoiceAvailability('ja-JP','みず').source,'bundled-neural','known text uses its exact clip');
+  assert.equal(f.context.nativeVoiceAvailability('ja-JP','新しい例文です。').status,'missing','a language voice alone is not a clip for every text');
+  assert.equal(f.eligible({...valid,speechText:'新しい例文です。'}),false,'missing audio cannot become a Listening clue');
+  const voice={name:'Installed Japanese',lang:'ja-JP',localService:true,default:false};
+  f.context.voiceCandidates=()=>[voice];f.context.styledVoice=candidates=>candidates[0]||null;f.context.languageMinerVoices=[voice];
+  const available=f.context.nativeVoiceAvailability('ja-JP','新しい例文です。');
+  assert.equal(available.status,'ready');assert.equal(available.selectedVoice.name,'Installed Japanese');
+  assert.equal(f.eligible({...valid,speechText:'新しい例文です。'}),true,'web may use an actually installed native voice');
+  f.window.LANGUAGE_MINER_PLAY_EDITION=true;
+  assert.equal(f.context.nativeVoiceAvailability('ja-JP','新しい例文です。').status,'missing','Play remains bundled-only even if device speech exists');
+});
 
 check('synchronous refusal and thrown replay errors do not claim playback started',()=>{
   for(const replay of [()=>false,()=>{throw new Error('Playback failed');}]){

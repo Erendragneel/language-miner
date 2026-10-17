@@ -1,0 +1,281 @@
+{
+  "reviewDate": "2026-10-17",
+  "status": "full-assigned-text-and-supplement-review-completed",
+  "reviewType": "Model-assisted linguistic review, not native-speaker certification",
+  "spending": 0,
+  "published": false,
+  "sharedRuntimeEdited": false,
+  "scope": {
+    "languages": [
+      "ja",
+      "zh",
+      "ko",
+      "vi",
+      "th",
+      "id"
+    ],
+    "vocabularyRows": 1000,
+    "grammarRows": 80,
+    "sentenceRows": 260,
+    "languageFormsRead": 8040,
+    "japaneseNativeTriplesRead": 1000,
+    "readAllAssignedRows": true
+  },
+  "sourceHashes": {
+    "asian-source.json": "f6c72003a1a9774b8d2870ce7cb92d4f9f5fc44a21f1b5d4c3fcf7f7a29ea320",
+    "japanese-source.json": "184d82149a000170a06a0b06b05af1c09481111903eb583988a502e291d0a242",
+    "asian-corrections.json": "25252d22c3d16a7814f96a52307266d17d08cd758e0fa89dc13638d61ff383ee",
+    "japanese-native-corrections.json": "8367d8d233ea4edd618340a37a8c15527532e21ac5418d89d10138704a5a52f1"
+  },
+  "readBatches": [
+    {
+      "section": "vocabulary",
+      "ids": "1–125",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "126–250",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "251–375",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "376–500",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "501–625",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "626–750",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "751–875",
+      "languages": "all six"
+    },
+    {
+      "section": "vocabulary",
+      "ids": "876–1000",
+      "languages": "all six"
+    },
+    {
+      "section": "grammar",
+      "ids": "1–80",
+      "languages": "all six"
+    },
+    {
+      "section": "sentences",
+      "ids": "1–100",
+      "languages": "all six"
+    },
+    {
+      "section": "sentences",
+      "ids": "101–120 and 2001–2080",
+      "languages": "all six"
+    },
+    {
+      "section": "sentences",
+      "ids": "2081–2140",
+      "languages": "all six"
+    },
+    {
+      "section": "native Japanese",
+      "indices": "1–250"
+    },
+    {
+      "section": "native Japanese",
+      "indices": "251–500"
+    },
+    {
+      "section": "native Japanese",
+      "indices": "501–750"
+    },
+    {
+      "section": "native Japanese",
+      "indices": "751–1000"
+    }
+  ],
+  "corrections": {
+    "multilingual": 134,
+    "byLanguage": {
+      "ja": 0,
+      "zh": 25,
+      "ko": 31,
+      "vi": 35,
+      "th": 26,
+      "id": 17
+    },
+    "nativeJapaneseGlosses": 30,
+    "nativeWrittenKeysChanged": 0,
+    "nativeReadingsChanged": 0
+  },
+  "checksPerformed": [
+    "Compared each form with English and Japanese anchors for sense, word class, transitivity, number, person, temporal meaning and pragmatic force.",
+    "Read every phrase in its supplied section, keeping valid alternatives and avoiding blanket rewrites of legitimate regional/register variation.",
+    "Verified every correction has an exact matching before string and no duplicate section/id/language key.",
+    "Retained Japanese written forms and all native readings to avoid destructive changes to saved progress keys."
+  ],
+  "sources": [
+    {
+      "title": "National Institute of Korean Language: beginner Korean reading teacher guidance",
+      "url": "https://www.korean.go.kr/common/download.do?c_file_name=de1a9a29-2540-4eb0-a417-9b2aa87d5b72_1.pdf&file_path=reportData&o_file_name=%EC%B4%88%EA%B8%89+%ED%95%9C%EA%B5%AD%EC%96%B4%28%EC%9D%BD%EA%B8%B0%29+%EA%B5%90%EC%9B%90%EC%9A%A9+%EC%A7%80%EC%B9%A8%EC%84%9C+%EA%B0%9C%EB%B0%9C+%EB%B3%B4%EA%B3%A0%EC%84%9C_2.pdf",
+      "supports": "Native Korean standalone 하나/둘/셋/넷 versus 한/두/세/네 before counters."
+    },
+    {
+      "title": "NIKL Korean-English Learners' Dictionary: 네",
+      "url": "https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=17294",
+      "supports": "Polite affirmative 네, contrasting casual 응."
+    },
+    {
+      "title": "NIKL Korean-English Learners' Dictionary: 당신",
+      "url": "https://krdict.korean.go.kr/eng/dicMarinerSearch/search?mainSearchWord=%EB%8B%B9%EC%8B%A0",
+      "supports": "Context-sensitive addressee pronoun has several social/register uses; it is not a universal neutral spoken you."
+    },
+    {
+      "title": "Cambridge/K Dictionaries Japanese-English: 必ず",
+      "url": "https://dictionary.cambridge.org/ja/dictionary/japanese-english/%E5%BF%85%E3%81%9A",
+      "supports": "Without-fail/definite-occurrence meaning."
+    },
+    {
+      "title": "Cambridge/K Dictionaries Japanese-English: やはり",
+      "url": "https://dictionary.cambridge.org/ja/dictionary/japanese-english/%E3%82%84%E3%81%AF%E3%82%8A",
+      "supports": "Expectation and after-all senses, not generic absolutely."
+    },
+    {
+      "title": "Cambridge/K Dictionaries Japanese-English: 付ける・着ける",
+      "url": "https://dictionary.cambridge.org/dictionary/japanese-english/%E4%BB%98%E3%81%91%E3%82%8B-%E7%9D%80%E3%81%91%E3%82%8B",
+      "supports": "Attaching/applying and turning-on senses; generic take is not a useful lexical equivalent."
+    },
+    {
+      "title": "Cambridge/K Dictionaries Japanese-English: お礼",
+      "url": "https://dictionary.cambridge.org/ja/dictionary/japanese-english/%E3%81%8A%E7%A4%BC",
+      "supports": "Gratitude and thank-you expressions/gifts, distinct from bow 礼."
+    },
+    {
+      "title": "Japan Foundation Marugoto elementary vocabulary index",
+      "url": "https://marugoto.jpf.go.jp/assets/docs/download/elementary1_c/MarugotoElementary1CompetencesVocabularyIndex2_EN.pdf",
+      "supports": "お金(金)かね money, おなか belly/stomach, and valid alternate 毎年 readings."
+    },
+    {
+      "title": "Taiwan Ministry of Education Revised Mandarin Dictionary: 複雜",
+      "url": "https://dict.revised.moe.edu.tw/dictView.jsp?ID=39108&la=1&powerMode=0",
+      "supports": "Complicated/complex adjectival use."
+    }
+  ],
+  "teachingNotesSuggested": [
+    {
+      "section": "vocabulary",
+      "ids": [
+        383,
+        385,
+        578
+      ],
+      "language": "ko",
+      "note": "Use 둘/셋/넷 when counting alone, and 두/세/네 before counters: 두 명, 세 권, 네 개."
+    },
+    {
+      "section": "vocabulary",
+      "ids": [
+        137
+      ],
+      "language": "ko",
+      "note": "당신 is context-sensitive; in everyday conversation a person's name/title or an omitted pronoun is often more natural."
+    },
+    {
+      "section": "vocabulary",
+      "ids": [
+        247
+      ],
+      "note": "Floor numbers use the Japanese convention: the ground entrance level is floor 1. Do not assess the English/British versus Japanese numbering convention without this context."
+    },
+    {
+      "section": "vocabulary",
+      "ids": [
+        628
+      ],
+      "note": "半 means half. Time example: 二時半（にじはん）= 2:30; Indonesian setengah tiga also means 2:30."
+    },
+    {
+      "section": "vocabulary",
+      "ids": [
+        807
+      ],
+      "note": "必ず means an event/action occurs without fail. Contrast もちろん, conversational of course."
+    },
+    {
+      "section": "native Japanese",
+      "term": "金",
+      "note": "In the taught かね reading use money. The ordinary gold noun is read きん. Bare written 金 needs a reading or context."
+    },
+    {
+      "section": "native Japanese",
+      "term": "止める",
+      "note": "やめる is quitting/stopping an activity. とめる is stopping movement, as in a car. Written spelling alone is insufficient for a listening question."
+    },
+    {
+      "section": "native Japanese",
+      "terms": [
+        "少ない",
+        "少し"
+      ],
+      "note": "少ない = not many/not much; 少し = a few/a little. These should not be treated as interchangeable quantities."
+    },
+    {
+      "section": "vocabulary",
+      "ids": [
+        169,
+        350,
+        569,
+        642,
+        659,
+        715,
+        723,
+        741,
+        755
+      ],
+      "note": "Generic Japanese ～つ counters can count concrete objects or abstract matters. Existing other-language count glosses select abstract things in several rows; use object context when testing counters instead of claiming a universal one-to-one noun mapping."
+    },
+    {
+      "section": "grammar",
+      "language": "ko",
+      "note": "Existing valid sentences mix polite endings and plain/casual endings. Teach the register explicitly rather than presenting every sentence as interchangeable in all social situations."
+    },
+    {
+      "section": "all",
+      "note": "Thai ฉัน and Vietnamese tôi/bạn are useful learner defaults but pronouns and polite particles depend on speaker, relationship and setting."
+    }
+  ],
+  "audioIntegrationRisks": [
+    "current-form-pronunciation.js validates 5,906 baseline forms against normalized text before it registers aliases; load reviewed corrections after that baseline, or deliberately update validation. Do not edit a baseline wording and leave the assertion invalid.",
+    "native-pronunciation.js resolves an alias from the normalized exact current text, which is a suitable stale-audio safeguard when new forms have no clip. Do not add semantic-ID aliases pointing new text at old recordings.",
+    "Review changed language/text/gender combinations for exact existing recording matches, otherwise show honest unavailable/device-voice fallback. No paid regeneration is authorized.",
+    "Written Japanese homographs such as 金/日/月/後/止める need reading-aware listening selection. This review did not listen to the bundled clips, so their actual homograph pronunciation is not certified."
+  ],
+  "limitations": [
+    "Text review covers all assigned 8,040 multilingual forms and all 1,000 Japanese native triples, not every generated runtime question, answer variant, grammar explanation, or audio clip.",
+    "No physical Android test, live account, progress mutation, purchase, deployment or publication was performed.",
+    "Valid dialect, politeness and synonym alternatives were retained where the supplied context does not select a single form.",
+    "Native-speaker editorial review and end-to-end pronunciation audition remain independent quality checks; this report does not certify native-level accuracy."
+  ],
+  "unresolvedIssues": [
+    {
+      "area": "register/context",
+      "action": "Root should add contextual teaching notes and avoid claiming universal equivalence for pronouns, honorifics, suffixes and polysemous standalone kanji."
+    },
+    {
+      "area": "assessment/audio",
+      "action": "Root should ensure corrected forms appear in new questions and refreshed saved review cards, exact text audio never points at obsolete wording, and duplicate synonym choices cannot yield arbitrary scoring."
+    }
+  ],
+  "supplementReport": "asian-supplement-review.json"
+}

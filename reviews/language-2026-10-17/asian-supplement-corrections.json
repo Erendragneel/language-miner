@@ -1,0 +1,35 @@
+[
+  {
+    "file": "multilingual-preview.js",
+    "section": "alphabetSystems",
+    "language": "zh",
+    "symbol": "n",
+    "property": "name",
+    "before": "n (nā)",
+    "after": "n (ná)",
+    "reason": "The spoken example 拿 is ná (second tone), so the display example must not label it nā (first tone).",
+    "source": "https://dict.concised.moe.edu.tw/dictView.jsp?ID=12134&la=0&powerMode=0"
+  },
+  {
+    "file": "additional-language-packs.js",
+    "section": "alphabetSystems",
+    "language": "id",
+    "symbol": "Q",
+    "property": "name",
+    "before": "ki",
+    "after": "qi",
+    "reason": "Current official EYD V spells the letter name qi while keeping its pronunciation ki; the existing name follows older PUEBI spelling.",
+    "source": "https://ejaan.kemendikdasmen.go.id/eyd/penggunaan-huruf/huruf-abjad/"
+  },
+  {
+    "file": "additional-language-packs.js",
+    "section": "alphabetSystems",
+    "language": "id",
+    "symbol": "V",
+    "property": "spoken",
+    "before": "ve",
+    "after": "fe",
+    "reason": "Current official EYD V gives the written name ve with pronunciation fe. Keep the written name and correct only the spoken request.",
+    "source": "https://ejaan.kemendikdasmen.go.id/eyd/penggunaan-huruf/huruf-abjad/"
+  }
+]

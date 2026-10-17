@@ -1,0 +1,396 @@
+{
+  "date": "2026-10-17",
+  "candidateVersion": "6.4.295",
+  "baseCommit": "91416723b814db302804003256dfd7da7d7d775b",
+  "passed": true,
+  "suites": [
+    {
+      "command": "node tests/language-quality.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/paid-web-audio.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/complete-update-repair.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/complete-update-worker-transition.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/release-identity.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "syntax": {
+    "scripts": 69,
+    "passed": true,
+    "files": [
+      {
+        "file": "update-guardian.js",
+        "passed": true,
+        "sha256": "423c439a360a1ec3b25bad337fc1b109bcf27ce483fbaee1ab89c0893b000529"
+      },
+      {
+        "file": "picture-catalog.js",
+        "passed": true,
+        "sha256": "7593afaef9f25c9eb2831b24bfc1f35241539178c4f9d57f798e78ceb67c3f51"
+      },
+      {
+        "file": "alphabet-picture-clarity.js",
+        "passed": true,
+        "sha256": "3948a35e8e7677255769f601f828cab00c50c4525e42ee9f1f586047c7460156"
+      },
+      {
+        "file": "picture-clarity.js",
+        "passed": true,
+        "sha256": "3a709766866e26c3a5068195a9e28e08ad1e286de3a59ba2862ce7bbb211ef9d"
+      },
+      {
+        "file": "illustrated-learning.js",
+        "passed": true,
+        "sha256": "a51edcbeda11f0b7111b66c8ec95d9f9e3f4992b4ad0f3984ab6a0d55d4bca95"
+      },
+      {
+        "file": "flashcards.js",
+        "passed": true,
+        "sha256": "f5d4e4c1b6b64a8684aae48ce6b57fc49a91ac1a82509629d8ddb60eb9ce9906"
+      },
+      {
+        "file": "patreon-config.js",
+        "passed": true,
+        "sha256": "cc3996c2b4dd15395dc922206735c6d86da3ff47c2f65be31ce11c5b0afe600d"
+      },
+      {
+        "file": "cloud-auth.js",
+        "passed": true,
+        "sha256": "c6741cb273a84d394733a72f4ca1e652a40bcbb4194a255e8414aaa4e059e3ad"
+      },
+      {
+        "file": "auth-utilities.js",
+        "passed": true,
+        "sha256": "44432605a3c46dc5dc4ddebe67bbcff8360d35edcfdb18c3e39b12287802c5be"
+      },
+      {
+        "file": "legal-compliance.js",
+        "passed": true,
+        "sha256": "ea68beb0c43358158c63b5915f53f4a8207f17973af62dec40bf16c43194fe15"
+      },
+      {
+        "file": "n5-vocabulary-1000.js",
+        "passed": true,
+        "sha256": "6b0f0706278d01d049bfc538e32d4bd3d868237e909ff62d4afbb2386391de16"
+      },
+      {
+        "file": "multilingual-course-data.js",
+        "passed": true,
+        "sha256": "7302ecd213c901094649ba7917eb708efd5237c54029661909b50f6df0fbf4e5"
+      },
+      {
+        "file": "travel-phrases-200.js",
+        "passed": true,
+        "sha256": "9b61dd78901525c3056e49c8b532c05de3eb938a7561442874a4d1d1f209c341"
+      },
+      {
+        "file": "pronunciation-pack.js",
+        "passed": true,
+        "sha256": "50da4e6548aec1bafa4a1cfc7bb5a0ff93c55c8f330733f48465a4ba90db6208"
+      },
+      {
+        "file": "picture-pronunciation.js",
+        "passed": true,
+        "sha256": "21850b9bbe78402602fd6ee7ed92cdb80288ef60253b2f76dc8e4ffd886c5f89"
+      },
+      {
+        "file": "native-pronunciation.js",
+        "passed": true,
+        "sha256": "bddf7af415554d9dd796acf07b704325ad6bfff1a0cf9134130dfd797d353f59"
+      },
+      {
+        "file": "vocabulary-safety.js",
+        "passed": true,
+        "sha256": "bbabb18c189ced0dc32636f4597dd16d8884e8d57391a0f3d66874df79d3208a"
+      },
+      {
+        "file": "vocabulary-sense-fixes.js",
+        "passed": true,
+        "sha256": "f21c542c5387790ed6b7f2f78c47939c3ce850f673583d7c781c6072ff562dbc"
+      },
+      {
+        "file": "wording-resolutions.js",
+        "passed": true,
+        "sha256": "cd5782df8254916c1c2798b97cd958a0313d58df3b6369b5c5c805994ad2c8e4"
+      },
+      {
+        "file": "audio-form-corrections.js",
+        "passed": true,
+        "sha256": "659ec970cf69c0d88cf88d63068fa978b1de66b0f13e765c4431249e672f4c4e"
+      },
+      {
+        "file": "current-form-pronunciation.js",
+        "passed": true,
+        "sha256": "43aa55d5c520a51746b2201a1ccdc20df34c10d0b83dc38c594f4537715b613d"
+      },
+      {
+        "file": "language-quality.js",
+        "passed": true,
+        "sha256": "bb25c536de295b70254604ed36edf905c2b6349b72a46bf48cc89fb08eec1698"
+      },
+      {
+        "file": "pickaxe-finishes.js",
+        "passed": true,
+        "sha256": "46c60713cd3438d0e0056c90d147a70b2959170cc4eefdb52b297cfd8d02deb2"
+      },
+      {
+        "file": "gem-buttons.js",
+        "passed": true,
+        "sha256": "88dca5ddf11d9b3b7198e57fef3dd74f64364a79d855ed97d3bb2d6aa96c742e"
+      },
+      {
+        "file": "patreon-previews.js",
+        "passed": true,
+        "sha256": "09619616f4fc36fd03dd5d042f6486da4b46aeaa46e06942d5db9bad31e0196f"
+      },
+      {
+        "file": "practice-modes.js",
+        "passed": true,
+        "sha256": "468dd8966778c5db6c8f52bcf5a4c693c09b3e3ec7b9516d939f1688d1b91c29"
+      },
+      {
+        "file": "game-6460.js",
+        "passed": true,
+        "sha256": "ca17fa61513bc8ef1685574b1df87ae1154c8be42daa436bd3380aed92c10a97"
+      },
+      {
+        "file": "academy-assessment.js",
+        "passed": true,
+        "sha256": "e99bebfca40a5dd4422b4f1487d4d7ce4892d6d11f999734005e65e8348632f1"
+      },
+      {
+        "file": "cultural-event-localization.js",
+        "passed": true,
+        "sha256": "e1afc5c9ba2ae162d67c80b5247edf1d8cc8786304714d300818031d36ff194f"
+      },
+      {
+        "file": "cultural-events.js",
+        "passed": true,
+        "sha256": "4c3859ba6eee440eff5d8c64f8ed7fde8b9eb4a0c27773f2a997979fd8948156"
+      },
+      {
+        "file": "v5-6400.js",
+        "passed": true,
+        "sha256": "9bcc9060e60a30a0177740cffb8fb6358bc666a3f5e7420d78f5b858975cfcfd"
+      },
+      {
+        "file": "qr-code.js",
+        "passed": true,
+        "sha256": "10af4e59d230ec730fd0e56b7df2798fc38e3ab16879c8f7da90112b9023d7fd"
+      },
+      {
+        "file": "background-music.js",
+        "passed": true,
+        "sha256": "a4ece90568045d99e34268de0bb451855eea48dd8a77f67def652ffafb6caa5c"
+      },
+      {
+        "file": "teaching-notes.js",
+        "passed": true,
+        "sha256": "7d12ee7fa01e23a042d84ba9b0474943246130a33d9d4f65d4cf2857282d12e7"
+      },
+      {
+        "file": "v6.js",
+        "passed": true,
+        "sha256": "00bd274bc54b9d8c002062b65e8fb232421992f6bfb76c3b7da597f50c10c97d"
+      },
+      {
+        "file": "arcade-games.js",
+        "passed": true,
+        "sha256": "3d76a2c81fcb4fec0e73e9fb288f7324aa72fdfdcffd18b53205a477459edacb"
+      },
+      {
+        "file": "patreon-reel-locales.js",
+        "passed": true,
+        "sha256": "f29be5c7505587f01058ff0ecdae3a2f69747765b5d82737bd8b149c56da9c00"
+      },
+      {
+        "file": "patreon-heart-videos.js",
+        "passed": true,
+        "sha256": "a8034a0538a5599c1d199565762588f3b641ee26c7f74a2c30b97f9edc3e4605"
+      },
+      {
+        "file": "recovery-6460.js",
+        "passed": true,
+        "sha256": "0cee53cd7f3a942082333de2ac2af557ba37f2fdc3d81cf47b0a6e2e682c1334"
+      },
+      {
+        "file": "patreon-linking.js",
+        "passed": true,
+        "sha256": "e81cb113a3df58cfa2e5de5418e269de21f9e7359b03e3f4e43b97b772ec0154"
+      },
+      {
+        "file": "additional-language-packs.js",
+        "passed": true,
+        "sha256": "4df02b164cda0f9e91e34204c1307c9fb912733d5aeb78ce6f463e37c70e787e"
+      },
+      {
+        "file": "mine-cosmetic-localization.js",
+        "passed": true,
+        "sha256": "8e55c4cf3a56a1938d53bb86e853cc4dd9e29e6ffe84b83b097a8e1fb7677809"
+      },
+      {
+        "file": "full-interface-localization.js",
+        "passed": true,
+        "sha256": "87df827c7b37783ce182cfdd001dae49c35a8ef37b2d8a13ef740df4b8a5fce8"
+      },
+      {
+        "file": "patreon-copy-localization.js",
+        "passed": true,
+        "sha256": "a6514d12778b6919f3806f2b9b3032bc42dc38470b58c77c317809626713783e"
+      },
+      {
+        "file": "parent-teacher-localization.js",
+        "passed": true,
+        "sha256": "26aec4fa9fc4682bf6033dcbe57cb140973038e6f7115206d32a279b55dff86d"
+      },
+      {
+        "file": "generated-interface-localization.js",
+        "passed": true,
+        "sha256": "f8c2141a9a4b447bd813a01454390f12dec76715ce678a1fd5e2ffbc65ed09a8"
+      },
+      {
+        "file": "interface-localization.js",
+        "passed": true,
+        "sha256": "37ee4bea185cf375136b830b6da007c1677a5cf0d30df03ad68b7902e6121ccb"
+      },
+      {
+        "file": "multilingual-preview.js",
+        "passed": true,
+        "sha256": "674aee69c286334910e7ae88c0319db544782a37a0d7eeeec1d80a63ee494dc0"
+      },
+      {
+        "file": "parent-teacher-center.js",
+        "passed": true,
+        "sha256": "e56022ffc887353e88235af91ed33b97bd34e540964ff8305d657b2186ef8fbb"
+      },
+      {
+        "file": "game-guide.js",
+        "passed": true,
+        "sha256": "b08bd772aa6b96ef6d61abe95f42febd84f1072a1bc9c9003ff0068aba562b7f"
+      },
+      {
+        "file": "writing-stroke-data.js",
+        "passed": true,
+        "sha256": "d9245236cef757389722fea38cf7ee2faebaf327fd204d6cadfacd05f508ba0f"
+      },
+      {
+        "file": "writing-grader.js",
+        "passed": true,
+        "sha256": "52f19b4c901dcf44dfc58e279e2bc9f29e99eb069f96e3afdeb9c61c42062ed6"
+      },
+      {
+        "file": "writing-practice.js",
+        "passed": true,
+        "sha256": "73faefb11f654efbceafbbb906e8d5b96b2ceecfa0acd3fdb55cf562cdbe10dc"
+      },
+      {
+        "file": "character-animations.js",
+        "passed": true,
+        "sha256": "0ae7a1dec403d74d5182ab97a60d2484ba1c732eab6fa4ba7ce02d592230d3af"
+      },
+      {
+        "file": "owner-admin-controls.js",
+        "passed": true,
+        "sha256": "ec6563d272b768eed6e93ad3058bfc83e7a50994fdac6850ff9a783a2f4923b3"
+      },
+      {
+        "file": "adventure.js",
+        "passed": true,
+        "sha256": "a412867c83ea8c060da648e4cdb363003985077aeeb22c51ee29659beb11226a"
+      },
+      {
+        "file": "adventure-reference.js",
+        "passed": true,
+        "sha256": "6647a6f2cf0ae55774f6f49f262d622af5fc4b2a04f35ba21a639f8858eac699"
+      },
+      {
+        "file": "pose-textures.js",
+        "passed": true,
+        "sha256": "88ac4002a07b63b8c0673c067b050c233bf820a317a1076c8e48f6d0f43e453b"
+      },
+      {
+        "file": "pose-wardrobe.js",
+        "passed": true,
+        "sha256": "d88fab22321bd98595507ab2020eab433308f0839997dc7515c89812184be011"
+      },
+      {
+        "file": "mobile-pocket.js",
+        "passed": true,
+        "sha256": "67f86ee601d4824a598411113516c97ae55a2e07fee94b530a852b528226731d"
+      },
+      {
+        "file": "navigation-symbols.js",
+        "passed": true,
+        "sha256": "430805d1aa44cbb2d817899188d00b46a7f4728b9fab1df0239ea5fa43e380ea"
+      },
+      {
+        "file": "short-stories-data.js",
+        "passed": true,
+        "sha256": "3aa468ba1cb7a32b004a5357c2ef5e15adc961b353a096d81289b9c3de15f313"
+      },
+      {
+        "file": "short-stories.js",
+        "passed": true,
+        "sha256": "116a91a9a61d4ffc48cbba570b59bc4b04937bf8b8b4b66b973617ed2ed20efb"
+      },
+      {
+        "file": "daily-golem-model.js",
+        "passed": true,
+        "sha256": "3811f070326358b5a275ffd3d72282386f98efc21ef2daac4c36755b6adfa122"
+      },
+      {
+        "file": "daily-golem-localization.js",
+        "passed": true,
+        "sha256": "9cad4812ec6dbed327fa1d45b5216f935b7b887daf29cf8b9a2b168aee0dc6ad"
+      },
+      {
+        "file": "daily-golem-cel-heads.js",
+        "passed": true,
+        "sha256": "ebb1ad3e819b46ea8432460759e5fa29b742083f9877a43ad8d7939f9c39f5ec"
+      },
+      {
+        "file": "daily-golem-cel-wardrobe.js",
+        "passed": true,
+        "sha256": "bf7fdebf93d1e950239c202c3d7678ac5e5366c99ba72f704dfb0b8d42763d57"
+      },
+      {
+        "file": "daily-golem-art.js",
+        "passed": true,
+        "sha256": "d8733d0f9398f30de8ff52667b01caeaac5498bec84301df17eec3ff03ada3c5"
+      },
+      {
+        "file": "daily-golem.js",
+        "passed": true,
+        "sha256": "401553fde75ef92380fe05f494e987731079568e3fc3de3cc1e867add94f4168"
+      }
+    ]
+  },
+  "audioAudit": {
+    "command": "node reviews/language-2026-10-17/current-audio-audit.cjs",
+    "passed": true
+  },
+  "teachingReceipt": "teaching-review.json",
+  "browserReceipt": "browser-verification.json",
+  "additionalCostUsd": 0,
+  "published": false,
+  "androidBundleRebuilt": false,
+  "liveProgressAccessed": false,
+  "nativeCertification": false,
+  "limitation": "409 shared forms plus one separate Indonesian alphabet clue lack matching recordings; no new media generated."
+}

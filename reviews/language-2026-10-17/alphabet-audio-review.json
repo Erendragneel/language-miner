@@ -1,0 +1,109 @@
+{
+  "reviewDate": "2026-10-17",
+  "status": "pass-with-one-alphabet-recording-gap",
+  "scope": "Only the three accepted alphabet corrections; separate from the 22,780 shared course forms.",
+  "actualSourceReceipts": [
+    {
+      "file": "multilingual-preview.js",
+      "sha256": "674aee69c286334910e7ae88c0319db544782a37a0d7eeeec1d80a63ee494dc0"
+    },
+    {
+      "file": "additional-language-packs.js",
+      "sha256": "4df02b164cda0f9e91e34204c1307c9fb912733d5aeb78ce6f463e37c70e787e"
+    }
+  ],
+  "summary": {
+    "alphabetCluesAudited": 3,
+    "requestedFemaleMaleClips": 6,
+    "coveredClues": 2,
+    "missingClues": 1,
+    "coveredVoiceClips": 4,
+    "missingVoiceClips": 2
+  },
+  "cases": [
+    {
+      "language": "zh",
+      "symbol": "n",
+      "displayName": "n (ná)",
+      "spoken": "拿",
+      "voices": [
+        {
+          "gender": "female",
+          "status": "exact-paid-recording",
+          "recording": "audio/voices/zh-CN-XiaoxiaoNeural/6234b3a0f9f8ede49e07.mp3"
+        },
+        {
+          "gender": "male",
+          "status": "exact-paid-recording",
+          "recording": "audio/voices/zh-CN-YunxiNeural/6234b3a0f9f8ede49e07.mp3"
+        }
+      ]
+    },
+    {
+      "language": "id",
+      "symbol": "Q",
+      "displayName": "qi",
+      "spoken": "ki",
+      "voices": [
+        {
+          "gender": "female",
+          "status": "exact-paid-recording",
+          "recording": "audio/voices/id-ID-GadisNeural/ac09dea0926841f671e1.mp3"
+        },
+        {
+          "gender": "male",
+          "status": "exact-paid-recording",
+          "recording": "audio/voices/id-ID-ArdiNeural/ac09dea0926841f671e1.mp3"
+        }
+      ]
+    },
+    {
+      "language": "id",
+      "symbol": "V",
+      "displayName": "ve",
+      "spoken": "fe",
+      "voices": [
+        {
+          "gender": "female",
+          "status": "no-exact-paid-recording"
+        },
+        {
+          "gender": "male",
+          "status": "no-exact-paid-recording"
+        }
+      ]
+    }
+  ],
+  "missing": [
+    {
+      "language": "id",
+      "symbol": "V",
+      "displayName": "ve",
+      "spoken": "fe",
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact fe recording exists. The historical ve recording is not a valid replacement."
+    }
+  ],
+  "qDisplayName": {
+    "name": "qi",
+    "spoken": "ki",
+    "displayNameHasPaidRecording": false,
+    "spokenHasBothPaidRecordings": true,
+    "countedAsMissingClue": false
+  },
+  "safeguards": {
+    "noWrongAudioSubstitutionChecks": 2,
+    "noHistoricalAliasesChanged": true,
+    "noAudioOrMediaChanged": true,
+    "noNetworkOrPaidCalls": true,
+    "additionalCostUsd": 0
+  },
+  "limitations": [
+    "Exact field/alias/paid receipt checks, without native listening certification.",
+    "One missing alphabet clue/two missing clips is additional to, and excluded from, the shared course gap counts.",
+    "A displayed letter name need not itself be recorded when its spoken field correctly requests a different pronunciation."
+  ]
+}

@@ -1,0 +1,962 @@
+[
+  {
+    "section": "vocabulary",
+    "id": 1,
+    "language": "el",
+    "before": "πρόσωπο",
+    "after": "άτομο",
+    "reason": "Use an unambiguous person noun rather than the equally common face sense of πρόσωπο."
+  },
+  {
+    "section": "vocabulary",
+    "id": 87,
+    "language": "pl",
+    "before": "rano",
+    "after": "poranek",
+    "reason": "The isolated vocabulary item is a noun, not the adverb rano (in the morning)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 114,
+    "language": "tr",
+    "before": "tanışmak, görmek",
+    "after": "buluşmak; görüşmek",
+    "reason": "会う means meeting or seeing someone; tanışmak unnecessarily restricts it to meeting for the first time."
+  },
+  {
+    "section": "vocabulary",
+    "id": 124,
+    "language": "pl",
+    "before": "rano",
+    "after": "poranek",
+    "reason": "Teach morning as a noun; rano is primarily the adverb used in the morning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 129,
+    "language": "pl",
+    "before": "grać; przyjemnie spędzać czas; spędzać wolny czas",
+    "after": "bawić się; miło spędzać czas",
+    "reason": "遊ぶ includes play/hang out; grać alone suggests playing a game or instrument."
+  },
+  {
+    "section": "vocabulary",
+    "id": 158,
+    "language": "el",
+    "before": "πόσα",
+    "after": "πόσο",
+    "reason": "The amount/price interrogative is πόσο; πόσα usually asks how many plural items."
+  },
+  {
+    "section": "vocabulary",
+    "id": 210,
+    "language": "uk",
+    "before": "ставити; закладати; розмістити",
+    "after": "класти; ставити",
+    "reason": "Replace закладати (lay a foundation/deposit/pledge) with ordinary placing verbs."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "ru",
+    "before": "желудок",
+    "after": "живот",
+    "reason": "お腹 is the belly/abdomen, not specifically the stomach organ (胃)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "tr",
+    "before": "mide",
+    "after": "karın",
+    "reason": "お腹 is the belly/abdomen, not specifically the stomach organ (胃)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "pl",
+    "before": "żołądek",
+    "after": "brzuch",
+    "reason": "お腹 is the belly/abdomen, not specifically the stomach organ (胃)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "el",
+    "before": "στομάχι",
+    "after": "κοιλιά",
+    "reason": "お腹 is the belly/abdomen, not specifically the stomach organ (胃)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "ru",
+    "before": "третий этаж над первым этажом",
+    "after": "четвёртый этаж (в Японии наземный этаж считается первым)",
+    "reason": "Make Japanese 4階 numbering explicit rather than asserting a local third floor without explaining the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "tr",
+    "before": "zemin katın üç kat üstü",
+    "after": "Japonya’da 4. kat (zemin kat 1. kat sayılır)",
+    "reason": "Make Japanese 4階 numbering explicit rather than asserting a local third floor without explaining the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "pl",
+    "before": "trzecie piętro nad parterem",
+    "after": "czwarta kondygnacja (w Japonii parter to pierwsza kondygnacja)",
+    "reason": "Make Japanese 4階 numbering explicit rather than asserting a local third floor without explaining the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "el",
+    "before": "ο τρίτος όροφος πάνω από το ισόγειο",
+    "after": "τέταρτο επίπεδο (στην Ιαπωνία το ισόγειο μετρά ως πρώτο)",
+    "reason": "Make Japanese 4階 numbering explicit rather than asserting a local third floor without explaining the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "uk",
+    "before": "третій поверх над першим поверхом",
+    "after": "четвертий поверх (у Японії наземний поверх вважається першим)",
+    "reason": "Make Japanese 4階 numbering explicit rather than asserting a local third floor without explaining the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 263,
+    "language": "ru",
+    "before": "одолжить",
+    "after": "давать взаймы",
+    "reason": "Teach lending direction explicitly; the old borrow/lend verb is ambiguous without a recipient."
+  },
+  {
+    "section": "vocabulary",
+    "id": 263,
+    "language": "pl",
+    "before": "pożyczyć",
+    "after": "pożyczać komuś",
+    "reason": "Teach lending direction explicitly; the old borrow/lend verb is ambiguous without a recipient."
+  },
+  {
+    "section": "vocabulary",
+    "id": 263,
+    "language": "uk",
+    "before": "позичати",
+    "after": "позичати комусь",
+    "reason": "Teach lending direction explicitly; the old borrow/lend verb is ambiguous without a recipient."
+  },
+  {
+    "section": "vocabulary",
+    "id": 278,
+    "language": "ru",
+    "before": "камера",
+    "after": "фотоаппарат",
+    "reason": "Use the still-photo camera sense consistently with the existing travel-camera phrases, not just video camera."
+  },
+  {
+    "section": "vocabulary",
+    "id": 278,
+    "language": "tr",
+    "before": "kamera",
+    "after": "fotoğraf makinesi",
+    "reason": "Use the still-photo camera sense consistently with the existing travel-camera phrases, not just video camera."
+  },
+  {
+    "section": "vocabulary",
+    "id": 278,
+    "language": "el",
+    "before": "κάμερα",
+    "after": "φωτογραφική μηχανή",
+    "reason": "Use the still-photo camera sense consistently with the existing travel-camera phrases, not just video camera."
+  },
+  {
+    "section": "vocabulary",
+    "id": 278,
+    "language": "uk",
+    "before": "камера",
+    "after": "фотоапарат",
+    "reason": "Use the still-photo camera sense consistently with the existing travel-camera phrases, not just video camera."
+  },
+  {
+    "section": "vocabulary",
+    "id": 282,
+    "language": "pl",
+    "before": "pożyczać",
+    "after": "pożyczać od kogoś",
+    "reason": "Teach borrowing from someone, distinguishing the shared borrow/lend verb from giving a loan."
+  },
+  {
+    "section": "vocabulary",
+    "id": 282,
+    "language": "uk",
+    "before": "позичати",
+    "after": "позичати в когось",
+    "reason": "Teach borrowing from someone, distinguishing the shared borrow/lend verb from giving a loan."
+  },
+  {
+    "section": "vocabulary",
+    "id": 348,
+    "language": "uk",
+    "before": "вдень, П.М.",
+    "after": "після полудня",
+    "reason": "Replace the untranslated English P.M. abbreviation with the time-of-day meaning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "ru",
+    "before": "утро, утра.",
+    "after": "до полудня",
+    "reason": "午前 is the a.m./before-noon interval; avoid malformed Latin abbreviations and a morning-only gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "tr",
+    "before": "sabah",
+    "after": "öğleden önce",
+    "reason": "午前 is the a.m./before-noon interval; avoid malformed Latin abbreviations and a morning-only gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "pl",
+    "before": "rano",
+    "after": "przed południem",
+    "reason": "午前 is the a.m./before-noon interval; avoid malformed Latin abbreviations and a morning-only gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "el",
+    "before": "πρωί / π.μ.",
+    "after": "πριν από το μεσημέρι",
+    "reason": "午前 is the a.m./before-noon interval; avoid malformed Latin abbreviations and a morning-only gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "uk",
+    "before": "ранок, А.М.",
+    "after": "до полудня",
+    "reason": "午前 is the a.m./before-noon interval; avoid malformed Latin abbreviations and a morning-only gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 375,
+    "language": "ru",
+    "before": "эссе; композиция",
+    "after": "сочинение; эссе",
+    "reason": "School composition means written work, not an artistic/musical composition false friend."
+  },
+  {
+    "section": "vocabulary",
+    "id": 375,
+    "language": "pl",
+    "before": "esej; kompozycja",
+    "after": "wypracowanie; esej",
+    "reason": "School composition means written work, not an artistic/musical composition false friend."
+  },
+  {
+    "section": "vocabulary",
+    "id": 402,
+    "language": "uk",
+    "before": "замкнути",
+    "after": "зачиняти; закривати",
+    "reason": "閉める is close/shut; замкнути can wrongly teach locking with a key."
+  },
+  {
+    "section": "vocabulary",
+    "id": 413,
+    "language": "ru",
+    "before": "быть хорошим, умелым",
+    "after": "умелый; хорошо умеющий что-либо делать",
+    "reason": "Clarify skill at an activity rather than moral goodness in the isolated 上手 gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 413,
+    "language": "pl",
+    "before": "być dobrym, zręcznym",
+    "after": "być dobrym w czymś; być zręcznym",
+    "reason": "Clarify skill at an activity rather than moral goodness in the isolated 上手 gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 413,
+    "language": "uk",
+    "before": "бути добрим, умілим",
+    "after": "вправний; добре вміти щось робити",
+    "reason": "Clarify skill at an activity rather than moral goodness in the isolated 上手 gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 416,
+    "language": "el",
+    "before": "καφετέρια, τραπεζαρία",
+    "after": "εστιατόριο αυτοεξυπηρέτησης; τραπεζαρία",
+    "reason": "A cafeteria/dining hall is not simply a coffee shop."
+  },
+  {
+    "section": "vocabulary",
+    "id": 503,
+    "language": "uk",
+    "before": "досягти",
+    "after": "прибувати; діставатися",
+    "reason": "着く is arriving at a destination; досягти alone foregrounds an abstract achievement."
+  },
+  {
+    "section": "vocabulary",
+    "id": 518,
+    "language": "el",
+    "before": "δοκιμή",
+    "after": "τεστ; εξέταση",
+    "reason": "Teach an educational test/examination rather than an unspecified trial or experiment."
+  },
+  {
+    "section": "vocabulary",
+    "id": 523,
+    "language": "pl",
+    "before": "telewizja",
+    "after": "telewizja; telewizor",
+    "reason": "Preserve both the television medium and physical TV set senses."
+  },
+  {
+    "section": "vocabulary",
+    "id": 551,
+    "language": "tr",
+    "before": "durma noktasına gelmek",
+    "after": "durmak",
+    "reason": "Use the ordinary intransitive stop verb instead of an idiom that often means economic standstill."
+  },
+  {
+    "section": "vocabulary",
+    "id": 623,
+    "language": "el",
+    "before": "γρήγορα",
+    "after": "γρήγορος",
+    "reason": "Fast/quick is an adjective here; γρήγορα is an adverb (quickly)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "ru",
+    "before": "половина (например, にじはん | половина третьего)",
+    "after": "половина",
+    "reason": "Remove the malformed pipe and embedded Japanese example from the answer; teach half-past time in a separate explanation."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "tr",
+    "before": "yarım (örneğin, にじはん | iki buçuk)",
+    "after": "yarım",
+    "reason": "Remove the malformed pipe and embedded Japanese example from the answer; teach half-past time in a separate explanation."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "pl",
+    "before": "połowa (np. wpół do trzeciej = 2:30)",
+    "after": "połowa",
+    "reason": "Remove the malformed pipe and embedded Japanese example from the answer; teach half-past time in a separate explanation."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "el",
+    "before": "μισό (π.χ., にじはん | δύο και μισή)",
+    "after": "μισό",
+    "reason": "Remove the malformed pipe and embedded Japanese example from the answer; teach half-past time in a separate explanation."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "uk",
+    "before": "половина (наприклад, にじはん | пів на третю)",
+    "after": "половина",
+    "reason": "Remove the malformed pipe and embedded Japanese example from the answer; teach half-past time in a separate explanation."
+  },
+  {
+    "section": "vocabulary",
+    "id": 687,
+    "language": "el",
+    "before": "ράφι",
+    "after": "ράφι για βιβλία",
+    "reason": "A bookshelf is specifically for books; ράφι alone is any shelf."
+  },
+  {
+    "section": "vocabulary",
+    "id": 773,
+    "language": "ru",
+    "before": "практика",
+    "after": "упражнение; тренировка",
+    "reason": "練習 is deliberate practice/training, distinct from practical placement or professional practice."
+  },
+  {
+    "section": "vocabulary",
+    "id": 773,
+    "language": "uk",
+    "before": "практика",
+    "after": "вправляння; тренування",
+    "reason": "練習 is deliberate practice/training, distinct from practical placement or professional practice."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "ru",
+    "before": "конечно",
+    "after": "обязательно",
+    "reason": "必ず expresses without fail/definitely, or be sure to in instructions; prefer ordinary beginner wording over a literary certainty term."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "pl",
+    "before": "z pewnością",
+    "after": "na pewno; koniecznie",
+    "reason": "必ず expresses without fail/definitely, or be sure to in instructions; prefer ordinary beginner wording over a literary certainty term."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "el",
+    "before": "σίγουρα",
+    "after": "οπωσδήποτε",
+    "reason": "必ず expresses without fail/definitely, or be sure to in instructions; prefer ordinary beginner wording over a literary certainty term."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "uk",
+    "before": "звичайно",
+    "after": "обов’язково",
+    "reason": "必ず expresses without fail/definitely, or be sure to in instructions; prefer ordinary beginner wording over a literary certainty term."
+  },
+  {
+    "section": "vocabulary",
+    "id": 810,
+    "language": "ru",
+    "before": "парикмахерская (магазин)",
+    "after": "мужская парикмахерская",
+    "reason": "Teach the barbershop as a place; remove the mistaken literal shop/store cue and profession/place mismatch."
+  },
+  {
+    "section": "vocabulary",
+    "id": 810,
+    "language": "tr",
+    "before": "berber (dükkan)",
+    "after": "berber dükkânı",
+    "reason": "Teach the barbershop as a place; remove the mistaken literal shop/store cue and profession/place mismatch."
+  },
+  {
+    "section": "vocabulary",
+    "id": 810,
+    "language": "pl",
+    "before": "fryzjer (sklep)",
+    "after": "męski zakład fryzjerski",
+    "reason": "Teach the barbershop as a place; remove the mistaken literal shop/store cue and profession/place mismatch."
+  },
+  {
+    "section": "vocabulary",
+    "id": 810,
+    "language": "uk",
+    "before": "перукарня (магазин)",
+    "after": "чоловіча перукарня",
+    "reason": "Teach the barbershop as a place; remove the mistaken literal shop/store cue and profession/place mismatch."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "ru",
+    "before": "сложность, усложнение",
+    "after": "сложный; запутанный",
+    "reason": "Teach the common adjectival 複雑な sense as complicated/complex, rather than only a noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "tr",
+    "before": "karmaşıklık",
+    "after": "karmaşık",
+    "reason": "Teach the common adjectival 複雑な sense as complicated/complex, rather than only a noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "pl",
+    "before": "złożoność, komplikacja",
+    "after": "złożony; skomplikowany",
+    "reason": "Teach the common adjectival 複雑な sense as complicated/complex, rather than only a noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "el",
+    "before": "πολυπλοκότητα, περιπλοκή",
+    "after": "περίπλοκος; σύνθετος",
+    "reason": "Teach the common adjectival 複雑な sense as complicated/complex, rather than only a noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "uk",
+    "before": "складність",
+    "after": "складний; заплутаний",
+    "reason": "Teach the common adjectival 複雑な sense as complicated/complex, rather than only a noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 867,
+    "language": "tr",
+    "before": "cam, bölme",
+    "after": "cam; pencere camı",
+    "reason": "A pane is a piece of window glass; bölme means a compartment/partition."
+  },
+  {
+    "section": "vocabulary",
+    "id": 900,
+    "language": "ru",
+    "before": "посещаемость",
+    "after": "присутствие; посещаемость",
+    "reason": "出席 includes being present, not merely an attendance count or arriving."
+  },
+  {
+    "section": "vocabulary",
+    "id": 900,
+    "language": "el",
+    "before": "προσέλευση",
+    "after": "παρουσία",
+    "reason": "出席 includes being present, not merely an attendance count or arriving."
+  },
+  {
+    "section": "vocabulary",
+    "id": 900,
+    "language": "uk",
+    "before": "відвідуваність",
+    "after": "присутність; відвідуваність",
+    "reason": "出席 includes being present, not merely an attendance count or arriving."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "ru",
+    "before": "приветствовать; встретиться; приветствовать",
+    "after": "встречать; приветствовать",
+    "reason": "迎える is welcoming/receiving someone; reflexive встретиться/зустрічатися means meeting each other."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "pl",
+    "before": "powitać; spotkać; powitać",
+    "after": "witać; przyjmować",
+    "reason": "迎える is welcoming/receiving someone; reflexive встретиться/зустрічатися means meeting each other."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "uk",
+    "before": "вітати; зустрічатися; вітати",
+    "after": "зустрічати; вітати",
+    "reason": "迎える is welcoming/receiving someone; reflexive встретиться/зустрічатися means meeting each other."
+  },
+  {
+    "section": "vocabulary",
+    "id": 951,
+    "language": "ru",
+    "before": "через месяц после следующего",
+    "after": "через два месяца",
+    "reason": "Use the natural calendar-relative month-after-next expression."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "ru",
+    "before": "Я оставил свой ключ.",
+    "after": "Я забыл свой ключ.",
+    "reason": "置き忘れてしまいました means accidentally leaving/forgetting the key, not intentionally leaving it."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "pl",
+    "before": "Zostawiłem swój klucz.",
+    "after": "Zapomniałem zabrać klucza.",
+    "reason": "置き忘れてしまいました means accidentally leaving/forgetting the key, not intentionally leaving it."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "el",
+    "before": "Άφησα το κλειδί μου πίσω.",
+    "after": "Ξέχασα το κλειδί μου.",
+    "reason": "置き忘れてしまいました means accidentally leaving/forgetting the key, not intentionally leaving it."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "uk",
+    "before": "Я залишив свій ключ.",
+    "after": "Я забув свій ключ.",
+    "reason": "置き忘れてしまいました means accidentally leaving/forgetting the key, not intentionally leaving it."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "ru",
+    "before": "пригодность",
+    "after": "подходящий",
+    "reason": "Teach the appropriate/suitable adjectival sense of 適当 rather than only the noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "tr",
+    "before": "uygunluk",
+    "after": "uygun",
+    "reason": "Teach the appropriate/suitable adjectival sense of 適当 rather than only the noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "pl",
+    "before": "stosowność",
+    "after": "odpowiedni",
+    "reason": "Teach the appropriate/suitable adjectival sense of 適当 rather than only the noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "el",
+    "before": "καταλληλότητα",
+    "after": "κατάλληλος",
+    "reason": "Teach the appropriate/suitable adjectival sense of 適当 rather than only the noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "uk",
+    "before": "придатність",
+    "after": "відповідний",
+    "reason": "Teach the appropriate/suitable adjectival sense of 適当 rather than only the noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 988,
+    "language": "tr",
+    "before": "nezaket",
+    "after": "iyilik; yardımseverlik",
+    "reason": "Kindness/helpfulness is more precise than politeness; polite is taught separately."
+  },
+  {
+    "section": "vocabulary",
+    "id": 988,
+    "language": "el",
+    "before": "ευγένεια",
+    "after": "καλοσύνη",
+    "reason": "Kindness/helpfulness is more precise than politeness; polite is taught separately."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "ru",
+    "before": "энтузиазм",
+    "after": "увлечённый; усердный",
+    "reason": "Teach 熱心な as enthusiastic/eager/diligent rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "tr",
+    "before": "coşku",
+    "after": "hevesli; gayretli",
+    "reason": "Teach 熱心な as enthusiastic/eager/diligent rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "pl",
+    "before": "entuzjazm",
+    "after": "pełen zapału; gorliwy",
+    "reason": "Teach 熱心な as enthusiastic/eager/diligent rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "el",
+    "before": "ενθουσιασμός",
+    "after": "ενθουσιώδης; πρόθυμος",
+    "reason": "Teach 熱心な as enthusiastic/eager/diligent rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "uk",
+    "before": "ентузіазм",
+    "after": "завзятий; старанний",
+    "reason": "Teach 熱心な as enthusiastic/eager/diligent rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 998,
+    "language": "tr",
+    "before": "su servisi, su hattı",
+    "after": "su şebekesi",
+    "reason": "水道 is the water-supply network, not serving or delivering drinking water."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "ru",
+    "before": "Это мой стул.",
+    "after": "Тот стул — мой.",
+    "reason": "Keep the that/over-there deixis of あれ rather than switching to this."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "pl",
+    "before": "To jest moje krzesło.",
+    "after": "Tamto jest moje krzesło.",
+    "reason": "Keep the that/over-there deixis of あれ rather than switching to this."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "el",
+    "before": "Αυτή είναι η καρέκλα μου.",
+    "after": "Εκείνη είναι η καρέκλα μου.",
+    "reason": "Keep the that/over-there deixis of あれ rather than switching to this."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "uk",
+    "before": "Це моє крісло.",
+    "after": "То мій стілець.",
+    "reason": "Keep the that/over-there deixis of あれ rather than switching to this."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "ru",
+    "before": "В этой чашке есть вода.",
+    "after": "В этом стакане есть вода.",
+    "reason": "コップ is the drinking-glass example; align the container sense across languages."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "pl",
+    "before": "W tym kubku jest woda.",
+    "after": "W tej szklance jest woda.",
+    "reason": "コップ is the drinking-glass example; align the container sense across languages."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "el",
+    "before": "Αυτό το φλιτζάνι έχει νερό.",
+    "after": "Αυτό το ποτήρι περιέχει νερό.",
+    "reason": "コップ is the drinking-glass example; align the container sense across languages."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "uk",
+    "before": "У цій чашці вода.",
+    "after": "У цій склянці є вода.",
+    "reason": "コップ is the drinking-glass example; align the container sense across languages."
+  },
+  {
+    "section": "grammar",
+    "id": 20,
+    "language": "ru",
+    "before": "В этой книге есть картинки.",
+    "after": "В той книге есть картинки.",
+    "reason": "Keep the that-book demonstrative of その本; do not teach this-book as the same contrast."
+  },
+  {
+    "section": "grammar",
+    "id": 20,
+    "language": "pl",
+    "before": "W tej książce są ilustracje.",
+    "after": "W tamtej książce są ilustracje.",
+    "reason": "Keep the that-book demonstrative of その本; do not teach this-book as the same contrast."
+  },
+  {
+    "section": "grammar",
+    "id": 20,
+    "language": "el",
+    "before": "Αυτό το βιβλίο έχει εικόνες.",
+    "after": "Εκείνο το βιβλίο έχει εικόνες.",
+    "reason": "Keep the that-book demonstrative of その本; do not teach this-book as the same contrast."
+  },
+  {
+    "section": "grammar",
+    "id": 21,
+    "language": "tr",
+    "before": "Her gün çalışıyorum.",
+    "after": "Her gün ders çalışıyorum.",
+    "reason": "Generic studying is not restricted to university studies or left ambiguous with working."
+  },
+  {
+    "section": "grammar",
+    "id": 21,
+    "language": "pl",
+    "before": "Studiuję codziennie.",
+    "after": "Codziennie się uczę.",
+    "reason": "Generic studying is not restricted to university studies or left ambiguous with working."
+  },
+  {
+    "section": "grammar",
+    "id": 27,
+    "language": "uk",
+    "before": "Дитина грає на вулиці.",
+    "after": "Дитина грається надворі.",
+    "reason": "Use the natural reflexive play verb for a child playing outside without a specified game/instrument."
+  },
+  {
+    "section": "grammar",
+    "id": 40,
+    "language": "uk",
+    "before": "Відповідь невірна.",
+    "after": "Відповідь неправильна.",
+    "reason": "Use the clear standard incorrect-answer adjective rather than the potentially unfaithful sense."
+  },
+  {
+    "section": "grammar",
+    "id": 51,
+    "language": "tr",
+    "before": "Dün çalıştım.",
+    "after": "Dün ders çalıştım.",
+    "reason": "Make the educational study meaning explicit rather than the general work/study verb alone."
+  },
+  {
+    "section": "grammar",
+    "id": 61,
+    "language": "tr",
+    "before": "Yarın çalışacağım.",
+    "after": "Yarın ders çalışacağım.",
+    "reason": "Make the educational study meaning explicit rather than the general work/study verb alone."
+  },
+  {
+    "section": "grammar",
+    "id": 63,
+    "language": "uk",
+    "before": "Наступного тижня вона поїде.",
+    "after": "Вона подорожуватиме наступного тижня.",
+    "reason": "Preserve travel, rather than merely saying she will go/leave next week."
+  },
+  {
+    "section": "sentences",
+    "id": 10,
+    "language": "uk",
+    "before": "Дякуємо за вашу допомогу.",
+    "after": "Дякую за вашу допомогу.",
+    "reason": "Keep the singular speaker thanking someone rather than switching to we thank."
+  },
+  {
+    "section": "sentences",
+    "id": 27,
+    "language": "tr",
+    "before": "Lütfen faturayı getirin.",
+    "after": "Lütfen hesabı getirin.",
+    "reason": "A restaurant bill is hesap; fatura foregrounds a formal invoice."
+  },
+  {
+    "section": "sentences",
+    "id": 29,
+    "language": "tr",
+    "before": "Kahve çok sıcak.",
+    "after": "Kahve fazla sıcak.",
+    "reason": "Preserve too hot (excessive heat), not merely very hot."
+  },
+  {
+    "section": "sentences",
+    "id": 29,
+    "language": "el",
+    "before": "Ο καφές είναι πολύ ζεστός.",
+    "after": "Ο καφές είναι υπερβολικά ζεστός.",
+    "reason": "Preserve too hot (excessive heat), not merely very hot."
+  },
+  {
+    "section": "sentences",
+    "id": 31,
+    "language": "pl",
+    "before": "Ile to jest?",
+    "after": "Ile to kosztuje?",
+    "reason": "Make the shopping price question explicit rather than an ambiguous quantity question."
+  },
+  {
+    "section": "sentences",
+    "id": 32,
+    "language": "pl",
+    "before": "Czy akceptujesz karty kredytowe?",
+    "after": "Czy akceptują Państwo karty kredytowe?",
+    "reason": "Select polite customer-to-merchant address for this travel lesson; the earlier informal wording remains grammatical in familiar contexts."
+  },
+  {
+    "section": "sentences",
+    "id": 34,
+    "language": "pl",
+    "before": "Czy masz mniejszy rozmiar?",
+    "after": "Czy mają Państwo mniejszy rozmiar?",
+    "reason": "Make availability explicit and select polite merchant address; informal Polish is a valid alternative in familiar contexts."
+  },
+  {
+    "section": "sentences",
+    "id": 34,
+    "language": "uk",
+    "before": "У вас менший розмір?",
+    "after": "Чи є у вас менший розмір?",
+    "reason": "Make availability explicit and select polite merchant address; informal Polish is a valid alternative in familiar contexts."
+  },
+  {
+    "section": "sentences",
+    "id": 68,
+    "language": "el",
+    "before": "Πρέπει να ξεκουραστείς σήμερα.",
+    "after": "Καλό είναι να ξεκουραστείς σήμερα.",
+    "reason": "Preserve advice (should), without strengthening it to an unconditional must."
+  },
+  {
+    "section": "sentences",
+    "id": 95,
+    "language": "tr",
+    "before": "Okuldan sonra futbol oynuyorlar.",
+    "after": "Okuldan sonra futbol antrenmanı yapıyorlar.",
+    "reason": "Practice soccer means training rather than simply playing or a literal exercise-the-ball phrase."
+  },
+  {
+    "section": "sentences",
+    "id": 95,
+    "language": "pl",
+    "before": "Po szkole ćwiczą piłkę nożną.",
+    "after": "Po szkole trenują piłkę nożną.",
+    "reason": "Practice soccer means training rather than simply playing or a literal exercise-the-ball phrase."
+  },
+  {
+    "section": "sentences",
+    "id": 103,
+    "language": "pl",
+    "before": "Czy mógłbym zobaczyć twój paszport?",
+    "after": "Czy mogę zobaczyć Pański paszport?",
+    "reason": "Select a formal passport-check request to a male addressee and avoid gendering the first-person speaker; the earlier informal request was also grammatical."
+  },
+  {
+    "section": "sentences",
+    "id": 111,
+    "language": "ru",
+    "before": "Подведем итоги сегодняшнего урока.",
+    "after": "Давайте повторим сегодняшний урок.",
+    "reason": "Review a lesson means revisiting/practising its content, not only summarizing its outcome."
+  }
+]

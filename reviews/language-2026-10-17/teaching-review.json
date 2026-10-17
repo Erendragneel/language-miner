@@ -1,0 +1,139 @@
+{
+  "reviewDate": "2026-10-17",
+  "status": "implemented-and-regression-tested",
+  "method": "Source-backed AI content review and isolated VM regression tests; no production player account was accessed.",
+  "files": {
+    "teaching-notes.js": "7d12ee7fa01e23a042d84ba9b0474943246130a33d9d4f65d4cf2857282d12e7",
+    "v6.js": "00bd274bc54b9d8c002062b65e8fb232421992f6bfb76c3b7da597f50c10c97d",
+    "game-6460.js": "ca17fa61513bc8ef1685574b1df87ae1154c8be42daa436bd3380aed92c10a97",
+    "multilingual-preview.js": "674aee69c286334910e7ae88c0319db544782a37a0d7eeeec1d80a63ee494dc0",
+    "language-quality.js": "bb25c536de295b70254604ed36edf905c2b6349b72a46bf48cc89fb08eec1698",
+    "tests/answer-explanations.test.cjs": "5d3ca35f3787fc1c8767856fbe6e34233cad0de44bab48439f3dc58258e70039",
+    "tests/listening-clues.test.cjs": "19e51525ef01053d0e06ad1c95027bcc7539488dd66c7acbbd13ae671c2db5fb",
+    "reviews/language-2026-10-17/native-teaching-recommendations.json": "fd34cb168f02b4645fadf73870d1e4bc4995ae0c31c060beca43cba95ef828cd",
+    "reviews/language-2026-10-17/native-source-edits.json": "cd0cf9c355f414c616420db9391fe4d64c3b932cd5221a8dd1e79eb1a78bfb82",
+    "reviews/language-2026-10-17/apply-native-teaching.cjs": "30b41e6771073faaa916ededb692fc310d2703839d54cc3e861806da9acbe7c6"
+  },
+  "coverage": {
+    "nativeGrammar": 138,
+    "particles": 10,
+    "nativeReading": 28,
+    "multilingualGrammar": 80
+  },
+  "reviewedSourceScope": {
+    "nativePublicGrammarPatterns": 138,
+    "nativePublicReadingPassagesAndComprehensionQuestions": 28,
+    "nativeInitialParticleQuestions": 10,
+    "nativeInitialSentenceQuestions": 10,
+    "multilingualGrammarMeaningPairs": 80,
+    "multilingualLanguagesInWrongChoiceRegression": 17,
+    "privateTutorArraysRead": [
+      "vocabulary",
+      "verb forms",
+      "particles",
+      "patterns",
+      "adjectives",
+      "conversation"
+    ]
+  },
+  "findingsAndRepairs": [
+    "Grammar feedback now preserves the exact displayed sentence; a shared answer label can no longer substitute an unrelated reference example.",
+    "All 138 native grammar examples have authored rule/context guidance and a full English example translation, guarded by both pattern and exact source sentence.",
+    "Ten native particle questions have exact contextual notes; は/が alternatives are explicitly recognized instead of treating every alternative as categorically ungrammatical.",
+    "All 28 native reading passages have full English translations and passage-specific evidence explaining the comprehension answer.",
+    "All 80 shared grammar rows receive meaning-specific context notes. They do not assume that every target language follows English tense, word order or inflection.",
+    "Wrong multilingual choices are contrasted using the actual selected row and the current known-language translation, when both sides can be identified without guessing.",
+    "Additional reviewed item.learningNotes.en are supported; English notes are explicitly labeled when the learner’s known language is different, while the known-language translation remains visible.",
+    "Native proposed definition/prompt corrections are recorded in native-teaching-recommendations.json for root integration, preserving stable item IDs and recorded Japanese passage text.",
+    "The actual native studycards now include reviewed rules, English example/passages translations and reading-answer evidence. Reference guidance never enters the unanswered quiz renderer.",
+    "Private tutor particle prompts now identify the requested semantic role, retaining Japanese, answers, order and IDs.",
+    "Per-text website audio availability now requires an exact bundled clip or an installed native device voice. A language-level voice record no longer falsely makes every text playable; Play remains bundled-only."
+  ],
+  "securityAndProgressChecks": [
+    "Silent guardian/assessment questions suppress teaching markup and the explanation panel.",
+    "Explanation preference suppresses feedback.",
+    "Untrusted answer/help/translation/example/item notes remain escaped.",
+    "No scoring, mastery, XP, hearts or ordinary save writes are introduced by the explanation model.",
+    "Assisted-answer behavior and accepted alternate-answer correctness remain covered.",
+    "Replacing the question removes its previous answer feedback."
+  ],
+  "tests": {
+    "command": "node tests/answer-explanations.test.cjs",
+    "exitCode": 0,
+    "scenariosPassed": 29,
+    "output": "PASS generated missing-particle question teaches its rule, translation and completed displayed sentence\nPASS wrong particle choice keeps the correct rule and completed example, and explains how to retry\nPASS generated Academy grammar uses its existing definition and source example\nPASS generated advanced grammar uses its own course definition and example\nPASS generated vocabulary question uses the actual 1000-word bank for reading and meaning\nPASS vocabulary reading stays labeled Reading without duplicating it as an Example\nPASS generated reading question separates its translation from its Reading field\nPASS generated sentence preserves both the available translation and Japanese reading\nPASS HTML from help, answer, choice, translation and example stays plain and escaped\nPASS missing optional question fields remain safe without inventing a grammar rule or example\nPASS explanations preference suppresses both markup and the visible explanation panel\nPASS silent questions, active guardian tests and active N5 assessments reveal no teaching feedback\nPASS show API appends teaching inside the current question without changing scored progress\nPASS assisted-answer branch renders teaching while adding no recall/mastery/XP or heart change\nPASS v6 final answer wrapper uses accepted alternate answers to choose correct teaching feedback\nPASS multilingual correct, wrong and assisted consumers include teaching and respect the preference\nPASS every native grammar and particle question has guarded contextual teaching and a translated exact example\nPASS all 28 native reading passages teach the supporting evidence with an accurate preserved answer\nPASS all 80 multilingual grammar rows have semantic teaching without inventing the target language’s grammar\nPASS wrong multilingual choices contrast actual source meanings in each of the 17 languages\nPASS metadata fails closed after source edits and item notes stay escaped and explicitly English\nPASS actual native lesson cards show reviewed rules, translated examples and reading evidence\nPASS N5 and advanced reference views actually include the native teaching markup\nPASS native teaching cards label English clearly, escape metadata, and stay out of quizzes and silent tests\nPASS all public and private particle prompts specify the required role without revealing the particle\nPASS actual N5 through N1 reference quizzes teach only after either first answer and retain the existing mastery result once\nPASS reference quiz fallback and stale Continue callbacks preserve unrelated questions\nPASS actual private tutor grouping accepts standard U/godan for いく and teaches its exceptions only after an answer\nPASS native reproduction records cannot restore the invented group or answer-leaking hint\nPASS explanation regression scenarios: 29 passed, 0 failed; current source in isolated VM.\n",
+    "additional": [
+      {
+        "command": "node tests/listening-clues.test.cjs",
+        "exitCode": 0,
+        "output": "PASS eligibility retains real clues, rejects empty and reverse prompts, and waits for loading voices\nPASS Listening mine chooses a playable clue and does not score skipped reverse or empty entries\nPASS empty Listening lesson offers Reading and records no score or heart change\nPASS switching an active reverse question to Listening selects a real clue without scoring\nPASS switching a playable question retains it instead of taking a new question\nPASS replay waits for actual started and completed events\nPASS unrelated text or language events never change a replay status\nPASS audio, recording and device-voice failures provide a usable retry and written fallback\nPASS real recording promise rejection changes local Listening status and never uses Play device speech\nPASS web per-text availability requires an exact recording or an installed device voice\nPASS synchronous refusal and thrown replay errors do not claim playback started\nPASS events for a replaced card cannot change detached feedback\nPASS reapplying the context removes old listeners and waits for a new request\nPASS cancellation reports stopped playback and offers replay without claiming completion\nPASS written Listening clues mark assistance before showing hidden text\nPASS silent tests and Smart Review keep their normal presentation without Listening controls\nListening clue regression suite: 16 checks passed.\n"
+      },
+      {
+        "command": "node --check game-6460.js",
+        "exitCode": 0,
+        "output": ""
+      }
+    ]
+  },
+  "primaryReferences": [
+    {
+      "url": "https://www.jpf.go.jp/j/project/japanese/teach/tsushin/grammar/201012.html",
+      "usedFor": "Appearance versus hearsay そう: different attachment and meaning."
+    },
+    {
+      "url": "https://www.irodori.jpf.go.jp/assets/data/elementary01/pdf/Y_L08.pdf",
+      "usedFor": "Past-experience construction uses the verb ta-form before ことがある."
+    },
+    {
+      "url": "https://www.irodori.jpf.go.jp/assets/data/elementary01/pdf/Y_L02.pdf",
+      "usedFor": "ている can express habits or situations rather than only English progressive -ing."
+    },
+    {
+      "url": "https://www.jpf.go.jp/j/project/japanese/teach/tsushin/grammar/201112.html",
+      "usedFor": "ことにする decision versus ことになっている arrangement; ability with ことができる."
+    }
+  ],
+  "limits": [
+    "This is AI-reviewed teaching content, not certification by native teachers in all 17 languages.",
+    "The 80 shared grammar notes explain sentence meaning and context. They do not constitute 1,360 separately authored language-specific grammar lessons.",
+    "Authored detailed rules and reading translations are in English; non-English learners retain their bilingual answer translations and see the added English guidance explicitly labeled.",
+    "Native examples with omitted Japanese subjects use a plausible conversational I/you rendering where needed; these pronouns are not asserted to be the only possible referents.",
+    "Audio was neither regenerated nor physically listened to in this audit. Written text and recorded pronunciation can require a separate alignment/listening check.",
+    "Private tutor arrays were read and specific concerns reported, but the 138-pattern metadata covers the public grammar curriculum, not every private tutor exercise.",
+    "Tests establish content availability and regression properties; they do not demonstrate measured learning outcomes or guarantee error-free language teaching.",
+    "No deployment or Android rebuild was performed by this teaching subtask."
+  ],
+  "nativeStudyViews": {
+    "currentLessonPreviewCards": true,
+    "n5GrammarAndReadingReferenceViews": true,
+    "advancedGrammarAndReadingReferenceViews": true,
+    "unansweredQuizExcludesStudyGuidance": true,
+    "englishNotesLabeledForOtherKnownLanguages": true
+  },
+  "nativeReferenceQuizFeedback": {
+    "exactSourceContext": true,
+    "reviewedGuidanceAfterCorrectAndWrongAnswers": true,
+    "unansweredQuizHasNoGuidance": true,
+    "teachingWaitsForContinue": true,
+    "existingMasteryAndNotebookCallbackRunsOnce": true,
+    "continueAwardsNothing": true,
+    "staleCallbacksIgnoreReplacementQuiz": true,
+    "testedPaths": 20
+  },
+  "privateTutorVerbGrouping": {
+    "standardGroups": [
+      "Ru/ichidan",
+      "U/godan",
+      "irregular"
+    ],
+    "ikuGroup": "U/godan",
+    "inventedUSpecialChoiceRemoved": true,
+    "promptContainsNoExceptionHint": true,
+    "exceptionsInPostAnswerHelp": [
+      "いった",
+      "いって"
+    ],
+    "questionCount": 54,
+    "orderAndIdsUnchanged": true
+  }
+}

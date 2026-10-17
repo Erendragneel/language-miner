@@ -1,0 +1,102 @@
+[
+  {
+    "before": "['ます','polite present verb'",
+    "after": "['ます','polite nonpast verb'",
+    "reason": "The same form describes habits and future actions; present-only wording misteaches tense. No Japanese/audio change."
+  },
+  {
+    "before": "['から','from/because','九時から働きます。']",
+    "after": "['から','starting point: from','九時から働きます。']",
+    "reason": "Disambiguate the actual temporal example from the separate reason-marker ～から row."
+  },
+  {
+    "before": "['と','with/quotation','友達と話します。']",
+    "after": "['と','with: another participant','友達と話します。']",
+    "reason": "This example teaches the conversation partner, not quotation. The quotation use has its own ～と言う row."
+  },
+  {
+    "before": "['～ことがある','experience','日本へ行ったことがあります。']",
+    "after": "['～ことがある','past experience: verb ta-form + ことがある','日本へ行ったことがあります。']",
+    "reason": "Past experience requires the past verb form. Dictionary-form verb + ことがある instead means something happens sometimes. Keeping the historical label avoids invalidating saved answer labels."
+  },
+  {
+    "before": "['～そうです','looks like / I heard','雨が降りそうです。']",
+    "after": "['～そうです','appearance: looks likely to','雨が降りそうです。']",
+    "reason": "降りそう uses the verb stem for appearance. Hearsay is 降るそう with a plain clause; combining the English glosses hides a real construction difference."
+  },
+  {
+    "before": "['～はずです','should be'",
+    "after": "['～はずです','expected to: inference based on known facts'",
+    "reason": "Separate epistemic expectation from an obligation."
+  },
+  {
+    "before": "['～ばかり','nothing but / just did','彼はゲームばかりしています。']",
+    "after": "['～ばかり','nothing but: repeated focus on a thing','彼はゲームばかりしています。']",
+    "reason": "This noun + ばかり example does not teach plain-past + ばかり, which means just did. The full note explains the difference."
+  },
+  {
+    "before": "['～上で','upon / in doing','内容を確認した上で署名してください。']",
+    "after": "['～上で','after first completing a necessary step','内容を確認した上で署名してください。']",
+    "reason": "The exact example uses plain past + 上で for a prerequisite sequence; dictionary-form + 上で has a different in-doing use."
+  },
+  {
+    "before": "インターネット shopping の欠点は何ですか。",
+    "after": "インターネットで買い物をすることの欠点は何ですか。",
+    "reason": "Remove the unintended English fragment from the Japanese question. Passage and recorded passage audio remain unchanged."
+  },
+  {
+    "before": "The speaker and his wife",
+    "after": "The speaker and their wife",
+    "reason": "妻 identifies the speaker’s wife, but does not independently establish the speaker’s gender."
+  },
+  {
+    "before": "[2,\"polite present\"]",
+    "after": "[2,\"polite nonpast\"]",
+    "reason": "Same tense clarification as the public ます entry."
+  },
+  {
+    "before": "[\"いく\",\"U special\",\"いきます\",\"いきました\",\"いかない\",\"いった\",\"いって\"]",
+    "after": "[\"いく\",\"U\",\"いきます\",\"いきました\",\"いかない\",\"いった\",\"いって\"]",
+    "reason": "行く is a standard U/godan verb with exceptional ta/te forms, not a fourth conjugation group. Correct the category without changing question position or IDs."
+  },
+  {
+    "before": "  addQuestion({stage:2,curriculum:\"tutor\",tutorTrack:\"verbs\",tier:\"intermediate\",q:dict,prompt:\"Which verb group is this?\",a:group,opts:shuffle([group,...[\"Ru\",\"U\",\"U special\",\"irregular\"].filter(x=>x!==group).slice(0,3)]),help:`${dict} is a ${group} verb.`,kind:\"tutor-verb\"});",
+    "after": "  addQuestion({stage:2,curriculum:\"tutor\",tutorTrack:\"verbs\",tier:\"intermediate\",q:dict,prompt:\"Which verb group is this?\",a:group,opts:shuffle([group,...[\"Ru\",\"U\",\"irregular\"].filter(x=>x!==group)]),help:dict===\"いく\"?\"いく is a U (godan) verb. Its plain past and te-form are exceptions within this group: いった and いって.\":`${dict} is a ${group} verb.`,kind:\"tutor-verb\"});",
+    "reason": "Offer only the standard Ru/ichidan, U/godan and irregular groups. Keep the prompt free of the answer and place the いった／いって exception explanation in post-answer help only."
+  },
+  {
+    "before": "function makeKanaCharOpts(set,correct){const pool=set.map(x=>x[0]).filter(x=>x!==correct);return shuffle([correct,...shuffle(pool).slice(0,3)]);}",
+    "after": "function makeKanaCharOpts(set,correct){const reading=set.find(row=>row[0]===correct)?.[1],pool=set.filter(row=>row[0]!==correct&&row[1]!==reading).map(row=>row[0]);return shuffle([correct,...shuffle(pool).slice(0,3)]);}",
+    "reason": "Exclude equally correct ji/zu homophones from reverse kana distractors."
+  },
+  {
+    "before": "q:sentence,prompt:\"Choose the missing particle.\",a:particle",
+    "after": "q:sentence,prompt:note.startsWith(\"Choice\")?\"Choose the particle meaning or between alternatives.\":`Choose the ${note.replace(/ [はがをにでとのへか]$/,\"\").toLowerCase()}.`,a:particle",
+    "reason": "State the intended particle role; alternative topic/subject Japanese can otherwise be grammatical."
+  },
+  {
+    "before": "q:g[2],prompt:'Choose the grammar point demonstrated.',a:g[0]",
+    "after": "q:g[2],prompt:`Which pattern expresses “${g[1]}” in this sentence?`,a:g[0]",
+    "reason": "A sentence can contain several grammar points; specify the intended function."
+  },
+  {
+    "before": "v3QuizCard(`Which grammar point is used in: ${g[2]}`",
+    "after": "v3QuizCard(`Which pattern expresses “${g[1]}” in: ${g[2]}`",
+    "reason": "Specify the intended semantic grammar function in reference-card practice."
+  },
+  {
+    "before": "q:g[2],prompt:'Which grammar pattern is used?',a:g[0]",
+    "after": "q:g[2],prompt:`Which pattern expresses “${g[1]}” in this sentence?`,a:g[0]",
+    "reason": "Keep advanced grammar practice unambiguous."
+  },
+  {
+    "before": "item.detail,\"Which grammar point is used?\",item.primary",
+    "after": "item.detail,`Which pattern expresses “${item.meaning}” in this sentence?`,item.primary",
+    "reason": "Apply the same unambiguous focus to grammar checkpoints."
+  },
+  {
+    "before": "if(item.section===\"grammar\")return `Which grammar point is used in: ${item.detail}`;",
+    "after": "if(item.section===\"grammar\")return `Which pattern expresses “${item.meaning}” in: ${item.detail}`;",
+    "reason": "Apply the same unambiguous focus to course lesson practice."
+  }
+]

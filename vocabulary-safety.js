@@ -34,6 +34,7 @@
     const meaning=isMeaning(q),reading=/choose the (?:correct )?reading/i.test(q.prompt||'');
     if(!meaning&&!reading)return;
     const old=q.a;q.a=entry[meaning?2:1];
+    if(reading&&/^Which word means [“"].*[”"]\?$/.test(q.q||''))q.q=`Which word means “${entry[2]}”?`;
     q.opts=[...new Set((q.opts||[]).map(value=>value===old?q.a:value))];
     if(!q.opts.includes(q.a))q.opts.unshift(q.a);
     q.speechText=entry[1];
@@ -73,7 +74,7 @@
     if(selected===question.answer)return true;
     const section=question.sourceSection||question.section||question.mode;
     if(!['vocabulary','grammar','sentences','travel'].includes(section))return false;
-    const data=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section]||[];
+    const data=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section==='travel'?'sentences':section]||[];
     const id=question.item?.id??Number(String(question.id||'').split(':').at(-1));
     const item=question.item||data.find(r=>r.id===id);
     const prompt=item?.forms?.[known]||question.meaning||question.display;

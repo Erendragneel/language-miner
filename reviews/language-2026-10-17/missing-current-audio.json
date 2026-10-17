@@ -1,0 +1,5325 @@
+{
+  "reviewDate": "2026-10-17",
+  "status": "genuine-current-recording-gaps",
+  "forms": 409,
+  "genderLookups": 818,
+  "missing": [
+    {
+      "section": "vocabulary",
+      "id": 1,
+      "language": "el",
+      "text": "άτομο",
+      "previousText": "πρόσωπο",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 13,
+      "language": "fr",
+      "text": "œil",
+      "previousText": "oeil",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 21,
+      "language": "ko",
+      "text": "앞 / 전",
+      "previousText": "앞 / 앞",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 79,
+      "language": "vi",
+      "text": "nhà ga",
+      "previousText": "trạm",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 87,
+      "language": "pl",
+      "text": "poranek",
+      "previousText": "rano",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 98,
+      "language": "ko",
+      "text": "어디",
+      "previousText": "어디서",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 105,
+      "language": "ko",
+      "text": "좋다",
+      "previousText": "좋아",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 114,
+      "language": "zh",
+      "text": "见面 / 会面",
+      "previousText": "遇见，看见",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 114,
+      "language": "pt",
+      "text": "encontrar-se com; ver",
+      "previousText": "conhecer, ver",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 114,
+      "language": "tr",
+      "text": "buluşmak; görüşmek",
+      "previousText": "tanışmak, görmek",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 124,
+      "language": "pl",
+      "text": "poranek",
+      "previousText": "rano",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 129,
+      "language": "pl",
+      "text": "bawić się; miło spędzać czas",
+      "previousText": "grać; przyjemnie spędzać czas; spędzać wolny czas",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 130,
+      "language": "fr",
+      "text": "doux; agréablement chaud",
+      "previousText": "chaud",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 130,
+      "language": "pt",
+      "text": "agradavelmente quente",
+      "previousText": "quente",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 147,
+      "language": "id",
+      "text": "permen keras",
+      "previousText": "(keras) permen",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 152,
+      "language": "ko",
+      "text": "저것",
+      "previousText": "그거 (저기)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 152,
+      "language": "es",
+      "text": "aquel (allí)",
+      "previousText": "ese (por allá)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 158,
+      "language": "el",
+      "text": "πόσο",
+      "previousText": "πόσα",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 160,
+      "language": "ko",
+      "text": "의사",
+      "previousText": "의사; 내과 의사",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 165,
+      "language": "th",
+      "text": "หนึ่งวัน (ระยะเวลา)",
+      "previousText": "วันหนึ่ง (ระยะเวลา)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 179,
+      "language": "pt",
+      "text": "colocar dentro",
+      "previousText": "colocar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 186,
+      "language": "es",
+      "text": "hogar; casa; mi casa",
+      "previousText": "hogar; casa; mi lugar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 186,
+      "language": "it",
+      "text": "casa; casa mia",
+      "previousText": "casa; casa; il mio posto",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 186,
+      "language": "pt",
+      "text": "casa; minha casa",
+      "previousText": "casa; casa; meu lugar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 190,
+      "language": "fr",
+      "text": "bruyant; agaçant",
+      "previousText": "bruyant; ennuyeux",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 197,
+      "language": "vi",
+      "text": "nhà ga",
+      "previousText": "trạm",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 210,
+      "language": "uk",
+      "text": "класти; ставити",
+      "previousText": "ставити; закладати; розмістити",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 226,
+      "language": "fr",
+      "text": "il y a deux ans",
+      "previousText": "l'avant-dernière année",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "en",
+      "text": "belly / abdomen",
+      "previousText": "stomach",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "zh",
+      "text": "肚子 / 腹部",
+      "previousText": "胃",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "ko",
+      "text": "배 / 복부",
+      "previousText": "위",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "es",
+      "text": "vientre / abdomen",
+      "previousText": "estómago",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "fr",
+      "text": "ventre / abdomen",
+      "previousText": "estomac",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "de",
+      "text": "Bauch",
+      "previousText": "Magen",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "ru",
+      "text": "живот",
+      "previousText": "желудок",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "it",
+      "text": "pancia / addome",
+      "previousText": "stomaco",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "pt",
+      "text": "barriga / abdômen",
+      "previousText": "estômago",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "vi",
+      "text": "bụng",
+      "previousText": "dạ dày",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "th",
+      "text": "ท้อง / ช่องท้อง",
+      "previousText": "กระเพาะอาหาร",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "tr",
+      "text": "karın",
+      "previousText": "mide",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "pl",
+      "text": "brzuch",
+      "previousText": "żołądek",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 228,
+      "language": "el",
+      "text": "κοιλιά",
+      "previousText": "στομάχι",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 245,
+      "language": "th",
+      "text": "เด็กผู้หญิง",
+      "previousText": "สาว",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "en",
+      "text": "fourth floor (Japan: ground level is floor 1)",
+      "previousText": "the third floor above the ground floor",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "zh",
+      "text": "四楼（日本楼层编号：地面层为一楼）",
+      "previousText": "地面层之上的第三层",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "ko",
+      "text": "4층(일본식 층수: 지상 출입구 층이 1층)",
+      "previousText": "지면에 있는 출입구가 있는 층보다 세 층 위",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "es",
+      "text": "cuarta planta (numeración japonesa: la planta baja es la 1)",
+      "previousText": "el tercer piso por encima de la planta baja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "fr",
+      "text": "quatrième niveau (numérotation japonaise : le rez-de-chaussée est le niveau 1)",
+      "previousText": "le troisième étage au-dessus du rez-de-chaussée",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "de",
+      "text": "vierter Stock nach japanischer Zählung (Erdgeschoss = 1)",
+      "previousText": "das dritte Obergeschoss",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "ru",
+      "text": "четвёртый этаж (в Японии наземный этаж считается первым)",
+      "previousText": "третий этаж над первым этажом",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "it",
+      "text": "quarto piano secondo la numerazione giapponese (pianterreno = 1)",
+      "previousText": "il terzo piano sopra il pianterreno",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "pt",
+      "text": "quarto piso na numeração japonesa (térreo = 1)",
+      "previousText": "o terceiro andar acima do térreo",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "vi",
+      "text": "tầng 4 (theo cách đánh số ở Nhật: tầng trệt là tầng 1)",
+      "previousText": "tầng thứ ba phía trên tầng trệt",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "th",
+      "text": "ชั้น 4 (การนับชั้นแบบญี่ปุ่น: ชั้นที่ระดับพื้นดินคือชั้น 1)",
+      "previousText": "ชั้นที่สามเหนือชั้นพื้นดิน",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "tr",
+      "text": "Japonya’da 4. kat (zemin kat 1. kat sayılır)",
+      "previousText": "zemin katın üç kat üstü",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "id",
+      "text": "lantai 4 (penomoran Jepang: lantai dasar adalah lantai 1)",
+      "previousText": "lantai ketiga di atas lantai dasar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "pl",
+      "text": "czwarta kondygnacja (w Japonii parter to pierwsza kondygnacja)",
+      "previousText": "trzecie piętro nad parterem",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "el",
+      "text": "τέταρτο επίπεδο (στην Ιαπωνία το ισόγειο μετρά ως πρώτο)",
+      "previousText": "ο τρίτος όροφος πάνω από το ισόγειο",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 247,
+      "language": "uk",
+      "text": "четвертий поверх (у Японії наземний поверх вважається першим)",
+      "previousText": "третій поверх над першим поверхом",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 250,
+      "language": "fr",
+      "text": "entreprise; société",
+      "previousText": "entreprise, corporation",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 250,
+      "language": "de",
+      "text": "Unternehmen; Gesellschaft",
+      "previousText": "Unternehmen, Körperschaft",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 250,
+      "language": "it",
+      "text": "azienda; società",
+      "previousText": "azienda, corporazione",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 263,
+      "language": "ru",
+      "text": "давать взаймы",
+      "previousText": "одолжить",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 263,
+      "language": "vi",
+      "text": "cho mượn",
+      "previousText": "cho vay",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 263,
+      "language": "pl",
+      "text": "pożyczać komuś",
+      "previousText": "pożyczyć",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 263,
+      "language": "uk",
+      "text": "позичати комусь",
+      "previousText": "позичати",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 278,
+      "language": "ru",
+      "text": "фотоаппарат",
+      "previousText": "камера",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 278,
+      "language": "tr",
+      "text": "fotoğraf makinesi",
+      "previousText": "kamera",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 278,
+      "language": "el",
+      "text": "φωτογραφική μηχανή",
+      "previousText": "κάμερα",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 278,
+      "language": "uk",
+      "text": "фотоапарат",
+      "previousText": "камера",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 282,
+      "language": "pl",
+      "text": "pożyczać od kogoś",
+      "previousText": "pożyczać",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 282,
+      "language": "uk",
+      "text": "позичати в когось",
+      "previousText": "позичати",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 284,
+      "language": "zh",
+      "text": "轻 / 不严重的 / 轻微的",
+      "previousText": "轻微的、不严重的、轻微的",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 301,
+      "language": "fr",
+      "text": "bœuf",
+      "previousText": "boeuf",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 343,
+      "language": "en",
+      "text": "small neighborhood police station (kōban)",
+      "previousText": "police box",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 343,
+      "language": "it",
+      "text": "piccolo posto di polizia di quartiere (kōban)",
+      "previousText": "cabina della polizia",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 343,
+      "language": "pt",
+      "text": "pequeno posto policial de bairro (kōban)",
+      "previousText": "cabine policial",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 348,
+      "language": "uk",
+      "text": "після полудня",
+      "previousText": "вдень, П.М.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "ko",
+      "text": "오전",
+      "previousText": "아침, A.M.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "de",
+      "text": "Vormittag; vor 12 Uhr mittags (a. m.)",
+      "previousText": "Morgen, A.M.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "ru",
+      "text": "до полудня",
+      "previousText": "утро, утра.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "tr",
+      "text": "öğleden önce",
+      "previousText": "sabah",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "pl",
+      "text": "przed południem",
+      "previousText": "rano",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "el",
+      "text": "πριν από το μεσημέρι",
+      "previousText": "πρωί / π.μ.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 351,
+      "language": "uk",
+      "text": "до полудня",
+      "previousText": "ранок, А.М.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 355,
+      "language": "zh",
+      "text": "水杯 / 玻璃杯",
+      "previousText": "一个玻璃杯；一杯",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 355,
+      "language": "id",
+      "text": "gelas",
+      "previousText": "sebuah gelas; segelas",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "en",
+      "text": "to be in trouble; to have difficulty",
+      "previousText": "to be bothered, to have difficulty",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "es",
+      "text": "verse en apuros; tener dificultades",
+      "previousText": "estar molesto, tener dificultad",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "fr",
+      "text": "être dans l’embarras; avoir des difficultés",
+      "previousText": "être dérangé, avoir des difficultés",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "de",
+      "text": "in Schwierigkeiten sein; nicht weiterwissen",
+      "previousText": "gestört sein, Schwierigkeiten haben",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "it",
+      "text": "essere in difficoltà; non sapere che cosa fare",
+      "previousText": "essere infastidito, avere difficoltà",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 362,
+      "language": "pt",
+      "text": "estar em apuros; ter dificuldade",
+      "previousText": "ficar incomodado, ter dificuldade",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 375,
+      "language": "ru",
+      "text": "сочинение; эссе",
+      "previousText": "эссе; композиция",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 375,
+      "language": "pl",
+      "text": "wypracowanie; esej",
+      "previousText": "esej; kompozycja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 383,
+      "language": "ko",
+      "text": "셋",
+      "previousText": "세",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 385,
+      "language": "ko",
+      "text": "넷",
+      "previousText": "네",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 392,
+      "language": "zh",
+      "text": "词典",
+      "previousText": "字典",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 399,
+      "language": "zh",
+      "text": "词典",
+      "previousText": "字典",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 402,
+      "language": "uk",
+      "text": "зачиняти; закривати",
+      "previousText": "замкнути",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 404,
+      "language": "de",
+      "text": "nun; also dann",
+      "previousText": "na dann ja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 406,
+      "language": "th",
+      "text": "เสื้อเชิ้ต",
+      "previousText": "เสื้อ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 413,
+      "language": "ru",
+      "text": "умелый; хорошо умеющий что-либо делать",
+      "previousText": "быть хорошим, умелым",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 413,
+      "language": "pl",
+      "text": "być dobrym w czymś; być zręcznym",
+      "previousText": "być dobrym, zręcznym",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 413,
+      "language": "uk",
+      "text": "вправний; добре вміти щось робити",
+      "previousText": "бути добрим, умілим",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 415,
+      "language": "id",
+      "text": "kecap asin",
+      "previousText": "kecap",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 416,
+      "language": "el",
+      "text": "εστιατόριο αυτοεξυπηρέτησης; τραπεζαρία",
+      "previousText": "καφετέρια, τραπεζαρία",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 439,
+      "language": "fr",
+      "text": "élève",
+      "previousText": "étudiant; élève",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 439,
+      "language": "de",
+      "text": "Schüler; Schülerin",
+      "previousText": "Student; Student; Schüler",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 439,
+      "language": "vi",
+      "text": "học sinh",
+      "previousText": "sinh viên; học sinh",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 442,
+      "language": "vi",
+      "text": "bộ com lê nam",
+      "previousText": "bộ đồ nam",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 448,
+      "language": "fr",
+      "text": "enseignant; professeur",
+      "previousText": "enseignant scolaire",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 449,
+      "language": "es",
+      "text": "lavado de ropa; colada",
+      "previousText": "lavado, lavandería",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 449,
+      "language": "th",
+      "text": "การซักผ้า",
+      "previousText": "ซักอบรีด",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 480,
+      "language": "vi",
+      "text": "nhờ vả / yêu cầu (giúp đỡ)",
+      "previousText": "yêu cầu, yêu cầu (một ân huệ)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 484,
+      "language": "fr",
+      "text": "œuf",
+      "previousText": "oeuf",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 488,
+      "language": "ko",
+      "text": "점차적으로 / 조금씩",
+      "previousText": "점차적으로, 정도에 따라",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 488,
+      "language": "vi",
+      "text": "dần dần / từng chút một",
+      "previousText": "dần dần, theo mức độ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 503,
+      "language": "uk",
+      "text": "прибувати; діставатися",
+      "previousText": "досягти",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 504,
+      "language": "pt",
+      "text": "escrivaninha; mesa de estudo",
+      "previousText": "mesa",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 508,
+      "language": "ko",
+      "text": "지루하다 / 재미없다 / 하찮다",
+      "previousText": "지루하고 지루하다. 중요하지 않은",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 518,
+      "language": "el",
+      "text": "τεστ; εξέταση",
+      "previousText": "δοκιμή",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 519,
+      "language": "ko",
+      "text": "그럼 / 그러면",
+      "previousText": "그럼, 그럼요.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 519,
+      "language": "th",
+      "text": "ถ้าอย่างนั้น / งั้น / ดังนั้น",
+      "previousText": "ถ้าอย่างนั้นก็อย่างนั้น",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 523,
+      "language": "pl",
+      "text": "telewizja; telewizor",
+      "previousText": "telewizja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 525,
+      "language": "vi",
+      "text": "điện / đèn điện",
+      "previousText": "điện, (điện) ánh sáng",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 525,
+      "language": "th",
+      "text": "ไฟฟ้า / แสงไฟ",
+      "previousText": "ไฟฟ้า (ไฟฟ้า) แสง",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 546,
+      "language": "es",
+      "text": "muy; mucho; sumamente",
+      "previousText": "mucho (mucho), muchísimo, sumamente",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 546,
+      "language": "fr",
+      "text": "très; beaucoup; extrêmement",
+      "previousText": "très (beaucoup), grandement, excessivement",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 548,
+      "language": "ko",
+      "text": "옆 / 옆집",
+      "previousText": "옆집",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 559,
+      "language": "fr",
+      "text": "quel; quel genre de",
+      "previousText": "quoi, quel genre de",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 559,
+      "language": "de",
+      "text": "was für ein; welcher Art",
+      "previousText": "was, was für",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 559,
+      "language": "it",
+      "text": "che; che tipo di",
+      "previousText": "cosa, che tipo di",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 559,
+      "language": "pt",
+      "text": "que; que tipo de",
+      "previousText": "o que, que tipo de",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 560,
+      "language": "ko",
+      "text": "없다",
+      "previousText": "없어",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 567,
+      "language": "de",
+      "text": "Sommerferien; Sommerurlaub",
+      "previousText": "Sommerurlaub",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 596,
+      "language": "vi",
+      "text": "lên xe / đi bằng (phương tiện)",
+      "previousText": "lên, đi vào, lên xe",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 617,
+      "language": "vi",
+      "text": "hai mươi ngày / ngày hai mươi (trong tháng)",
+      "previousText": "hai mươi ngày, hai mươi (ngày trong tháng)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 617,
+      "language": "th",
+      "text": "ยี่สิบวัน / วันที่ยี่สิบของเดือน",
+      "previousText": "ยี่สิบวัน, ยี่สิบ (วันของเดือน)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 623,
+      "language": "el",
+      "text": "γρήγορος",
+      "previousText": "γρήγορα",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "zh",
+      "text": "半",
+      "previousText": "半（例如，にじはん | 两点半）",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "ko",
+      "text": "반",
+      "previousText": "반(예: にじはん | 2시 반)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "es",
+      "text": "mitad",
+      "previousText": "media (p. ej., にじはん | las dos y media)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "fr",
+      "text": "moitié",
+      "previousText": "moitié (par exemple, にじはん | deux heures et demie)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "de",
+      "text": "Hälfte",
+      "previousText": "halb (z. B. halb drei = 2:30)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 628,
+      "language": "th",
+      "text": "ครึ่ง",
+      "previousText": "ครึ่ง (เช่น 2:30)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 633,
+      "language": "zh",
+      "text": "号码 / 编号",
+      "previousText": "数字，一系列数字",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 633,
+      "language": "ko",
+      "text": "번호 / 일련번호",
+      "previousText": "숫자, 일련의 숫자",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 650,
+      "language": "th",
+      "text": "เที่ยงวัน / กลางวัน",
+      "previousText": "เที่ยงวัน",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "en",
+      "text": "text / passage",
+      "previousText": "sentence, text",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "zh",
+      "text": "文本 / 文章",
+      "previousText": "句子、文字",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "ko",
+      "text": "글",
+      "previousText": "문장, 텍스트",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "es",
+      "text": "texto",
+      "previousText": "frase, texto",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "fr",
+      "text": "texte",
+      "previousText": "phrase, texte",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "de",
+      "text": "Text",
+      "previousText": "Satz, Text",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "ru",
+      "text": "текст",
+      "previousText": "предложение, текст",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "it",
+      "text": "testo",
+      "previousText": "frase, testo",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "pt",
+      "text": "texto",
+      "previousText": "frase, texto",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "vi",
+      "text": "văn bản / bài viết",
+      "previousText": "câu, văn bản",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "th",
+      "text": "ข้อความ / บทความ",
+      "previousText": "ประโยคข้อความ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "tr",
+      "text": "metin",
+      "previousText": "cümle, metin",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "id",
+      "text": "teks",
+      "previousText": "kalimat, teks",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "pl",
+      "text": "tekst",
+      "previousText": "zdanie, tekst",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "el",
+      "text": "κείμενο",
+      "previousText": "πρόταση, κείμενο",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 667,
+      "language": "uk",
+      "text": "текст",
+      "previousText": "речення, текст",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 669,
+      "language": "it",
+      "text": "poco abile; maldestro",
+      "previousText": "incapace",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 672,
+      "language": "fr",
+      "text": "pièce; chambre",
+      "previousText": "une chambre",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 672,
+      "language": "pt",
+      "text": "cômodo; quarto",
+      "previousText": "um quarto",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 676,
+      "language": "id",
+      "text": "praktis / mudah digunakan",
+      "previousText": "nyaman, berguna",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 682,
+      "language": "it",
+      "text": "sottile; snello; fine",
+      "previousText": "magro, snello, fine",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 687,
+      "language": "el",
+      "text": "ράφι για βιβλία",
+      "previousText": "ράφι",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 701,
+      "language": "es",
+      "text": "pueblo; ciudad",
+      "previousText": "ciudad; ciudad",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 701,
+      "language": "it",
+      "text": "cittadina; paese; città",
+      "previousText": "città; città",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 701,
+      "language": "pt",
+      "text": "vila; cidade",
+      "previousText": "cidade; cidade",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 718,
+      "language": "vi",
+      "text": "phía nam",
+      "previousText": "miền Nam",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 718,
+      "language": "th",
+      "text": "ทิศใต้",
+      "previousText": "ภาคใต้",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 737,
+      "language": "es",
+      "text": "verdura; hortaliza",
+      "previousText": "vegetal",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 737,
+      "language": "it",
+      "text": "verdura; ortaggio",
+      "previousText": "vegetale",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 737,
+      "language": "pt",
+      "text": "verdura; legume",
+      "previousText": "vegetal",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 756,
+      "language": "en",
+      "text": "to call someone (by name); to invite",
+      "previousText": "to call (one's name); to invite",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 756,
+      "language": "es",
+      "text": "llamar a alguien (por su nombre); invitar",
+      "previousText": "llamar (el nombre de uno); invitar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 756,
+      "language": "fr",
+      "text": "appeler quelqu’un (par son nom); inviter",
+      "previousText": "appeler (son nom); inviter",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 756,
+      "language": "it",
+      "text": "chiamare qualcuno (per nome); invitare",
+      "previousText": "chiamare (il proprio nome); invitare",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 763,
+      "language": "es",
+      "text": "radiocasete",
+      "previousText": "reproductor de casetes de radio",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 763,
+      "language": "fr",
+      "text": "radiocassette",
+      "previousText": "lecteur de radiocassettes",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 763,
+      "language": "it",
+      "text": "radioregistratore",
+      "previousText": "radiolettore di cassette",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 763,
+      "language": "pt",
+      "text": "rádio com toca-fitas",
+      "previousText": "toca-fitas de rádio",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 773,
+      "language": "ru",
+      "text": "упражнение; тренировка",
+      "previousText": "практика",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 773,
+      "language": "uk",
+      "text": "вправляння; тренування",
+      "previousText": "практика",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 777,
+      "language": "th",
+      "text": "อายุน้อย / อ่อนวัย",
+      "previousText": "หนุ่ม",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 783,
+      "language": "es",
+      "text": "malo; pecaminoso; inferior",
+      "previousText": "malo, pecaminoso; inferiores",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 783,
+      "language": "fr",
+      "text": "mauvais; méchant; de qualité inférieure",
+      "previousText": "mauvais, pécheur; inférieur",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 792,
+      "language": "en",
+      "text": "firmly; steadily; securely",
+      "previousText": "firmly, steady",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 792,
+      "language": "fr",
+      "text": "fermement; solidement; de façon stable",
+      "previousText": "fermement, régulièrement",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 805,
+      "language": "es",
+      "text": "oírse; ser audible",
+      "previousText": "ser escuchado, ser audible",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 805,
+      "language": "it",
+      "text": "essere udibile; potersi sentire",
+      "previousText": "essere ascoltato, essere udibile",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 805,
+      "language": "th",
+      "text": "ได้ยิน / มีเสียงให้ได้ยิน",
+      "previousText": "ที่จะได้ยินเพื่อให้ได้ยิน",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 805,
+      "language": "id",
+      "text": "terdengar",
+      "previousText": "untuk didengar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "en",
+      "text": "without fail / definitely",
+      "previousText": "surely, certainly",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "zh",
+      "text": "一定 / 必定",
+      "previousText": "确实，当然",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "ko",
+      "text": "반드시",
+      "previousText": "확실히",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "es",
+      "text": "sin falta; con certeza",
+      "previousText": "seguramente, ciertamente",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "fr",
+      "text": "sans faute; à coup sûr",
+      "previousText": "sûrement, certainement",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "de",
+      "text": "auf jeden Fall; unbedingt",
+      "previousText": "sicherlich",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "ru",
+      "text": "обязательно",
+      "previousText": "конечно",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "it",
+      "text": "immancabilmente; di sicuro",
+      "previousText": "sicuramente, certamente",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "pt",
+      "text": "sem falta; com certeza",
+      "previousText": "certamente",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "vi",
+      "text": "nhất định",
+      "previousText": "chắc chắn",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "th",
+      "text": "อย่างแน่นอน",
+      "previousText": "แน่นอนอย่างแน่นอน",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "id",
+      "text": "pasti / tanpa gagal",
+      "previousText": "tentu saja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "pl",
+      "text": "na pewno; koniecznie",
+      "previousText": "z pewnością",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "el",
+      "text": "οπωσδήποτε",
+      "previousText": "σίγουρα",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 807,
+      "language": "uk",
+      "text": "обов’язково",
+      "previousText": "звичайно",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 810,
+      "language": "ru",
+      "text": "мужская парикмахерская",
+      "previousText": "парикмахерская (магазин)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 810,
+      "language": "tr",
+      "text": "berber dükkânı",
+      "previousText": "berber (dükkan)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 810,
+      "language": "pl",
+      "text": "męski zakład fryzjerski",
+      "previousText": "fryzjer (sklep)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 810,
+      "language": "uk",
+      "text": "чоловіча перукарня",
+      "previousText": "перукарня (магазин)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 812,
+      "language": "de",
+      "text": "körperliche Bewegung; Sport",
+      "previousText": "Übung",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 817,
+      "language": "vi",
+      "text": "tài xế (nghề nghiệp)",
+      "previousText": "lái xe (theo nghề nghiệp)",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 824,
+      "language": "vi",
+      "text": "nhặt lên / tìm thấy",
+      "previousText": "nhặt (cái gì), tìm",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 828,
+      "language": "fr",
+      "text": "en grande partie; presque",
+      "previousText": "surtout, presque",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 828,
+      "language": "de",
+      "text": "größtenteils; fast",
+      "previousText": "meistens, fast",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 828,
+      "language": "it",
+      "text": "per la maggior parte; quasi",
+      "previousText": "soprattutto, quasi",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 831,
+      "language": "fr",
+      "text": "inutile; qui ne convient pas; sans espoir",
+      "previousText": "inutile, inutile, désespéré",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 838,
+      "language": "vi",
+      "text": "sân thượng",
+      "previousText": "mái nhà",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "en",
+      "text": "complicated / complex",
+      "previousText": "complexity, complication",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "zh",
+      "text": "复杂",
+      "previousText": "复杂性",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "ko",
+      "text": "복잡하다",
+      "previousText": "복잡함",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "es",
+      "text": "complicado; complejo",
+      "previousText": "complejidad, complicación",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "fr",
+      "text": "compliqué; complexe",
+      "previousText": "complexité, complication",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "de",
+      "text": "kompliziert; komplex",
+      "previousText": "Komplexität, Komplikation",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "ru",
+      "text": "сложный; запутанный",
+      "previousText": "сложность, усложнение",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "it",
+      "text": "complicato; complesso",
+      "previousText": "complessità, complicazione",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "pt",
+      "text": "complicado; complexo",
+      "previousText": "complexidade, complicação",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "vi",
+      "text": "phức tạp",
+      "previousText": "sự phức tạp",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "th",
+      "text": "ซับซ้อน",
+      "previousText": "ความซับซ้อน",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "tr",
+      "text": "karmaşık",
+      "previousText": "karmaşıklık",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "id",
+      "text": "rumit / kompleks",
+      "previousText": "kompleksitas, komplikasi",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "pl",
+      "text": "złożony; skomplikowany",
+      "previousText": "złożoność, komplikacja",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "el",
+      "text": "περίπλοκος; σύνθετος",
+      "previousText": "πολυπλοκότητα, περιπλοκή",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 847,
+      "language": "uk",
+      "text": "складний; заплутаний",
+      "previousText": "складність",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 850,
+      "language": "it",
+      "text": "futon",
+      "previousText": "futone",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 850,
+      "language": "id",
+      "text": "futon (kasur tradisional Jepang)",
+      "previousText": "kasur",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 867,
+      "language": "tr",
+      "text": "cam; pencere camı",
+      "previousText": "cam, bölme",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 875,
+      "language": "zh",
+      "text": "坏掉 / 损坏",
+      "previousText": "被打破",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 875,
+      "language": "de",
+      "text": "kaputtgehen; zerbrechen",
+      "previousText": "gebrochen sein, zerbrechen",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 875,
+      "language": "vi",
+      "text": "bị hỏng / bị vỡ",
+      "previousText": "bị phá vỡ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 876,
+      "language": "es",
+      "text": "temblar; balancearse",
+      "previousText": "sacudir, balancearse",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 877,
+      "language": "th",
+      "text": "ตก / ร่วง",
+      "previousText": "ล้มลง",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 888,
+      "language": "de",
+      "text": "Baby; Säugling",
+      "previousText": "Baby, Kleinkind",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 892,
+      "language": "vi",
+      "text": "cha hoặc mẹ",
+      "previousText": "cha mẹ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 900,
+      "language": "ru",
+      "text": "присутствие; посещаемость",
+      "previousText": "посещаемость",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 900,
+      "language": "el",
+      "text": "παρουσία",
+      "previousText": "προσέλευση",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 900,
+      "language": "uk",
+      "text": "присутність; відвідуваність",
+      "previousText": "відвідуваність",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 901,
+      "language": "vi",
+      "text": "nhà văn viết tiểu thuyết",
+      "previousText": "nhà tiểu thuyết",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "en",
+      "text": "to welcome; to go to meet; to greet",
+      "previousText": "to welcome; to meet; to greet",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "zh",
+      "text": "欢迎 / 迎接 / 迎候",
+      "previousText": "欢迎；见面；打招呼",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "es",
+      "text": "dar la bienvenida; ir a recibir; saludar",
+      "previousText": "dar la bienvenida; reunirse; saludar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "fr",
+      "text": "accueillir; aller à la rencontre de quelqu’un; saluer",
+      "previousText": "accueillir; se rencontrer; saluer",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "de",
+      "text": "willkommen heißen; jemandem entgegengehen; begrüßen",
+      "previousText": "willkommen heißen; sich treffen; grüßen",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "ru",
+      "text": "встречать; приветствовать",
+      "previousText": "приветствовать; встретиться; приветствовать",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "it",
+      "text": "accogliere; andare incontro a qualcuno; salutare",
+      "previousText": "accogliere; incontrare; salutare",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "pt",
+      "text": "receber; ir ao encontro de alguém; cumprimentar",
+      "previousText": "acolher; conhecer; cumprimentar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "vi",
+      "text": "chào đón / ra đón / chào hỏi",
+      "previousText": "chào đón ; gặp gỡ ; chào hỏi",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "th",
+      "text": "ต้อนรับ / ไปรับ / ทักทาย",
+      "previousText": "ต้อนรับ / ทักทาย",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "pl",
+      "text": "witać; przyjmować",
+      "previousText": "powitać; spotkać; powitać",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 902,
+      "language": "uk",
+      "text": "зустрічати; вітати",
+      "previousText": "вітати; зустрічатися; вітати",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 917,
+      "language": "de",
+      "text": "vorhin; vor kurzem",
+      "previousText": "vor einiger Zeit",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 924,
+      "language": "es",
+      "text": "mercancías; artículos",
+      "previousText": "bienes",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "en",
+      "text": "to throw; to toss",
+      "previousText": "to pitch, to cast away",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "zh",
+      "text": "投掷 / 扔",
+      "previousText": "投掷，抛弃",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "ko",
+      "text": "던지다",
+      "previousText": "던지다, 내쫓다",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "es",
+      "text": "lanzar; arrojar",
+      "previousText": "lanzar, desechar",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "fr",
+      "text": "lancer; jeter",
+      "previousText": "lancer, rejeter",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "de",
+      "text": "werfen",
+      "previousText": "werfen, wegwerfen",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "it",
+      "text": "lanciare; gettare",
+      "previousText": "lanciare, gettare via",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "pt",
+      "text": "lançar; arremessar",
+      "previousText": "lançar, lançar fora",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "vi",
+      "text": "ném",
+      "previousText": "ném đi",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "th",
+      "text": "ขว้าง / โยน",
+      "previousText": "ขว้าง, โยนออกไป",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 934,
+      "language": "id",
+      "text": "melempar / melontarkan",
+      "previousText": "melempar / membuang",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 951,
+      "language": "ru",
+      "text": "через два месяца",
+      "previousText": "через месяц после следующего",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 955,
+      "language": "vi",
+      "text": "đường / dây điện",
+      "previousText": "đường dây, dây điện",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "ru",
+      "text": "Я забыл свой ключ.",
+      "previousText": "Я оставил свой ключ.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "it",
+      "text": "Ho dimenticato la mia chiave.",
+      "previousText": "Ho lasciato la mia chiave.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "id",
+      "text": "Saya lupa membawa kunci saya.",
+      "previousText": "Saya meninggalkan kunci saya.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "pl",
+      "text": "Zapomniałem zabrać klucza.",
+      "previousText": "Zostawiłem swój klucz.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "el",
+      "text": "Ξέχασα το κλειδί μου.",
+      "previousText": "Άφησα το κλειδί μου πίσω.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 965,
+      "language": "uk",
+      "text": "Я забув свій ключ.",
+      "previousText": "Я залишив свій ключ.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "en",
+      "text": "appropriate; suitable",
+      "previousText": "suitability",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "zh",
+      "text": "合适 / 恰当",
+      "previousText": "适宜性",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "ko",
+      "text": "적절하다 / 알맞다",
+      "previousText": "적합성",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "es",
+      "text": "adecuado; apropiado",
+      "previousText": "idoneidad",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "fr",
+      "text": "approprié; convenable",
+      "previousText": "adéquation",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "de",
+      "text": "geeignet; angemessen",
+      "previousText": "Eignung",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "ru",
+      "text": "подходящий",
+      "previousText": "пригодность",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "it",
+      "text": "adatto; appropriato",
+      "previousText": "adeguatezza",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "pt",
+      "text": "adequado; apropriado",
+      "previousText": "adequação",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "vi",
+      "text": "thích hợp / phù hợp",
+      "previousText": "sự phù hợp",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "th",
+      "text": "เหมาะสม",
+      "previousText": "ความเหมาะสม",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "tr",
+      "text": "uygun",
+      "previousText": "uygunluk",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "id",
+      "text": "sesuai / tepat",
+      "previousText": "kesesuaian",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "pl",
+      "text": "odpowiedni",
+      "previousText": "stosowność",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "el",
+      "text": "κατάλληλος",
+      "previousText": "καταλληλότητα",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 980,
+      "language": "uk",
+      "text": "відповідний",
+      "previousText": "придатність",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 988,
+      "language": "tr",
+      "text": "iyilik; yardımseverlik",
+      "previousText": "nezaket",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 988,
+      "language": "el",
+      "text": "καλοσύνη",
+      "previousText": "ευγένεια",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "en",
+      "text": "enthusiastic; eager",
+      "previousText": "enthusiasm",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "zh",
+      "text": "热心 / 热衷",
+      "previousText": "热情",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "ko",
+      "text": "열성적이다 / 열심이다",
+      "previousText": "열정",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "es",
+      "text": "entusiasta; aplicado",
+      "previousText": "entusiasmo",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "fr",
+      "text": "enthousiaste; assidu",
+      "previousText": "enthousiasme",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "de",
+      "text": "begeistert; eifrig",
+      "previousText": "Begeisterung",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "ru",
+      "text": "увлечённый; усердный",
+      "previousText": "энтузиазм",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "it",
+      "text": "entusiasta; assiduo",
+      "previousText": "entusiasmo",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "pt",
+      "text": "entusiasmado; dedicado",
+      "previousText": "entusiasmo",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "vi",
+      "text": "nhiệt tình / hăng hái",
+      "previousText": "sự nhiệt tình",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "th",
+      "text": "กระตือรือร้น",
+      "previousText": "ความกระตือรือร้น",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "tr",
+      "text": "hevesli; gayretli",
+      "previousText": "coşku",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "id",
+      "text": "antusias / bersemangat",
+      "previousText": "antusiasme",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "pl",
+      "text": "pełen zapału; gorliwy",
+      "previousText": "entuzjazm",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "el",
+      "text": "ενθουσιώδης; πρόθυμος",
+      "previousText": "ενθουσιασμός",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 991,
+      "language": "uk",
+      "text": "завзятий; старанний",
+      "previousText": "ентузіазм",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "vocabulary",
+      "id": 998,
+      "language": "tr",
+      "text": "su şebekesi",
+      "previousText": "su servisi, su hattı",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "es",
+      "text": "Aquella es mi silla.",
+      "previousText": "Esa es mi silla.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "ru",
+      "text": "Тот стул — мой.",
+      "previousText": "Это мой стул.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "pt",
+      "text": "Aquela é a minha cadeira.",
+      "previousText": "Essa é a minha cadeira.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "pl",
+      "text": "Tamto jest moje krzesło.",
+      "previousText": "To jest moje krzesło.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "el",
+      "text": "Εκείνη είναι η καρέκλα μου.",
+      "previousText": "Αυτή είναι η καρέκλα μου.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 8,
+      "language": "uk",
+      "text": "То мій стілець.",
+      "previousText": "Це моє крісло.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 9,
+      "language": "th",
+      "text": "ห้องเงียบสงบ",
+      "previousText": "ห้องพักเงียบสงบ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "en",
+      "text": "This glass contains water.",
+      "previousText": "This cup has water.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "zh",
+      "text": "这个玻璃杯里有水。",
+      "previousText": "这个杯子里有水。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "ko",
+      "text": "이 유리잔에는 물이 들어 있어요.",
+      "previousText": "이 컵에는 물이 있어요.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "es",
+      "text": "Este vaso contiene agua.",
+      "previousText": "Esta taza tiene agua.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "fr",
+      "text": "Ce verre contient de l’eau.",
+      "previousText": "Cette tasse contient de l'eau.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "de",
+      "text": "Dieses Glas enthält Wasser.",
+      "previousText": "Dieser Becher enthält Wasser.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "ru",
+      "text": "В этом стакане есть вода.",
+      "previousText": "В этой чашке есть вода.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "it",
+      "text": "Questo bicchiere contiene acqua.",
+      "previousText": "Questa tazza contiene acqua.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "th",
+      "text": "แก้วนี้มีน้ำ",
+      "previousText": "ถ้วยนี้มีน้ำ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "pl",
+      "text": "W tej szklance jest woda.",
+      "previousText": "W tym kubku jest woda.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "el",
+      "text": "Αυτό το ποτήρι περιέχει νερό.",
+      "previousText": "Αυτό το φλιτζάνι έχει νερό.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 19,
+      "language": "uk",
+      "text": "У цій склянці є вода.",
+      "previousText": "У цій чашці вода.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 20,
+      "language": "ru",
+      "text": "В той книге есть картинки.",
+      "previousText": "В этой книге есть картинки.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 20,
+      "language": "pl",
+      "text": "W tamtej książce są ilustracje.",
+      "previousText": "W tej książce są ilustracje.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 20,
+      "language": "el",
+      "text": "Εκείνο το βιβλίο έχει εικόνες.",
+      "previousText": "Αυτό το βιβλίο έχει εικόνες.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 21,
+      "language": "tr",
+      "text": "Her gün ders çalışıyorum.",
+      "previousText": "Her gün çalışıyorum.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 21,
+      "language": "pl",
+      "text": "Codziennie się uczę.",
+      "previousText": "Studiuję codziennie.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 22,
+      "language": "zh",
+      "text": "你说话很慢。",
+      "previousText": "你慢慢地说。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 27,
+      "language": "uk",
+      "text": "Дитина грається надворі.",
+      "previousText": "Дитина грає на вулиці.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 40,
+      "language": "uk",
+      "text": "Відповідь неправильна.",
+      "previousText": "Відповідь невірна.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 49,
+      "language": "es",
+      "text": "¿Quién es aquella persona?",
+      "previousText": "¿Quién es esa persona?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 49,
+      "language": "pt",
+      "text": "Quem é aquela pessoa?",
+      "previousText": "Quem é essa pessoa?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 51,
+      "language": "tr",
+      "text": "Dün ders çalıştım.",
+      "previousText": "Dün çalıştım.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 61,
+      "language": "tr",
+      "text": "Yarın ders çalışacağım.",
+      "previousText": "Yarın çalışacağım.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 63,
+      "language": "uk",
+      "text": "Вона подорожуватиме наступного тижня.",
+      "previousText": "Наступного тижня вона поїде.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "grammar",
+      "id": 67,
+      "language": "vi",
+      "text": "Tàu sẽ đến lúc mười hai giờ trưa.",
+      "previousText": "Tàu sẽ đến vào buổi trưa.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 7,
+      "language": "zh",
+      "text": "我不认识那个词。",
+      "previousText": "我不认识这个词。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 9,
+      "language": "vi",
+      "text": "Cái này phát âm như thế nào?",
+      "previousText": "Làm thế nào để bạn phát âm điều này?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 10,
+      "language": "uk",
+      "text": "Дякую за вашу допомогу.",
+      "previousText": "Дякуємо за вашу допомогу.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 11,
+      "language": "vi",
+      "text": "Nhà ga gần nhất ở đâu?",
+      "previousText": "Trạm gần nhất ở đâu?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 22,
+      "language": "zh",
+      "text": "你推荐什么？",
+      "previousText": "你有什么建议吗？",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 25,
+      "language": "vi",
+      "text": "Cho chúng tôi xem thực đơn được không?",
+      "previousText": "Chúng tôi có thể có thực đơn được không?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 27,
+      "language": "es",
+      "text": "Por favor, traiga la cuenta.",
+      "previousText": "Por favor trae la factura.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 27,
+      "language": "fr",
+      "text": "L’addition, s’il vous plaît.",
+      "previousText": "Veuillez apporter la facture.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 27,
+      "language": "tr",
+      "text": "Lütfen hesabı getirin.",
+      "previousText": "Lütfen faturayı getirin.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 29,
+      "language": "pt",
+      "text": "O café está quente demais.",
+      "previousText": "O café está muito quente.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 29,
+      "language": "tr",
+      "text": "Kahve fazla sıcak.",
+      "previousText": "Kahve çok sıcak.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 29,
+      "language": "el",
+      "text": "Ο καφές είναι υπερβολικά ζεστός.",
+      "previousText": "Ο καφές είναι πολύ ζεστός.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 30,
+      "language": "ko",
+      "text": "하나 더 주시겠어요?",
+      "previousText": "하나 더 먹어도 될까요?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 30,
+      "language": "vi",
+      "text": "Cho tôi xin thêm một cái nữa được không?",
+      "previousText": "Tôi có thể có một cái khác được không?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 32,
+      "language": "pl",
+      "text": "Czy akceptują Państwo karty kredytowe?",
+      "previousText": "Czy akceptujesz karty kredytowe?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 33,
+      "language": "id",
+      "text": "Saya hanya lihat-lihat.",
+      "previousText": "Saya hanya melihat.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 34,
+      "language": "pl",
+      "text": "Czy mają Państwo mniejszy rozmiar?",
+      "previousText": "Czy masz mniejszy rozmiar?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 34,
+      "language": "uk",
+      "text": "Чи є у вас менший розмір?",
+      "previousText": "У вас менший розмір?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 36,
+      "language": "it",
+      "text": "Questo colore è bello.",
+      "previousText": "Questo colore sembra buono.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 37,
+      "language": "pt",
+      "text": "Isso é caro demais.",
+      "previousText": "Isso é muito caro.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 39,
+      "language": "ko",
+      "text": "이걸로 살게요.",
+      "previousText": "내가 가져갈게.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 39,
+      "language": "es",
+      "text": "Me lo llevo.",
+      "previousText": "Lo tomaré.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 50,
+      "language": "de",
+      "text": "Sie arbeiten manchmal bis spätabends.",
+      "previousText": "Manchmal arbeiten sie lange.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 51,
+      "language": "ko",
+      "text": "오늘은 날씨가 좋아요.",
+      "previousText": "오늘은 날씨가 아름답습니다.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 51,
+      "language": "th",
+      "text": "วันนี้อากาศดีมาก",
+      "previousText": "วันนี้อากาศสวยงามมาก",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 51,
+      "language": "id",
+      "text": "Cuaca hari ini bagus.",
+      "previousText": "Cuacanya indah hari ini.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 65,
+      "language": "zh",
+      "text": "我肚子疼。",
+      "previousText": "我的胃疼。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 65,
+      "language": "th",
+      "text": "ฉันปวดท้อง",
+      "previousText": "ท้องของฉันเจ็บ",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 68,
+      "language": "ko",
+      "text": "오늘은 쉬는 게 좋겠어요.",
+      "previousText": "오늘은 쉬어야 해요.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 68,
+      "language": "id",
+      "text": "Sebaiknya Anda beristirahat hari ini.",
+      "previousText": "Anda harus istirahat hari ini.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 68,
+      "language": "el",
+      "text": "Καλό είναι να ξεκουραστείς σήμερα.",
+      "previousText": "Πρέπει να ξεκουραστείς σήμερα.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 78,
+      "language": "ko",
+      "text": "그는 아버지를 닮았어요.",
+      "previousText": "그는 그의 아버지처럼 보입니다.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 79,
+      "language": "it",
+      "text": "Il bebè sta dormendo.",
+      "previousText": "Il bambino sta dormendo.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "en",
+      "text": "I need to charge my phone.",
+      "previousText": "My phone needs to charge.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "es",
+      "text": "Necesito cargar mi teléfono.",
+      "previousText": "Mi teléfono necesita cargarse.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "fr",
+      "text": "Je dois recharger mon téléphone.",
+      "previousText": "Mon téléphone doit se recharger.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "de",
+      "text": "Ich muss mein Handy aufladen.",
+      "previousText": "Mein Telefon muss aufgeladen werden.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "it",
+      "text": "Devo ricaricare il mio telefono.",
+      "previousText": "Il mio telefono deve essere caricato.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 85,
+      "language": "pt",
+      "text": "Preciso carregar meu celular.",
+      "previousText": "Meu telefone precisa carregar.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 88,
+      "language": "pt",
+      "text": "A tela está clara demais.",
+      "previousText": "A tela está muito clara.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "language": "fr",
+      "text": "Ils s’entraînent au football après l’école.",
+      "previousText": "Ils pratiquent le football après l'école.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "language": "it",
+      "text": "Si allenano a calcio dopo la scuola.",
+      "previousText": "Praticano il calcio dopo la scuola.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "language": "pt",
+      "text": "Eles treinam futebol depois da escola.",
+      "previousText": "Eles praticam futebol depois da escola.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "language": "tr",
+      "text": "Okuldan sonra futbol antrenmanı yapıyorlar.",
+      "previousText": "Okuldan sonra futbol oynuyorlar.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 95,
+      "language": "pl",
+      "text": "Po szkole trenują piłkę nożną.",
+      "previousText": "Po szkole ćwiczą piłkę nożną.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 103,
+      "language": "pl",
+      "text": "Czy mogę zobaczyć Pański paszport?",
+      "previousText": "Czy mógłbym zobaczyć twój paszport?",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 110,
+      "language": "vi",
+      "text": "Cảnh nhìn từ phòng rất đẹp.",
+      "previousText": "Nhìn từ phòng rất đẹp.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 111,
+      "language": "ru",
+      "text": "Давайте повторим сегодняшний урок.",
+      "previousText": "Подведем итоги сегодняшнего урока.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 111,
+      "language": "th",
+      "text": "มาทบทวนบทเรียนวันนี้กันเถอะ",
+      "previousText": "ให้เราทบทวนบทเรียนของวันนี้",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 112,
+      "language": "zh",
+      "text": "请把这个句子读出来。",
+      "previousText": "大声朗读这个句子。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 116,
+      "language": "vi",
+      "text": "Xin hãy sửa lỗi cho tôi.",
+      "previousText": "Hãy sửa chữa sai lầm của tôi.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 119,
+      "language": "zh",
+      "text": "练习能让人进步。",
+      "previousText": "实践才会进步。",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    },
+    {
+      "section": "sentences",
+      "id": 119,
+      "language": "vi",
+      "text": "Luyện tập giúp chúng ta tiến bộ.",
+      "previousText": "Thực hành sẽ tiến bộ.",
+      "changed": true,
+      "missingGenders": [
+        "female",
+        "male"
+      ],
+      "reason": "No exact current-text alias in the existing paid recording inventory."
+    }
+  ]
+}

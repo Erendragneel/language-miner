@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-17",
+  "method": "Actual Codex in-app browser through CUA; normal visible UI actions in disposable localhost profile",
+  "url": "http://127.0.0.1:62383/",
+  "candidateVersion": "6.4.295",
+  "passed": true,
+  "sourceHashes": {
+    "index.html": "2133a99d1eae379b6d997c7acac2073da342ce9fd7eff81f445301e3b30de644",
+    "game-6460.js": "ca17fa61513bc8ef1685574b1df87ae1154c8be42daa436bd3380aed92c10a97",
+    "language-quality.js": "bb25c536de295b70254604ed36edf905c2b6349b72a46bf48cc89fb08eec1698",
+    "teaching-notes.js": "7d12ee7fa01e23a042d84ba9b0474943246130a33d9d4f65d4cf2857282d12e7",
+    "v6.js": "00bd274bc54b9d8c002062b65e8fb232421992f6bfb76c3b7da597f50c10c97d",
+    "multilingual-preview.js": "674aee69c286334910e7ae88c0319db544782a37a0d7eeeec1d80a63ee494dc0",
+    "vocabulary-safety.js": "bbabb18c189ced0dc32636f4597dd16d8884e8d57391a0f3d66874df79d3208a",
+    "additional-language-packs.js": "4df02b164cda0f9e91e34204c1307c9fb912733d5aeb78ce6f463e37c70e787e"
+  },
+  "checks": [
+    "Native grammar study card displays reviewed rule and exact example translation.",
+    "Unanswered native reference quiz contains no teaching guidance.",
+    "Correct answer shows the reviewed nonpast rule and exact example translation until Continue.",
+    "Wrong answer shows the correct form and reviewed explanation, with Notebook notice.",
+    "Continue returns to the same study card without an additional mastery award.",
+    "390 by 844 viewport has no horizontal page overflow; feedback and Continue remain reachable by keyboard. Temporary viewport override reset.",
+    "English-to-Spanish travel answer feedback uses the Spanish form with its English meaning, with course lesson count settled to 20.",
+    "Review page renders all 428 accepted changes, all 30 native glossary changes, and working search/filter; no undefined text or duplicate audit links.",
+    "No browser console errors were recorded in either local preview tab."
+  ],
+  "evidenceFiles": {
+    "native-grammar-dom.txt": "47881fdf7f9746923eb18606fc9dcc647796280cfe0fb9f8e5ada37744861c15",
+    "native-grammar-feedback-dom.txt": "fb554692352fdb6b43cdaaf5d7aec881c3e79caf3f49e9ebdbff2b01d5018e2b",
+    "native-grammar-feedback.png": "4edcf74de3d7711d60ad9c0233360f2626f43cf010bcfe6627b360bbe7fe2e92",
+    "native-grammar-feedback-mobile.png": "39921838aeac0e389d479cda8c7a9292884cb54b9b20df16faf6530426de3504",
+    "native-grammar-feedback-mobile-detail.png": "7eabe8064f90c20ccfaa522e67f83adb0a86b0319107fdf94c74b74243ea1d4c",
+    "native-grammar-feedback-final.png": "ed4f7e96ef72fb098126f0e75a19a6ff3c9b10312d67da6541bfc46a7386e775",
+    "spanish-travel-feedback-dom.txt": "a3916b233164e3b008347f65fe21a7fb35c5bdf9f0c2fe2ad56f88ebae64ad21",
+    "review-overview.png": "242777f42575b688d079dd9a3dfd985ad5b59ea705400a14cffd39c4031dfbe0"
+  },
+  "constraints": {
+    "cloudDisabled": true,
+    "externalConnectionsBlocked": true,
+    "livePlayerAccessed": false,
+    "additionalCostUsd": 0,
+    "published": false
+  },
+  "limits": [
+    "Sampled actual browser flows, supplemented by deterministic regression suites; not every question was clicked in a browser.",
+    "No physical Android phone testing or independent native-speaker certification.",
+    "409 shared forms and one separate Indonesian alphabet clue have no matching recordings.",
+    "CLI browser suites were unavailable because the Playwright package was not installed; CUA browser checks above ran successfully."
+  ]
+}

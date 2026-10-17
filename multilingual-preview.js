@@ -113,10 +113,10 @@
     es:{name:'Spanish Alphabet',summary:'27 letters · includes Ñ',units:alphabetUnits('A~a|B~be|C~ce|D~de|E~e|F~efe|G~ge|H~hache|I~i|J~jota|K~ka|L~ele|M~eme|N~ene|Ñ~eñe|O~o|P~pe|Q~cu|R~erre|S~ese|T~te|U~u|V~uve|W~uve doble|X~equis|Y~ye|Z~zeta')},
     ru:{name:'Russian Cyrillic Alphabet',summary:'33 Cyrillic letters',units:alphabetUnits('А~а|Б~бэ|В~вэ|Г~гэ|Д~дэ|Е~е|Ё~ё|Ж~жэ|З~зэ|И~и|Й~и краткое|К~ка|Л~эл|М~эм|Н~эн|О~о|П~пэ|Р~эр|С~эс|Т~тэ|У~у|Ф~эф|Х~ха|Ц~цэ|Ч~че|Ш~ша|Щ~ща|Ъ~твёрдый знак|Ы~ы|Ь~мягкий знак|Э~э|Ю~ю|Я~я')},
     ko:{name:'Korean Hangul Alphabet',summary:'14 consonants · 10 vowels',units:alphabetUnits('ㄱ~기역|ㄴ~니은|ㄷ~디귿|ㄹ~리을|ㅁ~미음|ㅂ~비읍|ㅅ~시옷|ㅇ~이응|ㅈ~지읒|ㅊ~치읓|ㅋ~키읔|ㅌ~티읕|ㅍ~피읖|ㅎ~히읗|ㅏ~아|ㅑ~야|ㅓ~어|ㅕ~여|ㅗ~오|ㅛ~요|ㅜ~우|ㅠ~유|ㅡ~으|ㅣ~이')},
-    zh:{name:'Mandarin Pinyin Alphabet & Tones',summary:'Pinyin initials, finals, and four tones',units:alphabetUnits('b~b (bā)~八|p~p (pā)~趴|m~m (mā)~妈|f~f (fā)~发|d~d (dā)~搭|t~t (tā)~他|n~n (nā)~拿|l~l (lā)~拉|g~g (gē)~哥|k~k (kē)~科|h~h (hē)~喝|j~j (jī)~鸡|q~q (qī)~七|x~x (xī)~西|zh~zh (zhī)~知|ch~ch (chī)~吃|sh~sh (shī)~师|r~r (rì)~日|z~z (zī)~资|c~c (cī)~疵|s~s (sī)~思|y~y (yī)~一|w~w (wū)~屋|a~final a~啊|o~final o~喔|e~final e~鹅|i~final i~衣|u~final u~乌|ü~final ü~迂|ā~first tone~妈|á~second tone~麻|ǎ~third tone~马|à~fourth tone~骂')},
+    zh:{name:'Mandarin Pinyin Alphabet & Tones',summary:'Pinyin initials, finals, and four tones',units:alphabetUnits('b~b (bā)~八|p~p (pā)~趴|m~m (mā)~妈|f~f (fā)~发|d~d (dā)~搭|t~t (tā)~他|n~n (ná)~拿|l~l (lā)~拉|g~g (gē)~哥|k~k (kē)~科|h~h (hē)~喝|j~j (jī)~鸡|q~q (qī)~七|x~x (xī)~西|zh~zh (zhī)~知|ch~ch (chī)~吃|sh~sh (shī)~师|r~r (rì)~日|z~z (zī)~资|c~c (cī)~疵|s~s (sī)~思|y~y (yī)~一|w~w (wū)~屋|a~final a~啊|o~final o~喔|e~final e~鹅|i~final i~衣|u~final u~乌|ü~final ü~迂|ā~first tone~妈|á~second tone~麻|ǎ~third tone~马|à~fourth tone~骂')},
     it:{name:'Italian Alphabet',summary:'21 standard letters',units:alphabetUnits('A~a|B~bi|C~ci|D~di|E~e|F~effe|G~gi|H~acca|I~i|L~elle|M~emme|N~enne|O~o|P~pi|Q~cu|R~erre|S~esse|T~ti|U~u|V~vi|Z~zeta')},
     fr:{name:'French Alphabet',summary:'26 letters · A–Z',units:alphabetUnits('A~a|B~bé|C~cé|D~dé|E~e|F~effe|G~gé|H~ache|I~i|J~ji|K~ka|L~elle|M~emme|N~enne|O~o|P~pé|Q~qu|R~erre|S~esse|T~té|U~u|V~vé|W~double vé|X~ix|Y~i grec|Z~zède')},
-    de:{name:'German Alphabet',summary:'26 letters · Ä, Ö, Ü, and ß',units:alphabetUnits('A~a|B~be|C~ce|D~de|E~e|F~eff|G~ge|H~ha|I~i|J~jot|K~ka|L~el|M~em|N~en|O~o|P~pe|Q~ku|R~er|S~es|T~te|U~u|V~vau|W~we|X~iks|Y~ypsilon|Z~zett|Ä~A-Umlaut|Ö~O-Umlaut|Ü~U-Umlaut|ß~Eszett')}
+    de:{name:'German Alphabet',summary:'26 basic letters + Ä, Ö, Ü, and ß',units:alphabetUnits('A~a|B~be|C~ce|D~de|E~e|F~eff|G~ge|H~ha|I~i|J~jot|K~ka|L~el|M~em|N~en|O~o|P~pe|Q~ku|R~er|S~es|T~te|U~u|V~vau|W~we|X~iks|Y~ypsilon|Z~zett|Ä~A-Umlaut|Ö~O-Umlaut|Ü~U-Umlaut|ß~Eszett')}
   };
   const FOUNDATION_CONCEPTS=[
     {id:'hello',forms:{en:'Hello',es:'Hola',ru:'Привет',ja:'こんにちは',ko:'안녕하세요',zh:'你好',it:'Ciao',fr:'Bonjour',de:'Hallo'}},
@@ -590,7 +590,7 @@
     return false;
   }
   function speakTarget(text,options={}){return speakLanguage(text,learning,options);}
-  function targetVoiceAvailability(){return window.LanguageMinerSpeech?.availability?.((LANGUAGES[learning]||LANGUAGES.en).voice)||{status:'missing',selectedVoice:null};}
+  function targetVoiceAvailability(text){return window.LanguageMinerSpeech?.availability?.((LANGUAGES[learning]||LANGUAGES.en).voice,text)||{status:'missing',selectedVoice:null};}
   // Shared course controls must never enter the Japanese-only academy for another course.
   function openCurrentCourse(){window.closeGameMenu?.();window.openJapaneseMinerV5?.('map');return true;}
   function selectCurrentCourseMine(index){
@@ -621,20 +621,22 @@
     return {concept,answer,meaning,options:shuffled(options)};
   }
   function makeAlphabetQuestion(lesson=selectedCourseLesson){
-    const system=ALPHABET_SYSTEMS[learning],units=courseSectionLessons('alphabet',selectedCourseMine)[Number(lesson)]||system.units,previous=activePreviewQuestion?.unit?.symbol,progress=languageProgress();
-    const minimumMastery=Math.min(...units.map(item=>courseMasteryValue('alphabet',item,progress))),leastPracticed=units.filter(item=>courseMasteryValue('alphabet',item,progress)===minimumMastery),freshLeastPracticed=leastPracticed.filter(item=>item.symbol!==previous),voiceAvailability=targetVoiceAvailability(),audioReady=voiceAvailability.status==='ready';
-    const optionLimit=4,unit=shuffled(freshLeastPracticed.length?freshLeastPracticed:leastPracticed)[0]||units[0],options=[unit.symbol];
+    const system=ALPHABET_SYSTEMS[learning],lessonUnits=courseSectionLessons('alphabet',selectedCourseMine)[Number(lesson)]||system.units,previous=activePreviewQuestion?.unit?.symbol,progress=languageProgress(),listening=window.LanguageMinerPracticeModes?.current()==='listening',units=listening?lessonUnits.filter(unit=>targetVoiceAvailability(unit.spoken).status==='ready'):lessonUnits;
+    if(!units.length)return {mode:'alphabet',sourceSection:'alphabet',audioUnavailable:listening,learningLanguage:learning,knownLanguage:known,answer:null,options:[]};
+    const minimumMastery=Math.min(...units.map(item=>courseMasteryValue('alphabet',item,progress))),leastPracticed=units.filter(item=>courseMasteryValue('alphabet',item,progress)===minimumMastery),freshLeastPracticed=leastPracticed.filter(item=>item.symbol!==previous);
+    const optionLimit=4,unit=shuffled(freshLeastPracticed.length?freshLeastPracticed:leastPracticed)[0]||units[0],options=[unit.symbol],voiceAvailability=targetVoiceAvailability(unit.spoken),audioReady=voiceAvailability.status==='ready';
     for(const item of shuffled(units.length>=optionLimit?units:system.units)){if(!options.includes(item.symbol))options.push(item.symbol);if(options.length===optionLimit)break;}
-    return {mode:'alphabet',sourceSection:'alphabet',promptKind:audioReady?'audio-recognition':'visual-recognition',voiceStatus:voiceAvailability.status,item:unit,unit,answer:unit.symbol,label:unit.name,spoken:unit.spoken,options:shuffled(options)};
+    return {mode:'alphabet',sourceSection:'alphabet',learningLanguage:learning,knownLanguage:known,promptKind:audioReady?'audio-recognition':'visual-recognition',voiceStatus:voiceAvailability.status,item:unit,unit,answer:unit.symbol,label:unit.name,spoken:unit.spoken,options:shuffled(options)};
   }
   function makeMeaningQuestion(section,lesson=selectedCourseLesson){
     const sourceSection=section==='boss'?shuffled(['vocabulary','grammar','sentences'])[0]:section;
     const lessons=courseSectionLessons(sourceSection,selectedCourseMine),items=section==='boss'?lessons.flat():lessons[Number(lesson)]||[],previous=activePreviewQuestion?.item?.id;
-    const pictured=window.LanguageMinerPracticeModes?.current()==='picture'?items.filter(item=>window.LanguageMinerPictures?.imageFor(item,{language:learning})):[],practiceItems=pictured.length?pictured:items;
+    const mode=window.LanguageMinerPracticeModes?.current(),pictured=mode==='picture'?items.filter(item=>window.LanguageMinerPictures?.imageFor(item,{language:learning})):[],practiceItems=mode==='listening'?items.filter(item=>targetVoiceAvailability(item.forms?.[learning]).status==='ready'):pictured.length?pictured:items;
+    if(!practiceItems.length)return {mode:section,sourceSection,learningLanguage:learning,knownLanguage:known,audioUnavailable:mode==='listening',answer:null,options:[]};
     const optionLimit=4,item=shuffled(practiceItems.filter(candidate=>candidate.id!==previous))[0]||practiceItems[0],answer=item?.forms?.[learning],meaning=item?.forms?.[known],options=[answer];
     for(const candidate of shuffled(items)){const value=candidate.forms?.[learning];if(value&&!options.includes(value))options.push(value);if(options.length===optionLimit)break;}
     if(options.length<optionLimit){for(const candidate of shuffled(lessons.flat())){const value=candidate.forms?.[learning];if(value&&!options.includes(value))options.push(value);if(options.length===optionLimit)break;}}
-    return {mode:section,sourceSection,item,answer,meaning,label:meaning,spoken:answer,options:shuffled(options)};
+    return {mode:section,sourceSection,learningLanguage:learning,knownLanguage:known,item,answer,meaning,label:meaning,spoken:answer,options:shuffled(options)};
   }
   function courseBossOptions(answer,values){
     const optionLimit=4,options=[String(answer)];
@@ -771,12 +773,12 @@
     if(fullJapaneseCourse())return;selectedCourseSection=section;selectedCourseLesson=Number(lesson)||0;if(section==='boss'){renderCourseBossArena();return;}
     const target=LANGUAGES[learning],system=ALPHABET_SYSTEMS[learning],question=section==='alphabet'||(section==='boss'&&selectedCourseMine===0)?makeAlphabetQuestion(section==='boss'?Math.floor(Math.random()*4):selectedCourseLesson):makeMeaningQuestion(section,selectedCourseLesson),area=document.getElementById('challengeArea'),message=document.getElementById('message');
     if(section==='boss')question.mode='boss';
-    window.LanguageMinerVocabulary?.refreshMultilingual(question,learning,known,meaning=>(QUESTION_PROMPTS[known]||QUESTION_PROMPTS.en)(meaning,targetName()));activePreviewQuestion=question;if(!area)return;if(!question?.answer){activePreviewQuestion=null;area.innerHTML='<p role="status">'+escapeHtml(pendingLessonCopy())+'</p>';syncMultilingualQuickMineButton();return;}
+    window.LanguageMinerVocabulary?.refreshMultilingual(question,learning,known,meaning=>(QUESTION_PROMPTS[known]||QUESTION_PROMPTS.en)(meaning,targetName()));activePreviewQuestion=question;if(!area)return;if(!question?.answer){activePreviewQuestion=null;area.innerHTML=question?.audioUnavailable?'<section class="lm-course-question" role="status">No playable audio clue is available in this lesson. Continue with Reading practice.<br><button id="lmCourseReadingFallback" type="button">Switch to Reading</button></section>':'<p role="status">'+escapeHtml(pendingLessonCopy())+'</p>';document.getElementById('lmCourseReadingFallback')?.addEventListener('click',()=>{window.LanguageMinerPracticeModes?.select('reading');renderFoundationQuestion(section,lesson);});syncMultilingualQuickMineButton();return;}
     const lessonTotal=courseSectionLessons(section,selectedCourseMine).length,translatedSection=sectionLabel(section),bossStatus=section==='boss'&&multilingualBoss?` · ${ui('boss')} ${multilingualBoss.index+1}/${multilingualBoss.total}`:'';
     const alphabetQuestion=section==='alphabet'||question.sourceSection==='alphabet',hearingQuestion=question.promptKind==='audio-recognition',optionalAudio=hearingQuestion?`<div class="lm-question-actions"><button id="lmSpeakQuestion" data-pronunciation="${escapeHtml(question.spoken||question.answer)}" class="lm-speak-button" type="button" aria-describedby="lmSpeechReplayStatus">🔊 ${escapeHtml(ui('replayClue'))}</button><span id="lmSpeechReplayStatus" class="lm-speech-replay-status" aria-live="polite"></span></div>`:alphabetQuestion?`<div class="lm-hearing-fallback" role="status">🔊 ${escapeHtml(ui('nativeHearingFallback',{language:targetName(),code:target.voice}))}</div>`:'';
     area.innerHTML=`<section class="lm-course-question ${alphabetQuestion?'lm-alphabet-question':''}" aria-label="${escapeHtml(targetName())} ${escapeHtml(translatedSection)}"><div class="lm-question-kicker">${target.flag} ${escapeHtml(alphabetQuestion?system.name:`${targetName()} ${translatedSection} ${ui('mine')}`)} · ${escapeHtml(ui('lesson',{number:selectedCourseLesson+1}))}/${lessonTotal}${bossStatus}</div><h3 class="lm-course-prompt" data-lm-no-interface-translate>${escapeHtml(courseQuestionPrompt(question,target))}</h3>${optionalAudio}<button id="lmUnknownCourseItem" class="lm-unknown-course-item" type="button">📖 I don’t know this yet — add to review</button><div class="lm-answer-grid ${alphabetQuestion?'lm-alphabet-answers':''}" data-lm-no-interface-translate>${question.options.map(option=>`<button type="button" data-lm-course-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join('')}</div><div id="lmCourseFeedback" class="lm-course-feedback" aria-live="polite"></div></section>`;
     window.LanguageMinerPictures?.decorateQuestion(area,question,learning,known);
-    window.LanguageMinerPracticeModes?.apply(area,question,{language:learning,knownLanguage:known,spoken:question.spoken||question.answer,originalPrompt:courseQuestionPrompt(question,target),readingPrompt:alphabetQuestion?(ALPHABET_PROMPTS[known]||ALPHABET_PROMPTS.en)(question.label,targetName()):courseQuestionPrompt(question,target)});
+    window.LanguageMinerPracticeModes?.apply(area,question,{language:learning,knownLanguage:known,spoken:targetVoiceAvailability(question.spoken||question.answer).status==='missing'?'':question.spoken||question.answer,originalPrompt:courseQuestionPrompt(question,target),readingPrompt:alphabetQuestion?(ALPHABET_PROMPTS[known]||ALPHABET_PROMPTS.en)(question.label,targetName()):courseQuestionPrompt(question,target)});
     if(message)message.textContent='';document.getElementById('lmUnknownCourseItem')?.addEventListener('click',event=>{if(enqueueCurrentCourseQuestion(question)){event.currentTarget.disabled=true;event.currentTarget.textContent='✓ Added to Smart Review';const feedback=document.getElementById('lmCourseFeedback');if(feedback){feedback.className='lm-course-feedback correct';feedback.textContent='Added to unlimited Smart Review. No hearts, rewards, or penalties are used there.';}}});document.querySelectorAll('[data-lm-course-answer]').forEach(button=>button.addEventListener('click',()=>answerCourseQuestion(button)));
     syncMultilingualQuickMineButton();updateFoundationProgress();area.scrollIntoView({behavior:'smooth',block:'center'});if(hearingQuestion&&!window.LanguageMinerPracticeModes)setTimeout(()=>{if(activePreviewQuestion===question)speakTarget(question.spoken);},80);
   }
@@ -791,6 +793,7 @@
   }
   function answerCourseQuestion(button){
     const question=activePreviewQuestion;
+    if(question){question.learningLanguage=learning;question.knownLanguage=known;}
     if(!question||button.disabled)return;
     const selected=button.dataset.lmCourseAnswer,correct=vocabularyAnswerAccepted(question,selected),buttons=[...document.querySelectorAll('[data-lm-course-answer]')];
     if(question.assistedPractice||question.practiceFirstAnswer){

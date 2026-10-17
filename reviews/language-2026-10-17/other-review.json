@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-17",
+  "reviewer": "Codex AI text review",
+  "nativeCertification": false,
+  "sourceSha256": "9f09062ecf91f1ba05f48ce9a1418cba8436aad534949d88756a4835467f6f48",
+  "languages": [
+    "ru",
+    "tr",
+    "pl",
+    "el",
+    "uk"
+  ],
+  "reviewedRows": 1340,
+  "reviewedForms": 6700,
+  "batches": [
+    [
+      "vocabulary",
+      1,
+      200
+    ],
+    [
+      "vocabulary",
+      201,
+      400
+    ],
+    [
+      "vocabulary",
+      401,
+      600
+    ],
+    [
+      "vocabulary",
+      601,
+      800
+    ],
+    [
+      "vocabulary",
+      801,
+      1000
+    ],
+    [
+      "grammar",
+      1,
+      80
+    ],
+    [
+      "sentences",
+      1,
+      67
+    ],
+    [
+      "sentences",
+      68,
+      70
+    ],
+    [
+      "sentences",
+      71,
+      120
+    ],
+    [
+      "sentences",
+      2001,
+      2075
+    ],
+    [
+      "sentences",
+      2076,
+      2140
+    ]
+  ],
+  "changedForms": 120,
+  "sources": [
+    {
+      "url": "https://wsjp.pl/haslo/podglad/20864/pozyczac/2275136/dawac-cos",
+      "supports": "Lending has komu+co direction; an isolated pożyczać is insufficient to distinguish lend from borrow."
+    },
+    {
+      "url": "https://dictionaries.greeklanguage.gr/index.php?chronoform=ShowLima&limaID=3735&option=com_chronoforms5",
+      "supports": "δοκιμή covers trial/testing use, so school test is clarified with τεστ/εξέταση."
+    },
+    {
+      "url": "https://certification.greeklanguage.gr/",
+      "supports": "The official Centre for the Greek Language uses τεστ for educational diagnostic tests."
+    }
+  ],
+  "limits": [
+    "AI text judgments are not native-speaker certification.",
+    "No new recordings generated; exact matching recordings must be checked after integration.",
+    "This review covers the effective 1,340 shared course rows, not every interface string or story.",
+    "Regional/gender/aspect variants with valid meaning were retained; one displayed form does not exclude other natural translations."
+  ]
+}

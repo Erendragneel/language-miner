@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-17",
+  "reviewer": "western_language_review",
+  "passed": true,
+  "suitesPassed": 8,
+  "suitesFailed": 0,
+  "newTestFile": "tests/language-quality.test.cjs",
+  "authoritativeAcceptedManifest": "reviews/language-2026-10-17/corrections.json",
+  "scope": "Actual current correction module, canonical HTML dependency order, shipped refresh/SRS helpers and actual kana/grammar/question generators in isolated VM fixtures.",
+  "logs": [
+    {
+      "command": "node tests/language-quality.test.cjs",
+      "exitCode": 0,
+      "outputSummary": {
+        "passed": true,
+        "testsPassed": 14,
+        "testsFailed": 0,
+        "forms": 22780,
+        "acceptedDecisions": 428,
+        "savedCards": 496,
+        "nativeMeaningQuestions": 30,
+        "nativeReadingQuestions": 30,
+        "activeQuestions": 428,
+        "kanaQuestions": 142,
+        "focusedGrammarQuestions": 138,
+        "semanticGrammarNotes": 80,
+        "multilingualAudioScenarios": 8,
+        "nativeCertification": false,
+        "livePlayerAccess": false,
+        "additionalSpend": 0
+      }
+    },
+    {
+      "command": "node tests/current-wording.test.cjs",
+      "exitCode": 0,
+      "output": "{\n  \"passed\": true,\n  \"recordedFlagsChecked\": 5788,\n  \"remainingFlags\": 0,\n  \"currentFormsChecked\": 22780,\n  \"vocabularyAvailable\": 1000,\n  \"changedSavedCardsChecked\": 6171,\n  \"travelLanguagesChecked\": 17,\n  \"nativeCertification\": false,\n  \"checks\": [\n    \"immutable original review source\",\n    \"current wording and eligibility in both directions\",\n    \"stable lesson IDs\",\n    \"saved review migration without progress loss\",\n    \"native spelling alias\",\n    \"future held lesson progression\",\n    \"actual web shell dependencies\"\n  ]\n}\n"
+    },
+    {
+      "command": "node tests/language-review.test.cjs",
+      "exitCode": 0,
+      "output": "PASS: corrected meanings, derived travel, saved question refresh, IDs, language coverage, and audio gaps\n"
+    },
+    {
+      "command": "node tests/assisted-answer.test.cjs",
+      "exitCode": 0,
+      "output": "PASS real kanji help followed by the final rendered answer chain earns no independent progress or rewards\nPASS wrong assisted attempt and later correct retry are counted once without heart loss\nPASS fresh unassisted kanji answer still updates actual question, Academy, analytics, XP and reward wrappers\nPASS a first independent wrong answer remains scored once; correct retries add nothing\nPASS revealing help after an already scored wrong answer cannot relabel it or erase the miss\nPASS the actual elimination hint marks kana practice as assisted, while a fresh kana answer still scores\nPASS helped advanced course questions cannot reach the JLPT item-mastery wrapper\nPASS studying a reference card records the visit without granting its former mastery bonus\nPASS helped Smart Review is assisted once, never remembered, and schedules relearning\nPASS a helped Smart Review miss followed by a correct retry cannot become remembered\nPASS independent Smart Review still counts remembered without ordinary course rewards\nPASS multilingual assisted practice bypasses the actual course scorer and economy, once\nPASS fresh multilingual recall still scores and its post-wrong retry earns no extra progress\nPASS 13 assisted-answer regression scenarios using current runtime handlers; isolated VM, no browser or live saves.\n"
+    },
+    {
+      "command": "node tests/n5-assessment.test.cjs",
+      "exitCode": 0,
+      "output": "PASS 20 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS 50 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS 100 real first answers produce 100%, unique mixed deck and unchanged learning progress\nPASS wrong first answers score zero even when mastery is already high\nPASS mixed right/wrong answers score actual recall, not a mastery estimate\nPASS repeated answer clicks, invalid answers and repeated Finish cannot duplicate scoring\nPASS partial progress and Cancel are not a completed test or a saved score\nPASS closing Academy aborts and releases assessment silence\nPASS profile change aborts before an old callback can write to the new profile\nPASS profile reload, same-ID save replacement and course-tab change invalidate sessions\nPASS too few eligible questions, placeholders and exposed answers cannot fake a result\nPASS valid decks exclude invalid items and refresh stale Japanese wording without rewriting the bank\nPASS a fresh runtime after refresh does not silently complete an unfinished assessment\nN5 assessment regression checks passed: 13 scenarios; actual shipped bank, recorder, UI click flow and offline integration.\n"
+    },
+    {
+      "command": "node tests/answer-explanations.test.cjs",
+      "exitCode": 0,
+      "output": "PASS generated missing-particle question teaches its rule, translation and completed displayed sentence\nPASS wrong particle choice keeps the correct rule and completed example, and explains how to retry\nPASS generated Academy grammar uses its existing definition and source example\nPASS generated advanced grammar uses its own course definition and example\nPASS generated vocabulary question uses the actual 1000-word bank for reading and meaning\nPASS vocabulary reading stays labeled Reading without duplicating it as an Example\nPASS generated reading question separates its translation from its Reading field\nPASS generated sentence preserves both the available translation and Japanese reading\nPASS HTML from help, answer, choice, translation and example stays plain and escaped\nPASS missing optional question fields remain safe without inventing a grammar rule or example\nPASS explanations preference suppresses both markup and the visible explanation panel\nPASS silent questions, active guardian tests and active N5 assessments reveal no teaching feedback\nPASS show API appends teaching inside the current question without changing scored progress\nPASS assisted-answer branch renders teaching while adding no recall/mastery/XP or heart change\nPASS v6 final answer wrapper uses accepted alternate answers to choose correct teaching feedback\nPASS multilingual correct, wrong and assisted consumers include teaching and respect the preference\nPASS every native grammar and particle question has guarded contextual teaching and a translated exact example\nPASS all 28 native reading passages teach the supporting evidence with an accurate preserved answer\nPASS all 80 multilingual grammar rows have semantic teaching without inventing the target language’s grammar\nPASS wrong multilingual choices contrast actual source meanings in each of the 17 languages\nPASS metadata fails closed after source edits and item notes stay escaped and explicitly English\nPASS actual native lesson cards show reviewed rules, translated examples and reading evidence\nPASS N5 and advanced reference views actually include the native teaching markup\nPASS native teaching cards label English clearly, escape metadata, and stay out of quizzes and silent tests\nPASS all public and private particle prompts specify the required role without revealing the particle\nPASS explanation regression scenarios: 25 passed, 0 failed; current source in isolated VM.\n"
+    },
+    {
+      "command": "node tests/save-status.test.cjs",
+      "exitCode": 0,
+      "output": "PASS main save: QuotaExceededError reports failure, never saved, retains cloud rescue\nPASS main save: SecurityError reports failure, never saved, retains cloud rescue\nPASS main save: successful retry emits exactly one saved event and writes current state\nPASS main save: no active profile does not persist, announce saved, or schedule cloud\nPASS main save: JSON serialization failure is handled like a failed write\nPASS snapshots: malformed JSON, object, null, and invalid rows cannot crash recovery\nPASS snapshots: QuotaExceededError does not escape or advance timestamp; later retry succeeds\nPASS snapshots: SecurityError does not escape or advance timestamp; later retry succeeds\nPASS snapshots: serialization error preserves timestamp and existing recovery copy\nPASS snapshots: guest/throttled skips return false and successful rotation retains three rows\nPASS v6 save wrapper: preserves actual result and a due snapshot never throws through save\nPASS courses: failed write returns false and uses a separate failed event\nPASS courses: quota/security failure preserves pending progress across reads and cloud export\nPASS courses: pending settings never bleed across accounts and successful retry persists them\nPASS courses: corrupt storage is safely read and a serialization failure is reported\nPASS courses: a local profile does not use an unrelated cloud session; older name keys still load safely\nPASS cloud: failed local writes still schedule sync and a server confirmation is reported separately\nPASS cloud: missing confirmation and rejected transport remain retryable errors\nPASS cloud: late success after a player switch never confirms the new player or changes its revision\nPASS cloud: a conflict cannot overwrite session progress when its recovery backup fails\nPASS status: current-player records are isolated, copied for readers, and hidden after logout\nPASS snapshot restore: a failed durable write keeps prior progress and reports failure; successful restore persists\n22/22 save-status regressions passed (isolated VM fixtures; no device/cloud verification).\n"
+    },
+    {
+      "command": "node tests/listening-clues.test.cjs",
+      "exitCode": 0,
+      "output": "PASS eligibility retains real clues, rejects empty and reverse prompts, and waits for loading voices\nPASS Listening mine chooses a playable clue and does not score skipped reverse or empty entries\nPASS empty Listening lesson offers Reading and records no score or heart change\nPASS switching an active reverse question to Listening selects a real clue without scoring\nPASS switching a playable question retains it instead of taking a new question\nPASS replay waits for actual started and completed events\nPASS unrelated text or language events never change a replay status\nPASS audio, recording and device-voice failures provide a usable retry and written fallback\nPASS real recording promise rejection changes local Listening status and never uses Play device speech\nPASS web per-text availability requires an exact recording or an installed device voice\nPASS synchronous refusal and thrown replay errors do not claim playback started\nPASS events for a replaced card cannot change detached feedback\nPASS reapplying the context removes old listeners and waits for a new request\nPASS cancellation reports stopped playback and offers replay without claiming completion\nPASS written Listening clues mark assistance before showing hidden text\nPASS silent tests and Smart Review keep their normal presentation without Listening controls\nListening clue regression suite: 16 checks passed.\n"
+    }
+  ],
+  "initialHarnessRepair": {
+    "runtimeBug": false,
+    "description": "Initial new-test run looked for note.translation, but the actual public teaching-note field is exampleTranslation. Corrected the test to assert the documented/current object field, then verified all138 generated native grammar notes. No runtime change was made for this fixture mistake."
+  },
+  "actualRuntimeFailures": [],
+  "noPlayerStorageOrAccountAccess": true,
+  "noNetworkCallsInNewFixture": true,
+  "noBrowserOrPhysicalDeviceClaims": true,
+  "noPaidServices": true,
+  "noPublishingOrAndroidBuild": true,
+  "limitations": [
+    "Deterministic tests validate behavior and invariants; they do not certify native pronunciation or every translation.",
+    "Physical Android playback, phone layout and store rollout remain outside this validation.",
+    "The new fixture intentionally fails closed on attempted player storage or network use; any speech availability is controlled local test data.",
+    "The accepted count is derived from the manifest at runtime, not hard-coded into the new test."
+  ]
+}

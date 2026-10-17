@@ -1,6 +1,6 @@
-# Language Miner v6.4.294
+# Language Miner v6.4.295
 
-Current web update: [restored detailed standing characters](RELEASE-NOTES-v6.4.294.md), using the existing documented full-body character artwork and retaining appearance ownership. The [original artwork and matching foot colors](RELEASE-NOTES-v6.4.293.md), [hairstyle replacements](RELEASE-NOTES-v6.4.292.md), [privacy and license disclosures](RELEASE-NOTES-v6.4.291.md), and [wording, recorded audio, and picture corrections](RELEASE-NOTES-v6.4.290.md) remain included, along with the [learning and save fixes](RELEASE-NOTES-v6.4.289.md). Qualified native-language editorial review remains open. Private gamer-tag linking is pending its database deployment. The Android testing release is verified separately.
+Current web update: [reviewed translations and teaching explanations](RELEASE-NOTES-v6.4.295.md). The AI text pass reviewed 22,780 shared forms across 17 languages, corrected or clarified 428 forms and 30 Japanese glossary entries, and improved contextual grammar and reading explanations. Exact recordings are missing for 409 revised shared forms and one separate Indonesian alphabet clue; listening skips unavailable clues and offers written practice. No new audio or paid service was used. Native-language editorial validation remains open. The [approved detailed characters](RELEASE-NOTES-v6.4.294.md), [matching foot colors](RELEASE-NOTES-v6.4.293.md), and existing learning/save fixes remain included. Android testing availability is verified separately.
 
 ## Illustrated Expedition Hub
 

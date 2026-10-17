@@ -1,0 +1,130 @@
+[
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "en",
+    "before": "sentence, text",
+    "after": "text / passage",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "zh",
+    "before": "句子、文字",
+    "after": "文本 / 文章",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "ko",
+    "before": "문장, 텍스트",
+    "after": "글",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "es",
+    "before": "frase, texto",
+    "after": "texto",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "fr",
+    "before": "phrase, texte",
+    "after": "texte",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "de",
+    "before": "Satz, Text",
+    "after": "Text",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "ru",
+    "before": "предложение, текст",
+    "after": "текст",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "it",
+    "before": "frase, testo",
+    "after": "testo",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "pt",
+    "before": "frase, texto",
+    "after": "texto",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "vi",
+    "before": "câu, văn bản",
+    "after": "văn bản / bài viết",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "th",
+    "before": "ประโยคข้อความ",
+    "after": "ข้อความ / บทความ",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "tr",
+    "before": "cümle, metin",
+    "after": "metin",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "id",
+    "before": "kalimat, teks",
+    "after": "teks",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "pl",
+    "before": "zdanie, tekst",
+    "after": "tekst",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "el",
+    "before": "πρόταση, κείμενο",
+    "after": "κείμενο",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  },
+  {
+    "section": "vocabulary",
+    "id": 667,
+    "language": "uk",
+    "before": "речення, текст",
+    "after": "текст",
+    "reason": "Select the shared written-text/passage sense of Japanese 文章 across languages; an individual grammatical sentence is a different assessment concept. This narrows the intended sense rather than claiming sentence is impossible in every context."
+  }
+]

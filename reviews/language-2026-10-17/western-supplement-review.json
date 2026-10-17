@@ -1,0 +1,159 @@
+{
+  "reviewDate": "2026-10-17",
+  "reviewer": "western_language_review",
+  "scope": "Full Western short-story text and alphabet-definition review, supplemented by complete text-level picture-spelling checks and targeted pixel inspection. No runtime edits or publication.",
+  "sourceFiles": {
+    "short-stories-data.js": "3aa468ba1cb7a32b004a5357c2ef5e15adc961b353a096d81289b9c3de15f313",
+    "multilingual-preview.js": "5114669ae5853c4fd1635208e95482e1b122dbd566225b6dfab8480966986240",
+    "additional-language-packs.js": "176120bd85e1787e38b8bcc7d2733779b2d77e7f41fb2ad6bdc6f5bbb45e9348",
+    "picture-catalog.js": "7593afaef9f25c9eb2831b24bfc1f35241539178c4f9d57f798e78ceb67c3f51",
+    "alphabet-picture-clarity.js": "3948a35e8e7677255769f601f828cab00c50c4525e42ee9f1f586047c7460156"
+  },
+  "coverage": {
+    "languages": [
+      "en",
+      "es",
+      "fr",
+      "de",
+      "it",
+      "pt"
+    ],
+    "storiesPerLanguage": 2,
+    "linesPerStory": 6,
+    "titlesRead": 12,
+    "storyLinesRead": 72,
+    "alphabetUnitsRead": {
+      "en": 26,
+      "es": 27,
+      "fr": 26,
+      "de": 30,
+      "it": 21,
+      "pt": 26
+    },
+    "alphabetUnitsTotal": 156,
+    "fieldsRead": [
+      "alphabet name",
+      "summary/count",
+      "symbol",
+      "letter name",
+      "spoken text",
+      "picture example word",
+      "written gap",
+      "meaning label",
+      "image filename"
+    ],
+    "pictureExampleRowsRead": 156,
+    "activePictureAdapterValidated": 156,
+    "failedGapReconstructions": 0,
+    "missingReferencedLocalImageFiles": 0,
+    "targetedImagePixelInspections": [
+      {
+        "file": "picture-assets/vocab-0016.webp",
+        "observed": "Visible lower legs with hiking boots; clearly illustrates legs, while feet are covered by footwear.",
+        "assessment": "Leg spellings are direct; foot spellings use contextual anatomical location rather than a bare-foot illustration. No incorrect spelling, but a clearer existing foot illustration would improve that subset if available."
+      },
+      {
+        "file": "picture-assets/vocab-0393.webp",
+        "observed": "Quiet reading scene with a resting cat.",
+        "assessment": "Supports quiet/calm; this is a spelling task, not an assertion that the letter Q means quiet."
+      },
+      {
+        "file": "picture-assets/vocab-0080.webp",
+        "observed": "A framed photograph of a dog.",
+        "assessment": "Supports image/photo spellings."
+      },
+      {
+        "file": "picture-assets/vocab-0048.webp",
+        "observed": "A child cups a hand beside an ear and listens.",
+        "assessment": "Supports the German Hör zu example."
+      },
+      {
+        "file": "picture-assets/vocab-0207.webp",
+        "observed": "A plate of assorted sweets.",
+        "assessment": "Supports the German Süßwaren example."
+      },
+      {
+        "file": "picture-assets/example-kiwi.webp",
+        "observed": "Whole and cut kiwi fruit.",
+        "assessment": "Supports the loanword kiwi examples for K and W."
+      }
+    ]
+  },
+  "findings": [
+    {
+      "type": "clarification",
+      "file": "multilingual-preview.js",
+      "language": "de",
+      "field": "ALPHABET_SYSTEMS.de.summary",
+      "before": "26 letters · Ä, Ö, Ü, and ß",
+      "recommended": "26 basic letters + Ä, Ö, Ü, and ß",
+      "reason": "26 denotes the basic alphabet, while the course actually teaches 30 units including umlauts and Eszett. Make the plus relationship explicit.",
+      "status": "Safe optional literal patch; no alphabet unit or spoken-name changes."
+    },
+    {
+      "type": "declined stylistic proposal",
+      "file": "short-stories-data.js",
+      "language": "it",
+      "storyIndex": 1,
+      "lineIndex": 5,
+      "before": "La pioggia smette, ma Leo vuole leggere un'altra pagina.",
+      "proposed": "Smette di piovere, ma Leo vuole leggere un’altra pagina.",
+      "status": "Root decided to keep the understandable original. This is an idiomatic preference, not a demonstrated translation error; do not apply solely from the supplemental candidate manifest."
+    },
+    {
+      "type": "existing correction confirmed active",
+      "language": "de",
+      "symbol": "J",
+      "observation": "The catalog’s old usage-note example is replaced by Japan plus its flag inside alphabet-picture-clarity.js before the example is used.",
+      "action": "Do not duplicate or regress the existing adapter correction."
+    },
+    {
+      "type": "existing correction confirmed active",
+      "language": "fr",
+      "symbol": "I",
+      "observation": "The catalog’s oeil spelling is corrected to œil and the gap to œ□l inside the active alphabet-picture-clarity.js adapter.",
+      "action": "Do not duplicate or regress the existing adapter correction."
+    }
+  ],
+  "letterNameAssessment": {
+    "concreteWrongNamesFound": 0,
+    "en": "26 American English letter names, including zee, are coherent with the configured en-US course.",
+    "es": "27 letters include Ñ. Ye and uve doble are accepted standard names; do not treat regional alternatives such as i griega/doble u as inherently wrong.",
+    "fr": "26 letter names are plausible native spellings for the spoken names. No new text correction justified.",
+    "de": "26 basic names plus umlaut names and Eszett are coherent. The names are not being presented as every possible phoneme value.",
+    "it": "The 21 traditional Italian letters are correctly ordered; the summary already says standard letters. Loanword letters J/K/W/X/Y are an expansion opportunity, not evidence that the taught 21-letter sequence is wrong.",
+    "pt": "26 Brazilian Portuguese names include K/W/Y. Dáblio and ípsilon are valid names; no speculative spelling replacement justified."
+  },
+  "pictureTeachingAssessment": {
+    "taskMeaning": "Active Western picture-alphabet tasks explicitly ask which character completes an example word and state that the image depicts the word, not a letter’s meaning.",
+    "importantDistinction": "French H in thé, Spanish H in coche, German I in Bein, and similar internal/digraph examples are spelling-gap tasks. They must not be described as first-sound or universal letter-pronunciation examples.",
+    "noNewConcreteTextMappingMismatchFound": true,
+    "pixelCoverageLimitation": "All 156 text mappings were read and validated, but only the six images listed above were newly visually inspected in this supplement. Do not claim all underlying pixels or recorded pronunciations were certified."
+  },
+  "sources": [
+    {
+      "url": "https://shop.duden.de/media/b7/c8/9a/1719965799/Leseprobe_9783411710003_Das_Grundschulwissen_Deutsch_und_Mathematik.pdf?ts=1719965800",
+      "supports": "German has 26 basic alphabet letters, plus Ä/Ö/Ü and ß; letters and sounds are distinct."
+    },
+    {
+      "url": "https://www.rae.es/desen/uve",
+      "supports": "Uve and uve doble are established letter names."
+    },
+    {
+      "url": "https://www.treccani.it/enciclopedia/lettere-doppie_%28Enciclopedia-dell%27Italiano%29/",
+      "supports": "Italian has 21 traditional letters and five non-native letters used in loanwords."
+    },
+    {
+      "url": "https://dicionario.priberam.org/d%C3%A2blio",
+      "supports": "Dáblio/dâblio names the letter W; valid variants should not be replaced speculatively."
+    }
+  ],
+  "status": {
+    "runtimeEdits": false,
+    "mediaEdits": false,
+    "paidServicesUsed": false,
+    "publishingOrAndroidBuild": false,
+    "rootDecisionNeededOnlyForOptionalGermanSummary": true,
+    "italianStoryProposalDeclined": true
+  }
+}

@@ -195,28 +195,54 @@ coachAction=function(action,task={}){
 };
 function buildAnswerExplanation(q,chosen,correct){
  const plain=value=>stripMarkup(String(value??'').replace(/<br\s*\/?\s*>/gi,'\n')).replace(/&(amp|lt|gt|quot|#39);/g,(_,name)=>({amp:'&',lt:'<',gt:'>',quot:'"','#39':"'"}[name])).trim();
- const answer=plain(q.a??q.answer),help=plain(q.help),grammar=/grammar/.test(q.kind||q.sourceSection||q.mode||'');
+ const answer=plain(q.a??q.answer),selected=plain(chosen),help=plain(q.help),grammar=/grammar|particle/.test([q.kind,q.sourceSection,q.mode].filter(Boolean).join(' '));
  const entry=q.vocabularyKey?window.N5_VOCABULARY_1000?.find(row=>row[0]===q.vocabularyKey):null;
  const translation=help.match(/(?:Full meaning|Meaning):\s*(.+?)(?=\.\s*Reading:|\n|$)/i)?.[1];
- let rule=help.replace(/\s*Full meaning:\s*[^\n]+/i,'').trim(),example=plain(q.example||''),meaning=plain(q.meaning||q.en||entry?.[2]||translation||''),reading=plain(q.reading||q.kana||entry?.[1]||q.speechText||'');
- if(grammar){
+ let rule=help.replace(/\s*Full meaning:\s*[^\n]+/i,'').trim(),example=plain(q.example||''),meaning=plain(q.meaning||q.en||entry?.[2]||translation||''),reading=plain(q.reading||q.kana||entry?.[1]||q.speechText||''),exampleTranslation='',contrast='';
+ const multilingual=!!q.item?.forms;
+ if(grammar&&!multilingual){
   const point=typeof N5_GRAMMAR_POINTS!=='undefined'?N5_GRAMMAR_POINTS.find(row=>row[0]===answer):null;
   const index=Number(String(q.courseId||'').split(':').at(-1));
-  const advanced=q.courseId&&typeof JLPT_COURSES!=='undefined'?JLPT_COURSES[Number(q.stage)]?.grammar?.[index]:null;
-  if(point||advanced){const row=advanced||point;rule=`${plain(row[0])} — ${plain(row[1])}`;example=plain(row[2]);}
-  if(String(q.q||'').includes('___'))example=plain(q.q).replace(/___/g,answer);
-  else if(!example)example=plain(q.q||q.item?.forms?.[q.learningLanguage]||answer).replace(/___/g,answer);
+  const advanced=/:grammar:\d+$/.test(String(q.courseId||''))&&typeof JLPT_COURSES!=='undefined'?JLPT_COURSES[Number(q.stage)]?.grammar?.[index]:null;
+  const row=advanced||point,reviewed=window.LanguageMinerTeachingNotes?.japanese?.(q,answer);
+  // The displayed sentence is the evidence. A matching particle label alone
+  // must not substitute a different reference sentence or its translation.
+  if(row&&plain(row[2])===plain(q.q))rule=`${plain(row[0])} — ${plain(row[1])}`;
+  if(reviewed){rule=plain(reviewed.rule);if(!meaning)meaning=plain(reviewed.exampleTranslation);else if(meaning!==plain(reviewed.exampleTranslation))exampleTranslation=plain(reviewed.exampleTranslation);}
+  if(!example)example=plain(q.q||'').replace(/___/g,answer);
+  if(!correct&&selected&&row&&plain(row[2])===plain(q.q)){
+   const alternatives=advanced&&typeof JLPT_COURSES!=='undefined'?JLPT_COURSES[Number(q.stage)]?.grammar:typeof N5_GRAMMAR_POINTS!=='undefined'?N5_GRAMMAR_POINTS:[];
+   const other=alternatives?.find(item=>plain(item[0])===selected);
+   if(other)contrast=`${selected} is taught as “${plain(other[1])}”. In this example, ${answer} expresses the meaning explained above.`;
+  }
  }
+ if(multilingual){
+  const forms=q.item.forms,learning=q.learningLanguage||Object.keys(forms).filter(language=>plain(forms[language])===answer).filter((language,_,matches)=>matches.length===1)[0];
+  const known=q.knownLanguage||(plain(forms.en)===meaning?'en':Object.keys(forms).filter(language=>plain(forms[language])===meaning).filter((language,_,matches)=>matches.length===1)[0]);
+  const semantic=window.LanguageMinerTeachingNotes?.semantic?.(q);
+  if(semantic)rule=plain(semantic);
+  const itemNote=plain(q.item.learningNotes?.en||'');
+  if(itemNote)rule=rule?`${rule} ${itemNote}`:itemNote;
+  if(grammar&&!example)example=answer;
+  // Contrast the actual selected course row, not a guessed dictionary sense.
+  const section=q.sourceSection||q.mode,rows=window.LANGUAGE_MINER_MULTILINGUAL_COURSE_DATA?.[section];
+  if(!correct&&selected&&learning&&known&&Array.isArray(rows)){
+   const alternatives=[...new Set(rows.filter(item=>plain(item.forms?.[learning])===selected).map(item=>plain(item.forms?.[known])).filter(Boolean))];
+   if(alternatives.length===1&&alternatives[0]!==meaning)contrast=`“${selected}” corresponds to “${alternatives[0]}” in this course. The prompt asks for “${meaning}”.`;
+  }
+ }
+ const passage=!multilingual?window.LanguageMinerTeachingNotes?.reading?.(q,answer):null;
+ if(passage){rule=plain(passage.rule);example=plain(passage.example);if(!meaning)meaning=plain(passage.exampleTranslation);else if(meaning!==plain(passage.exampleTranslation))exampleTranslation=plain(passage.exampleTranslation);}
  if(!rule&&meaning)rule='Compare the expression with its translation. Notice how the words express the same idea.';
  if(!example&&/[ぁ-んァ-ヶ一-龯]/.test(String(q.q||'')))example=plain(q.q).replace(/___/g,answer);
  // A vocabulary reading is pronunciation support, not a usage example.
  if(!grammar&&(example===reading||example===answer))example='';
- return {answer,chosen:plain(chosen),correct:!!correct,reading:reading!==answer?reading:'',meaning:meaning!==answer?meaning:'',rule,example};
+ return {answer,chosen:selected,correct:!!correct,reading:reading!==answer?reading:'',meaning:meaning!==answer?meaning:'',rule,example,exampleTranslation,contrast};
 }
 function answerTeachingMarkup(q,chosen,correct){
  if(!q||!state.v6?.explanations||silentTestingActive(q))return '';
- const info=buildAnswerExplanation(q,chosen,correct),paragraph=(label,value)=>value?`<p><strong>${label}:</strong> ${esc6(value)}</p>`:'';
- return `<div class="lm-teaching-feedback">${!correct&&info.chosen?paragraph('Your answer',info.chosen):''}${paragraph('Reading',info.reading)}${paragraph('Translation',info.meaning)}${info.rule?`<p class="lm-teaching-rule">${esc6(info.rule)}</p>`:''}${paragraph('Example',info.example)}${!correct?'<p>Compare your choice with the rule and example. Try this item again in Smart Review.</p>':''}</div>`;
+ const info=buildAnswerExplanation(q,chosen,correct),paragraph=(label,value)=>value?`<p><strong>${label}:</strong> ${esc6(value)}</p>`:'',known=q.knownLanguage||window.LanguageMinerI18n?.getContext?.().known||'en',englishNote=known!=='en';
+ return `<div class="lm-teaching-feedback">${!correct&&info.chosen?paragraph('Your answer',info.chosen):''}${paragraph('Reading',info.reading)}${paragraph(englishNote&&!q.item?.forms?'Translation (English)':'Translation',info.meaning)}${info.rule?`<p class="lm-teaching-rule" lang="en">${englishNote?'<strong>English teaching note:</strong> ':''}${esc6(info.rule)}</p>`:''}${paragraph('Example',info.example)}${paragraph(englishNote?'Example meaning (English)':'Example meaning',info.exampleTranslation)}${paragraph('Why this choice differs',info.contrast)}${!correct?'<p>Compare your choice with the rule and example. Try this item again in Smart Review.</p>':''}</div>`;
 }
 function explanation(q,chosen,correct){
  if(!state.v6.explanations||!q||silentTestingActive(q))return;

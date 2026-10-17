@@ -1,0 +1,1074 @@
+[
+  {
+    "section": "vocabulary",
+    "id": 21,
+    "language": "ko",
+    "before": "앞 / 앞",
+    "after": "앞 / 전",
+    "reason": "Distinguish spatial front from temporal before; 앞 alone does not supply the temporal 전 reading."
+  },
+  {
+    "section": "vocabulary",
+    "id": 37,
+    "language": "zh",
+    "before": "吃饭",
+    "after": "吃",
+    "reason": "Translate eating generally; 吃饭 specifically means eating a meal."
+  },
+  {
+    "section": "vocabulary",
+    "id": 79,
+    "language": "vi",
+    "before": "trạm",
+    "after": "nhà ga",
+    "reason": "Use the railway-station noun appropriate to Japanese 駅, rather than a generic stop/station."
+  },
+  {
+    "section": "vocabulary",
+    "id": 98,
+    "language": "ko",
+    "before": "어디서",
+    "after": "어디",
+    "reason": "Teach bare where; 어디서 includes an additional locative/action particle."
+  },
+  {
+    "section": "vocabulary",
+    "id": 105,
+    "language": "ko",
+    "before": "좋아",
+    "after": "좋다",
+    "reason": "Use the dictionary adjective rather than its casual conjugated utterance 좋아."
+  },
+  {
+    "section": "vocabulary",
+    "id": 114,
+    "language": "zh",
+    "before": "遇见，看见",
+    "after": "见面 / 会面",
+    "reason": "The see sense here means meet a person; 看见 teaches visual perception instead."
+  },
+  {
+    "section": "vocabulary",
+    "id": 147,
+    "language": "id",
+    "before": "(keras) permen",
+    "after": "permen keras",
+    "reason": "Correct Indonesian noun–adjective order for hard candy."
+  },
+  {
+    "section": "vocabulary",
+    "id": 152,
+    "language": "ko",
+    "before": "그거 (저기)",
+    "after": "저것",
+    "reason": "Preserve the Japanese あれ distal demonstrative, contrasting それ/그것 near the listener."
+  },
+  {
+    "section": "vocabulary",
+    "id": 160,
+    "language": "ko",
+    "before": "의사; 내과 의사",
+    "after": "의사",
+    "reason": "Physician is not restricted to an internal-medicine specialist 내과 의사."
+  },
+  {
+    "section": "vocabulary",
+    "id": 165,
+    "language": "th",
+    "before": "วันหนึ่ง (ระยะเวลา)",
+    "after": "หนึ่งวัน (ระยะเวลา)",
+    "reason": "Use an unambiguous one-day duration; วันหนึ่ง commonly means one day/someday."
+  },
+  {
+    "section": "vocabulary",
+    "id": 196,
+    "language": "ko",
+    "before": "응",
+    "after": "네",
+    "reason": "Match neutral/polite affirmative Japanese ええ; retain casual 응 for the explicitly informal うん row."
+  },
+  {
+    "section": "vocabulary",
+    "id": 197,
+    "language": "vi",
+    "before": "trạm",
+    "after": "nhà ga",
+    "reason": "Use the railway-station noun appropriate to Japanese 駅."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "zh",
+    "before": "胃",
+    "after": "肚子 / 腹部",
+    "reason": "Align with belly/abdomen お腹 rather than the specific stomach organ 胃."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "ko",
+    "before": "위",
+    "after": "배 / 복부",
+    "reason": "Align with belly/abdomen お腹 rather than the stomach organ 위."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "vi",
+    "before": "dạ dày",
+    "after": "bụng",
+    "reason": "Align with belly/abdomen お腹 rather than the stomach organ dạ dày."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "th",
+    "before": "กระเพาะอาหาร",
+    "after": "ท้อง / ช่องท้อง",
+    "reason": "Align with belly/abdomen お腹 rather than the stomach organ กระเพาะอาหาร."
+  },
+  {
+    "section": "vocabulary",
+    "id": 245,
+    "language": "th",
+    "before": "สาว",
+    "after": "เด็กผู้หญิง",
+    "reason": "Translate girl/女の子 rather than a young adult woman สาว."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "zh",
+    "before": "地面层之上的第三层",
+    "after": "四楼（日本楼层编号：地面层为一楼）",
+    "reason": "State the Japanese fourth-floor convention explicitly instead of an ambiguous third floor above ground."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "ko",
+    "before": "지면에 있는 출입구가 있는 층보다 세 층 위",
+    "after": "4층(일본식 층수: 지상 출입구 층이 1층)",
+    "reason": "State the fourth-floor number and ground-floor convention explicitly."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "vi",
+    "before": "tầng thứ ba phía trên tầng trệt",
+    "after": "tầng 4 (theo cách đánh số ở Nhật: tầng trệt là tầng 1)",
+    "reason": "State the Japanese fourth-floor number explicitly and explain ground-level numbering."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "th",
+    "before": "ชั้นที่สามเหนือชั้นพื้นดิน",
+    "after": "ชั้น 4 (การนับชั้นแบบญี่ปุ่น: ชั้นที่ระดับพื้นดินคือชั้น 1)",
+    "reason": "State the Japanese fourth-floor number explicitly and explain ground-level numbering."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "id",
+    "before": "lantai ketiga di atas lantai dasar",
+    "after": "lantai 4 (penomoran Jepang: lantai dasar adalah lantai 1)",
+    "reason": "State the Japanese fourth-floor number explicitly and explain ground-level numbering."
+  },
+  {
+    "section": "vocabulary",
+    "id": 263,
+    "language": "vi",
+    "before": "cho vay",
+    "after": "cho mượn",
+    "reason": "Translate generic lending; cho vay is primarily lending money."
+  },
+  {
+    "section": "vocabulary",
+    "id": 284,
+    "language": "zh",
+    "before": "轻微的、不严重的、轻微的",
+    "after": "轻 / 不严重的 / 轻微的",
+    "reason": "Restore the physical lightweight sense of 軽い; 轻微 only teaches minor severity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "ko",
+    "before": "아침, A.M.",
+    "after": "오전",
+    "reason": "Use the before-noon/A.M. period, rather than 아침 which is specifically morning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 355,
+    "language": "zh",
+    "before": "一个玻璃杯；一杯",
+    "after": "水杯 / 玻璃杯",
+    "reason": "Both glosses denote the drinking vessel; 一杯 can instead mean a cupful."
+  },
+  {
+    "section": "vocabulary",
+    "id": 355,
+    "language": "id",
+    "before": "sebuah gelas; segelas",
+    "after": "gelas",
+    "reason": "Translate the vessel, rather than segelas meaning a glassful."
+  },
+  {
+    "section": "vocabulary",
+    "id": 383,
+    "language": "ko",
+    "before": "세",
+    "after": "셋",
+    "reason": "Bare native-Korean three is 셋; 세 is its form before a counter or noun."
+  },
+  {
+    "section": "vocabulary",
+    "id": 385,
+    "language": "ko",
+    "before": "네",
+    "after": "넷",
+    "reason": "Bare native-Korean four is 넷; 네 is its form before a counter or noun."
+  },
+  {
+    "section": "vocabulary",
+    "id": 392,
+    "language": "zh",
+    "before": "字典",
+    "after": "词典",
+    "reason": "Translate a general dictionary rather than specifically a character dictionary 字典."
+  },
+  {
+    "section": "vocabulary",
+    "id": 399,
+    "language": "zh",
+    "before": "字典",
+    "after": "词典",
+    "reason": "Translate general Japanese 字引 as dictionary, without narrowing to a character dictionary."
+  },
+  {
+    "section": "vocabulary",
+    "id": 406,
+    "language": "th",
+    "before": "เสื้อ",
+    "after": "เสื้อเชิ้ต",
+    "reason": "Use the specific shirt noun rather than generic clothing/top เสื้อ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 415,
+    "language": "id",
+    "before": "kecap",
+    "after": "kecap asin",
+    "reason": "Japanese 醤油 is the salty soy sauce, distinct from the common Indonesian sweet kecap manis."
+  },
+  {
+    "section": "vocabulary",
+    "id": 439,
+    "language": "vi",
+    "before": "sinh viên; học sinh",
+    "after": "học sinh",
+    "reason": "Japanese 生徒/pupil refers to a school pupil; sinh viên denotes a college/university student."
+  },
+  {
+    "section": "vocabulary",
+    "id": 442,
+    "language": "vi",
+    "before": "bộ đồ nam",
+    "after": "bộ com lê nam",
+    "reason": "Name a men's suit, rather than generic men's clothing bộ đồ nam."
+  },
+  {
+    "section": "vocabulary",
+    "id": 449,
+    "language": "th",
+    "before": "ซักอบรีด",
+    "after": "การซักผ้า",
+    "reason": "Translate washing/laundry without additionally teaching drying and ironing ซักอบรีด."
+  },
+  {
+    "section": "vocabulary",
+    "id": 480,
+    "language": "vi",
+    "before": "yêu cầu, yêu cầu (một ân huệ)",
+    "after": "nhờ vả / yêu cầu (giúp đỡ)",
+    "reason": "Use the natural asking-a-favor construction rather than literal request an ân huệ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 488,
+    "language": "ko",
+    "before": "점차적으로, 정도에 따라",
+    "after": "점차적으로 / 조금씩",
+    "reason": "By degrees means gradually here, not depending on the degree 정도에 따라."
+  },
+  {
+    "section": "vocabulary",
+    "id": 488,
+    "language": "vi",
+    "before": "dần dần, theo mức độ",
+    "after": "dần dần / từng chút một",
+    "reason": "By degrees means gradually here, not according to a level theo mức độ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 508,
+    "language": "ko",
+    "before": "지루하고 지루하다. 중요하지 않은",
+    "after": "지루하다 / 재미없다 / 하찮다",
+    "reason": "Remove the malformed duplicate 지루하고 지루하다 and preserve boring/uninteresting/insignificant senses."
+  },
+  {
+    "section": "vocabulary",
+    "id": 519,
+    "language": "ko",
+    "before": "그럼, 그럼요.",
+    "after": "그럼 / 그러면",
+    "reason": "Teach the transition then/well; 그럼요 is an affirmative certainly/of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 519,
+    "language": "th",
+    "before": "ถ้าอย่างนั้นก็อย่างนั้น",
+    "after": "ถ้าอย่างนั้น / งั้น / ดังนั้น",
+    "reason": "Replace the redundant phrase then it is like that with natural transition expressions."
+  },
+  {
+    "section": "vocabulary",
+    "id": 525,
+    "language": "vi",
+    "before": "điện, (điện) ánh sáng",
+    "after": "điện / đèn điện",
+    "reason": "Express electricity/electric light using natural Vietnamese noun phrases."
+  },
+  {
+    "section": "vocabulary",
+    "id": 525,
+    "language": "th",
+    "before": "ไฟฟ้า (ไฟฟ้า) แสง",
+    "after": "ไฟฟ้า / แสงไฟ",
+    "reason": "Express electricity/electric light as natural Thai noun phrases."
+  },
+  {
+    "section": "vocabulary",
+    "id": 548,
+    "language": "ko",
+    "before": "옆집",
+    "after": "옆 / 옆집",
+    "reason": "Retain general next to as well as next door; 옆집 alone is only the neighboring house."
+  },
+  {
+    "section": "vocabulary",
+    "id": 560,
+    "language": "ko",
+    "before": "없어",
+    "after": "없다",
+    "reason": "Use the dictionary negative-existence predicate rather than the casual utterance 없어."
+  },
+  {
+    "section": "vocabulary",
+    "id": 578,
+    "language": "zh",
+    "before": "两个",
+    "after": "二",
+    "reason": "Teach the bare number two, without adding an objects classifier 两个."
+  },
+  {
+    "section": "vocabulary",
+    "id": 578,
+    "language": "ko",
+    "before": "두",
+    "after": "둘",
+    "reason": "Bare native-Korean two is 둘; 두 is its form before a counter or noun."
+  },
+  {
+    "section": "vocabulary",
+    "id": 596,
+    "language": "vi",
+    "before": "lên, đi vào, lên xe",
+    "after": "lên xe / đi bằng (phương tiện)",
+    "reason": "Teach boarding/riding transport; đi vào only means entering."
+  },
+  {
+    "section": "vocabulary",
+    "id": 599,
+    "language": "ko",
+    "before": "응",
+    "after": "네",
+    "reason": "Match polite Japanese はい; casual 응 is reserved for informal うん."
+  },
+  {
+    "section": "vocabulary",
+    "id": 617,
+    "language": "vi",
+    "before": "hai mươi ngày, hai mươi (ngày trong tháng)",
+    "after": "hai mươi ngày / ngày hai mươi (trong tháng)",
+    "reason": "Make the twentieth-day calendar expression complete and distinguish it from the duration."
+  },
+  {
+    "section": "vocabulary",
+    "id": 617,
+    "language": "th",
+    "before": "ยี่สิบวัน, ยี่สิบ (วันของเดือน)",
+    "after": "ยี่สิบวัน / วันที่ยี่สิบของเดือน",
+    "reason": "Make the twentieth-day calendar expression complete and distinguish it from the duration."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "zh",
+    "before": "半（例如，にじはん | 两点半）",
+    "after": "半",
+    "reason": "Keep the half entry lexical; move the malformed inline Japanese time example to teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "ko",
+    "before": "반(예: にじはん | 2시 반)",
+    "after": "반",
+    "reason": "Keep the half entry lexical; move the malformed inline Japanese time example to teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "vi",
+    "before": "một nửa (ví dụ, にじはん | hai giờ rưỡi)",
+    "after": "một nửa",
+    "reason": "Keep the half entry lexical; move the malformed inline Japanese time example to teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "th",
+    "before": "ครึ่ง (เช่น 2:30)",
+    "after": "ครึ่ง",
+    "reason": "Keep the half entry lexical; put the time example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "id",
+    "before": "setengah (misalnya setengah tiga = 2.30)",
+    "after": "setengah",
+    "reason": "Keep the half entry lexical; put the half-past-two example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 633,
+    "language": "zh",
+    "before": "数字，一系列数字",
+    "after": "号码 / 编号",
+    "reason": "Japanese 番号 means an identifying number, not the general numeric quantity/digit 数字."
+  },
+  {
+    "section": "vocabulary",
+    "id": 633,
+    "language": "ko",
+    "before": "숫자, 일련의 숫자",
+    "after": "번호 / 일련번호",
+    "reason": "Japanese 番号 means an identifying number, not a numeric digit/quantity 숫자."
+  },
+  {
+    "section": "vocabulary",
+    "id": 650,
+    "language": "th",
+    "before": "เที่ยงวัน",
+    "after": "เที่ยงวัน / กลางวัน",
+    "reason": "Include daytime as well as noon, matching both senses of 昼."
+  },
+  {
+    "section": "vocabulary",
+    "id": 676,
+    "language": "id",
+    "before": "nyaman, berguna",
+    "after": "praktis / mudah digunakan",
+    "reason": "Translate convenient/handy rather than comfortable nyaman."
+  },
+  {
+    "section": "vocabulary",
+    "id": 718,
+    "language": "vi",
+    "before": "miền Nam",
+    "after": "phía nam",
+    "reason": "Teach south as a direction rather than specifically the southern region miền Nam."
+  },
+  {
+    "section": "vocabulary",
+    "id": 718,
+    "language": "th",
+    "before": "ภาคใต้",
+    "after": "ทิศใต้",
+    "reason": "Teach south as a direction rather than specifically the southern region ภาคใต้."
+  },
+  {
+    "section": "vocabulary",
+    "id": 777,
+    "language": "th",
+    "before": "หนุ่ม",
+    "after": "อายุน้อย / อ่อนวัย",
+    "reason": "Young is not limited to a young man, which หนุ่ม implies."
+  },
+  {
+    "section": "vocabulary",
+    "id": 805,
+    "language": "th",
+    "before": "ที่จะได้ยินเพื่อให้ได้ยิน",
+    "after": "ได้ยิน / มีเสียงให้ได้ยิน",
+    "reason": "Replace the ungrammatical purpose phrase with audibility/hearing."
+  },
+  {
+    "section": "vocabulary",
+    "id": 805,
+    "language": "id",
+    "before": "untuk didengar",
+    "after": "terdengar",
+    "reason": "Translate being audible rather than the purpose phrase for being heard."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "zh",
+    "before": "确实，当然",
+    "after": "一定 / 必定",
+    "reason": "Express definite occurrence/without fail, not conversational of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "ko",
+    "before": "확실히",
+    "after": "반드시",
+    "reason": "Express without fail as required by 必ず, rather than only epistemic certainty."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "vi",
+    "before": "chắc chắn",
+    "after": "nhất định",
+    "reason": "Express definite occurrence/without fail."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "th",
+    "before": "แน่นอนอย่างแน่นอน",
+    "after": "อย่างแน่นอน",
+    "reason": "Use one natural adverb of definite occurrence, matching 必ず."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "id",
+    "before": "tentu saja",
+    "after": "pasti / tanpa gagal",
+    "reason": "Express definite occurrence/without fail rather than conversational of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 817,
+    "language": "vi",
+    "before": "lái xe (theo nghề nghiệp)",
+    "after": "tài xế (nghề nghiệp)",
+    "reason": "Use the occupation noun driver, rather than the verb phrase driving."
+  },
+  {
+    "section": "vocabulary",
+    "id": 824,
+    "language": "vi",
+    "before": "nhặt (cái gì), tìm",
+    "after": "nhặt lên / tìm thấy",
+    "reason": "Distinguish finding from searching: tìm alone means seek, while tìm thấy means find."
+  },
+  {
+    "section": "vocabulary",
+    "id": 838,
+    "language": "vi",
+    "before": "mái nhà",
+    "after": "sân thượng",
+    "reason": "Translate the rooftop/roof terrace, rather than only the roof covering mái nhà."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "zh",
+    "before": "复杂性",
+    "after": "复杂",
+    "reason": "Align with the agreed adjective complicated/complex, rather than noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "ko",
+    "before": "복잡함",
+    "after": "복잡하다",
+    "reason": "Align with the agreed adjective complicated/complex, rather than noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "vi",
+    "before": "sự phức tạp",
+    "after": "phức tạp",
+    "reason": "Align with the agreed adjective complicated/complex, rather than noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "th",
+    "before": "ความซับซ้อน",
+    "after": "ซับซ้อน",
+    "reason": "Align with the agreed adjective complicated/complex, rather than noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "id",
+    "before": "kompleksitas, komplikasi",
+    "after": "rumit / kompleks",
+    "reason": "Align with the agreed adjective complicated/complex, rather than noun complexity."
+  },
+  {
+    "section": "vocabulary",
+    "id": 850,
+    "language": "id",
+    "before": "kasur",
+    "after": "futon (kasur tradisional Jepang)",
+    "reason": "Name the Japanese futon rather than only the generic mattress kasur."
+  },
+  {
+    "section": "vocabulary",
+    "id": 875,
+    "language": "zh",
+    "before": "被打破",
+    "after": "坏掉 / 损坏",
+    "reason": "Cover becoming broken/not functioning; 被打破 narrows to being smashed by an outside agent."
+  },
+  {
+    "section": "vocabulary",
+    "id": 875,
+    "language": "vi",
+    "before": "bị phá vỡ",
+    "after": "bị hỏng / bị vỡ",
+    "reason": "Cover both broken functionality and physical breakage, rather than only being forcibly broken apart."
+  },
+  {
+    "section": "vocabulary",
+    "id": 877,
+    "language": "th",
+    "before": "ล้มลง",
+    "after": "ตก / ร่วง",
+    "reason": "Cover falling/dropping generally; ล้มลง only teaches falling over."
+  },
+  {
+    "section": "vocabulary",
+    "id": 892,
+    "language": "vi",
+    "before": "cha mẹ",
+    "after": "cha hoặc mẹ",
+    "reason": "Translate a parent singular; cha mẹ is the pair of parents."
+  },
+  {
+    "section": "vocabulary",
+    "id": 901,
+    "language": "vi",
+    "before": "nhà tiểu thuyết",
+    "after": "nhà văn viết tiểu thuyết",
+    "reason": "Supply the writer noun; nhà tiểu thuyết is not a natural Vietnamese word for novelist."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "ko",
+    "before": "던지다, 내쫓다",
+    "after": "던지다",
+    "reason": "Align with throw/toss; remove the unrelated expel-a-person verb 내쫓다."
+  },
+  {
+    "section": "vocabulary",
+    "id": 955,
+    "language": "vi",
+    "before": "đường dây, dây điện",
+    "after": "đường / dây điện",
+    "reason": "Include the line sense as well as wire; đường dây is itself a wire/communications line."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "id",
+    "before": "Saya meninggalkan kunci saya.",
+    "after": "Saya lupa membawa kunci saya.",
+    "reason": "Express accidentally leaving a key behind, as Japanese 置き忘れる does, rather than intentionally leaving it."
+  },
+  {
+    "section": "grammar",
+    "id": 9,
+    "language": "th",
+    "before": "ห้องพักเงียบสงบ",
+    "after": "ห้องเงียบสงบ",
+    "reason": "Translate a room generally, without narrowing to a guest room ห้องพัก."
+  },
+  {
+    "section": "grammar",
+    "id": 22,
+    "language": "zh",
+    "before": "你慢慢地说。",
+    "after": "你说话很慢。",
+    "reason": "Describe habitual slow speaking; 你慢慢地说 can be understood as an instruction to speak slowly."
+  },
+  {
+    "section": "grammar",
+    "id": 67,
+    "language": "vi",
+    "before": "Tàu sẽ đến vào buổi trưa.",
+    "after": "Tàu sẽ đến lúc mười hai giờ trưa.",
+    "reason": "Noon is precisely twelve midday, not the whole midday period buổi trưa."
+  },
+  {
+    "section": "sentences",
+    "id": 7,
+    "language": "zh",
+    "before": "我不认识这个词。",
+    "after": "我不认识那个词。",
+    "reason": "Preserve that word rather than changing the demonstrative to this word."
+  },
+  {
+    "section": "sentences",
+    "id": 9,
+    "language": "vi",
+    "before": "Làm thế nào để bạn phát âm điều này?",
+    "after": "Cái này phát âm như thế nào?",
+    "reason": "Use the natural question about pronunciation, replacing the literal English-shaped how-do-you construction."
+  },
+  {
+    "section": "sentences",
+    "id": 11,
+    "language": "vi",
+    "before": "Trạm gần nhất ở đâu?",
+    "after": "Nhà ga gần nhất ở đâu?",
+    "reason": "Use the railway-station noun matching 駅 and the train-travel context."
+  },
+  {
+    "section": "sentences",
+    "id": 22,
+    "language": "zh",
+    "before": "你有什么建议吗？",
+    "after": "你推荐什么？",
+    "reason": "Ask what the person recommends, rather than only whether they have a suggestion."
+  },
+  {
+    "section": "sentences",
+    "id": 25,
+    "language": "vi",
+    "before": "Chúng tôi có thể có thực đơn được không?",
+    "after": "Cho chúng tôi xem thực đơn được không?",
+    "reason": "Use a natural polite request to see the menu instead of literal possession of a menu."
+  },
+  {
+    "section": "sentences",
+    "id": 30,
+    "language": "ko",
+    "before": "하나 더 먹어도 될까요?",
+    "after": "하나 더 주시겠어요?",
+    "reason": "Request one more item; the old version asks permission to eat another."
+  },
+  {
+    "section": "sentences",
+    "id": 30,
+    "language": "vi",
+    "before": "Tôi có thể có một cái khác được không?",
+    "after": "Cho tôi xin thêm một cái nữa được không?",
+    "reason": "Request one more rather than literal possession of a different item."
+  },
+  {
+    "section": "sentences",
+    "id": 33,
+    "language": "id",
+    "before": "Saya hanya melihat.",
+    "after": "Saya hanya lihat-lihat.",
+    "reason": "Use the natural browsing-without-buying phrase for the shopping context."
+  },
+  {
+    "section": "sentences",
+    "id": 39,
+    "language": "ko",
+    "before": "내가 가져갈게.",
+    "after": "이걸로 살게요.",
+    "reason": "The shopping expression I'll take it means deciding to buy, not promising to carry/take it away."
+  },
+  {
+    "section": "sentences",
+    "id": 51,
+    "language": "ko",
+    "before": "오늘은 날씨가 아름답습니다.",
+    "after": "오늘은 날씨가 좋아요.",
+    "reason": "Use the natural Korean expression for fine weather rather than describing weather as visually beautiful."
+  },
+  {
+    "section": "sentences",
+    "id": 51,
+    "language": "th",
+    "before": "วันนี้อากาศสวยงามมาก",
+    "after": "วันนี้อากาศดีมาก",
+    "reason": "Use the natural Thai expression for fine weather rather than describing weather as visually beautiful."
+  },
+  {
+    "section": "sentences",
+    "id": 51,
+    "language": "id",
+    "before": "Cuacanya indah hari ini.",
+    "after": "Cuaca hari ini bagus.",
+    "reason": "Use the natural Indonesian expression for fine weather."
+  },
+  {
+    "section": "sentences",
+    "id": 65,
+    "language": "zh",
+    "before": "我的胃疼。",
+    "after": "我肚子疼。",
+    "reason": "Use the natural belly/stomach-ache expression matching お腹, without restricting pain to the stomach organ."
+  },
+  {
+    "section": "sentences",
+    "id": 65,
+    "language": "th",
+    "before": "ท้องของฉันเจ็บ",
+    "after": "ฉันปวดท้อง",
+    "reason": "Use the idiomatic Thai expression for stomach ache."
+  },
+  {
+    "section": "sentences",
+    "id": 68,
+    "language": "ko",
+    "before": "오늘은 쉬어야 해요.",
+    "after": "오늘은 쉬는 게 좋겠어요.",
+    "reason": "Preserve advice should rest rather than the stronger obligation must rest."
+  },
+  {
+    "section": "sentences",
+    "id": 68,
+    "language": "id",
+    "before": "Anda harus istirahat hari ini.",
+    "after": "Sebaiknya Anda beristirahat hari ini.",
+    "reason": "Preserve advice should rest rather than the stronger obligation harus/must."
+  },
+  {
+    "section": "sentences",
+    "id": 78,
+    "language": "ko",
+    "before": "그는 그의 아버지처럼 보입니다.",
+    "after": "그는 아버지를 닮았어요.",
+    "reason": "Express family resemblance directly and naturally."
+  },
+  {
+    "section": "sentences",
+    "id": 110,
+    "language": "vi",
+    "before": "Nhìn từ phòng rất đẹp.",
+    "after": "Cảnh nhìn từ phòng rất đẹp.",
+    "reason": "Supply the view/scenery noun; the old sentence has a dangling viewing-from-the-room phrase."
+  },
+  {
+    "section": "sentences",
+    "id": 111,
+    "language": "th",
+    "before": "ให้เราทบทวนบทเรียนของวันนี้",
+    "after": "มาทบทวนบทเรียนวันนี้กันเถอะ",
+    "reason": "Use a natural inclusive let's review invitation rather than a literal let/allow us construction."
+  },
+  {
+    "section": "sentences",
+    "id": 112,
+    "language": "zh",
+    "before": "大声朗读这个句子。",
+    "after": "请把这个句子读出来。",
+    "reason": "Reading aloud need not be loud; remove the stronger instruction 大声."
+  },
+  {
+    "section": "sentences",
+    "id": 116,
+    "language": "vi",
+    "before": "Hãy sửa chữa sai lầm của tôi.",
+    "after": "Xin hãy sửa lỗi cho tôi.",
+    "reason": "Use a natural request to correct a learning/language error."
+  },
+  {
+    "section": "sentences",
+    "id": 119,
+    "language": "zh",
+    "before": "实践才会进步。",
+    "after": "练习能让人进步。",
+    "reason": "Practice enables progress; remove the unintended only-practice restriction introduced by 才."
+  },
+  {
+    "section": "sentences",
+    "id": 119,
+    "language": "vi",
+    "before": "Thực hành sẽ tiến bộ.",
+    "after": "Luyện tập giúp chúng ta tiến bộ.",
+    "reason": "Make learners the people who progress; the old sentence makes practice itself progress."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "zh",
+    "before": "投掷，抛弃",
+    "after": "投掷 / 扔",
+    "reason": "Align with throw/toss and remove the unrelated discard/abandon sense."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "vi",
+    "before": "ném đi",
+    "after": "ném",
+    "reason": "Align with throw/toss without adding away."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "th",
+    "before": "ขว้าง, โยนออกไป",
+    "after": "ขว้าง / โยน",
+    "reason": "Align with throw/toss without adding discard."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "id",
+    "before": "melempar / membuang",
+    "after": "melempar / melontarkan",
+    "reason": "Align with throw/toss and remove membuang (discard)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "zh",
+    "before": "欢迎；见面；打招呼",
+    "after": "欢迎 / 迎接 / 迎候",
+    "reason": "迎える is welcoming or going to meet/receive someone; 见面 is mutual meeting."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "vi",
+    "before": "chào đón ; gặp gỡ ; chào hỏi",
+    "after": "chào đón / ra đón / chào hỏi",
+    "reason": "Include going out to meet/receive a person, rather than generic mutual meeting."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "th",
+    "before": "ต้อนรับ / ทักทาย",
+    "after": "ต้อนรับ / ไปรับ / ทักทาย",
+    "reason": "Include going to receive/meet a person, matching 迎える."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "zh",
+    "before": "适宜性",
+    "after": "合适 / 恰当",
+    "reason": "Align with the agreed appropriate/suitable adjective, not noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "ko",
+    "before": "적합성",
+    "after": "적절하다 / 알맞다",
+    "reason": "Align with the agreed appropriate/suitable adjective, not noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "vi",
+    "before": "sự phù hợp",
+    "after": "thích hợp / phù hợp",
+    "reason": "Align with the agreed appropriate/suitable adjective, not noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "th",
+    "before": "ความเหมาะสม",
+    "after": "เหมาะสม",
+    "reason": "Align with the agreed appropriate/suitable adjective, not noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "id",
+    "before": "kesesuaian",
+    "after": "sesuai / tepat",
+    "reason": "Align with the agreed appropriate/suitable adjective, not noun suitability."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "zh",
+    "before": "热情",
+    "after": "热心 / 热衷",
+    "reason": "Align with the agreed enthusiastic/eager adjective, not noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "ko",
+    "before": "열정",
+    "after": "열성적이다 / 열심이다",
+    "reason": "Align with the agreed enthusiastic/eager adjective, not noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "vi",
+    "before": "sự nhiệt tình",
+    "after": "nhiệt tình / hăng hái",
+    "reason": "Align with the agreed enthusiastic/eager adjective, not noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "th",
+    "before": "ความกระตือรือร้น",
+    "after": "กระตือรือร้น",
+    "reason": "Align with the agreed enthusiastic/eager adjective, not noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "id",
+    "before": "antusiasme",
+    "after": "antusias / bersemangat",
+    "reason": "Align with the agreed enthusiastic/eager adjective, not noun enthusiasm."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "zh",
+    "before": "这个杯子里有水。",
+    "after": "这个玻璃杯里有水。",
+    "reason": "Align the drinking vessel with the agreed glass anchor."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "ko",
+    "before": "이 컵에는 물이 있어요.",
+    "after": "이 유리잔에는 물이 들어 있어요.",
+    "reason": "Align the vessel with the agreed glass anchor and express containment naturally."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "th",
+    "before": "ถ้วยนี้มีน้ำ",
+    "after": "แก้วนี้มีน้ำ",
+    "reason": "Align with a drinking glass แก้ว rather than cup/bowl ถ้วย."
+  }
+]

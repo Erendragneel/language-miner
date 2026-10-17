@@ -1,0 +1,1290 @@
+[
+  {
+    "section": "vocabulary",
+    "id": 13,
+    "language": "fr",
+    "before": "oeil",
+    "after": "œil",
+    "reason": "Use the standard French œ ligature in œil (eye)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 46,
+    "language": "de",
+    "before": "studieren",
+    "after": "lernen",
+    "reason": "勉強する means studying/learning generally; studieren usually implies university study in German."
+  },
+  {
+    "section": "vocabulary",
+    "id": 114,
+    "language": "pt",
+    "before": "conhecer, ver",
+    "after": "encontrar-se com; ver",
+    "reason": "会う usually means meeting/seeing someone, including a familiar person; conhecer emphasizes getting to know or first meeting."
+  },
+  {
+    "section": "vocabulary",
+    "id": 130,
+    "language": "fr",
+    "before": "chaud",
+    "after": "doux; agréablement chaud",
+    "reason": "Preserve the warm versus hot distinction; 暖かい describes pleasant warmth, whereas 暑い/熱い are hot."
+  },
+  {
+    "section": "vocabulary",
+    "id": 130,
+    "language": "pt",
+    "before": "quente",
+    "after": "agradavelmente quente",
+    "reason": "Preserve pleasant warm versus hot; quente alone collapses the distinction taught by neighboring items."
+  },
+  {
+    "section": "vocabulary",
+    "id": 152,
+    "language": "es",
+    "before": "ese (por allá)",
+    "after": "aquel (allí)",
+    "reason": "あれ is the distal demonstrative, away from both speaker and listener; aquel expresses this more clearly than ese."
+  },
+  {
+    "section": "vocabulary",
+    "id": 179,
+    "language": "pt",
+    "before": "colocar",
+    "after": "colocar dentro",
+    "reason": "入れる is put in; placing something somewhere without dentro omits the directional meaning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 186,
+    "language": "es",
+    "before": "hogar; casa; mi lugar",
+    "after": "hogar; casa; mi casa",
+    "reason": "For うち meaning my place, mi casa is the natural home-related gloss; mi lugar can mean my position or allotted place."
+  },
+  {
+    "section": "vocabulary",
+    "id": 186,
+    "language": "it",
+    "before": "casa; casa; il mio posto",
+    "after": "casa; casa mia",
+    "reason": "For うち meaning my place, casa mia is idiomatic; il mio posto normally means my spot/position."
+  },
+  {
+    "section": "vocabulary",
+    "id": 186,
+    "language": "pt",
+    "before": "casa; casa; meu lugar",
+    "after": "casa; minha casa",
+    "reason": "For うち meaning my place, minha casa is idiomatic; meu lugar may mean my position or allotted place."
+  },
+  {
+    "section": "vocabulary",
+    "id": 190,
+    "language": "fr",
+    "before": "bruyant; ennuyeux",
+    "after": "bruyant; agaçant",
+    "reason": "For うるさい, the annoying sense is irritating/annoying rather than the dominant boring sense of ennuyeux."
+  },
+  {
+    "section": "vocabulary",
+    "id": 226,
+    "language": "fr",
+    "before": "l'avant-dernière année",
+    "after": "il y a deux ans",
+    "reason": "おととし is the year before last relative to now; l'avant-dernière année means the penultimate year of a sequence."
+  },
+  {
+    "section": "vocabulary",
+    "id": 250,
+    "language": "fr",
+    "before": "entreprise, corporation",
+    "after": "entreprise; société",
+    "reason": "French corporation usually denotes a professional guild/body, not the ordinary business-company sense of 会社."
+  },
+  {
+    "section": "vocabulary",
+    "id": 250,
+    "language": "it",
+    "before": "azienda, corporazione",
+    "after": "azienda; società",
+    "reason": "Italian corporazione means a guild/professional body; società is the company/corporation sense of 会社."
+  },
+  {
+    "section": "vocabulary",
+    "id": 250,
+    "language": "de",
+    "before": "Unternehmen, Körperschaft",
+    "after": "Unternehmen; Gesellschaft",
+    "reason": "Körperschaft is a legal body/corporation category, whereas 会社 is an ordinary company or business."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "en",
+    "before": "stomach",
+    "after": "belly / abdomen",
+    "reason": "お腹 denotes the belly/abdomen, not specifically the internal stomach organ; align Western forms to the intended body region."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "es",
+    "before": "estómago",
+    "after": "vientre / abdomen",
+    "reason": "Align the body-region meaning of お腹; estómago can incorrectly imply the internal stomach organ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "fr",
+    "before": "estomac",
+    "after": "ventre / abdomen",
+    "reason": "Align the body-region meaning of お腹; estomac denotes the internal stomach organ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "de",
+    "before": "Magen",
+    "after": "Bauch",
+    "reason": "お腹 is the belly/abdomen; Magen names the internal stomach organ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "it",
+    "before": "stomaco",
+    "after": "pancia / addome",
+    "reason": "Align the body-region meaning of お腹; stomaco denotes the internal stomach organ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 228,
+    "language": "pt",
+    "before": "estômago",
+    "after": "barriga / abdômen",
+    "reason": "Align the body-region meaning of お腹; estômago denotes the internal stomach organ."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "en",
+    "before": "the third floor above the ground floor",
+    "after": "fourth floor (Japan: ground level is floor 1)",
+    "reason": "4階 is floor 4 in Japan; make the numbering convention explicit rather than silently converting to UK-style floor 3."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "es",
+    "before": "el tercer piso por encima de la planta baja",
+    "after": "cuarta planta (numeración japonesa: la planta baja es la 1)",
+    "reason": "Keep the Japanese floor number explicit and explain the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "fr",
+    "before": "le troisième étage au-dessus du rez-de-chaussée",
+    "after": "quatrième niveau (numérotation japonaise : le rez-de-chaussée est le niveau 1)",
+    "reason": "Keep the Japanese floor number explicit and explain the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "de",
+    "before": "das dritte Obergeschoss",
+    "after": "vierter Stock nach japanischer Zählung (Erdgeschoss = 1)",
+    "reason": "Keep the Japanese floor number explicit and explain the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "it",
+    "before": "il terzo piano sopra il pianterreno",
+    "after": "quarto piano secondo la numerazione giapponese (pianterreno = 1)",
+    "reason": "Keep the Japanese floor number explicit and explain the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 247,
+    "language": "pt",
+    "before": "o terceiro andar acima do térreo",
+    "after": "quarto piso na numeração japonesa (térreo = 1)",
+    "reason": "Keep the Japanese floor number explicit and explain the ground-floor convention."
+  },
+  {
+    "section": "vocabulary",
+    "id": 301,
+    "language": "fr",
+    "before": "boeuf",
+    "after": "bœuf",
+    "reason": "Use the standard French œ ligature in bœuf (beef)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 343,
+    "language": "en",
+    "before": "police box",
+    "after": "small neighborhood police station (kōban)",
+    "reason": "A Japanese 交番 is a staffed neighborhood police post; police box is opaque and can suggest an unstaffed telephone booth."
+  },
+  {
+    "section": "vocabulary",
+    "id": 343,
+    "language": "it",
+    "before": "cabina della polizia",
+    "after": "piccolo posto di polizia di quartiere (kōban)",
+    "reason": "Avoid literal cabina, which suggests a booth rather than a staffed Japanese neighborhood police post."
+  },
+  {
+    "section": "vocabulary",
+    "id": 343,
+    "language": "pt",
+    "before": "cabine policial",
+    "after": "pequeno posto policial de bairro (kōban)",
+    "reason": "Avoid literal cabine, which suggests a booth rather than a staffed Japanese neighborhood police post."
+  },
+  {
+    "section": "vocabulary",
+    "id": 351,
+    "language": "de",
+    "before": "Morgen, A.M.",
+    "after": "Vormittag; vor 12 Uhr mittags (a. m.)",
+    "reason": "午前 covers the before-noon period; Morgen alone can imply only early morning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "en",
+    "before": "to be bothered, to have difficulty",
+    "after": "to be in trouble; to have difficulty",
+    "reason": "困る primarily describes being in difficulty or at a loss, not simply being irritated or interrupted."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "es",
+    "before": "estar molesto, tener dificultad",
+    "after": "verse en apuros; tener dificultades",
+    "reason": "困る describes a predicament or difficulty; estar molesto primarily teaches annoyance."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "fr",
+    "before": "être dérangé, avoir des difficultés",
+    "after": "être dans l’embarras; avoir des difficultés",
+    "reason": "困る describes a predicament or difficulty; être dérangé often means being interrupted or disturbed."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "de",
+    "before": "gestört sein, Schwierigkeiten haben",
+    "after": "in Schwierigkeiten sein; nicht weiterwissen",
+    "reason": "Avoid gestört sein, which may mean mentally disturbed; 困る describes being in difficulty or at a loss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "it",
+    "before": "essere infastidito, avere difficoltà",
+    "after": "essere in difficoltà; non sapere che cosa fare",
+    "reason": "困る describes a predicament or difficulty rather than being annoyed (infastidito)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 362,
+    "language": "pt",
+    "before": "ficar incomodado, ter dificuldade",
+    "after": "estar em apuros; ter dificuldade",
+    "reason": "困る describes a predicament or difficulty rather than simply feeling annoyed (incomodado)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 404,
+    "language": "de",
+    "before": "na dann ja",
+    "after": "nun; also dann",
+    "reason": "じゃ as a transition is well/then; na dann ja is not a natural standalone equivalent and adds an unsupported yes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 439,
+    "language": "de",
+    "before": "Student; Student; Schüler",
+    "after": "Schüler; Schülerin",
+    "reason": "生徒 normally denotes a pupil/learner under a teacher; Student in German implies university enrollment and is duplicated in the original gloss."
+  },
+  {
+    "section": "vocabulary",
+    "id": 439,
+    "language": "fr",
+    "before": "étudiant; élève",
+    "after": "élève",
+    "reason": "生徒 normally denotes a pupil/learner under a teacher; étudiant commonly implies higher education and obscures the contrast with 学生."
+  },
+  {
+    "section": "vocabulary",
+    "id": 448,
+    "language": "fr",
+    "before": "enseignant scolaire",
+    "after": "enseignant; professeur",
+    "reason": "Use idiomatic French for schoolteacher rather than the unnatural standalone enseignant scolaire."
+  },
+  {
+    "section": "vocabulary",
+    "id": 449,
+    "language": "es",
+    "before": "lavado, lavandería",
+    "after": "lavado de ropa; colada",
+    "reason": "洗濯 is washing/laundry activity; lavandería commonly names the laundry business or premises."
+  },
+  {
+    "section": "vocabulary",
+    "id": 484,
+    "language": "fr",
+    "before": "oeuf",
+    "after": "œuf",
+    "reason": "Use the standard French œ ligature in œuf (egg)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 504,
+    "language": "pt",
+    "before": "mesa",
+    "after": "escrivaninha; mesa de estudo",
+    "reason": "机 is a desk; mesa alone is generic table and duplicates テーブル."
+  },
+  {
+    "section": "vocabulary",
+    "id": 546,
+    "language": "es",
+    "before": "mucho (mucho), muchísimo, sumamente",
+    "after": "muy; mucho; sumamente",
+    "reason": "とても is an intensifier; muy is required before adjectives/adverbs, and mucho (mucho) is a misleading duplication."
+  },
+  {
+    "section": "vocabulary",
+    "id": 546,
+    "language": "fr",
+    "before": "très (beaucoup), grandement, excessivement",
+    "after": "très; beaucoup; extrêmement",
+    "reason": "Use natural intensifier equivalents; très (beaucoup) is not a usable French expression and excessivement can imply excessive rather than simply very."
+  },
+  {
+    "section": "vocabulary",
+    "id": 559,
+    "language": "fr",
+    "before": "quoi, quel genre de",
+    "after": "quel; quel genre de",
+    "reason": "どんな modifies a following noun; attributive quel is appropriate, whereas quoi is a standalone interrogative pronoun."
+  },
+  {
+    "section": "vocabulary",
+    "id": 559,
+    "language": "it",
+    "before": "cosa, che tipo di",
+    "after": "che; che tipo di",
+    "reason": "どんな modifies a following noun; che is the attributive what, whereas cosa is a standalone what."
+  },
+  {
+    "section": "vocabulary",
+    "id": 559,
+    "language": "pt",
+    "before": "o que, que tipo de",
+    "after": "que; que tipo de",
+    "reason": "どんな modifies a following noun; o que is the standalone what rather than the attributive what kind of."
+  },
+  {
+    "section": "vocabulary",
+    "id": 559,
+    "language": "de",
+    "before": "was, was für",
+    "after": "was für ein; welcher Art",
+    "reason": "どんな asks what kind of a noun; was alone is the standalone interrogative what."
+  },
+  {
+    "section": "vocabulary",
+    "id": 567,
+    "language": "de",
+    "before": "Sommerurlaub",
+    "after": "Sommerferien; Sommerurlaub",
+    "reason": "夏休み includes school summer holidays; Sommerurlaub alone suggests vacation leave or a holiday trip."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "en",
+    "before": "half (e.g., にじはん | half-past two)",
+    "after": "half",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "es",
+    "before": "media (p. ej., にじはん | las dos y media)",
+    "after": "mitad",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "fr",
+    "before": "moitié (par exemple, にじはん | deux heures et demie)",
+    "after": "moitié",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "de",
+    "before": "halb (z. B. halb drei = 2:30)",
+    "after": "Hälfte",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "it",
+    "before": "metà (ad esempio, にじはん | due e mezza)",
+    "after": "metà",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 628,
+    "language": "pt",
+    "before": "meia (por exemplo, にじはん | duas e meia)",
+    "after": "metade",
+    "reason": "Teach the noun amount half cleanly; remove the embedded Japanese clock example and literal pipe delimiter from the answer/audio form. Root will preserve the 2:30 example in teaching notes."
+  },
+  {
+    "section": "vocabulary",
+    "id": 672,
+    "language": "fr",
+    "before": "une chambre",
+    "after": "pièce; chambre",
+    "reason": "部屋 is a room generally; chambre alone narrows it to a bedroom."
+  },
+  {
+    "section": "vocabulary",
+    "id": 672,
+    "language": "pt",
+    "before": "um quarto",
+    "after": "cômodo; quarto",
+    "reason": "部屋 is a room generally; quarto alone narrows it to a bedroom."
+  },
+  {
+    "section": "vocabulary",
+    "id": 669,
+    "language": "it",
+    "before": "incapace",
+    "after": "poco abile; maldestro",
+    "reason": "下手 describes lack of skill; incapace can imply complete inability and is unnecessarily absolute."
+  },
+  {
+    "section": "vocabulary",
+    "id": 682,
+    "language": "it",
+    "before": "magro, snello, fine",
+    "after": "sottile; snello; fine",
+    "reason": "細い applies to thin/slender objects as well as people; magro chiefly describes body build."
+  },
+  {
+    "section": "vocabulary",
+    "id": 701,
+    "language": "es",
+    "before": "ciudad; ciudad",
+    "after": "pueblo; ciudad",
+    "reason": "Restore the town sense of 町 instead of repeating ciudad twice."
+  },
+  {
+    "section": "vocabulary",
+    "id": 701,
+    "language": "it",
+    "before": "città; città",
+    "after": "cittadina; paese; città",
+    "reason": "Restore the town sense of 町 instead of repeating città twice."
+  },
+  {
+    "section": "vocabulary",
+    "id": 701,
+    "language": "pt",
+    "before": "cidade; cidade",
+    "after": "vila; cidade",
+    "reason": "Restore the town sense of 町 instead of repeating cidade twice."
+  },
+  {
+    "section": "vocabulary",
+    "id": 737,
+    "language": "es",
+    "before": "vegetal",
+    "after": "verdura; hortaliza",
+    "reason": "野菜 is an edible vegetable; vegetal is broader plant-related vocabulary."
+  },
+  {
+    "section": "vocabulary",
+    "id": 737,
+    "language": "it",
+    "before": "vegetale",
+    "after": "verdura; ortaggio",
+    "reason": "野菜 is an edible vegetable; vegetale also means a plant/plant-related material and misses the everyday food noun."
+  },
+  {
+    "section": "vocabulary",
+    "id": 737,
+    "language": "pt",
+    "before": "vegetal",
+    "after": "verdura; legume",
+    "reason": "野菜 is an edible vegetable; vegetal is the broader plant-related term."
+  },
+  {
+    "section": "vocabulary",
+    "id": 756,
+    "language": "en",
+    "before": "to call (one's name); to invite",
+    "after": "to call someone (by name); to invite",
+    "reason": "Clarify that 呼ぶ is calling someone, not saying one's own name."
+  },
+  {
+    "section": "vocabulary",
+    "id": 756,
+    "language": "es",
+    "before": "llamar (el nombre de uno); invitar",
+    "after": "llamar a alguien (por su nombre); invitar",
+    "reason": "The old parenthesis el nombre de uno can imply calling one's own name."
+  },
+  {
+    "section": "vocabulary",
+    "id": 756,
+    "language": "fr",
+    "before": "appeler (son nom); inviter",
+    "after": "appeler quelqu’un (par son nom); inviter",
+    "reason": "Clarify that the person being called is another person; keep the invitation sense."
+  },
+  {
+    "section": "vocabulary",
+    "id": 756,
+    "language": "it",
+    "before": "chiamare (il proprio nome); invitare",
+    "after": "chiamare qualcuno (per nome); invitare",
+    "reason": "Il proprio nome means one's own name; 呼ぶ means calling someone, including by their name."
+  },
+  {
+    "section": "vocabulary",
+    "id": 757,
+    "language": "pt",
+    "before": "tarde, noite",
+    "after": "noite",
+    "reason": "夜 is the period after dark; tarde means afternoon/early evening and misleads about the day/night distinction."
+  },
+  {
+    "section": "vocabulary",
+    "id": 763,
+    "language": "es",
+    "before": "reproductor de casetes de radio",
+    "after": "radiocasete",
+    "reason": "Use the established Spanish name of the combined radio/cassette player rather than casetes de radio."
+  },
+  {
+    "section": "vocabulary",
+    "id": 763,
+    "language": "fr",
+    "before": "lecteur de radiocassettes",
+    "after": "radiocassette",
+    "reason": "Use the established French name of the combined radio/cassette player; lecteur de radiocassettes implies playing such devices."
+  },
+  {
+    "section": "vocabulary",
+    "id": 763,
+    "language": "it",
+    "before": "radiolettore di cassette",
+    "after": "radioregistratore",
+    "reason": "Use the established Italian term for the combined radio/cassette recorder-player."
+  },
+  {
+    "section": "vocabulary",
+    "id": 763,
+    "language": "pt",
+    "before": "toca-fitas de rádio",
+    "after": "rádio com toca-fitas",
+    "reason": "Use an idiomatic phrase for a radio combined with a cassette player; toca-fitas de rádio is unclear."
+  },
+  {
+    "section": "vocabulary",
+    "id": 783,
+    "language": "fr",
+    "before": "mauvais, pécheur; inférieur",
+    "after": "mauvais; méchant; de qualité inférieure",
+    "reason": "Pécheur chiefly denotes a sinner and is not a natural basic gloss for 悪い; retain moral badness and inferior quality without the false-friend phrasing."
+  },
+  {
+    "section": "vocabulary",
+    "id": 783,
+    "language": "es",
+    "before": "malo, pecaminoso; inferiores",
+    "after": "malo; pecaminoso; inferior",
+    "reason": "Use the same singular dictionary form for the coordinated adjectives; inferiores was an unexplained plural."
+  },
+  {
+    "section": "vocabulary",
+    "id": 792,
+    "language": "en",
+    "before": "firmly, steady",
+    "after": "firmly; steadily; securely",
+    "reason": "しっかり is adverbial; steady was an adjective alongside firmly."
+  },
+  {
+    "section": "vocabulary",
+    "id": 792,
+    "language": "fr",
+    "before": "fermement, régulièrement",
+    "after": "fermement; solidement; de façon stable",
+    "reason": "Régulièrement means regularly and can imply frequency, not the firm/secure sense of しっかり."
+  },
+  {
+    "section": "vocabulary",
+    "id": 803,
+    "language": "en",
+    "before": "sports meeting",
+    "after": "sports day; athletics meet",
+    "reason": "運動会 is an organized sports day/meet, often at school; sports meeting can suggest a planning meeting."
+  },
+  {
+    "section": "vocabulary",
+    "id": 805,
+    "language": "es",
+    "before": "ser escuchado, ser audible",
+    "after": "oírse; ser audible",
+    "reason": "聞こえる is being audible/heard without deliberate listening; escuchado suggests attended listening."
+  },
+  {
+    "section": "vocabulary",
+    "id": 805,
+    "language": "it",
+    "before": "essere ascoltato, essere udibile",
+    "after": "essere udibile; potersi sentire",
+    "reason": "聞こえる is being audible/heard without deliberate listening; ascoltato suggests deliberate listening."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "en",
+    "before": "surely, certainly",
+    "after": "without fail / definitely",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "es",
+    "before": "seguramente, ciertamente",
+    "after": "sin falta; con certeza",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "fr",
+    "before": "sûrement, certainement",
+    "after": "sans faute; à coup sûr",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "de",
+    "before": "sicherlich",
+    "after": "auf jeden Fall; unbedingt",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "it",
+    "before": "sicuramente, certamente",
+    "after": "immancabilmente; di sicuro",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 807,
+    "language": "pt",
+    "before": "certamente",
+    "after": "sem falta; com certeza",
+    "reason": "必ず expresses certainty or doing something without fail; avoid a gloss that mainly suggests probably or the conversational reply of course."
+  },
+  {
+    "section": "vocabulary",
+    "id": 812,
+    "language": "de",
+    "before": "Übung",
+    "after": "körperliche Bewegung; Sport",
+    "reason": "運動 here is physical exercise; Übung alone can be a written/practice exercise and hides the physical meaning."
+  },
+  {
+    "section": "vocabulary",
+    "id": 828,
+    "language": "fr",
+    "before": "surtout, presque",
+    "after": "en grande partie; presque",
+    "reason": "ほとんど means mostly/almost; surtout primarily emphasizes above all/especially."
+  },
+  {
+    "section": "vocabulary",
+    "id": 828,
+    "language": "de",
+    "before": "meistens, fast",
+    "after": "größtenteils; fast",
+    "reason": "ほとんど means mostly/almost; meistens chiefly means usually and can replace extent with frequency."
+  },
+  {
+    "section": "vocabulary",
+    "id": 828,
+    "language": "it",
+    "before": "soprattutto, quasi",
+    "after": "per la maggior parte; quasi",
+    "reason": "ほとんど means mostly/almost; soprattutto primarily means above all/especially."
+  },
+  {
+    "section": "vocabulary",
+    "id": 831,
+    "language": "fr",
+    "before": "inutile, inutile, désespéré",
+    "after": "inutile; qui ne convient pas; sans espoir",
+    "reason": "Distinguish no good from repeated inutile and use sans espoir for a hopeless situation rather than a despairing person."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "en",
+    "before": "complexity, complication",
+    "after": "complicated / complex",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "es",
+    "before": "complejidad, complicación",
+    "after": "complicado; complejo",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "fr",
+    "before": "complexité, complication",
+    "after": "compliqué; complexe",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "de",
+    "before": "Komplexität, Komplikation",
+    "after": "kompliziert; komplex",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "it",
+    "before": "complessità, complicazione",
+    "after": "complicato; complesso",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 847,
+    "language": "pt",
+    "before": "complexidade, complicação",
+    "after": "complicado; complexo",
+    "reason": "複雑 is commonly used as a na-adjective meaning complicated/complex; the old forms teach only abstract nouns (complexity/complication)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 850,
+    "language": "it",
+    "before": "futone",
+    "after": "futon",
+    "reason": "Use the established Italian loanword futon; futone is not the standard dictionary form."
+  },
+  {
+    "section": "vocabulary",
+    "id": 875,
+    "language": "de",
+    "before": "gebrochen sein, zerbrechen",
+    "after": "kaputtgehen; zerbrechen",
+    "reason": "壊れる is the intransitive change break/break down; gebrochen sein is a state and can suggest a broken bone rather than a malfunctioning object."
+  },
+  {
+    "section": "vocabulary",
+    "id": 876,
+    "language": "es",
+    "before": "sacudir, balancearse",
+    "after": "temblar; balancearse",
+    "reason": "揺れる is intransitive shaking/swaying; sacudir normally takes an object and corresponds to shaking something else."
+  },
+  {
+    "section": "vocabulary",
+    "id": 888,
+    "language": "de",
+    "before": "Baby, Kleinkind",
+    "after": "Baby; Säugling",
+    "reason": "赤ちゃん is baby/infant; Kleinkind normally denotes a toddler/young child beyond infancy."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "en",
+    "before": "to welcome; to meet; to greet",
+    "after": "to welcome; to go to meet; to greet",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "es",
+    "before": "dar la bienvenida; reunirse; saludar",
+    "after": "dar la bienvenida; ir a recibir; saludar",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "fr",
+    "before": "accueillir; se rencontrer; saluer",
+    "after": "accueillir; aller à la rencontre de quelqu’un; saluer",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "de",
+    "before": "willkommen heißen; sich treffen; grüßen",
+    "after": "willkommen heißen; jemandem entgegengehen; begrüßen",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "it",
+    "before": "accogliere; incontrare; salutare",
+    "after": "accogliere; andare incontro a qualcuno; salutare",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 902,
+    "language": "pt",
+    "before": "acolher; conhecer; cumprimentar",
+    "after": "receber; ir ao encontro de alguém; cumprimentar",
+    "reason": "迎える is welcoming or going to meet someone, not getting acquainted (conhecer) or mutually meeting up (se rencontrer/sich treffen)."
+  },
+  {
+    "section": "vocabulary",
+    "id": 917,
+    "language": "de",
+    "before": "vor einiger Zeit",
+    "after": "vorhin; vor kurzem",
+    "reason": "さっき refers to a short time ago; vor einiger Zeit can suggest a less recent or distant time."
+  },
+  {
+    "section": "vocabulary",
+    "id": 924,
+    "language": "es",
+    "before": "bienes",
+    "after": "mercancías; artículos",
+    "reason": "品物 refers to goods/articles; bienes is broader and can include property/assets."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "en",
+    "before": "to pitch, to cast away",
+    "after": "to throw; to toss",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "es",
+    "before": "lanzar, desechar",
+    "after": "lanzar; arrojar",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "fr",
+    "before": "lancer, rejeter",
+    "after": "lancer; jeter",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "de",
+    "before": "werfen, wegwerfen",
+    "after": "werfen",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "it",
+    "before": "lanciare, gettare via",
+    "after": "lanciare; gettare",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 934,
+    "language": "pt",
+    "before": "lançar, lançar fora",
+    "after": "lançar; arremessar",
+    "reason": "投げる is throwing/tossing; foregrounding discarding/casting away misteaches the distinction from 捨てる."
+  },
+  {
+    "section": "vocabulary",
+    "id": 965,
+    "language": "it",
+    "before": "Ho lasciato la mia chiave.",
+    "after": "Ho dimenticato la chiave sul posto.",
+    "reason": "置き忘れる includes forgetting an item behind; ho lasciato alone can describe intentionally leaving it."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "en",
+    "before": "suitability",
+    "after": "appropriate; suitable",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "es",
+    "before": "idoneidad",
+    "after": "adecuado; apropiado",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "fr",
+    "before": "adéquation",
+    "after": "approprié; convenable",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "de",
+    "before": "Eignung",
+    "after": "geeignet; angemessen",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "it",
+    "before": "adeguatezza",
+    "after": "adatto; appropriato",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 980,
+    "language": "pt",
+    "before": "adequação",
+    "after": "adequado; apropriado",
+    "reason": "Teach the common adjectival sense of 適当 as appropriate/suitable, not only the abstract noun suitability. The separate careless/casual sense needs a contextual teaching note."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "en",
+    "before": "enthusiasm",
+    "after": "enthusiastic; eager",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "es",
+    "before": "entusiasmo",
+    "after": "entusiasta; aplicado",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "fr",
+    "before": "enthousiasme",
+    "after": "enthousiaste; assidu",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "de",
+    "before": "Begeisterung",
+    "after": "begeistert; eifrig",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "it",
+    "before": "entusiasmo",
+    "after": "entusiasta; assiduo",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "vocabulary",
+    "id": 991,
+    "language": "pt",
+    "before": "entusiasmo",
+    "after": "entusiasmado; dedicado",
+    "reason": "Teach the common adjectival use of 熱心 as enthusiastic/eager or assiduous, rather than only the abstract noun enthusiasm."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "es",
+    "before": "Esa es mi silla.",
+    "after": "Aquella es mi silla.",
+    "reason": "あれ is the distal demonstrative, away from both speaker and listener; aquella preserves the contrast more clearly than esa."
+  },
+  {
+    "section": "grammar",
+    "id": 8,
+    "language": "pt",
+    "before": "Essa é a minha cadeira.",
+    "after": "Aquela é a minha cadeira.",
+    "reason": "あれ is the distal demonstrative; aquela preserves the contrast with それ/essa."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "en",
+    "before": "This cup has water.",
+    "after": "This glass contains water.",
+    "reason": "コップ is a drinking glass/tumbler here; align the container across languages instead of switching to a handled teacup."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "es",
+    "before": "Esta taza tiene agua.",
+    "after": "Este vaso contiene agua.",
+    "reason": "コップ is a drinking glass/tumbler here; align the container across languages instead of switching to a handled teacup."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "fr",
+    "before": "Cette tasse contient de l'eau.",
+    "after": "Ce verre contient de l’eau.",
+    "reason": "コップ is a drinking glass/tumbler here; align the container across languages instead of switching to a handled teacup."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "de",
+    "before": "Dieser Becher enthält Wasser.",
+    "after": "Dieses Glas enthält Wasser.",
+    "reason": "コップ is a drinking glass/tumbler here; align the container across languages instead of switching to a handled teacup."
+  },
+  {
+    "section": "grammar",
+    "id": 19,
+    "language": "it",
+    "before": "Questa tazza contiene acqua.",
+    "after": "Questo bicchiere contiene acqua.",
+    "reason": "コップ is a drinking glass/tumbler here; align the container across languages instead of switching to a handled teacup."
+  },
+  {
+    "section": "grammar",
+    "id": 49,
+    "language": "es",
+    "before": "¿Quién es esa persona?",
+    "after": "¿Quién es aquella persona?",
+    "reason": "あの is the distal demonstrative; aquella preserves the far-from-both-speakers contrast."
+  },
+  {
+    "section": "grammar",
+    "id": 49,
+    "language": "pt",
+    "before": "Quem é essa pessoa?",
+    "after": "Quem é aquela pessoa?",
+    "reason": "あの is the distal demonstrative; aquela preserves the contrast with listener-near essa."
+  },
+  {
+    "section": "grammar",
+    "id": 57,
+    "language": "it",
+    "before": "La pioggia ha smesso stamattina.",
+    "after": "Ha smesso di piovere stamattina.",
+    "reason": "Use the idiomatic Italian construction smettere di piovere for rain stopping."
+  },
+  {
+    "section": "sentences",
+    "id": 27,
+    "language": "es",
+    "before": "Por favor trae la factura.",
+    "after": "Por favor, traiga la cuenta.",
+    "reason": "For a restaurant bill, la cuenta is the natural term; factura requests an invoice."
+  },
+  {
+    "section": "sentences",
+    "id": 27,
+    "language": "fr",
+    "before": "Veuillez apporter la facture.",
+    "after": "L’addition, s’il vous plaît.",
+    "reason": "Use the natural restaurant expression for asking for the bill; facture suggests an invoice."
+  },
+  {
+    "section": "sentences",
+    "id": 29,
+    "language": "pt",
+    "before": "O café está muito quente.",
+    "after": "O café está quente demais.",
+    "reason": "熱すぎる/too hot means excessively hot, not simply very hot (muito quente)."
+  },
+  {
+    "section": "sentences",
+    "id": 36,
+    "language": "it",
+    "before": "Questo colore sembra buono.",
+    "after": "Questo colore è bello.",
+    "reason": "Sembra buono is an awkward evaluative phrase for a color and may suggest goodness/taste; è bello naturally expresses that it looks good."
+  },
+  {
+    "section": "sentences",
+    "id": 37,
+    "language": "pt",
+    "before": "Isso é muito caro.",
+    "after": "Isso é caro demais.",
+    "reason": "高すぎる/too expensive means excessively expensive, not merely very expensive (muito caro)."
+  },
+  {
+    "section": "sentences",
+    "id": 39,
+    "language": "es",
+    "before": "Lo tomaré.",
+    "after": "Me lo llevo.",
+    "reason": "For choosing an item to buy, me lo llevo is idiomatic; lo tomaré can sound like taking/drinking it."
+  },
+  {
+    "section": "sentences",
+    "id": 50,
+    "language": "de",
+    "before": "Manchmal arbeiten sie lange.",
+    "after": "Sie arbeiten manchmal bis spätabends.",
+    "reason": "Lange describes long duration, while 遅くまで/work late describes continuing until a late hour."
+  },
+  {
+    "section": "sentences",
+    "id": 79,
+    "language": "it",
+    "before": "Il bambino sta dormendo.",
+    "after": "Il bebè sta dormendo.",
+    "reason": "赤ちゃん is a baby/infant; bambino alone can mean an older child."
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "en",
+    "before": "My phone needs to charge.",
+    "after": "I need to charge my phone.",
+    "reason": "Use the natural active expression and align with Japanese 携帯電話を充電する必要があります。"
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "es",
+    "before": "Mi teléfono necesita cargarse.",
+    "after": "Necesito cargar mi teléfono.",
+    "reason": "Use the natural active expression for needing to recharge a phone."
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "fr",
+    "before": "Mon téléphone doit se recharger.",
+    "after": "Je dois recharger mon téléphone.",
+    "reason": "Use the natural active expression for needing to recharge a phone."
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "de",
+    "before": "Mein Telefon muss aufgeladen werden.",
+    "after": "Ich muss mein Handy aufladen.",
+    "reason": "Use the natural active expression for needing to recharge a phone."
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "it",
+    "before": "Il mio telefono deve essere caricato.",
+    "after": "Devo ricaricare il mio telefono.",
+    "reason": "Use ricaricare for recharging the battery rather than a phone being loaded (caricato)."
+  },
+  {
+    "section": "sentences",
+    "id": 85,
+    "language": "pt",
+    "before": "Meu telefone precisa carregar.",
+    "after": "Preciso carregar meu celular.",
+    "reason": "Use the natural active expression for recharging a phone rather than the phone needing to load."
+  },
+  {
+    "section": "sentences",
+    "id": 88,
+    "language": "pt",
+    "before": "A tela está muito clara.",
+    "after": "A tela está clara demais.",
+    "reason": "明るすぎる/too bright means excessively bright, not simply very bright."
+  },
+  {
+    "section": "sentences",
+    "id": 94,
+    "language": "pt",
+    "before": "Gostamos de assistir filmes.",
+    "after": "Gostamos de assistir a filmes.",
+    "reason": "Use the standard teaching construction assistir a for watching films, consistent with the course’s other examples."
+  },
+  {
+    "section": "sentences",
+    "id": 95,
+    "language": "fr",
+    "before": "Ils pratiquent le football après l'école.",
+    "after": "Ils s’entraînent au football après l’école.",
+    "reason": "練習/practice is training, whereas pratiquer le football can simply mean playing the sport regularly."
+  },
+  {
+    "section": "sentences",
+    "id": 95,
+    "language": "it",
+    "before": "Praticano il calcio dopo la scuola.",
+    "after": "Si allenano a calcio dopo la scuola.",
+    "reason": "練習/practice is training, whereas praticare il calcio can simply mean playing the sport regularly."
+  },
+  {
+    "section": "sentences",
+    "id": 95,
+    "language": "pt",
+    "before": "Eles praticam futebol depois da escola.",
+    "after": "Eles treinam futebol depois da escola.",
+    "reason": "練習/practice is training, whereas praticar futebol can simply mean playing the sport regularly."
+  }
+]

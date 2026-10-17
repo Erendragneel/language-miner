@@ -1,0 +1,115 @@
+{
+  "reviewDate": "2026-10-17",
+  "source": "game-6460.js",
+  "reviewed": {
+    "publicN5GrammarRows": 90,
+    "publicAdvancedGrammarRows": 48,
+    "publicReadingPassagesAndQuestions": 28,
+    "initialParticleQuestions": 10,
+    "initialSentenceQuestions": 10,
+    "privateTutorArrays": [
+      "vocabulary",
+      "verb forms",
+      "particles",
+      "patterns",
+      "adjectives",
+      "conversation"
+    ]
+  },
+  "changes": [
+    {
+      "scope": "N5_GRAMMAR_POINTS definition only",
+      "before": "['ます','polite present verb'",
+      "after": "['ます','polite nonpast verb'",
+      "reason": "The same form describes habits and future actions; present-only wording misteaches tense. No Japanese/audio change."
+    },
+    {
+      "scope": "N5_GRAMMAR_POINTS definition only",
+      "before": "['から','from/because','九時から働きます。']",
+      "after": "['から','starting point: from','九時から働きます。']",
+      "reason": "Disambiguate the actual temporal example from the separate reason-marker ～から row."
+    },
+    {
+      "scope": "N5_GRAMMAR_POINTS definition only",
+      "before": "['と','with/quotation','友達と話します。']",
+      "after": "['と','with: another participant','友達と話します。']",
+      "reason": "This example teaches the conversation partner, not quotation. The quotation use has its own ～と言う row."
+    },
+    {
+      "scope": "N5_GRAMMAR_POINTS definition only",
+      "before": "['～ことがある','experience','日本へ行ったことがあります。']",
+      "after": "['～ことがある','past experience: verb ta-form + ことがある','日本へ行ったことがあります。']",
+      "reason": "Past experience requires the past verb form. Dictionary-form verb + ことがある instead means something happens sometimes. Keeping the historical label avoids invalidating saved answer labels."
+    },
+    {
+      "scope": "JLPT_COURSES N4 grammar definition only",
+      "before": "['～そうです','looks like / I heard','雨が降りそうです。']",
+      "after": "['～そうです','appearance: looks likely to','雨が降りそうです。']",
+      "reason": "降りそう uses the verb stem for appearance. Hearsay is 降るそう with a plain clause; combining the English glosses hides a real construction difference."
+    },
+    {
+      "scope": "JLPT_COURSES N4 grammar definition only",
+      "before": "['～はずです','should be'",
+      "after": "['～はずです','expected to: inference based on known facts'",
+      "reason": "Separate epistemic expectation from an obligation."
+    },
+    {
+      "scope": "JLPT_COURSES N3 grammar definition only",
+      "before": "['～ばかり','nothing but / just did','彼はゲームばかりしています。']",
+      "after": "['～ばかり','nothing but: repeated focus on a thing','彼はゲームばかりしています。']",
+      "reason": "This noun + ばかり example does not teach plain-past + ばかり, which means just did. The full note explains the difference."
+    },
+    {
+      "scope": "JLPT_COURSES N2 grammar definition only",
+      "before": "['～上で','upon / in doing','内容を確認した上で署名してください。']",
+      "after": "['～上で','after first completing a necessary step','内容を確認した上で署名してください。']",
+      "reason": "The exact example uses plain past + 上で for a prerequisite sequence; dictionary-form + 上で has a different in-doing use."
+    },
+    {
+      "scope": "N3 reading question",
+      "before": "インターネット shopping の欠点は何ですか。",
+      "after": "インターネットで買い物をすることの欠点は何ですか。",
+      "reason": "Remove the unintended English fragment from the Japanese question. Passage and recorded passage audio remain unchanged."
+    },
+    {
+      "scope": "N5 reading answer",
+      "before": "The speaker and his wife",
+      "after": "The speaker and their wife",
+      "reason": "妻 identifies the speaker’s wife, but does not independently establish the speaker’s gender."
+    },
+    {
+      "scope": "10 initial particle questions, exact targeted prompts",
+      "change": "For わたし___がくせいです。 ask 'Choose the topic marker.'; for ねこ___います。 ask 'Choose the subject marker.'",
+      "reason": "Both は and が can be grammatical under different discourse contexts. The role must be specified instead of marking valid alternative Japanese as categorically impossible."
+    },
+    {
+      "scope": "N5/advanced grammar generators and lesson/review grammar prompts",
+      "before": "Choose the grammar point demonstrated. / Which grammar pattern is used? / Which grammar point is used?",
+      "afterTemplate": "Which pattern expresses “${reviewedDefinition}” in this sentence?",
+      "reason": "Most sentences contain multiple patterns, some of which can be randomized distractors. Name the intended semantic function without revealing the answer label. Apply to the ordinary generator, course practice and checkpoint bank, retaining stable IDs."
+    },
+    {
+      "scope": "private tutor form label",
+      "before": "[2,\"polite present\"]",
+      "after": "[2,\"polite nonpast\"]",
+      "reason": "Same tense clarification as the public ます entry."
+    },
+    {
+      "scope": "private tutor standard verb group",
+      "before": "[\"いく\",\"U special\",\"いきます\",\"いきました\",\"いかない\",\"いった\",\"いって\"]",
+      "after": "[\"いく\",\"U\",\"いきます\",\"いきました\",\"いかない\",\"いった\",\"いって\"]",
+      "reason": "行く is a standard U/godan verb with exceptional ta/te forms, not a fourth conjugation group. Correct the category without changing question position or IDs."
+    },
+    {
+      "scope": "private tutor verb-group question and post-answer teaching",
+      "before": "  addQuestion({stage:2,curriculum:\"tutor\",tutorTrack:\"verbs\",tier:\"intermediate\",q:dict,prompt:\"Which verb group is this?\",a:group,opts:shuffle([group,...[\"Ru\",\"U\",\"U special\",\"irregular\"].filter(x=>x!==group).slice(0,3)]),help:`${dict} is a ${group} verb.`,kind:\"tutor-verb\"});",
+      "after": "  addQuestion({stage:2,curriculum:\"tutor\",tutorTrack:\"verbs\",tier:\"intermediate\",q:dict,prompt:\"Which verb group is this?\",a:group,opts:shuffle([group,...[\"Ru\",\"U\",\"irregular\"].filter(x=>x!==group)]),help:dict===\"いく\"?\"いく is a U (godan) verb. Its plain past and te-form are exceptions within this group: いった and いって.\":`${dict} is a ${group} verb.`,kind:\"tutor-verb\"});",
+      "reason": "Offer only the standard Ru/ichidan, U/godan and irregular groups. Keep the prompt free of the answer and place the いった／いって exception explanation in post-answer help only."
+    }
+  ],
+  "limits": [
+    "Reading/listening passage texts were reviewed for written meaning; no new audio was created or physically listened to.",
+    "The grammar notes are AI-reviewed explanations, not external native-teacher certification or a claim that JLPT publishes this exact grammar list.",
+    "Private tutor particle prompts now specify the requested role; private verb-group questions use the three real course groups. The いく te/past exception is taught only in post-answer help."
+  ]
+}
