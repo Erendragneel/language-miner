@@ -42,7 +42,7 @@
     },
     {
       "file": "vocabulary-safety.js",
-      "sha256": "bbabb18c189ced0dc32636f4597dd16d8884e8d57391a0f3d66874df79d3208a"
+      "sha256": "b719a1714ed540258d870ffbb3cae2cffb5fee9e220a9b9a2945e4e756099564"
     },
     {
       "file": "vocabulary-sense-fixes.js",
@@ -65,7 +65,7 @@
       "sha256": "bb25c536de295b70254604ed36edf905c2b6349b72a46bf48cc89fb08eec1698"
     }
   ],
-  "htmlSha256": "2133a99d1eae379b6d997c7acac2073da342ce9fd7eff81f445301e3b30de644",
+  "htmlSha256": "839540b3e4a20380267cc11af3e1c8816394980c61c3ec6c68fead37ea0e02a8",
   "languageQualityVersion": "language-quality-r128",
   "acceptedReviewRecords": 428,
   "nativeGlossChanges": 30,

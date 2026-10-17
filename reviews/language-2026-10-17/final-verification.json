@@ -1,8 +1,9 @@
 {
   "date": "2026-10-17",
-  "candidateVersion": "6.4.295",
-  "baseCommit": "91416723b814db302804003256dfd7da7d7d775b",
+  "candidateVersion": "6.4.296",
+  "baseCommit": "0aa15d5d3ed1b2340163900fb8cc2ff71d157ef7",
   "passed": true,
+  "sourceUnchanged": true,
   "suites": [
     {
       "command": "node tests/language-quality.test.cjs",
@@ -28,6 +29,26 @@
       "command": "node tests/release-identity.test.cjs",
       "exitCode": 0,
       "passed": true
+    },
+    {
+      "command": "node tests/answer-explanations.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/assisted-answer.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/save-status.test.cjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node tests/n5-assessment.test.cjs",
+      "exitCode": 0,
+      "passed": true
     }
   ],
   "syntax": {
@@ -37,7 +58,7 @@
       {
         "file": "update-guardian.js",
         "passed": true,
-        "sha256": "423c439a360a1ec3b25bad337fc1b109bcf27ce483fbaee1ab89c0893b000529"
+        "sha256": "80c34ee975c9a56ae032d7873489481e828ca943689bb97a7e9ef665386ac619"
       },
       {
         "file": "picture-catalog.js",
@@ -117,7 +138,7 @@
       {
         "file": "vocabulary-safety.js",
         "passed": true,
-        "sha256": "bbabb18c189ced0dc32636f4597dd16d8884e8d57391a0f3d66874df79d3208a"
+        "sha256": "b719a1714ed540258d870ffbb3cae2cffb5fee9e220a9b9a2945e4e756099564"
       },
       {
         "file": "vocabulary-sense-fixes.js",
@@ -167,7 +188,7 @@
       {
         "file": "game-6460.js",
         "passed": true,
-        "sha256": "ca17fa61513bc8ef1685574b1df87ae1154c8be42daa436bd3380aed92c10a97"
+        "sha256": "de60d097d3f72bb96d5a93f58c4544986f291a1f8b2289c87b49bcc933608f46"
       },
       {
         "file": "academy-assessment.js",
@@ -386,7 +407,7 @@
     "passed": true
   },
   "teachingReceipt": "teaching-review.json",
-  "browserReceipt": "browser-verification.json",
+  "browserReceipt": "migration-browser-verification.json",
   "additionalCostUsd": 0,
   "published": false,
   "androidBundleRebuilt": false,

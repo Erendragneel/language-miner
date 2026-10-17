@@ -26,7 +26,29 @@
   const rows=()=>window.N5_VOCABULARY_1000||[];
   const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const isMeaning=q=>Boolean(q?.vocabularyKey&&/choose the (?:best )?meaning/i.test(q.prompt||''));
+  function currentBankQuestion(id){
+    if(id==null||id===''||typeof questions==='undefined'||!Array.isArray(questions))return null;
+    return questions.find(question=>String(question.id)===String(id))||null;
+  }
+  function refreshTutorQuestion(q){
+    if(!q?.id||!String(q.kind||'').startsWith('tutor-'))return;
+    const current=currentBankQuestion(q?.id);
+    if(!current||current===q||current.curriculum!=='tutor'||!String(current.kind||'').startsWith('tutor-')||q.kind!==current.kind)return;
+    // Stable source IDs refresh teaching content only. Session assistance,
+    // scoring flags, histories and player progression remain on the saved item.
+    for(const field of ['q','prompt','a','opts','help','displayGuided','displayStandard','displayChallenge','concealedPrompt','speechText','kana']){
+      if(Object.hasOwn(current,field))q[field]=Array.isArray(current[field])?[...new Set(current[field])]:current[field];
+      else delete q[field];
+    }
+  }
+  function refreshedNotebookMistake(mistake){
+    const current=currentBankQuestion(mistake?.key);
+    if(!current)return mistake;
+    const content={...current,opts:[...(current.opts||[])]};refreshJapanese(content);
+    return {...mistake,question:content.q||content.displayChallenge||'',prompt:content.prompt||'',correct:content.a||'',tutor:!!mistake.tutor||current.curriculum==='tutor'||String(current.kind||'').startsWith('tutor-')};
+  }
   function refreshJapanese(q){
+    refreshTutorQuestion(q);
     if(!q?.vocabularyKey)return;
     const canonical=window.LanguageMinerJapaneseKeyAliases?.[q.vocabularyKey];if(canonical){const oldKey=q.vocabularyKey;q.vocabularyKey=canonical;for(const field of ['q','a','displayChallenge','concealedPrompt'])if(q[field]===oldKey)q[field]=canonical;if(q.opts)q.opts=q.opts.map(v=>v===oldKey?canonical:v);}
 
@@ -105,5 +127,5 @@
     if(!question.options.includes(answer))question.options.unshift(answer);
     return true;
   }
-  window.LanguageMinerVocabulary=Object.freeze({normalize,isMeaning,refreshJapanese,japaneseDisplay,japaneseOptions,japaneseAccepts,multilingualAccepts,available,refreshMultilingual});
+  window.LanguageMinerVocabulary=Object.freeze({normalize,isMeaning,refreshJapanese,refreshedNotebookMistake,japaneseDisplay,japaneseOptions,japaneseAccepts,multilingualAccepts,available,refreshMultilingual});
 })();

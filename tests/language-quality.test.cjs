@@ -28,7 +28,7 @@ const key = record => [record.section, record.id, record.language].join(':');
 const counters = { forms: 0, acceptedDecisions: 0, savedCards: 0,
   nativeMeaningQuestions: 0, nativeReadingQuestions: 0, activeQuestions: 0,
   kanaQuestions: 0, focusedGrammarQuestions: 0, semanticGrammarNotes: 0,
-  multilingualAudioScenarios: 0 };
+  multilingualAudioScenarios: 0, refreshedTutorQuestions: 0, refreshedNotebookItems: 0 };
 
 function between(file, start, end) {
   const text = source[file], from = text.indexOf(start);
@@ -200,6 +200,8 @@ test('travel accepts genuinely equivalent translations while rejecting unrelated
 });
 
 test('all reviewed native glosses refresh stale meaning and reading-led questions while retaining keys and history', () => {
+  let bankReads=0;
+  Object.defineProperty(context,'questions',{configurable:true,get(){bankReads++;return [];}});
   assert.equal(nativeDecisions.length, 30);
   for (const record of nativeDecisions) {
     const row = context.window.N5_VOCABULARY_1000.find(item => item[0] === record.term);
@@ -220,6 +222,96 @@ test('all reviewed native glosses refresh stale meaning and reading-led question
     assert(reading.help.includes(record.meaningAfter.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')));
     assert.equal(reading.id, 'reading-native-' + record.term);assert.equal(reading.attempts, 4);counters.nativeReadingQuestions++;
   }
+  assert.equal(bankReads,0,'non-Tutor vocabulary refresh never reads or scans the question bank');
+  delete context.questions;
+});
+
+function makeSavedSourceFixture() {
+  const fixture = makeFixture(), c = fixture.context;
+  c.shuffle = values => [...values];
+  vm.runInContext(between('game-6460.js', 'function makeKanaOpts(', 'function dateKey('), c);
+  vm.runInContext(between('game-6460.js', 'const stages = [', 'const DEFAULT_STATE = {'), c);
+  vm.runInContext(declaration('game-6460.js', 'function tutorQuestion('), c);
+  vm.runInContext(between('game-6460.js', 'const n5CompleteVocabulary=', 'let academyStage=2;'), c);
+  return {...fixture, bank:vm.runInContext('questions', c)};
+}
+
+test('resumed ordinary Tutor questions refresh by real stable bank ID before display and score only the submitted answer', () => {
+  const f = makeSavedSourceFixture(), c = f.context;
+  const current = f.bank.find(q=>q.curriculum==='tutor'&&q.kind==='tutor-verb'&&q.q==='いく'&&q.prompt==='Which verb group is this?');
+  assert(current);assert.equal(current.a,'U');assert(!current.opts.includes('U special'));
+  const saved = {...plain(current),a:'U special',opts:['U special','Ru','U','irregular'],
+    help:'いく is a U special verb.',displayChallenge:'__stale display__',
+    assistedPractice:true,practiceFirstAnswer:true,assistanceReasons:['saved hint'],attempts:7,correct:4,dueAt:87654};
+  const button={disabled:false,style:{}},attempts=[];
+  c.state={active:saved,answered:false,quizDifficulty:'normal',supportMode:'guided',xp:70,level:1,
+    stageXp:Array(7).fill(0),hearts:5,streak:0,bestStreak:0,sessionAnswered:0,sessionCorrect:0,
+    clearedStages:[],questionStats:{[saved.id]:{attempts:7,correct:4}}};
+  c.stripMarkup=value=>String(value).replace(/<[^>]*>/g,'');
+  c.document={querySelector:()=>({textContent:'いく'}),querySelectorAll:()=>[button],getElementById:()=>null};
+  for(const name of ['save','render','updateSessionDashboard','playFeedbackSound','markPracticeToday','renderKanaChart','renderGemCollection','setMessage','floatText'])c[name]=()=>{};
+  Object.assign(c,{silentTestingActive:()=>false,selectedStageIndex:()=>2,claimReachedGemCheckpoints:()=>[],
+    grantUnlockedGemRewards:()=>[],stageComplete:()=>false,recordKana:()=>null,xpNeed:()=>99999,
+    stageMastery:()=>0,gemCheckpointClaimed:()=>true,
+    recordQuestionAttempt:(q,correct)=>attempts.push({id:q.id,correct})});
+  vm.runInContext(between('game-6460.js','function questionDisplay(q){','function textContainsKanji('),c);
+  vm.runInContext(between('game-6460.js','function answer(opt,button){','function useHint(){'),c);
+  const originalProgress=JSON.stringify({...c.state,active:undefined});
+  assert.equal(c.questionDisplay(saved),'いく');
+  assert.equal(saved.id,current.id);assert.equal(saved.a,'U');assert(!saved.opts.includes('U special'));
+  assert.notEqual(saved.opts,current.opts,'saved option arrays cannot mutate the canonical bank');
+  assert.equal(new Set(saved.opts).size,saved.opts.length);assert(saved.help.includes('godan'));
+  assert(!Object.hasOwn(saved,'displayChallenge'),'obsolete answer-specific display is removed');
+  assert.equal(saved.assistedPractice,true);assert.equal(saved.practiceFirstAnswer,true);
+  assert.deepEqual(saved.assistanceReasons,['saved hint']);assert.equal(saved.attempts,7);assert.equal(saved.correct,4);assert.equal(saved.dueAt,87654);
+  assert.equal(JSON.stringify({...c.state,active:undefined}),originalProgress,'content refresh cannot award progress');
+  assert.deepEqual(attempts,[]);
+  assert.equal(f.helper.japaneseAccepts(saved,'U','いく'),true);
+  assert.equal(f.helper.japaneseAccepts(saved,'U special','いく'),false);
+  c.answer('U',button);assert.equal(c.state.answered,true);assert.equal(c.state.sessionCorrect,1);
+  assert.deepEqual(attempts,[{id:current.id,correct:true}]);assert.equal(c.state.hearts,5);
+  const once=JSON.stringify(c.state);c.answer('U',button);assert.equal(JSON.stringify(c.state),once,'repeated submit cannot award again');
+  assert.equal(attempts.length,1);assert.equal(f.calls.storage,0);assert.equal(f.calls.network,0);
+  const unknown={...saved,id:'manual-tutor-reference',a:'custom answer'},beforeUnknown=JSON.stringify(unknown);
+  f.helper.refreshJapanese(unknown);assert.equal(JSON.stringify(unknown),beforeUnknown,'unknown IDs are not guessed');
+  const malformed={...saved,kind:'review-only',a:'unrelated answer'},beforeMalformed=JSON.stringify(malformed);
+  f.helper.refreshJapanese(malformed);assert.equal(JSON.stringify(malformed),beforeMalformed,'same ID with incompatible kind fails closed');
+  counters.refreshedTutorQuestions++;
+});
+
+test('Notebook renders current Tutor and native glossary source text while preserving mistake history and sticky indices', () => {
+  const f=makeSavedSourceFixture(),c=f.context;
+  const tutor=f.bank.find(q=>q.curriculum==='tutor'&&q.kind==='tutor-verb'&&q.q==='いく'&&q.prompt==='Which verb group is this?');
+  const historical={key:tutor.id,stage:2,question:'いく',prompt:tutor.prompt,correct:'U special',lastAnswer:'Ru',
+    count:6,lastMissed:1720000000000,resolved:false,tutor:true,customHistory:['incorrect']};
+  const original=JSON.stringify(historical),refreshed=f.helper.refreshedNotebookMistake(historical);
+  assert.notEqual(refreshed,historical);assert.equal(refreshed.correct,'U');assert.equal(JSON.stringify(historical),original);
+  for(const field of ['key','stage','lastAnswer','count','lastMissed','resolved','tutor','customHistory'])
+    assert.deepEqual(plain(refreshed[field]),historical[field],`retains ${field}`);
+  const sticky={note:'My own memory note',target:'いく',mistakeKey:tutor.id};
+  c.visibleNotebookMistakes=()=>[{mistake:historical,index:7}];
+  c.notebookNoteForMistake=key=>key===tutor.id?sticky:null;
+  c.v3Esc=value=>String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  vm.runInContext(between('game-6460.js','  function renderNotebookReview(){','  function renderNotebookStickies(){'),c);
+  const html=c.renderNotebookReview();assert(html.includes('<strong>Correct:</strong> U ·'));
+  assert(!html.includes('U special'));assert(html.includes('Your last answer:</strong> Ru'));
+  assert(html.includes('data-resolve-mistake="7"'));assert(html.includes('data-mistake-note="7"'));
+  assert(html.includes('My own memory note'));assert.equal(JSON.stringify(historical),original);
+  assert.deepEqual(sticky,{note:'My own memory note',target:'いく',mistakeKey:tutor.id});counters.refreshedNotebookItems++;
+  for(const record of nativeDecisions){
+    const current=f.bank.find(q=>q.vocabularyKey===record.term&&/meaning/i.test(q.prompt));
+    assert(current,record.term+': current bank meaning exists');
+    const bankBefore=JSON.stringify(current);
+    const old={...historical,key:current.id,question:'old question',prompt:'old prompt',correct:record.meaningBefore,tutor:false};
+    const before=JSON.stringify(old),display=f.helper.refreshedNotebookMistake(old);
+    assert.equal(display.correct,record.meaningAfter);assert.equal(display.question,current.q);assert.equal(display.prompt,current.prompt);
+    assert.equal(display.key,old.key);assert.equal(display.lastAnswer,'Ru');assert.equal(display.count,6);assert.equal(display.lastMissed,old.lastMissed);
+    assert.equal(JSON.stringify(old),before);assert.equal(JSON.stringify(current),bankBefore,'canonical bank is not rewritten by Notebook display');counters.refreshedNotebookItems++;
+  }
+  for(const key of ['manual-note','multilingual:es:0:travel:2001:en']){
+    const unknown={...historical,key};assert.equal(f.helper.refreshedNotebookMistake(unknown),unknown,'unmapped references remain intact');
+  }
+  assert.equal(f.calls.storage,0);assert.equal(f.calls.network,0);
 });
 
 test('actual kana generator never offers an equally correct ji/zu symbol as a distractor', () => {

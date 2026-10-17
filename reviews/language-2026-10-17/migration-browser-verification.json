@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-17",
+  "recordedUtc": "2026-10-17T03:10:07.502Z",
+  "candidateVersion": "6.4.296",
+  "baseCommit": "0aa15d5d3ed1b2340163900fb8cc2ff71d157ef7",
+  "status": "browser-answer-flow-and-passing-isolated-migration-regressions",
+  "sourceHashes": {
+    "index.html": "839540b3e4a20380267cc11af3e1c8816394980c61c3ec6c68fead37ea0e02a8",
+    "game-6460.js": "de60d097d3f72bb96d5a93f58c4544986f291a1f8b2289c87b49bcc933608f46",
+    "vocabulary-safety.js": "b719a1714ed540258d870ffbb3cae2cffb5fee9e220a9b9a2945e4e756099564",
+    "tests/language-quality.test.cjs": "a82d34b0bbf37fa369fa2d3cdab7d22f2b99a2775bac4baaf4bc9fd0f81c99a6"
+  },
+  "browserSmoke": {
+    "method": "Parent agent reported actual CUA interaction in fresh isolated local web preview tab 6. This receipt records those observations; it does not represent an additional browser session by the receipt author.",
+    "observedVersion": "6.4.296",
+    "disposableProfile": true,
+    "learningLanguage": "Spanish",
+    "observedXp": 20,
+    "observedLesson": 1,
+    "completedObservations": [
+      "Local reload visibly identified version 6.4.296.",
+      "Disposable Spanish learning profile initially displayed 10 XP and Lesson 1.",
+      "New Question worked after the initial stale-element attempt during asynchronous loading.",
+      "Submitting the Spanish answer produced Correct feedback with the English translation and contextual teaching guidance.",
+      "XP changed from 10 to 20; answer buttons were disabled and Next Question remained visible.",
+      "The answer-click CDP dispatch timed out, but a follow-up DOM read confirmed the answer had processed correctly.",
+      "Collected browser console error logs were empty."
+    ],
+    "manualSavedTutorAndNotebookFixtureCompleted": false,
+    "furtherAutomation": "An initial stale element and an answer-click CDP timeout occurred. Subsequent interaction and DOM evidence verified the answer flow; neither timeout is treated as failed gameplay or as a passed manual saved-migration fixture.",
+    "passed": true,
+    "initialObservedXp": 10,
+    "question": "Good morning. How are you?",
+    "submittedAnswer": "Buen día. ¿Cómo estás?",
+    "consoleErrorCount": 0,
+    "privateEvidenceFileNames": [
+      "web296-local.png",
+      "web296-local-dom.txt"
+    ],
+    "privateEvidenceHashes": {
+      "web296-local.png": "76472fbfe39ce9b7d4e686fd3b4c6d4fb9e92bcf36a3907b88a08bc91aa10699",
+      "web296-local-dom.txt": "cde46cddfb1a80753d28dcae1e31679f9888102117e7c6a5782f65cbc72427fb"
+    }
+  },
+  "migrationRegression": {
+    "method": "Current shipped source in isolated Node VM tests; no manual browser migration fixture was completed.",
+    "command": "node tests/language-quality.test.cjs",
+    "testCount": 16,
+    "passed": true,
+    "receipt": "final-verification.json",
+    "checks": [
+      "An older active いく Tutor question with the obsolete U special answer refreshes through the actual questionDisplay function to the stable-ID U answer.",
+      "The actual ordinary answer handler accepts U, preserves hearts, and cannot count a repeated submission twice.",
+      "Refreshing teaching content awards no progress and retains saved assistance/session/history flags.",
+      "All 60 native vocabulary meaning/reading refreshes make zero question-bank reads.",
+      "Actual Notebook rendering uses current source answers for the Tutor item and 30 revised native glossary meanings.",
+      "Original mistake history, personal sticky-note text, source bank objects and original Notebook row indices remain unchanged.",
+      "Unknown references and incompatible Tutor kinds are not guessed."
+    ],
+    "sourceUnchanged": true,
+    "allFinalSuiteCount": 9,
+    "syntaxScripts": 69
+  },
+  "additionalReceipts": [
+    "teaching-review.json",
+    "browser-verification.json (earlier 6.4.295 browser coverage; not a manual 6.4.296 migration test)"
+  ],
+  "constraints": {
+    "additionalCostUsd": 0,
+    "livePlayerAccessed": false,
+    "publishedByThisCheck": false,
+    "runtimeEditedByThisCheck": false
+  },
+  "limits": [
+    "The 6.4.296 saved Tutor and Notebook migration was verified with actual source in isolated VM tests, not with a manually seeded browser save.",
+    "Actual browser QA successfully exercised one Spanish answer/feedback/XP flow; it does not cover every course, audio clip, or physical Android phone.",
+    "Automation timeouts were followed by successful UI/DOM checks; no causal performance diagnosis is claimed."
+  ]
+}
