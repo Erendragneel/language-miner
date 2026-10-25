@@ -28,7 +28,7 @@ const base=process.env.MENU_LOGIN_TEST_URL||'http://127.0.0.1:8765/';
     localStorage.setItem('jm_profiles',JSON.stringify([{id:'cloud-menu-login-qa',name:'Menu QA',cloudUserId:'menu-login-qa'}]));
     localStorage.setItem('jm_active_profile','cloud-menu-login-qa');
     localStorage.setItem('lm_multilingual_functional_preview_v1:cloud:menu-login-qa',JSON.stringify({known:'en',learning:'ja',placements:{ja:{status:'tested'}}}));
-    localStorage.setItem('jm_profile_cloud-menu-login-qa',JSON.stringify({xp:123,onboardingComplete:true,placementTestCompleted:true,voiceEnabled:false,autoSpeak:false,hearts:3,maxHearts:3}));
+    localStorage.setItem('jm_profile_cloud-menu-login-qa',JSON.stringify({xp:123,v6:{beginnerTutorial:{version:1,step:19,completed:true,exempt:false,visited:[]}},onboardingComplete:true,placementTestCompleted:true,voiceEnabled:false,autoSpeak:false,hearts:3,maxHearts:3}));
     localStorage.setItem('lm_cloud_session_v2',JSON.stringify({accessToken:'disposable-test-token',refreshToken:'disposable-test-refresh',expiresAt:9999999999,user:{id:'menu-login-qa',email:'qa@example.invalid',user_metadata:{display_name:'Menu QA',account_role:'adult_guardian',terms_version:'2026-10-14-v2',privacy_version:'2026-10-14-v2'}}}));
    });
    const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));

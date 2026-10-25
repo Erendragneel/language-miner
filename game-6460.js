@@ -626,7 +626,7 @@ async function logout(){
   document.getElementById("activePlayerName").textContent="Not signed in";
   syncDeveloperControls();syncPortraitGuard();
   setAuthOverlayVisible(true);
-  showAuthMode("login");renderProfileList();
+  showAuthMode("login");
 }
 window.japaneseMinerActiveProfile=()=>{if(!activeProfileId)return null;const profile=readProfiles().find(item=>item.id===activeProfileId);return profile?{id:profile.id,name:profile.name,cloudUserId:profile.cloudUserId||null,email:profile.email||null}:{id:activeProfileId,name:"Player",cloudUserId:null,email:null};};
 window.japaneseMinerIsDeveloperSession=()=>isDeveloperSession===true;
@@ -797,11 +797,12 @@ window.LanguageMinerLearningReport=Object.freeze({recordAssessment:recordLearnin
 // Count visible, recently interactive app time so daily reports reflect active use
 // instead of simply measuring how long a tab was left open.
 let learningActivityAt=Date.now(),learningTimeTickAt=Date.now(),learningTimeUnsaved=0;
-function noteLearningActivity(){learningActivityAt=Date.now();}
+function noteLearningActivity(){if(!window.LanguageMinerBeginnerTutorial?.status().active)learningActivityAt=Date.now();}
+window.addEventListener('lm-beginner-tutorial-changed',()=>{learningTimeTickAt=Date.now();learningActivityAt=0;});
 ['pointerdown','keydown','touchstart','wheel'].forEach(type=>document.addEventListener(type,noteLearningActivity,{passive:true}));
 function recordActiveLearningTime(){
   const now=Date.now(),elapsed=Math.max(0,Math.min(30000,now-learningTimeTickAt));learningTimeTickAt=now;
-  if(!activeProfileId||document.hidden||!document.hasFocus?.()||now-learningActivityAt>120000||!elapsed)return;
+  if(!activeProfileId||window.LanguageMinerBeginnerTutorial?.status().active||document.hidden||!document.hasFocus?.()||now-learningActivityAt>120000||!elapsed)return;
   const key=dateKey();if(!state.studyTimeByDate||typeof state.studyTimeByDate!=='object')state.studyTimeByDate={};state.studyTimeByDate[key]=Math.max(0,Number(state.studyTimeByDate[key])||0)+elapsed;markPracticeToday();learningTimeUnsaved+=elapsed;if(learningTimeUnsaved>=60000){learningTimeUnsaved=0;save();}
 }
 setInterval(recordActiveLearningTime,15000);

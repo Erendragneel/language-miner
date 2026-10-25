@@ -45,7 +45,7 @@ const assert = require('assert/strict');
       localStorage.setItem('jm_profiles', JSON.stringify([{ id: profileId, name: 'Picture Audio QA', cloudUserId: user.id }]));
       localStorage.setItem('jm_active_profile', profileId);
       localStorage.setItem('jm_profile_' + profileId, JSON.stringify({
-        onboardingComplete: true, placementTestCompleted: true,
+        v6:{beginnerTutorial:{version:1,step:19,completed:true,exempt:false,visited:[]}},onboardingComplete: true, placementTestCompleted: true,
         voiceEnabled: false, autoSpeak: false, hearts: 14, maxHearts: 14
       }));
       localStorage.setItem('lm_multilingual_functional_preview_v1:cloud:' + user.id,

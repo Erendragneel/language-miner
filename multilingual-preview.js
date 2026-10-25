@@ -362,16 +362,34 @@
   }
   function progress(index){document.querySelectorAll('.lm-flow-progress i').forEach((bar,i)=>bar.classList.toggle('active',i<=index));}
   function setHead(nextIcon,nextTitle,nextCopy){icon.textContent=nextIcon;title.textContent=nextTitle;copy.textContent=nextCopy;}
+  function tutorialSetupStatus(){return window.LanguageMinerBeginnerTutorial?.status?.()||{};}
+  function awaitingTutorialLanguages(){const status=tutorialSetupStatus();return status.eligible===true&&status.languageSelected!==true;}
   function renderLanguages(){
     window.LanguageMinerI18n?.setLocale?.(known,{known,learning});
     step='languages';progress(0);setHead('🌐','Language Miner','');
     content.innerHTML=`<section class="lm-flow-screen lm-language-dropdown-screen"><div class="lm-choice-block lm-language-dropdown-block"><div class="lm-language-step"><span>1</span><div><h3>${escapeHtml(ui('knownQuestion'))}</h3><p>${escapeHtml(ui('knownHelp'))}</p></div></div><div class="lm-language-select-wrap"><select id="lmKnownLanguageSelect" name="lm-known" aria-label="${escapeHtml(ui('knownQuestion'))}">${languageSelectOptions(known)}</select><span aria-hidden="true">▼</span></div></div><div class="lm-choice-block lm-language-dropdown-block"><div class="lm-language-step"><span>2</span><div><h3>${escapeHtml(ui('learningQuestion'))}</h3><p>${escapeHtml(ui('learningHelp'))}</p></div></div><div class="lm-language-select-wrap"><select id="lmLearningLanguageSelect" name="lm-learning" aria-label="${escapeHtml(ui('learningQuestion'))}">${languageSelectOptions(learning,known)}</select><span aria-hidden="true">▼</span></div></div><div class="lm-flow-note">${escapeHtml(ui('oneEach'))}</div><div class="lm-flow-actions"><button id="lmContinuePlacement" class="lm-flow-primary" type="button" ${known&&learning&&known!==learning?'':'disabled'}>${escapeHtml(ui('continuePlacement'))}</button></div></section>`;
     document.getElementById('lmKnownLanguageSelect')?.addEventListener('change',event=>{known=event.target.value;window.LanguageMinerI18n?.setLocale?.(known,{known,learning});if(learning===known)learning='';renderLanguages();});
     document.getElementById('lmLearningLanguageSelect')?.addEventListener('change',event=>{learning=event.target.value;renderLanguages();});
-    document.getElementById('lmContinuePlacement')?.addEventListener('click',renderPlacement);
+    const close=document.getElementById('lmFlowClose');if(close)close.hidden=awaitingTutorialLanguages();
+    const proceed=document.getElementById('lmContinuePlacement');
+    if(proceed&&tutorialSetupStatus().eligible)proceed.textContent=window.LanguageMinerBeginnerTutorialLocales?.[known]?.requiredTitle||ui('continueGuide');
+    proceed?.addEventListener('click',continueAfterLanguages);
+  }
+  function continueAfterLanguages(){
+    if(!LANGUAGES[known]||!LANGUAGES[learning]||known===learning)return;
+    if(!persistPair()){
+      let error=document.getElementById('lmLanguageSetupSaveError');
+      if(!error){error=document.createElement('p');error.id='lmLanguageSetupSaveError';error.className='lm-flow-note';error.setAttribute('role','alert');content.appendChild(error);}
+      error.textContent=window.LanguageMinerBeginnerTutorialLocales?.[known]?.saveError||'Your tutorial progress could not be saved. Try again.';
+      return;
+    }
+    if(window.LanguageMinerBeginnerTutorial?.afterLanguageSelection?.()){
+      closeFlow(true);window.LanguageMinerBeginnerTutorial.request();return;
+    }
+    openPlacementChoice();
   }
   function originalJapanesePlacementComplete(){return learning==='ja'&&window.placementTestAlreadyCompleted?.()===true;}
-  function persistPair(placementValue,purposeValue){const settings=currentSettings();settings.known=known;settings.learning=learning;if(placementValue&&!placementRecordComplete(settings.placements[learning]))settings.placements[learning]=placementValue;if(purposeValue)settings.purposes[learning]=purposeValue==='travel'?'travel':'full';saveSettings(settings);applyCourse(settings);}
+  function persistPair(placementValue,purposeValue){const settings=currentSettings();settings.known=known;settings.learning=learning;if(placementValue&&!placementRecordComplete(settings.placements[learning]))settings.placements[learning]=placementValue;if(purposeValue)settings.purposes[learning]=purposeValue==='travel'?'travel':'full';const saved=saveSettings(settings);applyCourse(settings);return saved;}
   function postGuideText(value){
     const target=LANGUAGES[learning];return String(value).replaceAll('{language}',target.native).replaceAll('{mine}',target.mine);
   }
@@ -385,6 +403,15 @@
     document.getElementById('lmPostGuideSkip').addEventListener('click',completePostPlacementGuide);document.getElementById('lmPostGuideBack').addEventListener('click',()=>{if(postGuideIndex>0){postGuideIndex--;renderPostPlacementGuide();}});document.getElementById('lmPostGuideNext').addEventListener('click',()=>{if(last)completePostPlacementGuide();else{postGuideIndex++;renderPostPlacementGuide();}});
   }
   function openPostPlacementGuide(force=false){
+    force=force===true;
+    if(!force&&window.LanguageMinerBeginnerTutorial){
+      if(!window.japaneseMinerActiveProfile?.()){closeFlow(true);return;}
+      if(awaitingTutorialLanguages()){openFlow();return;}
+      const pending=window.LanguageMinerBeginnerTutorial.request();
+      finishFlow(`${LANGUAGES[learning].name} course ready.`);
+      if(pending)setTimeout(()=>window.LanguageMinerBeginnerTutorial?.request(),0);
+      return;
+    }
     window.LanguageMinerGameGuide?.close();
     if(overlay.classList.contains('open')&&step==='post-guide')return;
     const v6Guide=document.querySelector('#v6TourOverlay.open [data-v6-close="tour"]');v6Guide?.click();
@@ -404,6 +431,7 @@
     japanesePlacement.classList.remove('open');japanesePlacement.setAttribute('aria-hidden','true');window.syncJapaneseMinerPageScroll?.();
   }
   function renderPlacement(){
+    const close=document.getElementById('lmFlowClose');if(close)close.hidden=false;
     step='placement';progress(1);
     const target=LANGUAGES[learning],settings=currentSettings(),placement=settings.placements[learning],tested=placementRecordComplete(placement)||originalJapanesePlacementComplete(),beginner=placementRecordBeginner(placement),travel=travelCourseActive(settings),score=placement&&typeof placement==='object'?Number(placement.score):null,placementTotal=placement&&typeof placement==='object'?Math.max(1,Number(placement.total)||MULTILINGUAL_PLACEMENT_QUESTION_TOTAL):MULTILINGUAL_PLACEMENT_QUESTION_TOTAL,fastest=placement&&typeof placement==='object'?courseAssessmentTime(placement.fastestTimeMs):0;
     hideOriginalJapanesePlacementForOtherCourses();
@@ -932,11 +960,42 @@
     if(voiceTest){event.preventDefault();event.stopImmediatePropagation();speakTarget(FOUNDATION_CONCEPTS[0].forms[learning],{manual:true});}
   }
   function openFlow(){
+    if(!overlay)return false;
     const settings=currentSettings();known=settings.known||'en';learning=settings.learning||'ja';
     const originalPlacement=document.getElementById('placementOverlay');originalPlacement?.classList.remove('open');originalPlacement?.setAttribute('aria-hidden','true');
     overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');renderLanguages();
+    return true;
   }
-  function closeFlow(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');}
+  function closeFlow(force=false){
+    if(force!==true&&awaitingTutorialLanguages())return false;
+    overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');return true;
+  }
+  function openPlacementChoice(){
+    if(!overlay||!signedIn())return false;
+    const settings=currentSettings();known=settings.known;learning=settings.learning;
+    const originalPlacement=document.getElementById('placementOverlay');originalPlacement?.classList.remove('open');originalPlacement?.setAttribute('aria-hidden','true');
+    overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');renderPlacement();return true;
+  }
+  let tutorialPlacementTimer=null;
+  const tutorialPlacementShown=new Set();
+  function resumePlacementAfterTutorial(owner){
+    tutorialPlacementTimer=null;
+    if(!owner||window.japaneseMinerActiveProfile?.()?.id!==owner||!signedIn())return;
+    const record=typeof state!=='undefined'?state.v6?.beginnerTutorial:null,settings=currentSettings();
+    if(!record?.languageSelected||!record.completed||record.exempt)return;
+    const placement=settings.placements[settings.learning];
+    if(placementRecordComplete(placement)||placementRecordBeginner(placement)||settings.learning==='ja'&&window.placementTestAlreadyCompleted?.())return;
+    const key=owner+':'+settings.learning+':'+(record.completedAt||0);
+    if(tutorialPlacementShown.has(key))return;
+    if(tutorialSetupStatus().active||document.getElementById('legalConsentOverlay')?.classList.contains('open')){tutorialPlacementTimer=setTimeout(()=>resumePlacementAfterTutorial(owner),300);return;}
+    if(openPlacementChoice())tutorialPlacementShown.add(key);
+  }
+  function scheduleTutorialPlacement(event){
+    const owner=window.japaneseMinerActiveProfile?.()?.id,eventOwner=event?.detail?.profileId||event?.detail?.id;
+    if(!owner||eventOwner&&eventOwner!==owner)return;
+    clearTimeout(tutorialPlacementTimer);tutorialPlacementTimer=setTimeout(()=>resumePlacementAfterTutorial(owner),400);
+  }
+  window.LanguageMinerCourseSetup=Object.freeze({open:openFlow});
   function scheduleGuideAfterJapanesePlacement(event){
     if(!event.target.closest?.('#beginJourneyBtn,#acceptPlacementBtn'))return;
     setTimeout(openPostPlacementGuide,340);
@@ -1050,6 +1109,11 @@
     toast=document.createElement('div');toast.className='lm-preview-toast';toast.setAttribute('role','status');document.body.appendChild(toast);
     content=document.getElementById('lmFlowContent');title=document.getElementById('lmFlowTitle');copy=document.getElementById('lmFlowCopy');icon=document.getElementById('lmFlowIcon');indicator=document.getElementById('lmCourseIndicator');changeButton=document.getElementById('lmChangeLanguageBtn');
     document.getElementById('lmFlowClose').addEventListener('click',closeFlow);changeButton?.addEventListener('click',openFlow);document.addEventListener('click',handleCourseControls,true);document.addEventListener('click',scheduleGuideAfterJapanesePlacement);window.addEventListener('language-miner-native-voices-changed',applyCourse);window.openLanguageMinerTranslatedGuide=()=>{openPostPlacementGuide(true);return true;};ensureExpeditionHubObserver();applyCourse();
+    const originalPlacementOpen=window.openPlacementOnboarding;
+    if(typeof originalPlacementOpen==='function')window.openPlacementOnboarding=function(required,...args){if(required===true&&tutorialSetupStatus().eligible)return false;return originalPlacementOpen.call(this,required,...args);};
+    window.addEventListener('jm-profile-loaded',scheduleTutorialPlacement);
+    window.addEventListener('lm-beginner-tutorial-complete',scheduleTutorialPlacement);
+    window.addEventListener('jm-profile-logged-out',()=>{clearTimeout(tutorialPlacementTimer);tutorialPlacementTimer=null;closeFlow(true);});
     const timer=setInterval(()=>{if(!signedIn())return;applyCourse();if(!openedAutomatically&&!localStorage.getItem(STORAGE_PREFIX+accountKey())){openedAutomatically=true;openFlow();}else if(!openedAutomatically){openedAutomatically=true;}clearInterval(timer);},350);
     setInterval(()=>{if(signedIn()&&!overlay.classList.contains('open'))applyCourse();},800);
     window.addEventListener('lm-cloud-session-changed',()=>{openedAutomatically=false;});

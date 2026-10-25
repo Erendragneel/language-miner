@@ -1,5 +1,13 @@
 # Daily Mini Golem checks
 
+For beginner onboarding, run `node tests/beginner-tutorial.test.cjs` and
+`node tests/beginner-tutorial-localization.test.cjs`, followed by
+`node tests/beginner-tutorial-timers.test.cjs`. With the local server
+running, `node tests/beginner-tutorial-browser.test.cjs` checks required steps,
+keyboard/background isolation, interrupted and cloud saves, established-player
+migration, account isolation, consent and course setup precedence, optional
+replay, failure/retry, and 1440/390/320-pixel layouts using disposable accounts.
+
 For the manual login and menu update, run `node tests/manual-login.test.cjs`.
 With the local server below running, run
 `node tests/manual-login-menu-browser.test.cjs` (set `PLAYWRIGHT_MODULE` if needed).
