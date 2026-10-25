@@ -1,6 +1,8 @@
-# Language Miner v6.4.296
+# Language Miner v6.4.297
 
-Current web update: [saved teaching-content refresh](RELEASE-NOTES-v6.4.296.md), including the [translation and teaching review](RELEASE-NOTES-v6.4.295.md). The AI text pass reviewed 22,780 shared forms across 17 languages, corrected or clarified 428 forms and 30 Japanese glossary entries, and improved contextual grammar and reading explanations. Exact recordings are missing for 409 revised shared forms and one separate Indonesian alphabet clue; listening skips unavailable clues and offers written practice. No new audio or paid service was used. Native-language editorial validation remains open. The [approved detailed characters](RELEASE-NOTES-v6.4.294.md), [matching foot colors](RELEASE-NOTES-v6.4.293.md), and existing learning/save fixes remain included. Android testing availability is verified separately.
+Current interface update: [clearer menu categories, visible app installation, and manual login](RELEASE-NOTES-v6.4.297.md). Returning players choose when to log in; the remembered account and browser password autofill remain available.
+
+Included learning update: [saved teaching-content refresh](RELEASE-NOTES-v6.4.296.md), including the [translation and teaching review](RELEASE-NOTES-v6.4.295.md). The AI text pass reviewed 22,780 shared forms across 17 languages, corrected or clarified 428 forms and 30 Japanese glossary entries, and improved contextual grammar and reading explanations. Exact recordings are missing for 409 revised shared forms and one separate Indonesian alphabet clue; listening skips unavailable clues and offers written practice. No new audio or paid service was used. Native-language editorial validation remains open. The [approved detailed characters](RELEASE-NOTES-v6.4.294.md), [matching foot colors](RELEASE-NOTES-v6.4.293.md), and existing learning/save fixes remain included. Android testing availability is verified separately.
 
 ## Illustrated Expedition Hub
 

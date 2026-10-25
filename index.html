@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="language-miner-version" content="6.4.296" />
+<meta name="language-miner-version" content="6.4.297" />
 <title>Language Miner</title>
 <meta name="description" content="A multilingual learning adventure with mining, pronunciation, mastery, expeditions, guardian bosses, and collectible rewards." />
 <meta name="language-miner-share-url" content="https://erendragneel.github.io/language-miner/" />
@@ -13,14 +13,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Language Miner" />
-<link rel="icon" href="language-miner-icon-32.png?v=6.4.296" sizes="32x32" type="image/png" />
-<link rel="icon" href="language-miner-icon-192.png?v=6.4.296" sizes="192x192" type="image/png" />
-<link rel="apple-touch-icon" sizes="180x180" href="language-miner-icon-180.png?v=6.4.296" />
+<link rel="icon" href="language-miner-icon-32.png?v=6.4.297" sizes="32x32" type="image/png" />
+<link rel="icon" href="language-miner-icon-192.png?v=6.4.297" sizes="192x192" type="image/png" />
+<link rel="apple-touch-icon" sizes="180x180" href="language-miner-icon-180.png?v=6.4.297" />
 <link rel="canonical" href="https://erendragneel.github.io/language-miner/" />
-<link rel="manifest" href="manifest.webmanifest?v=6.4.296" />
+<link rel="manifest" href="manifest.webmanifest?v=6.4.297" />
 <link rel="preload" href="language-miner-logo.png" as="image" type="image/png" />
-<link rel="stylesheet" href="styles.css?v=web-content-r123" />
-<link rel="stylesheet" href="v5.css?v=web-content-r123" />
+<link rel="stylesheet" href="styles.css?v=menu-login-r130" />
+<link rel="stylesheet" href="v5.css?v=menu-login-r130" />
 <link rel="stylesheet" href="v6-6460.css?v=web-content-r123" />
 <link rel="stylesheet" href="multilingual-preview.css?v=web-content-r123" />
 <link rel="stylesheet" href="parent-teacher-center.css?v=web-content-r123" />
@@ -46,8 +46,8 @@
 <script src="illustrated-learning.js?v=web-content-r123" defer></script>
 <link rel="stylesheet" href="flashcards.css?v=web-content-r123">
 <script src="flashcards.js?v=web-content-r123" defer></script>
-<link rel="stylesheet" href="adventure.css?v=web-content-r123">
-<link rel="stylesheet" href="adventure-reference.css?v=detailed-standing-r127"><link rel="stylesheet" href="pickaxe-finishes.css?v=web-content-r123"><link rel="stylesheet" href="mobile-pocket.css?v=web-content-r123"><link rel="stylesheet" href="gem-buttons.css?v=web-content-r123"><link rel="stylesheet" href="patreon-previews.css?v=web-content-r123"><link rel="stylesheet" href="short-stories.css?v=web-content-r123">
+<link rel="stylesheet" href="adventure.css?v=menu-login-r130">
+<link rel="stylesheet" href="adventure-reference.css?v=menu-login-r130"><link rel="stylesheet" href="pickaxe-finishes.css?v=web-content-r123"><link rel="stylesheet" href="mobile-pocket.css?v=web-content-r123"><link rel="stylesheet" href="gem-buttons.css?v=web-content-r123"><link rel="stylesheet" href="patreon-previews.css?v=web-content-r123"><link rel="stylesheet" href="short-stories.css?v=web-content-r123">
 <link rel="stylesheet" href="daily-golem.css?v=web-content-r123">
 </head>
 <body class="auth-session-locked">
@@ -58,8 +58,9 @@
     <section id="authRecoveryPanel" class="auth-recovery-panel" hidden aria-labelledby="authRecoveryTitle"><h3 id="authRecoveryTitle">Choose a new password</h3><p>Enter a new password for your Language Miner account.</p><div class="auth-field"><label for="authRecoveryPassword">New password</label><input id="authRecoveryPassword" type="password" minlength="8" maxlength="72" autocomplete="new-password" placeholder="At least 8 characters"></div><div class="auth-field"><label for="authRecoveryConfirm">Confirm new password</label><input id="authRecoveryConfirm" type="password" minlength="8" maxlength="72" autocomplete="new-password" placeholder="Type the new password again"></div><button id="authRecoverySubmit" class="primary" type="button">Save New Password</button></section>
     <p class="auth-account-intro"><span class="auth-desktop-copy">One account signs you into the game and can connect Patreon. Signed-in progress is stored both on this device and in the connected cloud save; you can export or delete it from Privacy &amp; Safety.</span><span class="auth-mobile-copy">Sign in to save your progress across devices.</span></p>
     <section class="auth-install-entry" aria-labelledby="authInstallTitle"><div><span>INSTALL ON THIS DEVICE</span><h3 id="authInstallTitle">📲 Get the Language Miner app</h3><p>Install before or after signing in for a full-screen app icon and faster access.</p></div><button id="authInstallBtn" class="install-app-btn" type="button" data-language-miner-install>📲 Install App</button></section>
+    <form id="authForm" autocomplete="on" method="post" novalidate>
     <div class="auth-tabs">
-      <button id="loginTabBtn" class="primary" type="button">Sign in</button>
+      <button id="loginTabBtn" class="primary" type="button">Log in</button>
       <button id="createTabBtn" type="button">Create account</button>
     </div>
     <div id="displayNameWrap" class="auth-field" style="display:none"><label for="authUsername">Player name</label><input id="authUsername" maxlength="20" autocomplete="nickname" placeholder="Name shown inside the game"></div>
@@ -77,11 +78,13 @@
       <label class="form-check legal-consent-check"><input id="authAcceptTerms" class="form-check-input" type="checkbox"><span class="form-check-label">I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>.</span></label>
       <label class="form-check legal-consent-check"><input id="authAcceptPrivacy" class="form-check-input" type="checkbox"><span class="form-check-label">I have read the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
     </section>
-    <div class="auth-field"><label for="authEmail">Email</label><input id="authEmail" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com"></div>
-    <div class="auth-field"><label for="authPassword">Password</label><div class="auth-password-control"><input id="authPassword" type="password" minlength="8" maxlength="72" autocomplete="current-password" placeholder="At least 8 characters"><button id="authPasswordToggle" class="auth-password-toggle" type="button" aria-label="Show password" aria-controls="authPassword" aria-pressed="false">👁️</button></div></div>
+    <div class="auth-field"><label for="authEmail">Email</label><input id="authEmail" name="username" type="email" maxlength="254" autocomplete="username" placeholder="you@example.com"></div>
+    <div class="auth-field"><label for="authPassword">Password</label><div class="auth-password-control"><input id="authPassword" name="password" type="password" minlength="8" maxlength="72" autocomplete="current-password" placeholder="At least 8 characters"><button id="authPasswordToggle" class="auth-password-toggle" type="button" aria-label="Show password" aria-controls="authPassword" aria-pressed="false">👁️</button></div></div>
+    <div class="auth-login-help"><p id="authRememberedHint" aria-live="polite">Your browser can remember your email and password. Click Log in when you are ready to play.</p><button id="authForgetRememberedBtn" type="button" hidden>Use a different account</button></div>
     <label id="migrateWrap" class="form-check" style="display:none;margin-top:10px"><input id="migrateOldSave" class="form-check-input" type="checkbox" checked><span class="form-check-label">Import the existing prototype save into this new profile</span></label>
-    <div class="auth-actions"><button id="authSubmitBtn" class="primary" type="button">Sign in</button></div>
+    <div class="auth-actions"><button id="authSubmitBtn" class="primary" type="submit">Log in</button></div>
     <div class="auth-support-actions"><button id="forgotPasswordBtn" type="button">Forgot password?</button></div>
+    </form>
     <div id="authMessage" class="auth-message" aria-live="polite"></div>
     <div class="small">This same account is used in Menu &rarr; Patreon. Patreon passwords are entered only on Patreon.</div>
     <nav class="auth-policy-links" aria-label="Legal information"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><button type="button" data-open-legal-center>Privacy &amp; Safety</button></nav>
@@ -426,12 +429,12 @@
   </section>
 </div>
 
-<div class="footer">Language Miner v6.4.296 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
+<div class="footer">Language Miner v6.4.297 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
 </div>
 
 <script src="patreon-config.js?v=web-content-r123" defer></script>
-<script src="cloud-auth.js?v=web-content-r123" defer></script>
-<script src="auth-utilities.js?v=web-content-r123" defer></script>
+<script src="cloud-auth.js?v=menu-login-r130" defer></script>
+<script src="auth-utilities.js?v=menu-login-r130" defer></script>
 <script src="legal-compliance.js?v=web-legal-r124" defer></script>
 <script src="n5-vocabulary-1000.js?v=web-content-r123" defer></script>
 <script src="multilingual-course-data.js?v=web-content-r123" defer></script>
@@ -450,11 +453,11 @@
 <script src="patreon-previews.js?v=web-content-r123" defer></script>
 <link rel="stylesheet" href="practice-modes.css?v=web-content-r123">
 <script src="practice-modes.js?v=web-content-r123" defer></script>
-<script src="game-6460.js?v=language-quality-r129" defer></script>
+<script src="game-6460.js?v=menu-login-r130" defer></script>
 <script src="academy-assessment.js?v=web-content-r123" defer></script>
 <script src="cultural-event-localization.js?v=web-content-r123" defer></script>
 <script src="cultural-events.js?v=web-content-r123" defer></script>
-<script src="v5-6400.js?v=hair-rights-r125" defer></script>
+<script src="v5-6400.js?v=menu-login-r130" defer></script>
 <script src="qr-code.js?v=web-content-r123" defer></script>
 <script src="background-music.js?v=web-content-r123" defer></script>
 <script src="teaching-notes.js?v=language-quality-r129" defer></script>
@@ -493,8 +496,8 @@
     }catch{}
   })();
 </script>
-<script src="adventure.js?v=hair-rights-r125" defer></script>
-<script src="adventure-reference.js?v=original-art-r126" defer></script>
+<script src="adventure.js?v=menu-login-r130" defer></script>
+<script src="adventure-reference.js?v=menu-login-r130" defer></script>
 <script src="pose-textures.js?v=original-art-r126"></script>
 <script src="pose-wardrobe.js?v=detailed-standing-r127" defer></script><script src="mobile-pocket.js?v=web-content-r123" defer></script><script src="navigation-symbols.js?v=web-content-r123" defer></script><script src="short-stories-data.js?v=web-content-r123"></script>
 <script src="short-stories.js?v=web-content-r123"></script>

@@ -1,3 +1,11 @@
+// Follow the same explicit login action required from returning players.
+async function logInRememberedAccount(page) {
+  await page.waitForFunction(() => window.languageMinerCloudAuth && document.getElementById('authSubmitBtn'));
+  if (await page.locator('#authOverlay').isVisible()) {
+    await page.locator('#authSubmitBtn').click();
+    await page.locator('#authOverlay').waitFor({ state: 'hidden' });
+  }
+}
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('assert/strict');
 
@@ -12,7 +20,7 @@ const assert = require('assert/strict');
       id: 'picture-audio-qa', email: 'qa@example.invalid',
       user_metadata: {
         display_name: 'Picture Audio QA', account_role: 'adult_guardian',
-        terms_version: '2026-08-15-v1', privacy_version: '2026-08-15-v1'
+        terms_version: '2026-10-14-v2', privacy_version: '2026-10-14-v2'
       }
     };
     let savedRow = null;
@@ -49,7 +57,7 @@ const assert = require('assert/strict');
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
-    await page.goto(process.env.TEST_URL || 'http://127.0.0.1:8765/index.html');
+    await page.goto(process.env.TEST_URL || 'http://127.0.0.1:8765/index.html');await logInRememberedAccount(page);
     await page.waitForFunction(() => window.LanguageMinerPictures && window.LanguageMinerPracticeModes && typeof state === 'object');
     if (await page.locator('#lmMultilingualOverlay.open').count()) await page.locator('#lmFlowClose').click();
 

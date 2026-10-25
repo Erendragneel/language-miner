@@ -1,5 +1,13 @@
 # Daily Mini Golem checks
 
+For the manual login and menu update, run `node tests/manual-login.test.cjs`.
+With the local server below running, run
+`node tests/manual-login-menu-browser.test.cjs` (set `PLAYWRIGHT_MODULE` if needed).
+It uses disposable accounts and mocked cloud responses to check locked startup,
+explicit click/Enter login, reload, account switching, visible menu categories,
+and Install App at 320, 390, 768, 1024 and 1440 pixels. It writes screenshots to
+`work/manual-login-menu/` and never logs in to a real account.
+
 Run these from the repository root:
 
 ```text

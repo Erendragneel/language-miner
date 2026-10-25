@@ -3,6 +3,7 @@
 "use strict";
 const CONFIG=window.JAPANESE_MINER_PATREON_CONFIG||{};
 const SESSION_KEY="lm_cloud_session_v2";
+const REMEMBERED_EMAIL_KEY="lm_remembered_email_v1";
 const LEGACY_SESSION_PREFIX="jm_patreon_session_v1:";
 
 function enabled(){return CONFIG.enabled===true&&/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(String(CONFIG.supabaseUrl||""))&&String(CONFIG.supabaseAnonKey||"").length>30;}
@@ -32,10 +33,18 @@ function migrateLegacySession(){
   }catch{}
   return null;
 }
-let session=migrateLegacySession();
+// A remembered account is available only after the player clicks Log in.
+// Keeping it separate also prevents other cloud consumers from signing in at boot.
+let rememberedSession=migrateLegacySession(),session=null;
+function rememberedAccount(){
+  const email=String(rememberedSession?.user?.email||readJson(REMEMBERED_EMAIL_KEY)||"").trim();
+  return {email,canResume:!!(rememberedSession?.accessToken&&email)};
+}
+function clearLegacySessions(){try{for(let index=localStorage.length-1;index>=0;index--){const key=localStorage.key(index);if(String(key||"").startsWith(LEGACY_SESSION_PREFIX))localStorage.removeItem(key);}}catch{}}
+function clearRememberedAccount(){saveSession(null);writeJson(REMEMBERED_EMAIL_KEY,null);clearLegacySessions();}
 
 function announce(){window.dispatchEvent(new CustomEvent("lm-cloud-session-changed",{detail:{authenticated:!!session,user:session?.user||null}}));}
-function saveSession(next){session=next||null;writeJson(SESSION_KEY,session);announce();return session;}
+function saveSession(next){const email=next?.user?.email||session?.user?.email||rememberedSession?.user?.email;session=next||null;rememberedSession=session;writeJson(SESSION_KEY,session);if(email)writeJson(REMEMBERED_EMAIL_KEY,String(email).trim());announce();return session;}
 function getSession(){return session;}
 async function request(path,{method="POST",body=null,token=null}={}){
   if(!enabled())throw new Error("Online accounts are not configured yet.");
@@ -60,8 +69,16 @@ async function validSession(){
   try{return await refresh();}catch(error){saveSession(null);throw error;}
 }
 async function bootstrap(){
+  // Only an account explicitly activated during this page visit may bootstrap.
   if(!session)return null;
   try{return await validSession();}catch{return null;}
+}
+async function resumeRememberedAccount(email){
+  const account=rememberedAccount();
+  if(!account.canResume||String(email||"").trim().toLowerCase()!==account.email.toLowerCase())throw new Error("Enter your password to log in to this account.");
+  session=rememberedSession;
+  const current=await validSession();
+  announce();return current;
 }
 async function signIn(email,password){
   const payload=await request("token?grant_type=password",{body:{email:String(email||"").trim(),password}}),next=normalizeSession(payload);
@@ -101,7 +118,7 @@ async function signOut(){
   const token=session?.accessToken;
   if(token)try{await request("logout",{token});}catch{}
   saveSession(null);
-  try{for(let index=localStorage.length-1;index>=0;index--){const key=localStorage.key(index);if(String(key||"").startsWith(LEGACY_SESSION_PREFIX))localStorage.removeItem(key);}}catch{}
+  clearLegacySessions();
 }
 const ADMIN_PERMISSION_KEYS=Object.freeze(['economy','health','progression','cosmetics','profile_resets','player_management','release_management','privacy_management']);
 function normalizeAdminPermissions(value,legacyFull=false){const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{},alpha=!legacyFull&&source.alpha_tester===true;return {...Object.fromEntries(ADMIN_PERMISSION_KEYS.map(key=>[key,alpha?['health','progression','cosmetics'].includes(key):legacyFull||source[key]===true])),alpha_tester:alpha};}
@@ -206,8 +223,8 @@ async function deleteAccount(){
   const response=await fetch(functionUrl("account-delete"),{method:"POST",headers:{apikey:String(CONFIG.supabaseAnonKey||""),Authorization:`Bearer ${current.accessToken}`,Accept:"application/json","Content-Type":"application/json"},body:JSON.stringify({confirm:"DELETE"})});
   let payload={};try{payload=await response.json();}catch{}
   if(!response.ok)throw new Error(payload?.error||payload?.message||`Account deletion failed (${response.status})`);
-  saveSession(null);return payload;
+  clearRememberedAccount();return payload;
 }
 
-window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,adminRole,adminIdentity,releaseStatus,adminReleaseAction,ownerSearchAccounts,ownerListAdmins,ownerSetAdminAccess,ownerSetAlphaTesterAccess,ownerListAdminEvents,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
+window.languageMinerCloudAuth=Object.freeze({enabled,getSession,saveSession,bootstrap,validSession,rememberedAccount,resumeRememberedAccount,clearRememberedAccount,signIn,signUp,resetPassword,updatePassword,updateUserMetadata,updateLegalConsent,recordLegalConsent,createPrivacyRequest,listPrivacyRequests,deleteAccount,signOut,adminStatus,adminRole,adminIdentity,releaseStatus,adminReleaseAction,ownerSearchAccounts,ownerListAdmins,ownerSetAdminAccess,ownerSetAlphaTesterAccess,ownerListAdminEvents,loadPlayerSave,savePlayerState,adminSearchPlayers,adminGetPlayerSave,adminUpdatePlayerSave,listParentTeacherLinks,requestStudentLink,respondStudentLink,removeStudentLink,loadLinkedLearnerProgress});
 })();

@@ -239,6 +239,10 @@ body.auth-session-locked #v5Treasure{
 .auth-field label{font-size:13px;color:var(--muted);font-weight:700}
 .auth-field input{width:100%;border-radius:12px;border:1px solid #415071;background:#10172a;color:#fff;padding:12px;font-size:16px}
 .auth-actions{display:grid;gap:8px;margin-top:14px}
+.auth-card .auth-login-help{margin:12px 0;padding:10px 12px;border:1px solid #435b78;border-radius:12px;background:#10263a}
+.auth-card .auth-login-help p{margin:0;color:#d2e5ed;font-size:13px;line-height:1.45}
+.auth-login-help button{margin-top:8px;min-height:40px;text-decoration:underline;background:transparent}
+.auth-login-help[hidden],.auth-login-help button[hidden]{display:none!important}
 .auth-message{min-height:22px;margin-top:10px;font-weight:800;color:var(--red)}
 .legacy-auth{margin-top:18px;border:1px solid #344264;border-radius:14px;background:#10172a;padding:0 12px 12px}
 .legacy-auth summary{cursor:pointer;padding:13px 0;font-weight:800;color:#c7d4f4}

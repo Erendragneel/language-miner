@@ -86,7 +86,7 @@
       if(password.length<8){message('Your new password must contain at least 8 characters.');return;}
       if(password!==confirm){message('The two new passwords do not match.');return;}
       button.disabled=true;button.textContent='Saving password…';
-      try{await window.languageMinerCloudAuth?.updatePassword?.(recoveryAccessToken,password);history.replaceState(null,'',location.pathname+location.search);document.querySelector('.auth-card')?.classList.remove('auth-recovery-active');document.getElementById('authRecoveryPanel').hidden=true;document.getElementById('authPassword').value='';message('Password updated. You can now sign in with your new password.',true);}
+      try{await window.languageMinerCloudAuth?.updatePassword?.(recoveryAccessToken,password);window.languageMinerCloudAuth?.clearRememberedAccount?.();if(typeof window.renderRememberedLogin==='function')window.renderRememberedLogin();recoveryAccessToken='';history.replaceState(null,'',location.pathname+location.search);document.querySelector('.auth-card')?.classList.remove('auth-recovery-active');document.getElementById('authRecoveryPanel').hidden=true;document.getElementById('authPassword').value='';message('Password updated. You can now sign in with your new password.',true);}
       catch(error){message(String(error?.message||'The new password could not be saved.'));}
       finally{button.disabled=false;button.textContent='Save New Password';}
     });

@@ -2531,6 +2531,13 @@ document.getElementById("adminInfiniteHearts").addEventListener("change",e=>{
 
 let authMode="login";
 function setAuthMessage(text,good=false){const el=document.getElementById("authMessage");el.textContent=text;el.style.color=good?"var(--green)":"var(--red)";}
+function renderRememberedLogin(){
+  const account=window.languageMinerCloudAuth?.rememberedAccount?.()||{},email=document.getElementById("authEmail").value.trim(),matches=account.canResume&&email.toLowerCase()===String(account.email||"").toLowerCase();
+  const hint=document.getElementById("authRememberedHint"),forget=document.getElementById("authForgetRememberedBtn"),create=authMode==="create";
+  if(hint?.parentElement)hint.parentElement.hidden=create;
+  if(hint){hint.hidden=create;hint.textContent=matches?"Your account is remembered on this device. Click Log in when you are ready, or enter your saved password.":"Choose your saved email and password, then click Log in. Your browser can remember your password.";}
+  if(forget)forget.hidden=create||!account.email;
+}
 function showAuthMode(mode){
   authMode=mode;
   const create=mode==="create";
@@ -2539,11 +2546,12 @@ function showAuthMode(mode){
   document.getElementById("displayNameWrap").style.display=create?"grid":"none";
   document.getElementById("migrateWrap").style.display=create&&localStorage.getItem("jm_save")?"flex":"none";
   window.LanguageMinerLegal?.setCreateVisible?.(create);
-  document.getElementById("authSubmitBtn").textContent=create?"Create account":"Sign in";
+  document.getElementById("authSubmitBtn").textContent=create?"Create account":"Log in";
   const password=document.getElementById("authPassword"),passwordToggle=document.getElementById("authPasswordToggle");
   password.setAttribute("autocomplete",create?"new-password":"current-password");password.type="password";
   passwordToggle.textContent="👁️";passwordToggle.setAttribute("aria-label","Show password");passwordToggle.setAttribute("aria-pressed","false");
   setAuthMessage("");
+  renderRememberedLogin();
 }
 function cloudDisplayName(user,requested=""){
   const metadata=user?.user_metadata||{},fallback=String(user?.email||"Miner").split("@")[0].replace(/[._-]+/g," ");
@@ -2588,29 +2596,32 @@ async function loadCloudProfile(session,requestedName=""){
 }
 async function submitAuth(){
   const cloud=window.languageMinerCloudAuth,email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value,name=normalizeName(document.getElementById("authUsername").value);
+  const button=document.getElementById("authSubmitBtn");if(button.disabled)return;
   if(!cloud?.enabled?.()){setAuthMessage("Online accounts are not configured yet.");return;}
   if(!/^\S+@\S+\.\S+$/.test(email)){setAuthMessage("Enter a valid email address.");return;}
-  if(password.length<8){setAuthMessage("Password must contain at least 8 characters.");return;}
+  const remembered=cloud.rememberedAccount?.(),resume=authMode==="login"&&!password&&remembered?.canResume&&email.toLowerCase()===String(remembered.email||"").toLowerCase();
+  if(!resume&&password.length<8){setAuthMessage("Password must contain at least 8 characters.");return;}
   if(authMode==="create"&&(name.length<2||name.length>20)){setAuthMessage("Player name must contain 2–20 characters.");return;}
   const legalCheck=authMode==="create"?window.LanguageMinerLegal?.validateSignup?.():{ok:true,legal:null};
   if(authMode==="create"&&(!legalCheck||legalCheck.ok!==true)){setAuthMessage(legalCheck?.message||"Complete the age and policy choices before creating an account.");return;}
-  const button=document.getElementById("authSubmitBtn");button.disabled=true;button.textContent=authMode==="create"?"Creating account…":"Signing in…";
-  try{const session=authMode==="create"?await cloud.signUp(name,email,password,legalCheck.legal):await cloud.signIn(email,password);await loadCloudProfile(session,authMode==="create"?name:"");document.getElementById("authPassword").value="";}
+  button.disabled=true;button.textContent=authMode==="create"?"Creating account…":"Logging in…";
+  try{const session=authMode==="create"?await cloud.signUp(name,email,password,legalCheck.legal):resume?await cloud.resumeRememberedAccount(email):await cloud.signIn(email,password);await loadCloudProfile(session,authMode==="create"?name:"");document.getElementById("authPassword").value="";}
   catch(error){const message=String(error?.message||"Account access failed.");setAuthMessage(/invalid login credentials/i.test(message)?"Email or password is incorrect.":message);}
-  finally{button.disabled=false;button.textContent=authMode==="create"?"Create account":"Sign in";}
+  finally{button.disabled=false;button.textContent=authMode==="create"?"Create account":"Log in";renderRememberedLogin();}
 }
 document.getElementById("loginTabBtn").onclick=()=>showAuthMode("login");
 document.getElementById("createTabBtn").onclick=()=>showAuthMode("create");
-document.getElementById("authSubmitBtn").onclick=submitAuth;
-["authUsername","authEmail","authPassword"].forEach(id=>document.getElementById(id).addEventListener("keydown",e=>{if(e.key==="Enter")submitAuth();}));
+document.getElementById("authForm").addEventListener("submit",event=>{event.preventDefault();submitAuth();});
+document.getElementById("authEmail").addEventListener("input",renderRememberedLogin);
+document.getElementById("authForgetRememberedBtn")?.addEventListener("click",()=>{window.languageMinerCloudAuth?.clearRememberedAccount?.();document.getElementById("authEmail").value="";document.getElementById("authPassword").value="";setAuthMessage("");renderRememberedLogin();document.getElementById("authEmail").focus();});
 document.getElementById("authPasswordToggle").addEventListener("click",()=>{const input=document.getElementById("authPassword"),button=document.getElementById("authPasswordToggle"),visible=input.type==="text";input.type=visible?"password":"text";button.textContent=visible?"👁️":"🙈";button.setAttribute("aria-label",visible?"Show password":"Hide password");button.setAttribute("aria-pressed",String(!visible));input.focus();});
 window.languageMinerShowSignIn=async()=>{
   await logout();
 };
 async function initializeUnifiedAuth(){
+  const account=window.languageMinerCloudAuth?.rememberedAccount?.(),email=document.getElementById("authEmail");
+  if(email&&!email.value&&account?.email)email.value=account.email;
   showAuthMode("login");
-  const session=await window.languageMinerCloudAuth?.bootstrap?.();
-  if(session){await loadCloudProfile(session);return;}
   setAuthOverlayVisible(true);
 }
 initializeUnifiedAuth();
