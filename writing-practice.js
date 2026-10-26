@@ -61,7 +61,7 @@ const CYRILLIC_STROKE_COUNTS=Object.freeze(Object.fromEntries(Array.from('АБВ
 const HANGUL_STROKE_COUNTS=Object.freeze({가:3,나:3,다:4,라:5,마:5,바:6,사:4,아:3,자:5,차:6,카:4,타:5,파:6,하:5});
 const ARROW_VECTORS=Object.freeze({'→':[1,0],'←':[-1,0],'↓':[0,1],'↑':[0,-1],'↘':[.707,.707],'↙':[-.707,.707],'↗':[.707,-.707],'↖':[-.707,-.707]});
 
-let overlay=null,activeLanguage='ja',tracks=[],trackIndex=0,lessonIndex=0,itemIndex=0,guideVisible=true,directionPreview=true,strokes=[],drawing=null,statusMessage='',statusWrong=false,rejectedStroke=false;
+let overlay=null,activeLanguage='ja',activeKnown='en',tracks=[],trackIndex=0,lessonIndex=0,itemIndex=0,guideVisible=true,directionPreview=true,strokes=[],drawing=null,statusMessage='',statusWrong=false,rejectedStroke=false;
 let strokeGrades=[],lastResult=null,rejectedPath=null,attemptRetries=0,activePointer=null;
 const modelCache=new Map(),glyphCache=new Map();
 Object.assign(COPY.en,{checkWriting:'Check writing',strictInstructions:'Trace the highlighted stroke from its numbered start. Green strokes are accepted; amber strokes need another try.',allStrokesReady:'All {total} strokes checked. Review your writing grade.',traceMode:'Guided tracing',memoryMode:'From memory',shapeOnly:'Shape practice: stroke-order grading is not available for this character.',strokeShort:'Complete the whole highlighted stroke; part of its path is missing.',strokeEnd:'Carry the stroke to its end marker.',strokeExtra:'Use one clean stroke without retracing or extra loops.',strokePath:'Stay closer to the highlighted curve.',strokeStart:'Begin at the numbered start marker.',strokeReverse:'Follow the direction shown; this stroke went backwards.',greatWriting:'Excellent writing',goodWriting:'Good writing',keepPracticing:'Keep practicing',tryAgain:'Try again',continueWriting:'Continue',retryStroke:'Retry stroke {current}',gradeShape:'Shape',gradeCoverage:'Completeness',gradePlacement:'Placement',gradeDirection:'Direction',writingScore:'Writing score',practiceSaved:'Practice saved',memoryInstructions:'Write the character without the guide. Use Guided tracing if you need a reminder.'});
@@ -289,15 +289,16 @@ function advanceWriting(){
 function listen(){const item=currentItem(),language=VOICES[activeLanguage]||activeLanguage,text=item?.spoken||item?.symbol;if(!text)return;if(window.LanguageMinerSpeech?.replay){window.LanguageMinerSpeech.replay(text,language);return;}if(window.LanguageMinerSpeech?.pronounce){window.LanguageMinerSpeech.pronounce(text,language);return;}if(window.LanguageMinerSpeech?.speak)window.LanguageMinerSpeech.speak(text,language);}
 function open(){
  makeShell();document.getElementById('gameMenuOverlay')?.classList.remove('open');document.getElementById('gameMenuOverlay')?.setAttribute('aria-hidden','true');
- activeLanguage=languageId();tracks=buildTracks(activeLanguage);guideVisible=true;directionPreview=true;resetAttempt();restoreSelection();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');render();window.syncJapaneseMinerPageScroll?.();setTimeout(resizeCanvas,30);
+ activeLanguage=languageId();activeKnown=locale();tracks=buildTracks(activeLanguage);guideVisible=true;directionPreview=true;resetAttempt();restoreSelection();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');render();window.syncJapaneseMinerPageScroll?.();setTimeout(resizeCanvas,30);
 }
 function close(){if(!overlay)return;window.LanguageMinerSpeech?.cancel?.();window.speechSynthesis?.cancel?.();overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');resetAttempt();window.syncJapaneseMinerPageScroll?.();}
-function refresh(){addMenuButton();if(overlay?.classList.contains('open')){const next=languageId();if(next!==activeLanguage){resetAttempt();activeLanguage=next;tracks=buildTracks(activeLanguage);restoreSelection();}render();}}
+function refresh(){addMenuButton();if(overlay?.classList.contains('open')){const next=languageId(),nextKnown=locale();if(next!==activeLanguage||nextKnown!==activeKnown){window.LanguageMinerSpeech?.cancel?.();resetAttempt();directionPreview=true;guideVisible=true;activeLanguage=next;activeKnown=nextKnown;tracks=buildTracks(activeLanguage);restoreSelection();}render();}}
 function install(){makeShell();addMenuButton();setTimeout(addMenuButton,300);setTimeout(addMenuButton,1200);}
 document.addEventListener('DOMContentLoaded',install,{once:true});
 window.addEventListener('resize',()=>{if(overlay?.classList.contains('open'))resizeCanvas();});
 window.addEventListener('lm-interface-language-changed',refresh);
 window.addEventListener('lm-course-settings-saved',refresh);
+['jm-profile-loaded','jm-profile-logged-out'].forEach(name=>window.addEventListener(name,close));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&overlay?.classList.contains('open'))close();});
 window.openLanguageMinerWritingPractice=open;
 window.LanguageMinerWritingPractice=Object.freeze({open,close,tracksForLanguage:id=>buildTracks(id).map(track=>({id:track.id,name:track.name,count:track.entries.length,lessons:lessonCount(track)})),status:()=>({language:activeLanguage,track:currentTrack()?.id,lesson:lessonIndex,item:itemIndex,completed:completedCount(),total:totalCount()})});

@@ -40,7 +40,7 @@ const generatedQuestions = [
 ].join('\n');
 const explanations = [
   line('game-6460.js', 'function stripMarkup(text){'),
-  line('game-6460.js', 'function silentTestingActive(question=state.active){'),
+  between('game-6460.js', 'function silentTestingActive(question=state.active){', 'function playFeedbackSound('),
   between('game-6460.js', 'function japaneseAnswerSpeechText(q=state.active){', 'function speakJapanese('),
   line('v6.js', 'function esc6(v){'),
   between('v6.js', 'function buildAnswerExplanation(q,chosen,correct){', 'function applySettings(){'),
@@ -48,6 +48,7 @@ const explanations = [
   between('game-6460.js', "function markQuestionAssisted(q,reason='help'){", 'function recordQuestionAttempt(')
 ].join('\n');
 const multilingualHandler = [
+  line('multilingual-preview.js', '  function coursePurpose('),
   line('multilingual-preview.js', '  function vocabularyAnswerAccepted('),
   line('multilingual-preview.js', '  function languageProgress(){'),
   line('multilingual-preview.js', '  function saveLanguageProgress(progress){'),

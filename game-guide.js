@@ -56,9 +56,9 @@ const TOPICS=[
  ],note:'Every language keeps a separate writing record. Writing practice does not spend hearts, supplies, or Nuggets.',actions:[['writing','Open Writing Practice']]},
  {id:'question-controls',category:'learning',icon:'⛏️',title:'Answering questions and using study controls',summary:'Understand the normal question loop, optional help, and correction controls.',path:'Menu → Explore → Mine · Home screen → mine rock',steps:[
   'Tap the rock or New Question to load a question from the active course route.',
-  'Use the optional audio control when you want pronunciation. Reading support and furigana can be adjusted without changing the language course.',
+  'Use the optional audio control for the selected learning language. Reading support follows the current course.',
   'Choose one answer. The game marks it, explains the correction, updates progress, and then enables the next-question control.',
-  'Hint removes uncertainty, Shield protects one normal mistake, and “I don’t know this kanji” appears only when the visible prompt contains kanji.'
+  'Hint removes incorrect choices, Shield protects one ordinary mistake, and “I don’t know this yet” adds the current item to review.'
  ],note:'Normal practice can use hearts. Placement, quizzes, and guardians show their own rules before they begin.',actions:[['mine','Go to the Mine'],['health','Open Practice Health']]},
  {id:'quizzes-and-tests',category:'learning',icon:'⏱️',title:'Quizzes, tests, and fastest times',summary:'Assessments use saved attempts, clear result screens, and personal completion records.',path:'Menu → Explore → Course → lesson checkpoint or Tests',steps:[
   'Placement recommends a starting point. Lesson review quizzes check recent lessons. Guardian tests decide when the next mine unlocks.',

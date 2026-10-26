@@ -374,10 +374,10 @@ test('all 80 semantic grammar notes match the corrected English key and fail clo
 });
 
 function courseFixture() {
-  const state = {hearts:5,xp:17,answered:0,mastery:{'vocabulary:228':25}};
+  const state = {hearts:5,xp:17,answered:0,shieldArmed:false,mastery:{'vocabulary:228':25}};
   const area = {innerHTML:'',scrollIntoView(){}}, message = {textContent:''};
   const fallback = {addEventListener(type, handler){this[type]=handler;}};
-  const result = {availabilityCalls:[],applications:[],fallbackRequests:[]};
+  const result = {availabilityCalls:[],applications:[],fallbackRequests:[],timers:[],autoSpeech:[]};
   const c = {window:{},currentMode:'listening',ready:new Set(['manzana','be']),loading:new Set(['libro','a']),
     learning:'es',known:'en',LANGUAGES:{en:{voice:'en-US'},es:{voice:'es-ES',flag:'ES'}},
     selectedCourseMine:1,selectedCourseLesson:0,selectedCourseSection:'vocabulary',activePreviewQuestion:null,
@@ -387,6 +387,7 @@ function courseFixture() {
     courseQuestionPrompt:question=>question.meaning||question.label,
     QUESTION_PROMPTS:{en:meaning=>'Translate: '+meaning},ALPHABET_PROMPTS:{en:name=>name},
     syncMultilingualQuickMineButton(){},updateFoundationProgress(){},
+    setTimeout:callback=>{result.timers.push(callback);},speakTarget:text=>result.autoSpeech.push(text),
     renderFoundationQuestion(section,lesson){result.fallbackRequests.push([section,lesson]);},
     document:{getElementById(id){return ({challengeArea:area,message,lmCourseReadingFallback:fallback})[id]||null;},querySelectorAll:()=>[]},
     save(){throw new Error('question selection must not save or score');},
@@ -402,6 +403,7 @@ function courseFixture() {
   vm.runInContext(between('multilingual-preview.js','  function alphabetUnits(source){','  const FOUNDATION_CONCEPTS='),c);
   c.units=vm.runInContext("['F','B','A','C'].map(symbol=>ALPHABET_SYSTEMS.es.units.find(unit=>unit.symbol===symbol))",c);
   vm.runInContext(declaration('multilingual-preview.js','  function targetVoiceAvailability('),c);
+  vm.runInContext(between('multilingual-preview.js','  function chooseCoursePracticeItem(','  function makeAlphabetQuestion('),c);
   vm.runInContext(between('multilingual-preview.js','  function makeAlphabetQuestion(','  function courseBossOptions('),c);
   vm.runInContext(between('multilingual-preview.js','  function renderCourseQuestion(','  function replayCoursePronunciation('),c);
   return {c,state,area,message,fallback,result};
@@ -454,6 +456,16 @@ test('empty multilingual Listening visibly offers Reading and never hides a corr
   assert.equal(result.applications.at(-1).options.spoken,'','missing audio is explicitly unavailable to the practice renderer');
   assert.equal(JSON.stringify(state),before,'fallback and rendering do not score or erase progress');
   counters.multilingualAudioScenarios+=2;
+});
+
+test('new target-course clues honor Voice and automatic speech only in Listening, with stale timers canceled by identity',()=>{
+  const {c,state,result}=courseFixture();
+  state.voiceEnabled=true;state.autoSpeak=false;c.renderCourseQuestion('vocabulary',0);assert.equal(result.timers.length,0);
+  state.voiceEnabled=false;state.autoSpeak=true;c.renderCourseQuestion('vocabulary',0);assert.equal(result.timers.length,0);
+  state.voiceEnabled=true;c.renderCourseQuestion('vocabulary',0);assert.equal(result.timers.length,1);
+  const spoken=c.activePreviewQuestion.spoken;result.timers.shift()();assert.deepEqual(result.autoSpeech,[spoken]);
+  for(const mode of ['reading','picture']){c.currentMode=mode;c.renderCourseQuestion('vocabulary',0);assert.equal(result.timers.length,0,mode+' never autoplays the target answer before grading');}
+  c.currentMode='listening';c.renderCourseQuestion('vocabulary',0);const pending=result.timers.shift();c.learning='ko';pending();assert.equal(result.autoSpeech.length,1,'a prior course audio callback cannot play after switching language');
 });
 
 test('correction and lookup work makes no network calls or player-storage reads/writes', () => {

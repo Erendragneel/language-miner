@@ -1,4 +1,6 @@
-# Language Miner v6.4.301
+# Language Miner v6.4.302
+
+Current shared-course update: [selected-language gameplay and teaching](RELEASE-NOTES-v6.4.302.md), with source-backed study cards, active-course supplies, player XP and gems, saved reviews and Notebook, and course/account isolation. See [behavior and coverage](COURSE-PARITY.md) for the audit scope and script-specific source coverage.
 
 Current learning fix: [course-aware reading support and Japanese practice controls](RELEASE-NOTES-v6.4.299.md). Reading assistance follows the selected language, stays independent of Easy/Hard, and updates the current question. Hiragana and Katakana now show the same six practice controls as the other Hub mines.
 

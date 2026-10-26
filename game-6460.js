@@ -355,7 +355,7 @@ const DEFAULT_STATE = {
   n5AcademyMastery:{}, academyTestBest:0, academyReviewDate:"", recentQuestionIds:[], onboardingComplete:false, placementResult:null, placementTestCompleted:false,
   gems:0, hearts:3, maxHearts:3, level:1, xp:0, streak:0, bestStreak:0, practiceStreak:0,
   hints:2, shields:1, active:null, answered:false, shieldArmed:false, lastPracticeDate:null,
-  kanaStats:{}, unlockedGemButtons:[], equippedGemButton:"Coal", gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
+  kanaStats:{}, unlockedGemButtons:[], equippedGemButton:"Coal", gemInventory:{}, gemCheckpointClaims:{}, gemUnlockRewards:{}, courseRewards:{}, kanaTab:"hiragana", lastKana:null, lastGem:null, hiraganaXp:0,
   heartRecoveryEnd:null, patreonHeartVideoReward:{lastClaimedAt:0,lastTier:0,claims:0}, ownedPickaxeSkins:["standard"], equippedPickaxeSkin:"standard", ownedWallpapers:["midnight"], equippedWallpaper:"midnight", ownedRockSkins:["slate"], equippedRockSkin:"slate", ownedMineWallpapers:["classic"], equippedMineWallpaper:"classic", placementUnlockedThrough:0, developerInfiniteHearts:false,
   selectedStage:0, jlptSectionSelection:{}, jlptVocabularyLevel:{}, jlptReviewCheckpoints:{}, soundEnabled:true, voiceEnabled:true, autoSpeak:true, voiceRate:.85, voiceGender:"female", voiceStyle:"natural", smartReview:true, sessionGoal:20, sessionAnswered:0, sessionCorrect:0, stageXp:[0,0,0,0,0,0,0], clearedStages:[], questionStats:{}, studyTimeByDate:{}, learningReport:{assessmentAttempts:[]}
 };
@@ -492,6 +492,7 @@ function normalizeState(raw){
   next.gemInventory=next.gemInventory||{};
   next.gemCheckpointClaims=next.gemCheckpointClaims&&typeof next.gemCheckpointClaims==="object"&&!Array.isArray(next.gemCheckpointClaims)?next.gemCheckpointClaims:{};
   next.gemUnlockRewards=next.gemUnlockRewards&&typeof next.gemUnlockRewards==="object"&&!Array.isArray(next.gemUnlockRewards)?next.gemUnlockRewards:{};
+  next.courseRewards=normalizeCourseRewards(next.courseRewards);
   next.unlockedGemButtons=Array.isArray(next.unlockedGemButtons)?next.unlockedGemButtons.filter(name=>gemTiers.some(g=>g.name===name)):[];
   next.equippedGemButton=gemTiers.some(g=>g.name===next.equippedGemButton)?next.equippedGemButton:"Coal";
   next.kanaTab=next.kanaTab||"hiragana";
@@ -797,12 +798,14 @@ window.LanguageMinerLearningReport=Object.freeze({recordAssessment:recordLearnin
 // Count visible, recently interactive app time so daily reports reflect active use
 // instead of simply measuring how long a tab was left open.
 let learningActivityAt=Date.now(),learningTimeTickAt=Date.now(),learningTimeUnsaved=0;
-function noteLearningActivity(){if(!window.LanguageMinerBeginnerTutorial?.status().active)learningActivityAt=Date.now();}
+function beginnerTutorialBlocksStudy(){const info=window.LanguageMinerBeginnerTutorial?.status?.();return !!(info?.active||info?.required||info?.awaitingLanguage||info?.eligible);}
+function noteLearningActivity(){learningActivityAt=beginnerTutorialBlocksStudy()?0:Date.now();}
 window.addEventListener('lm-beginner-tutorial-changed',()=>{learningTimeTickAt=Date.now();learningActivityAt=0;});
 ['pointerdown','keydown','touchstart','wheel'].forEach(type=>document.addEventListener(type,noteLearningActivity,{passive:true}));
 function recordActiveLearningTime(){
   const now=Date.now(),elapsed=Math.max(0,Math.min(30000,now-learningTimeTickAt));learningTimeTickAt=now;
-  if(!activeProfileId||window.LanguageMinerBeginnerTutorial?.status().active||document.hidden||!document.hasFocus?.()||now-learningActivityAt>120000||!elapsed)return;
+  if(beginnerTutorialBlocksStudy()){learningActivityAt=0;return;}
+  if(!activeProfileId||document.hidden||!document.hasFocus?.()||now-learningActivityAt>120000||!elapsed)return;
   const key=dateKey();if(!state.studyTimeByDate||typeof state.studyTimeByDate!=='object')state.studyTimeByDate={};state.studyTimeByDate[key]=Math.max(0,Number(state.studyTimeByDate[key])||0)+elapsed;markPracticeToday();learningTimeUnsaved+=elapsed;if(learningTimeUnsaved>=60000){learningTimeUnsaved=0;save();}
 }
 setInterval(recordActiveLearningTime,15000);
@@ -885,6 +888,15 @@ function quizDifficultyMarkup(){
   const mode=state.quizDifficulty==='hard'?'hard':'easy';
   return `<div class="expedition-quiz-mode" aria-label="Quiz difficulty"><span><strong>Quiz mode</strong><small>${mode==='hard'?'Reduced hints':'More guidance'}</small></span><div class="quiz-difficulty-options" role="group" aria-label="Choose easy or hard quiz mode"><button type="button" data-quiz-difficulty="easy" class="${mode==='easy'?'selected':''}" aria-pressed="${mode==='easy'}">🌱 Easy</button><button type="button" data-quiz-difficulty="hard" class="${mode==='hard'?'selected':''}" aria-pressed="${mode==='hard'}">⛏️ Hard</button></div>${window.LanguageMinerPracticeModes?.markup()||''}</div>`;
 }
+function syncLanguageMinerResourceControls(){
+  document.body?.classList?.toggle?.('lm-course-study-active',!!document.getElementById('lmCourseLessonStudy'));
+  const course=window.LanguageMinerCourseNavigation?.active()&&!state.active?.smartReview&&!state.active?.dailyRefresher?window.LanguageMinerCourseGameplay?.status?.():null;
+  const hint=document.getElementById('hintBtn'),shield=document.getElementById('shieldBtn');
+  if(hint)hint.disabled=course?!course.canHint:!state.active||state.answered||state.hints<1;
+  if(shield){shield.disabled=course?!course.canShield:!state.active||state.answered||state.shields<1||state.shieldArmed;shield.textContent=state.shieldArmed?'🛡️ Shield Armed':`🛡️ Use Shield (${state.shields})`;}
+  return course;
+}
+window.syncLanguageMinerResourceControls=syncLanguageMinerResourceControls;
 function setQuizDifficultyMode(mode){
   if(!['easy','hard'].includes(mode))return false;
   const changed=mode!==state.quizDifficulty;state.quizDifficulty=mode;
@@ -1248,10 +1260,8 @@ function render(){
     document.getElementById("xpBar").style.width=Math.min(100,shownXp/shownNeed*100)+"%";
     document.body.dataset.mine=String(activeMine);
     syncSelectedStageUI();
-    document.getElementById("hintBtn").disabled=!state.active || state.answered || state.hints<1;
-    document.getElementById("shieldBtn").disabled=!state.active || state.answered || state.shields<1 || state.shieldArmed;
+    syncLanguageMinerResourceControls();
     document.getElementById("nextBtn").disabled=!state.answered;
-    document.getElementById("shieldBtn").textContent=state.shieldArmed ? "🛡️ Shield Armed" : `🛡️ Use Shield (${state.shields})`;
     const shopPrices=currentShopPrices();
     document.getElementById("hintShopPrice").textContent=`${shopPrices.hint.toLocaleString()} Nuggets`;
     document.getElementById("shieldShopPrice").textContent=`${shopPrices.shield.toLocaleString()} Nuggets`;
@@ -1401,6 +1411,49 @@ function grantUnlockedGemRewards(activeMineStage){
   return awarded;
 }
 function claimReachedGemCheckpoints(stage,previousXp=0,currentXp=Number(state.stageXp?.[stage]||0)){state.gemCheckpointClaims=state.gemCheckpointClaims&&typeof state.gemCheckpointClaims==="object"?state.gemCheckpointClaims:{};const awarded=[];GEM_CHECKPOINT_DROPS.filter(drop=>drop.stage===Number(stage)).forEach(drop=>{const threshold=gemCheckpointThreshold(drop.stage,drop.checkpoint),key=gemCheckpointKey(drop.stage,drop.checkpoint);if(currentXp<threshold||state.gemCheckpointClaims[key])return;const gem=gemTiers.find(item=>item.name===drop.gem);if(!gem)return;state.gemCheckpointClaims[key]=Date.now();state.gemInventory[gem.name]=Number(state.gemInventory[gem.name]||0)+1;state.lastGem={name:gem.name,icon:gem.icon,stage:drop.stage,checkpoint:drop.checkpoint,source:"checkpoint"};awarded.push({...drop,threshold,gem,previousXp,currentXp});});return awarded;}
+function normalizeCourseRewards(raw){
+  const result={};if(!raw||typeof raw!=='object'||Array.isArray(raw))return result;
+  for(const [key,value]of Object.entries(raw)){
+    if(!/^(?:en|es|ru|ko|zh|it|fr|de|pt|vi|th|tr|id|pl|el|uk|ja:travel)$/.test(key)||!value||typeof value!=='object'||Array.isArray(value))continue;
+    const mineXpByMine={},checkpointClaims={};
+    for(const [mine,xp]of Object.entries(value.mineXpByMine||{}))if(/^[0-6]$/.test(mine)&&Number.isFinite(Number(xp)))mineXpByMine[mine]=Math.max(0,Number(xp));
+    for(const [claim,at]of Object.entries(value.checkpointClaims||{}))if(/^[0-6]:[1-4]$/.test(claim)&&Number(at)>0)checkpointClaims[claim]=Number(at);
+    result[key]={version:1,mineXpByMine,checkpointClaims};
+  }
+  return result;
+}
+function courseRewardKey(language,purpose='full'){return language==='ja'?(purpose==='travel'?'ja:travel':'ja'):/^(?:en|es|ru|ko|zh|it|fr|de|pt|vi|th|tr|id|pl|el|uk)$/.test(language)?language:'';}
+function courseRewardXpGain(stage){return 12+Math.max(0,Math.min(6,Math.floor(Number(stage)||0)))*3;}
+function courseRewardStatus(language,stage,purpose='full'){
+  stage=Math.max(0,Math.min(6,Math.floor(Number(stage)||0)));const key=courseRewardKey(language,purpose),native=key==='ja',ledger=state.courseRewards?.[key],xp=Math.max(0,Number(native?state.stageXp?.[stage]:ledger?.mineXpByMine?.[stage])||0),claims=native?state.gemCheckpointClaims:ledger?.checkpointClaims;
+  return {key,learning:language,purpose,mine:stage,xp,need:STAGE_XP_REQUIREMENTS[stage],drops:GEM_CHECKPOINT_DROPS.filter(drop=>drop.stage===stage).map(drop=>({...drop,threshold:gemCheckpointThreshold(stage,drop.checkpoint),claimed:!!claims?.[gemCheckpointKey(stage,drop.checkpoint)],ready:xp>=gemCheckpointThreshold(stage,drop.checkpoint)}))};
+}
+function claimCourseRewardCheckpoints(language,stage,purpose='full',previousXp=0){
+  const status=courseRewardStatus(language,stage,purpose);if(!status.key)return [];
+  if(status.key==='ja')return claimReachedGemCheckpoints(stage,previousXp,status.xp);
+  const ledger=state.courseRewards?.[status.key];if(!ledger)return [];
+  state.gemInventory=state.gemInventory&&typeof state.gemInventory==='object'?state.gemInventory:{};const awarded=[];
+  for(const drop of status.drops){
+    const claim=gemCheckpointKey(status.mine,drop.checkpoint),gem=gemTiers.find(item=>item.name===drop.gem);if(!drop.ready||drop.claimed||!gem)continue;
+    ledger.checkpointClaims[claim]=Date.now();state.gemInventory[gem.name]=Math.max(0,Number(state.gemInventory[gem.name])||0)+1;
+    state.lastGem={name:gem.name,icon:gem.icon,stage:status.mine,checkpoint:drop.checkpoint,source:'course-checkpoint',learningLanguage:language,purpose};awarded.push({...drop,gem,previousXp,currentXp:status.xp});
+  }
+  return awarded;
+}
+function recordCourseRewardCorrect(options={}){
+  const language=String(options.learningLanguage||''),purpose=options.purpose||'full',key=courseRewardKey(language,purpose),stage=Math.max(0,Math.min(6,Math.floor(Number(options.stage)||0)));
+  if(!key||key==='ja'||options.practice!==true||options.correct!==true||options.testing===true||options.assisted===true)return {xpGain:0,checkpointDrops:[]};
+  state.courseRewards=normalizeCourseRewards(state.courseRewards);const ledger=state.courseRewards[key]||(state.courseRewards[key]={version:1,mineXpByMine:{},checkpointClaims:{}}),previousXp=Math.max(0,Number(ledger.mineXpByMine[stage])||0),xpGain=courseRewardXpGain(stage);
+  ledger.mineXpByMine[stage]=previousXp+xpGain;state.xp=Math.max(0,Number(state.xp)||0)+xpGain;
+  while(state.xp>=xpNeed()){state.xp-=xpNeed();state.level=Math.max(1,Number(state.level)||1)+1;}
+  return {xpGain,checkpointDrops:claimCourseRewardCheckpoints(language,stage,purpose,previousXp),scientific:courseRewardStatus(language,stage,purpose)};
+}
+function courseRewardMarkup(language,stage,purpose='full'){
+  const status=courseRewardStatus(language,stage,purpose);if(!status.key)return '';
+  const tr=text=>v3Esc(window.LanguageMinerI18n?.translate?.(text)||text);
+  return `<div class="map-gem-checkpoints lm-course-scientific-drops" data-scientific-language="${status.learning}"><strong>${tr('Scientific drops')}</strong><p>${tr('Mine XP')}: ${status.xp.toLocaleString()}/${status.need.toLocaleString()}</p><div>${status.drops.map(drop=>`<span class="map-gem-drop ${drop.claimed?'claimed':drop.ready?'ready':''}">${gemArtMarkup(drop.gem,'map-gem-art')}<small>${drop.claimed?tr('Claimed'):`${drop.checkpoint*20}%`}</small><b>${v3Esc(drop.gem)}</b></span>`).join('')}</div><small>${tr('Mine XP grows with independent correct answers. Lesson and Guardian progress are separate.')}</small></div>`;
+}
+window.LanguageMinerCourseRewards=Object.freeze({xpGain:courseRewardXpGain,mineXpRequirement:stage=>STAGE_XP_REQUIREMENTS[Math.max(0,Math.min(6,Math.floor(Number(stage)||0)))],status:courseRewardStatus,claimCheckpoints:claimCourseRewardCheckpoints,recordCorrect:recordCourseRewardCorrect,markup:courseRewardMarkup});
 function kanaFromQuestion(q){
   if(!q) return null;
   if(q.kana) return q.kana;
@@ -1468,14 +1521,16 @@ function renderKanaChart(){
 function renderGemCollection(){
   const box=document.getElementById("gemCollection"); box.innerHTML="";
   let total=0, unique=0;
+  const courseActive=window.LanguageMinerCourseNavigation?.active(),language=window.LanguageMinerCourseVoice?.currentLanguage?.()||window.LanguageMinerI18n?.getContext?.().learning||'ja',settings=window.LanguageMinerCourseCloud?.exportCurrent?.(),purpose=settings?.purposes?.[language]||'full';
   gemTiers.forEach((g,i)=>{
     const count=state.gemInventory[g.name]||0; total+=count; if(count>0) unique++;
     const d=document.createElement("div"); d.className="gem-row"+(state.lastGem&&state.lastGem.name===g.name?" recent":"");
-    const unlocked=isStageUnlocked(g.minStage);
-    const source=g.minStage===0?"Hiragana":g.minStage===1?"Katakana":g.minStage===2?"JLPT N5":stages[g.minStage]?.label||"Advanced";
-    const drop=gemCheckpointDrop(g.name),claimed=gemCheckpointClaimed(drop),starterGranted=!!state.gemUnlockRewards?.[g.name],threshold=drop?gemCheckpointThreshold(drop.stage,drop.checkpoint):0,currentXp=Number(state.stageXp?.[drop?.stage]||0),progress=threshold?Math.min(100,Math.round(currentXp/threshold*100)):0;
+    const unlocked=Number(count)>0||!!state.gemUnlockRewards?.[g.name]||(courseActive?window.LanguageMinerCourseNavigation.unlocked(g.minStage):isStageUnlocked(g.minStage));
+    const source=courseActive?window.LanguageMinerCourseNavigation.title(language,g.minStage):g.minStage===0?"Hiragana":g.minStage===1?"Katakana":g.minStage===2?"JLPT N5":stages[g.minStage]?.label||"Advanced";
+    const drop=gemCheckpointDrop(g.name),rewardStatus=courseActive?courseRewardStatus(language,g.minStage,purpose):null,claimed=rewardStatus?rewardStatus.drops.some(item=>item.gem===g.name&&item.claimed):gemCheckpointClaimed(drop),starterGranted=!!state.gemUnlockRewards?.[g.name],threshold=drop?gemCheckpointThreshold(drop.stage,drop.checkpoint):0,currentXp=rewardStatus?.xp??Number(state.stageXp?.[drop?.stage]||0),progress=threshold?Math.min(100,Math.round(currentXp/threshold*100)):0;
+    const description=courseActive?g.desc.replace(/^(?:Hiragana|Katakana|JLPT N5) gemstone/,'Course gemstone'):g.desc;
     d.classList.toggle("locked",!unlocked);
-    d.innerHTML=`<div class="gem-identity">${gemArtMarkup(g.name)}<div><strong>${g.name}</strong><div class="small">${g.desc}</div>${starterGranted?'<div class="gem-checkpoint-status claimed">✓ Mine-access starter specimen rewarded</div>':''}<div class="gem-checkpoint-status ${claimed?'claimed':''}">${claimed?'✓ Checkpoint drop claimed':unlocked?`Checkpoint ${drop.checkpoint} · ${drop.checkpoint*20}% ${source} progress`:`🔒 Unlocks in ${source}`}</div>${unlocked&&!claimed?`<div class="gem-checkpoint-progress"><i style="width:${progress}%"></i></div>`:''}</div></div><div class="gem-row-value"><strong>x${count}</strong><div class="gem-value">${g.value.toLocaleString()} Nuggets each</div><div class="small">${source} checkpoint ${drop.checkpoint}</div></div>`;
+    d.innerHTML=`<div class="gem-identity">${gemArtMarkup(g.name)}<div><strong>${g.name}</strong><div class="small">${description}</div>${starterGranted?'<div class="gem-checkpoint-status claimed">✓ Mine-access starter specimen rewarded</div>':''}<div class="gem-checkpoint-status ${claimed?'claimed':''}">${claimed?'✓ Checkpoint drop claimed':unlocked?`Checkpoint ${drop.checkpoint} · ${drop.checkpoint*20}% ${source} progress`:`🔒 Unlocks in ${source}`}</div>${unlocked&&!claimed?`<div class="gem-checkpoint-progress"><i style="width:${progress}%"></i></div>`:''}</div></div><div class="gem-row-value"><strong>x${count}</strong><div class="gem-value">${g.value.toLocaleString()} Nuggets each</div><div class="small">${source} checkpoint ${drop.checkpoint}</div></div>`;
     box.appendChild(d);
   });
   document.getElementById("totalGemstones").textContent=total;
@@ -1483,7 +1538,7 @@ function renderGemCollection(){
   document.getElementById("uniqueGemstones").textContent=unique;
   document.getElementById("gemSpeciesTotal").textContent=gemTiers.length;
   const latest=document.getElementById("latestGemProgress");
-  if(state.lastGem){const latestDrop=gemCheckpointDrop(state.lastGem.name),starter=state.lastGem.source==="mine-unlock";latest.style.display="flex";latest.innerHTML=`${gemArtMarkup(state.lastGem.name,'latest-gem-art')}<span>${starter?'Latest mine-access reward':'Latest checkpoint drop'}: <strong>${state.lastGem.name}</strong> from ${stages[latestDrop?.stage]?.label||'the mine'}${starter?'':` checkpoint ${latestDrop?.checkpoint||state.lastGem.checkpoint||'—'}`}. Collection count: <strong>x${state.gemInventory[state.lastGem.name]||0}</strong>.</span>`; }
+  if(state.lastGem){const latestDrop=gemCheckpointDrop(state.lastGem.name),starter=state.lastGem.source==="mine-unlock";latest.style.display="flex";latest.innerHTML=`${gemArtMarkup(state.lastGem.name,'latest-gem-art')}<span>${starter?'Latest mine-access reward':'Latest checkpoint drop'}: <strong>${state.lastGem.name}</strong> from ${state.lastGem.learningLanguage?window.LanguageMinerCourseNavigation?.title?.(state.lastGem.learningLanguage,latestDrop?.stage??state.lastGem.stage)||state.lastGem.learningLanguage:stages[latestDrop?.stage]?.label||'the mine'}${starter?'':` checkpoint ${latestDrop?.checkpoint||state.lastGem.checkpoint||'—'}`}. Collection count: <strong>x${state.gemInventory[state.lastGem.name]||0}</strong>.</span>`; }
   else latest.style.display="none";
 }
 
@@ -1571,13 +1626,13 @@ function requestPickaxePurchase(skin,source){
 
 
 function reachedAgateButtonCheckpoint(){
-  return Number(state.stageXp?.[0]||0)>=gemCheckpointThreshold(0,1)||gemCheckpointClaimed(gemCheckpointDrop('Agate'))||isStageUnlocked(1);
+  return gemTiers.some(gem=>gem.name===state.equippedGemButton)||state.unlockedGemButtons?.some(name=>gemTiers.some(gem=>gem.name===name))||Object.values(state.courseRewards||{}).some(ledger=>ledger.checkpointClaims?.['0:1']||Number(ledger.mineXpByMine?.[0])>=gemCheckpointThreshold(0,1))||window.LanguageMinerCourseNavigation?.active()&&window.LanguageMinerCourseNavigation.unlocked(1)||Number(state.stageXp?.[0]||0)>=gemCheckpointThreshold(0,1)||gemCheckpointClaimed(gemCheckpointDrop('Agate'))||isStageUnlocked(1);
 }
 function syncGemButtonUnlocks(){
   if(!reachedAgateButtonCheckpoint()){state.equippedGemButton='Coal';return;}
 
   const owned=new Set(Array.isArray(state.unlockedGemButtons)?state.unlockedGemButtons:[]);
-  gemTiers.forEach(g=>{if(g.minStage===0||isStageUnlocked(g.minStage)||Number(state.gemInventory?.[g.name])>0||state.gemUnlockRewards?.[g.name]||gemCheckpointClaimed(gemCheckpointDrop(g.name)))owned.add(g.name);});
+  gemTiers.forEach(g=>{if(g.minStage===0||(window.LanguageMinerCourseNavigation?.active()?window.LanguageMinerCourseNavigation.unlocked(g.minStage):isStageUnlocked(g.minStage))||Number(state.gemInventory?.[g.name])>0||state.gemUnlockRewards?.[g.name]||gemCheckpointClaimed(gemCheckpointDrop(g.name)))owned.add(g.name);});
   state.unlockedGemButtons=gemTiers.filter(g=>owned.has(g.name)).map(g=>g.name);
   if(!state.unlockedGemButtons.includes(state.equippedGemButton))state.equippedGemButton='Agate';
 }
@@ -1602,11 +1657,11 @@ function applyGemButton(){
 }
 function renderGemButtonChoices(grid){
   if(!grid)return;syncGemButtonUnlocks();grid.innerHTML='';
-  if(!reachedAgateButtonCheckpoint())grid.innerHTML='<article class="cosmetic-card gem-button-card equipped">'+window.LanguageMinerGemButtons.art(-1,'gem-style-preview')+'<h3>Coal Nugget</h3><p>Free starter button. Reach 20% Hiragana progress to unlock Agate.</p><button type="button" disabled>Equipped</button></article>';
+  if(!reachedAgateButtonCheckpoint())grid.innerHTML='<article class="cosmetic-card gem-button-card equipped">'+window.LanguageMinerGemButtons.art(-1,'gem-style-preview')+'<h3>Coal Nugget</h3><p>Free starter button. Reach the first gem checkpoint in any course to unlock Agate.</p><button type="button" disabled>Equipped</button></article>';
   gemTiers.forEach((gem,index)=>{
     const unlocked=reachedAgateButtonCheckpoint()&&state.unlockedGemButtons.includes(gem.name),equipped=state.equippedGemButton===gem.name;
     const card=document.createElement('article');card.className='cosmetic-card gem-button-card'+(equipped?' equipped':'')+(unlocked?'':' locked');
-    card.innerHTML=window.LanguageMinerGemButtons.art(index,'gem-style-preview')+`<h3>${gem.name}</h3><p>${unlocked?'Permanently unlocked · Free':`${!reachedAgateButtonCheckpoint()?'Reach 20% Hiragana progress to unlock gem buttons.':`Unlock ${stages[gem.minStage]?.label||'the next mine'} to use this gem.`}`}</p><button type="button" data-equip-gem="${index}" ${!unlocked||equipped?'disabled':''}>${equipped?'Equipped':unlocked?'Use gem':'Locked'}</button>`;
+    card.innerHTML=window.LanguageMinerGemButtons.art(index,'gem-style-preview')+`<h3>${gem.name}</h3><p>${unlocked?'Permanently unlocked · Free':`${!reachedAgateButtonCheckpoint()?'Reach the first gem checkpoint in any course to unlock gem buttons.':`Unlock ${window.LanguageMinerCourseNavigation?.active()?window.LanguageMinerCourseNavigation.title(window.LanguageMinerCourseVoice?.currentLanguage?.()||'ja',gem.minStage):stages[gem.minStage]?.label||'the next mine'} to use this gem.`}`}</p><button type="button" data-equip-gem="${index}" ${!unlocked||equipped?'disabled':''}>${equipped?'Equipped':unlocked?'Use gem':'Locked'}</button>`;
     card.querySelector('button').onclick=()=>equipGemButton(gem.name);grid.append(card);
   });
 }
@@ -1637,7 +1692,10 @@ function buyOrEquipMineCosmetic(type,item){
 }
 
 let feedbackAudioContext=null;
-function silentTestingActive(question=state.active){return window.LanguageMinerAcademyAssessment?.active?.()===true||question?.silentTesting===true||state.v5?.boss?.status==='active';}
+function silentTestingActive(question=state.active){
+  const native=(window.LanguageMinerI18n?.getContext?.().learning||'ja')==='ja'&&!window.LanguageMinerCourseNavigation?.active?.();
+  return question?.silentTesting===true||native&&(window.LanguageMinerAcademyAssessment?.active?.()===true||state.v5?.boss?.status==='active')||!native&&window.LanguageMinerCourseGameplay?.status?.()?.testing===true;
+}
 function playFeedbackSound(correct){
   if(silentTestingActive()) return;
   if(state.soundEnabled===false) return;
@@ -1845,6 +1903,7 @@ function japaneseSpeechText(q=state.active){
 }
 function japaneseAnswerSpeechText(q=state.active){
   if(!q)return '';
+  if(q.learningLanguage&&q.learningLanguage!=='ja')return stripMarkup(q.speechText||q.a||'').trim();
   const questionText=japaneseSpeechText(q);if(questionText)return questionText;
   const answer=stripMarkup(q.a||'').trim();return /[ぁ-んァ-ヶ一-龯]/.test(answer)?answer:'';
 }
@@ -2151,6 +2210,7 @@ function answer(opt,button){
   }
 }
 function useHint(){
+  if(window.LanguageMinerCourseNavigation?.active()&&!state.active?.smartReview&&!state.active?.dailyRefresher)return window.LanguageMinerCourseGameplay?.useHint?.()||false;
   if(!state.active || state.answered || state.hints<1 || silentTestingActive()) return;
   const wrong=[...document.querySelectorAll("#answers button")].filter(b=>!b.disabled && b.textContent!==state.active.a);
   if(wrong.length){
@@ -2162,6 +2222,7 @@ function useHint(){
   }
 }
 function armShield(){
+  if(window.LanguageMinerCourseNavigation?.active()&&!state.active?.smartReview&&!state.active?.dailyRefresher)return window.LanguageMinerCourseGameplay?.armShield?.()||false;
   if(!state.active || state.answered || state.shields<1 || state.shieldArmed) return;
   state.shieldArmed=true; render();
   setMessage("Shield armed. Your next wrong answer will not cost a heart.","");
@@ -2365,7 +2426,7 @@ function resetBossesAndReviews(targetState=state){
   else if(targetState.v5&&typeof targetState.v5==="object"){targetState.v5.boss=null;targetState.v5.bossDefeated=[];targetState.v5.bossWins=0;targetState.v5.bossFastestTimes={};}
 }
 function resetEconomyAndInventory(targetState=state){
-  resetStateFields(["gems","gemInventory","gemCheckpointClaims","gemUnlockRewards","lastGem","stoneCurrencyMigrated","hearts","maxHearts","heartRecoveryEnd","patreonHeartVideoReward","hints","shields","shieldArmed"],targetState);
+  resetStateFields(["gems","gemInventory","gemCheckpointClaims","gemUnlockRewards","courseRewards","lastGem","stoneCurrencyMigrated","hearts","maxHearts","heartRecoveryEnd","patreonHeartVideoReward","hints","shields","shieldArmed"],targetState);
 }
 function resetCosmeticsAndCompanions(targetState=state){
   resetStateFields(["ownedPickaxeSkins","equippedPickaxeSkin","ownedWallpapers","equippedWallpaper","ownedRockSkins","equippedRockSkin","equippedGemButton","ownedMineWallpapers","equippedMineWallpaper","colorTheme","character","ownedCosmetics","selectedTitle"],targetState);
@@ -3457,7 +3518,12 @@ document.getElementById('voiceToggle')?.addEventListener('change',e=>{state.voic
 document.getElementById('autoSpeakToggle')?.addEventListener('change',e=>{state.autoSpeak=e.target.checked;save();});
 document.getElementById('smartReviewToggle')?.addEventListener('change',e=>{state.smartReview=e.target.checked;save();});
 document.getElementById('voiceRate')?.addEventListener('input',e=>{state.voiceRate=Number(e.target.value);document.getElementById('voiceRateLabel').textContent=`${state.voiceRate.toFixed(2)}×`;save();});
-function testCurrentLearningVoice(){if(window.LanguageMinerCourseVoice?.test?.())return true;return speakJapanese('日本語を一緒に勉強しましょう。');}
+function testCurrentLearningVoice(){
+  if(typeof window.LanguageMinerCourseVoice?.test==='function')return window.LanguageMinerCourseVoice.test();
+  const learning=window.LanguageMinerCourseContext?.current?.()?.learning||window.LanguageMinerI18n?.getContext?.().learning||'ja';
+  if(learning!=='ja'){setMessage('Pronunciation is unavailable for this course.','wrong');return false;}
+  return speakJapanese('日本語を一緒に勉強しましょう。');
+}
 document.getElementById('voiceGenderOptions')?.addEventListener('click',event=>{const button=event.target.closest?.('[data-voice-gender]');if(!button)return;state.voiceGender=button.dataset.voiceGender;save();render();testCurrentLearningVoice();});
 document.getElementById('voiceStyleOptions')?.addEventListener('click',event=>{const button=event.target.closest?.('[data-voice-style]');if(!button)return;state.voiceStyle=button.dataset.voiceStyle;save();render();testCurrentLearningVoice();});
 document.getElementById('testVoiceBtn')?.addEventListener('click',testCurrentLearningVoice);
@@ -3561,7 +3627,7 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
   function ensureV38(){
     state.analytics=state.analytics||{answered:0,correct:0,wrong:0,reading:0,listening:0,grammar:0,vocabulary:0,kanji:0,minutes:0,firstStudyAt:0,lastAnswerAt:0};
     state.mistakes=Array.isArray(state.mistakes)?state.mistakes:[];
-    state.notebookNotes=Array.isArray(state.notebookNotes)?state.notebookNotes.map((note,index)=>{const createdAt=Math.max(0,Number(note?.createdAt)||Date.now());return{id:String(note?.id||`legacy-note-${index}-${createdAt}`),mistakeKey:String(note?.mistakeKey||''),target:String(note?.target||'').slice(0,120),note:String(note?.note||'').slice(0,800),stage:Math.max(0,Number(note?.stage)||0),createdAt,updatedAt:Math.max(createdAt,Number(note?.updatedAt)||createdAt),tutor:Boolean(note?.tutor)};}).filter(note=>note.target&&note.note).slice(0,300):[];
+    state.notebookNotes=Array.isArray(state.notebookNotes)?state.notebookNotes.map((note,index)=>{const createdAt=Math.max(0,Number(note?.createdAt)||Date.now());return{id:String(note?.id||`legacy-note-${index}-${createdAt}`),mistakeKey:String(note?.mistakeKey||''),target:String(note?.target||'').slice(0,120),note:String(note?.note||'').slice(0,800),stage:Math.max(0,Number(note?.stage)||0),createdAt,updatedAt:Math.max(createdAt,Number(note?.updatedAt)||createdAt),tutor:Boolean(note?.tutor),learningLanguage:notebookItemLanguage(note,''),knownLanguage:String(note?.knownLanguage||'')};}).filter(note=>note.target&&note.note).slice(0,300):[];
     if(Number(state.notebookQueueVersion||0)<1){state.notebookView='queue';state.notebookQueueVersion=1;}
     else state.notebookView=['queue','review','stickies','learn'].includes(state.notebookView)?state.notebookView:'queue';
     state.achievements=state.achievements||{};
@@ -3591,6 +3657,18 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
     {id:'weekly-study-5',name:'Five-Day Scholar',desc:'Study on 5 different days this week.',goal:5,reward:75000,hints:3,shields:1,metric:()=>state.questData.weekly.studyDays||0},
     {id:'weekly-review-20',name:'Long-Term Memory',desc:'Complete 20 scheduled Smart Reviews this week.',goal:20,reward:60000,hints:2,shields:2,metric:()=>state.questData.weekly.reviews||0}
   ];
+  function courseMilestoneAchievements(){
+    const settings=window.LanguageMinerCourseCloud?.exportCurrent?.()||{},names={en:'English',es:'Spanish',ru:'Russian',ko:'Korean',zh:'Mandarin Chinese',it:'Italian',fr:'French',de:'German',pt:'Brazilian Portuguese',vi:'Vietnamese',th:'Thai',tr:'Turkish',id:'Indonesian',pl:'Polish',el:'Greek',uk:'Ukrainian'};
+    const tr=text=>window.LanguageMinerI18n?.translate?.(text)||text;
+    return Object.entries(names).flatMap(([language,name])=>{
+      const progress=settings.progress?.[language]||{},completed=mine=>progress.bossDefeatedByMine?.[mine]===true||Number(progress.bossBestByMine?.[mine])>=100||Number(progress.placementUnlockedThrough||0)>mine;
+      return [{id:`course:${language}:script`,language,name:`${tr(name)} · ${tr('Script Scholar')}`,title:`${name} Script Scholar`,desc:tr('Complete the alphabet or script mine in this course.'),test:()=>completed(0),reward:50000},{id:`course:${language}:foundation`,language,name:`${tr(name)} · ${tr('Foundation Graduate')}`,title:`${name} Foundation Graduate`,desc:tr('Complete the first vocabulary and sentence mine in this course.'),test:()=>completed(1),reward:100000}];
+    });
+  }
+  function visibleCourseAchievements(){
+    const language=window.LanguageMinerI18n?.getContext?.().learning||'ja';
+    return [...ACHIEVEMENTS.filter(item=>!['kana','n5'].includes(item.id)||language==='ja'||state.achievements[item.id]),...courseMilestoneAchievements().filter(item=>item.language===language||state.achievements[item.id])];
+  }
   const ACHIEVEMENTS=[
     {id:'first',name:'First Strike',title:'New Miner',desc:'Answer your first question.',test:()=>state.analytics.answered>=1,reward:1000},
     {id:'hundred',name:'Century Miner',title:'Century Scholar',desc:'Answer 100 questions.',test:()=>state.analytics.answered>=100,reward:10000},
@@ -3607,12 +3685,23 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
   function addNuggets(amount){addStoneChange(amount,Math.min(gemTiers.length-1,Math.max(2,selectedStageIndex()+3)));}
   function questRewardText(q){const rewards=[`${Number(q.reward||0).toLocaleString()} Nuggets`];if(q.hints)rewards.push(`${q.hints} Hint${q.hints===1?'':'s'}`);if(q.shields)rewards.push(`${q.shields} Shield${q.shields===1?'':'s'}`);return rewards.join(' + ');}
   function claimQuest(type,id){ensureV38();const list=type==='daily'?DAILY_QUESTS:WEEKLY_QUESTS;const q=list.find(x=>x.id===id),bucket=state.questData[type];if(!q||bucket['claimed_'+id]||q.metric()<q.goal)return;bucket['claimed_'+id]=true;addNuggets(q.reward);state.hints=Number(state.hints||0)+Number(q.hints||0);state.shields=Number(state.shields||0)+Number(q.shields||0);save();render();renderFeatureCenter('quests');setMessage(`${q.name} completed! ${questRewardText(q)} added.`,'correct');}
-  function checkAchievements(){ensureV38();let gained=[];ACHIEVEMENTS.forEach(a=>{if(!state.achievements[a.id]&&a.test()){state.achievements[a.id]={unlockedAt:Date.now()};addNuggets(a.reward);gained.push(a);}});if(gained.length){save();setMessage(`Achievement unlocked: ${gained.map(a=>a.name).join(', ')}!`,'correct');}}
+  function checkAchievements(){ensureV38();let gained=[];[...ACHIEVEMENTS,...courseMilestoneAchievements()].forEach(a=>{if(!state.achievements[a.id]&&a.test()){state.achievements[a.id]={unlockedAt:Date.now()};addNuggets(a.reward);gained.push(a);}});if(gained.length){save();setMessage(`Achievement unlocked: ${gained.map(a=>a.name).join(', ')}!`,'correct');}}
+  window.LanguageMinerCourseAchievements=Object.freeze({check:checkAchievements,items:visibleCourseAchievements});
+  function notebookItemLanguage(item,fallback='ja'){
+    const key=String(item?.key||item?.id||item?.mistakeKey||'');
+    return String(item?.learningLanguage||item?.language||key.match(/^(?:multilingual|course):([^:]+):/)?.[1]||fallback);
+  }
+  function notebookCurrentLanguage(){return window.LanguageMinerCourseContext?.current?.()?.learning||window.LanguageMinerI18n?.getContext?.().learning||'ja';}
+  function notebookStageLabel(item){
+    const language=notebookItemLanguage(item,'');if(!language)return 'General';
+    if(language==='ja')return stages[item.stage]?.label||'Japanese';
+    return window.LanguageMinerCourseNavigation?.title?.(language,item.stage)||language.toUpperCase()+' Level '+(Number(item.stage||0)+1);
+  }
   function qCategory(q){const text=((q?.kind||'')+' '+(q?.prompt||'')).toLowerCase();if(text.includes('reading'))return'reading';if(text.includes('listen'))return'listening';if(text.includes('grammar')||text.includes('particle')||text.includes('conjug'))return'grammar';if(text.includes('kanji'))return'kanji';return'vocabulary';}
-  function recordMistake(q,opt){if(!q)return;const key=q.id||`${q.stage}|${q.q}|${q.prompt}`;let item=state.mistakes.find(m=>m.key===key);if(!item){item={key,stage:Number(q.stage||0),question:q.q||q.displayChallenge||'',prompt:q.prompt||'',correct:q.a||'',lastAnswer:opt||'',count:0,lastMissed:0,resolved:false,tutor:tutorQuestion(q)};state.mistakes.unshift(item);}item.tutor=item.tutor||tutorQuestion(q);item.count++;item.lastMissed=Date.now();item.lastAnswer=opt||'';item.resolved=false;state.mistakes=state.mistakes.slice(0,300);}
+  function recordMistake(q,opt){if(!q)return;const key=q.id||`${q.stage}|${q.q}|${q.prompt}`,learningLanguage=notebookItemLanguage(q);let item=state.mistakes.find(m=>m.key===key&&notebookItemLanguage(m)===learningLanguage);if(!item){item={key,stage:Number(q.stage||0),question:q.q||q.displayChallenge||'',prompt:q.prompt||'',correct:q.a||'',lastAnswer:opt||'',count:0,lastMissed:0,resolved:false,tutor:tutorQuestion(q),learningLanguage,knownLanguage:q.knownLanguage||''};state.mistakes.unshift(item);}item.learningLanguage=learningLanguage;item.knownLanguage=q.knownLanguage||item.knownLanguage||'';item.tutor=item.tutor||tutorQuestion(q);item.count++;item.lastMissed=Date.now();item.lastAnswer=opt||'';item.resolved=false;state.mistakes=state.mistakes.slice(0,300);}
   function assessmentMissRow(q,opt,source='Assessment'){
     const stage=Math.max(0,Math.min(stages.length-1,Number(q?.stage)||0));
-    return{key:String(q?.id||`${stage}|${q?.q||q?.displayChallenge||''}|${q?.prompt||''}`),stage,stageLabel:String(stages[stage]?.label||''),question:stripMarkup(q?.q||q?.displayChallenge||''),prompt:stripMarkup(q?.prompt||''),correct:stripMarkup(q?.a||''),selected:stripMarkup(opt??''),source:String(source||'Assessment'),missedAt:Date.now()};
+    return{key:String(q?.id||`${stage}|${q?.q||q?.displayChallenge||''}|${q?.prompt||''}`),stage,learningLanguage:notebookItemLanguage(q),knownLanguage:String(q?.knownLanguage||''),stageLabel:String(notebookStageLabel({...q,stage})),question:stripMarkup(q?.q||q?.displayChallenge||''),prompt:stripMarkup(q?.prompt||''),correct:stripMarkup(q?.a||''),selected:stripMarkup(opt??''),source:String(source||'Assessment'),missedAt:Date.now()};
   }
   function assessmentMissesMarkup(rows){
     const missed=Array.isArray(rows)?rows:[];
@@ -3740,9 +3829,9 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
   };
 
   function renderQuests(){const dailyClaimed=DAILY_QUESTS.filter(q=>state.questData.daily['claimed_'+q.id]).length,weeklyClaimed=WEEKLY_QUESTS.filter(q=>state.questData.weekly['claimed_'+q.id]).length,expedition=window.LanguageMinerExpeditionGoals?.markup?.()||'<div class="viz-callout">Expedition goals are loading. Reopen Goals in a moment.</div>',body=goalsView==='weekly'?`<div class="feature-section"><h3>Weekly goals</h3><p class="small">${weeklyClaimed}/${WEEKLY_QUESTS.length} claimed · refresh every Monday.</p>${WEEKLY_QUESTS.map(q=>progressCard(q,'weekly')).join('')}</div>`:goalsView==='expedition'?`<div class="feature-section">${expedition}</div>`:`<div class="feature-section"><h3>Daily goals</h3><p class="small">${dailyClaimed}/${DAILY_QUESTS.length} claimed · refresh each calendar day.</p>${DAILY_QUESTS.map(q=>progressCard(q,'daily')).join('')}</div>`;return `<div class="quest-dashboard-hero"><div><span>One objective center</span><h3>🎯 Goals</h3><p>Daily, weekly, and expedition objectives now live together in one place.</p></div><b>${dailyClaimed+weeklyClaimed}/${DAILY_QUESTS.length+WEEKLY_QUESTS.length}</b></div><nav class="notebook-tabs" aria-label="Goal types"><button data-goals-view="daily" class="${goalsView==='daily'?'primary':''}">☀️ Daily</button><button data-goals-view="weekly" class="${goalsView==='weekly'?'primary':''}">📅 Weekly</button><button data-goals-view="expedition" class="${goalsView==='expedition'?'primary':''}">⛏️ Expedition</button></nav>${body}`;}
-  function renderAchievements(){const alpha=window.LanguageMinerAdminPrivileges?.isAlphaTester?.()===true,alphaTitle=alpha?`<section class="free-player-titles"><h3>🧪 Alpha Tester</h3><p>Assigned by the master owner. Includes all Patreon tiers and your testing controls at no subscription cost.</p><button data-title="Alpha Tester" data-title-alpha="true" ${state.selectedTitle==='Alpha Tester'?'disabled':''}>${state.selectedTitle==='Alpha Tester'?'Equipped':'Use title'}</button></section>`:'';const tier=window.japaneseMinerSupporterTier?.()||0,freeTitles=`<section class="free-player-titles"><div class="viz-callout"><strong>Free player titles</strong><br>These titles are available to every Language Miner player with no Patreon tier or Nugget cost.</div><div class="achievement-grid">${FREE_PLAYER_TITLES.map(item=>`<article class="achievement-card unlocked free-title-card"><span>${item.icon}</span><div><strong>${item.title}</strong><p>${item.description}</p><small>Free · Available to everyone</small></div><button data-title="${item.title}" data-title-free="true" ${state.selectedTitle===item.title?'disabled':''}>${state.selectedTitle===item.title?'Equipped':'Use title'}</button></article>`).join('')}</div></section>`;return `${alphaTitle}${freeTitles}<h3>Achievement titles</h3><div class="achievement-grid">${ACHIEVEMENTS.map(a=>{const unlocked=state.achievements[a.id];return `<article class="achievement-card ${unlocked?'unlocked':''}"><span>${unlocked?'🏆':'🔒'}</span><div><strong>${a.name}</strong><p>${a.desc}</p><small>Reward: ${a.reward.toLocaleString()} Nuggets · Title: ${a.title}</small></div>${unlocked?`<button data-title="${a.title}" ${state.selectedTitle===a.title||tier<1?'disabled':''}>${tier<1?'🔒 Supporter title':state.selectedTitle===a.title?'Equipped':'Use title'}</button>`:''}</article>`}).join('')}</div>`;}
-  function visibleNotebookMistakes(){return state.mistakes.map((mistake,index)=>({mistake,index})).filter(({mistake})=>!mistake.resolved&&(tutorAccessGranted()||(!mistake.tutor&&!tutorQuestion(questions.find(question=>String(question.id)===String(mistake.key))))));}
-  function visibleNotebookNotes(){return state.notebookNotes.filter(note=>tutorAccessGranted()||!note.tutor).sort((a,b)=>Number(b.updatedAt)-Number(a.updatedAt));}
+  function renderAchievements(){const alpha=window.LanguageMinerAdminPrivileges?.isAlphaTester?.()===true,alphaTitle=alpha?`<section class="free-player-titles"><h3>🧪 Alpha Tester</h3><p>Assigned by the master owner. Includes all Patreon tiers and your testing controls at no subscription cost.</p><button data-title="Alpha Tester" data-title-alpha="true" ${state.selectedTitle==='Alpha Tester'?'disabled':''}>${state.selectedTitle==='Alpha Tester'?'Equipped':'Use title'}</button></section>`:'';const tier=window.japaneseMinerSupporterTier?.()||0,freeTitles=`<section class="free-player-titles"><div class="viz-callout"><strong>Free player titles</strong><br>These titles are available to every Language Miner player with no Patreon tier or Nugget cost.</div><div class="achievement-grid">${FREE_PLAYER_TITLES.map(item=>`<article class="achievement-card unlocked free-title-card"><span>${item.icon}</span><div><strong>${item.title}</strong><p>${item.description}</p><small>Free · Available to everyone</small></div><button data-title="${item.title}" data-title-free="true" ${state.selectedTitle===item.title?'disabled':''}>${state.selectedTitle===item.title?'Equipped':'Use title'}</button></article>`).join('')}</div></section>`;return `${alphaTitle}${freeTitles}<h3>Achievement titles</h3><div class="achievement-grid">${visibleCourseAchievements().map(a=>{const unlocked=state.achievements[a.id];return `<article class="achievement-card ${unlocked?'unlocked':''}"><span>${unlocked?'🏆':'🔒'}</span><div><strong>${a.name}</strong><p>${a.desc}</p><small>Reward: ${a.reward.toLocaleString()} Nuggets · Title: ${a.title}</small></div>${unlocked?`<button data-title="${a.title}" ${state.selectedTitle===a.title||tier<1?'disabled':''}>${tier<1?'🔒 Supporter title':state.selectedTitle===a.title?'Equipped':'Use title'}</button>`:''}</article>`}).join('')}</div>`;}
+  function visibleNotebookMistakes(){return state.mistakes.map((mistake,index)=>({mistake,index})).filter(({mistake})=>!mistake.resolved&&notebookItemLanguage(mistake)===notebookCurrentLanguage()&&(tutorAccessGranted()||(!mistake.tutor&&!tutorQuestion(questions.find(question=>String(question.id)===String(mistake.key))))));}
+  function visibleNotebookNotes(){return state.notebookNotes.filter(note=>(!notebookItemLanguage(note,'')||notebookItemLanguage(note,'')===notebookCurrentLanguage())&&(tutorAccessGranted()||!note.tutor)).sort((a,b)=>Number(b.updatedAt)-Number(a.updatedAt));}
   function notebookNoteForMistake(key){return state.notebookNotes.find(note=>note.mistakeKey&&String(note.mistakeKey)===String(key))||null;}
   function notebookNoteId(){return `note-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;}
   function upsertNotebookNoteForMistake(index,text){
@@ -3750,13 +3839,13 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
     const existing=notebookNoteForMistake(mistake.key);
     if(!value){if(existing)state.notebookNotes=state.notebookNotes.filter(note=>note.id!==existing.id);save();return true;}
     const now=Date.now(),target=String(mistake.question||mistake.prompt||'Study item').trim().slice(0,120);
-    if(existing){existing.note=value;existing.target=target;existing.stage=Math.max(0,Number(mistake.stage)||0);existing.updatedAt=now;existing.tutor=Boolean(mistake.tutor);}
-    else state.notebookNotes.unshift({id:notebookNoteId(),mistakeKey:String(mistake.key||''),target,note:value,stage:Math.max(0,Number(mistake.stage)||0),createdAt:now,updatedAt:now,tutor:Boolean(mistake.tutor)});
+    if(existing){existing.note=value;existing.target=target;existing.stage=Math.max(0,Number(mistake.stage)||0);existing.updatedAt=now;existing.tutor=Boolean(mistake.tutor);existing.learningLanguage=notebookItemLanguage(mistake);existing.knownLanguage=mistake.knownLanguage||existing.knownLanguage||'';}
+    else state.notebookNotes.unshift({id:notebookNoteId(),mistakeKey:String(mistake.key||''),target,note:value,stage:Math.max(0,Number(mistake.stage)||0),createdAt:now,updatedAt:now,tutor:Boolean(mistake.tutor),learningLanguage:notebookItemLanguage(mistake),knownLanguage:mistake.knownLanguage||''});
     state.notebookNotes=state.notebookNotes.slice(0,300);save();return true;
   }
   function createNotebookSticky(target,text){
     ensureV38();target=String(target||'').trim().slice(0,120);text=String(text||'').trim().slice(0,800);if(!target||!text)return false;
-    const now=Date.now();state.notebookNotes.unshift({id:notebookNoteId(),mistakeKey:'',target,note:text,stage:selectedStageIndex(),createdAt:now,updatedAt:now,tutor:false});state.notebookNotes=state.notebookNotes.slice(0,300);save();return true;
+    const now=Date.now();state.notebookNotes.unshift({id:notebookNoteId(),mistakeKey:'',target,note:text,stage:window.LanguageMinerCourseContext?.current?.()?.mine??selectedStageIndex(),createdAt:now,updatedAt:now,tutor:false,learningLanguage:notebookCurrentLanguage(),knownLanguage:window.LanguageMinerI18n?.getContext?.().known||'en'});state.notebookNotes=state.notebookNotes.slice(0,300);save();return true;
   }
   function updateNotebookSticky(id,target,text){
     ensureV38();const sticky=state.notebookNotes.find(note=>String(note.id)===String(id));if(!sticky)return false;
@@ -3767,11 +3856,11 @@ if(state?.colorTheme)document.body.dataset.theme=state.colorTheme;
   function renderNotebookReview(){
     const visible=visibleNotebookMistakes().map(row=>({...row,mistake:window.LanguageMinerVocabulary?.refreshedNotebookMistake?.(row.mistake)||row.mistake}));
     if(!visible.length)return '<div class="empty-feature">📓 No difficult items saved yet. Incorrect mine answers will appear in your Notebook automatically.</div>';
-    return `<div class="mistake-list notebook-entry-list">${visible.map(({mistake:m,index:i})=>{const sticky=notebookNoteForMistake(m.key);return `<article class="mistake-card notebook-entry ${sticky?'has-sticky':''}"><div class="notebook-entry-copy"><span class="viz-badge">${v3Esc(stages[m.stage]?.label||'Review')}</span><h3>${v3Esc(m.question||m.prompt)}</h3><p>${v3Esc(m.prompt)}</p><p><strong>Correct:</strong> ${v3Esc(m.correct)} · <strong>Your last answer:</strong> ${v3Esc(m.lastAnswer)}</p><small>Missed ${Number(m.count)||0} time${Number(m.count)===1?'':'s'} · ${new Date(m.lastMissed).toLocaleDateString()}</small></div><div class="notebook-entry-actions"><button data-resolve-mistake="${i}">Mark reviewed</button></div><section class="sticky-note-editor"><label for="mistakeNote${i}">🗒️ Sticky note for this word or phrase</label><textarea id="mistakeNote${i}" data-mistake-note="${i}" maxlength="800" rows="3" placeholder="Write a memory trick, tutor explanation, example sentence, or personal reference…">${v3Esc(sticky?.note||'')}</textarea><div><small>${sticky?'Saved to the Sticky Notes tab.':'This note will stay attached to this Notebook item.'}</small><button data-save-mistake-note="${i}">${sticky?'Update sticky note':'Stick note to this item'}</button></div></section></article>`;}).join('')}</div>`;
+    return `<div class="mistake-list notebook-entry-list">${visible.map(({mistake:m,index:i})=>{const sticky=notebookNoteForMistake(m.key);return `<article class="mistake-card notebook-entry ${sticky?'has-sticky':''}"><div class="notebook-entry-copy"><span class="viz-badge">${v3Esc(typeof notebookStageLabel==='function'?notebookStageLabel(m):stages[m.stage]?.label||'Review')}</span><h3>${v3Esc(m.question||m.prompt)}</h3><p>${v3Esc(m.prompt)}</p><p><strong>Correct:</strong> ${v3Esc(m.correct)} · <strong>Your last answer:</strong> ${v3Esc(m.lastAnswer)}</p><small>Missed ${Number(m.count)||0} time${Number(m.count)===1?'':'s'} · ${new Date(m.lastMissed).toLocaleDateString()}</small></div><div class="notebook-entry-actions"><button data-resolve-mistake="${i}">Mark reviewed</button></div><section class="sticky-note-editor"><label for="mistakeNote${i}">🗒️ Sticky note for this word or phrase</label><textarea id="mistakeNote${i}" data-mistake-note="${i}" maxlength="800" rows="3" placeholder="Write a memory trick, tutor explanation, example sentence, or personal reference…">${v3Esc(sticky?.note||'')}</textarea><div><small>${sticky?'Saved to the Sticky Notes tab.':'This note will stay attached to this Notebook item.'}</small><button data-save-mistake-note="${i}">${sticky?'Update sticky note':'Stick note to this item'}</button></div></section></article>`;}).join('')}</div>`;
   }
   function renderNotebookStickies(){
     const notes=visibleNotebookNotes();
-    return `<section class="new-sticky-note"><span>New reference</span><h3>Create a sticky note</h3><p>Add any word or phrase you want to remember, even if it has not appeared as a mistake yet.</p><label for="newStickyTarget">Word or phrase</label><input id="newStickyTarget" maxlength="120" placeholder="Example: つき"><label for="newStickyText">Your reference or memory tip</label><textarea id="newStickyText" maxlength="800" rows="4" placeholder="Example: 月 means moon/month. Picture the moon appearing once each month."></textarea><button id="createStickyNoteBtn" class="primary" type="button">Add sticky note</button></section>${notes.length?`<div class="sticky-note-grid">${notes.map(note=>`<article class="saved-sticky-note" data-sticky-id="${v3Esc(note.id)}"><header><span>🗒️ ${note.mistakeKey?'Attached note':'Personal note'}</span><button data-delete-sticky="${v3Esc(note.id)}" aria-label="Delete sticky note">×</button></header><label>Word or phrase</label><input data-sticky-target maxlength="120" value="${v3Esc(note.target)}" ${note.mistakeKey?'readonly':''}><label>Reference</label><textarea data-sticky-text maxlength="800" rows="4">${v3Esc(note.note)}</textarea><footer><small>${stages[note.stage]?.label||'Personal'} · Updated ${new Date(note.updatedAt).toLocaleDateString()}</small><button data-save-sticky="${v3Esc(note.id)}">Save changes</button></footer></article>`).join('')}</div>`:'<div class="empty-feature">🗒️ No sticky notes yet. Attach one to a difficult item or create your own reference above.</div>'}`;
+    return `<section class="new-sticky-note"><span>New reference</span><h3>Create a sticky note</h3><p>Add any word or phrase you want to remember, even if it has not appeared as a mistake yet.</p><label for="newStickyTarget">Word or phrase</label><input id="newStickyTarget" maxlength="120" placeholder="Word or phrase from your course"><label for="newStickyText">Your reference or memory tip</label><textarea id="newStickyText" maxlength="800" rows="4" placeholder="Your meaning, example sentence, or memory tip"></textarea><button id="createStickyNoteBtn" class="primary" type="button">Add sticky note</button></section>${notes.length?`<div class="sticky-note-grid">${notes.map(note=>`<article class="saved-sticky-note" data-sticky-id="${v3Esc(note.id)}"><header><span>🗒️ ${note.mistakeKey?'Attached note':'Personal note'}</span><button data-delete-sticky="${v3Esc(note.id)}" aria-label="Delete sticky note">×</button></header><label>Word or phrase</label><input data-sticky-target maxlength="120" value="${v3Esc(note.target)}" ${note.mistakeKey?'readonly':''}><label>Reference</label><textarea data-sticky-text maxlength="800" rows="4">${v3Esc(note.note)}</textarea><footer><small>${v3Esc(notebookStageLabel(note))} · Updated ${new Date(note.updatedAt).toLocaleDateString()}</small><button data-save-sticky="${v3Esc(note.id)}">Save changes</button></footer></article>`).join('')}</div>`:'<div class="empty-feature">🗒️ No sticky notes yet. Attach one to a difficult item or create your own reference above.</div>'}`;
   }
   function notebookSmartReviewStatus(){
     try{return window.japaneseMinerSmartReview?.status?.()||{active:false,dueCount:0,total:0,completed:0,remaining:0,canStart:false};}
@@ -4019,7 +4108,7 @@ function filterJlptPoolForSelection(pool,stage){
 }
 function validJlptQuestionForSelection(question){
   const stage=selectedStageIndex();
-  if(question?.smartReview===true)return true;
+  if(question?.smartReview===true||question?.dailyRefresher===true)return (question.learningLanguage||String(question.id||'').match(/^multilingual:([^:]+):/)?.[1]||'ja')===(window.LanguageMinerCourseCloud?.exportCurrent?.()?.learning||window.LanguageMinerI18n?.getContext?.().learning||'ja');
   if(stage<2)return true;
   if(!question||Number(question.stage)!==stage)return false;
   const boss=state.v5?.boss;
@@ -4435,7 +4524,7 @@ function prepareKanaFamilyQuestion(question,family){
   for(const value of shuffle([...new Set(set.map(row=>row[column]))])){if(wrong.length===3)break;if(value!==question.a&&!wrong.includes(value))wrong.push(value);}
   return {...question,opts:shuffle([question.a,...wrong])};
 }
-function validKanaQuestionForSelection(question){const stage=selectedStageIndex();if(question?.smartReview===true)return true;if(stage>1)return !question||Number(question.stage)===stage;if(!question||Number(question.stage)!==stage)return false;const kana=kanaFromQuestion(question),boss=state.v5?.boss;if(boss?.status==='active'&&Number(question.bossCourseStage)===Number(boss.stage)&&Number(boss.stage)===stage)return !!kana&&kanaSetForStage(stage).some(([character])=>character===kana);return !!kana&&currentKanaFamily(stage).chars.includes(kana);}
+function validKanaQuestionForSelection(question){const stage=selectedStageIndex();if(question?.smartReview===true||question?.dailyRefresher===true)return (question.learningLanguage||String(question.id||'').match(/^multilingual:([^:]+):/)?.[1]||'ja')===(window.LanguageMinerCourseCloud?.exportCurrent?.()?.learning||window.LanguageMinerI18n?.getContext?.().learning||'ja');if(stage>1)return !question||Number(question.stage)===stage;if(!question||Number(question.stage)!==stage)return false;const kana=kanaFromQuestion(question),boss=state.v5?.boss;if(boss?.status==='active'&&Number(question.bossCourseStage)===Number(boss.stage)&&Number(boss.stage)===stage)return !!kana&&kanaSetForStage(stage).some(([character])=>character===kana);return !!kana&&currentKanaFamily(stage).chars.includes(kana);}
 function repairActiveKanaQuestion(){if(!state.active)return false;if(validKanaQuestionForSelection(state.active))return false;state.active=null;state.answered=false;state.shieldArmed=false;const area=document.getElementById('challengeArea');if(area)area.innerHTML='<div class="empty">Choose a kana family, then tap the rock for an alphabet-only question.</div>';return true;}
 function selectKanaFamily(stage,index){stage=Number(stage);index=Number(index);if(stage!==selectedStageIndex()||stage>1||!kanaFamilyUnlocked(stage,index))return;ensureKanaFamilyState();state.kanaFamilyLevel[kanaKindForStage(stage)]=index;state.active=null;state.answered=false;state.shieldArmed=false;state.recentQuestionIds=[];const family=currentKanaFamily(stage);const area=document.getElementById('challengeArea');if(area)area.innerHTML=`<div class="empty"><strong>${family.name}</strong><br>${family.entries.map(([ch,rom])=>`${ch} (${rom})`).join(' · ')}<br>Tap the rock to begin.</div>`;save();render();setMessage(`${family.name} selected. Questions will use only ${family.entries.map(([ch])=>ch).join('、')}.`,'correct');}
 function removeMainKanaFamilyPanel(){document.getElementById('kanaFamilyPanel')?.remove();}

@@ -192,7 +192,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Nothing will be purchased or installed during this tour.",
   "Continue": "Continue",
   "Finish tutorial": "Finish tutorial",
-  "Close replay": "Close replay"
+  "Close replay": "Close replay",
+  "Writing model": "Writing model",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory."
  },
  "es": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · TU GUÍA DE LA MINA",
@@ -208,7 +211,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Durante este recorrido no se comprará ni instalará nada.",
   "Continue": "Continuar",
   "Finish tutorial": "Terminar el tutorial",
-  "Close replay": "Cerrar el repaso"
+  "Close replay": "Cerrar el repaso",
+  "Writing model": "Modelo de escritura",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Usa el audio cuando esté disponible. Pista elimina una opción incorrecta; Escudo evita perder un corazón por un error en la práctica normal. La ayuda y los controles de repaso opcionales dependen de la pregunta actual.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Sigue el modelo de carácter mostrado. Si hay un orden de trazos verificado, se comprueban el inicio, la dirección y el recorrido de cada trazo. Los demás caracteres se practican por su forma. Oculta la guía para escribir de memoria."
  },
  "fr": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · VOTRE GUIDE DE LA MINE",
@@ -224,7 +230,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Aucun achat ni aucune installation ne sera effectué pendant cette visite.",
   "Continue": "Continuer",
   "Finish tutorial": "Terminer le tutoriel",
-  "Close replay": "Fermer la révision"
+  "Close replay": "Fermer la révision",
+  "Writing model": "Modèle d’écriture",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Utilisez l’audio lorsqu’il est disponible. Indice élimine un mauvais choix ; Bouclier évite de perdre un cœur pour une erreur en pratique normale. L’aide et les commandes de révision facultatives dépendent de la question actuelle.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Suivez le modèle de caractère affiché. Lorsqu’un ordre des traits vérifié est disponible, le début, la direction et le parcours de chaque trait sont contrôlés. Les autres caractères se pratiquent par leur forme. Masquez le guide pour écrire de mémoire."
  },
  "de": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · DEIN MINENFÜHRER",
@@ -240,7 +249,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Während dieser Tour wird nichts gekauft oder installiert.",
   "Continue": "Weiter",
   "Finish tutorial": "Tutorial abschließen",
-  "Close replay": "Wiederholung schließen"
+  "Close replay": "Wiederholung schließen",
+  "Writing model": "Schreibvorlage",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Nutze Audio, wenn es verfügbar ist. Hinweis entfernt eine falsche Auswahl; Schild verhindert den Verlust eines Herzens bei einem Fehler in normalen Übungen. Optionale Hilfe und Wiederholungsfunktionen hängen von der aktuellen Frage ab.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Folge der angezeigten Zeichenvorlage. Wenn eine geprüfte Strichfolge verfügbar ist, werden Anfang, Richtung und Verlauf jedes Strichs geprüft. Bei anderen Zeichen übst du die Form. Blende die Vorlage aus, um aus dem Gedächtnis zu schreiben."
  },
  "it": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · LA TUA GUIDA DELLA MINIERA",
@@ -256,7 +268,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Durante questo percorso non verrà acquistato né installato nulla.",
   "Continue": "Continua",
   "Finish tutorial": "Completa il tutorial",
-  "Close replay": "Chiudi il ripasso"
+  "Close replay": "Chiudi il ripasso",
+  "Writing model": "Modello di scrittura",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Usa l’audio quando è disponibile. Suggerimento elimina una scelta errata; Scudo evita di perdere un cuore per un errore nella pratica normale. Gli aiuti e i controlli di ripasso facoltativi dipendono dalla domanda attuale.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Segui il modello del carattere mostrato. Se è disponibile un ordine dei tratti verificato, vengono controllati inizio, direzione e percorso di ogni tratto. Per gli altri caratteri si esercita la forma. Nascondi la guida per scrivere a memoria."
  },
  "pt": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · SEU GUIA DA MINA",
@@ -272,7 +287,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Nada será comprado ou instalado durante este passeio.",
   "Continue": "Continuar",
   "Finish tutorial": "Concluir tutorial",
-  "Close replay": "Fechar revisão"
+  "Close replay": "Fechar revisão",
+  "Writing model": "Modelo de escrita",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Use o áudio quando disponível. Dica remove uma opção incorreta; Escudo evita perder um coração por um erro na prática normal. A ajuda e os controles de revisão opcionais dependem da pergunta atual.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Siga o modelo de caractere exibido. Quando há uma ordem de traços verificada, o início, a direção e o percurso de cada traço são avaliados. Os demais caracteres usam prática de forma. Oculte a guia para escrever de memória."
  },
  "tr": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · MADEN REHBERİN",
@@ -288,7 +306,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Bu tur sırasında hiçbir şey satın alınmayacak veya yüklenmeyecek.",
   "Continue": "Devam et",
   "Finish tutorial": "Öğreticiyi tamamla",
-  "Close replay": "Tekrarı kapat"
+  "Close replay": "Tekrarı kapat",
+  "Writing model": "Yazı modeli",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Varsa sesi kullan. İpucu bir yanlış seçeneği kaldırır; Kalkan normal alıştırmada bir hatanın kalp kaybına yol açmasını önler. İsteğe bağlı yardım ve tekrar kontrolleri mevcut soruya göre değişir.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Gösterilen karakter modelini izle. Doğrulanmış çizgi sırası varsa her çizginin başlangıcı, yönü ve yolu kontrol edilir. Diğer karakterlerde şekil alıştırması yapılır. Bellekten yazmak için kılavuzu gizle."
  },
  "id": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · PEMANDU TAMBANGMU",
@@ -304,7 +325,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Tidak ada pembelian atau pemasangan selama tur ini.",
   "Continue": "Lanjutkan",
   "Finish tutorial": "Selesaikan tutorial",
-  "Close replay": "Tutup pengulangan"
+  "Close replay": "Tutup pengulangan",
+  "Writing model": "Contoh tulisan",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Gunakan audio jika tersedia. Petunjuk menghapus satu pilihan yang salah; Perisai mencegah kehilangan hati akibat satu kesalahan dalam latihan biasa. Bantuan dan kontrol tinjauan opsional bergantung pada pertanyaan saat ini.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Ikuti contoh karakter yang ditampilkan. Jika urutan goresan terverifikasi tersedia, awal, arah, dan jalur setiap goresan diperiksa. Karakter lain memakai latihan bentuk. Sembunyikan panduan untuk menulis dari ingatan."
  },
  "pl": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · TWÓJ PRZEWODNIK PO KOPALNI",
@@ -320,7 +344,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Podczas tej wycieczki nic nie zostanie kupione ani zainstalowane.",
   "Continue": "Kontynuuj",
   "Finish tutorial": "Ukończ samouczek",
-  "Close replay": "Zamknij powtórkę"
+  "Close replay": "Zamknij powtórkę",
+  "Writing model": "Wzór pisma",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Korzystaj z dźwięku, gdy jest dostępny. Podpowiedź usuwa jedną błędną odpowiedź; Tarcza chroni przed utratą serca za jeden błąd podczas zwykłych ćwiczeń. Opcjonalna pomoc i funkcje powtórek zależą od bieżącego pytania.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Pisz według wyświetlonego wzoru znaku. Jeśli jest dostępna sprawdzona kolejność kresek, oceniane są początek, kierunek i przebieg każdej kreski. Pozostałe znaki ćwiczy się według kształtu. Ukryj wzór, aby pisać z pamięci."
  },
  "ja": {
   "KŌJI · YOUR MINE GUIDE": "コウジ · 鉱山の案内役",
@@ -336,7 +363,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "この案内中に購入やインストールが行われることはありません。",
   "Continue": "続ける",
   "Finish tutorial": "チュートリアルを完了",
-  "Close replay": "おさらいを閉じる"
+  "Close replay": "おさらいを閉じる",
+  "Writing model": "文字のお手本",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "音声が利用できる場合は聞いてみましょう。ヒントは不正解の選択肢を1つ消し、シールドは通常練習でのミス1回によるハート減少を防ぎます。使える補助や復習の操作は、現在の問題によって異なります。",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "表示された文字のお手本に沿って書きましょう。確認済みの筆順がある文字では、各画の書き始め、方向、線の通り方を確認します。ほかの文字では字形を練習します。ガイドを隠すと、記憶を頼りに書けます。"
  },
  "ko": {
   "KŌJI · YOUR MINE GUIDE": "코지 · 나의 광산 안내자",
@@ -352,7 +382,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "이 안내 중에는 구매나 설치가 이루어지지 않습니다.",
   "Continue": "계속",
   "Finish tutorial": "튜토리얼 완료",
-  "Close replay": "다시보기 닫기"
+  "Close replay": "다시보기 닫기",
+  "Writing model": "글자 본보기",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "음성이 있으면 들어 보세요. 힌트는 틀린 선택지 하나를 없애고, 방패는 일반 연습에서 한 번 틀려도 하트가 줄지 않게 합니다. 선택적으로 쓸 수 있는 도움과 복습 기능은 현재 문제에 따라 달라집니다.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "화면의 글자 본보기를 따라 쓰세요. 검증된 획순이 있는 글자는 각 획의 시작점, 방향, 경로를 확인합니다. 다른 글자는 글자 모양을 연습합니다. 가이드를 숨기고 기억을 떠올려 써 보세요."
  },
  "zh": {
   "KŌJI · YOUR MINE GUIDE": "浩司 · 你的矿山向导",
@@ -368,7 +401,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "本次引导不会进行任何购买或安装。",
   "Continue": "继续",
   "Finish tutorial": "完成教程",
-  "Close replay": "关闭重温"
+  "Close replay": "关闭重温",
+  "Writing model": "书写示范",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "有音频时可以收听。提示会去掉一个错误选项；护盾可防止常规练习中一次错误造成的爱心损失。可选的帮助和复习功能取决于当前题目。",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "按照显示的字符示范书写。对于提供了经核验笔顺的字符，会检查每笔的起点、方向和路径。其他字符采用字形练习。隐藏辅助示范后，可以凭记忆书写。"
  },
  "ru": {
   "KŌJI · YOUR MINE GUIDE": "КОДЗИ · ВАШ ПРОВОДНИК ПО ШАХТЕ",
@@ -384,7 +420,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Во время знакомства с игрой ничего не будет куплено или установлено.",
   "Continue": "Продолжить",
   "Finish tutorial": "Завершить обучение",
-  "Close replay": "Закрыть повтор"
+  "Close replay": "Закрыть повтор",
+  "Writing model": "Образец письма",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Используйте звук, когда он доступен. Подсказка убирает один неверный вариант; Щит предотвращает потерю сердца за одну ошибку в обычной практике. Дополнительная помощь и действия для повторения зависят от текущего вопроса.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Следуйте показанному образцу знака. Если доступен проверенный порядок черт, проверяются начало, направление и путь каждой черты. Для остальных знаков тренируется форма. Скройте образец, чтобы писать по памяти."
  },
  "uk": {
   "KŌJI · YOUR MINE GUIDE": "КОДЗІ · ВАШ ПРОВІДНИК ШАХТОЮ",
@@ -400,7 +439,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Під час знайомства з грою нічого не буде придбано чи встановлено.",
   "Continue": "Продовжити",
   "Finish tutorial": "Завершити навчання",
-  "Close replay": "Закрити повтор"
+  "Close replay": "Закрити повтор",
+  "Writing model": "Зразок письма",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Використовуйте звук, коли він доступний. Підказка прибирає один хибний варіант; Щит запобігає втраті серця за одну помилку у звичайній практиці. Додаткова допомога та дії для повторення залежать від поточного запитання.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Дотримуйтеся показаного зразка знака. Якщо доступний перевірений порядок рисок, перевіряються початок, напрямок і шлях кожної риски. Для решти знаків тренується форма. Сховайте зразок, щоб писати з пам’яті."
  },
  "vi": {
   "KŌJI · YOUR MINE GUIDE": "KŌJI · NGƯỜI DẪN ĐƯỜNG TRONG MỎ",
@@ -416,7 +458,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Sẽ không có giao dịch mua hay thao tác cài đặt nào trong phần hướng dẫn này.",
   "Continue": "Tiếp tục",
   "Finish tutorial": "Hoàn thành hướng dẫn",
-  "Close replay": "Đóng phần xem lại"
+  "Close replay": "Đóng phần xem lại",
+  "Writing model": "Mẫu viết",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Sử dụng âm thanh khi có. Gợi ý loại bỏ một lựa chọn sai; Khiên ngăn mất tim do một lần trả lời sai trong bài luyện thông thường. Các công cụ trợ giúp và ôn tập tùy chọn phụ thuộc vào câu hỏi hiện tại.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Viết theo mẫu ký tự đang hiển thị. Nếu có thứ tự nét đã được xác minh, điểm bắt đầu, hướng và đường đi của từng nét sẽ được kiểm tra. Các ký tự khác dùng bài luyện hình dạng. Ẩn hướng dẫn để viết từ trí nhớ."
  },
  "th": {
   "KŌJI · YOUR MINE GUIDE": "โคจิ · ผู้นำทางในเหมืองของคุณ",
@@ -432,7 +477,10 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "การแนะนำนี้จะไม่มีการซื้อหรือติดตั้งสิ่งใด",
   "Continue": "ไปต่อ",
   "Finish tutorial": "จบบทสอน",
-  "Close replay": "ปิดการทบทวน"
+  "Close replay": "ปิดการทบทวน",
+  "Writing model": "ตัวอย่างการเขียน",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "ใช้เสียงเมื่อมีให้ฟัง คำใบ้จะตัดตัวเลือกที่ผิดหนึ่งข้อ ส่วนโล่จะป้องกันการเสียหัวใจจากการตอบผิดหนึ่งครั้งในการฝึกปกติ ตัวช่วยและเครื่องมือทบทวนที่เลือกใช้ได้ขึ้นอยู่กับคำถามปัจจุบัน",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "เขียนตามตัวอักษรตัวอย่างที่แสดง หากมีลำดับขีดที่ตรวจสอบแล้ว ระบบจะตรวจจุดเริ่มต้น ทิศทาง และแนวของแต่ละขีด ตัวอักษรอื่นใช้การฝึกรูปทรง ซ่อนตัวช่วยเพื่อฝึกเขียนจากความจำ"
  },
  "el": {
   "KŌJI · YOUR MINE GUIDE": "ΚΟΤΖΙ · Ο ΟΔΗΓΟΣ ΣΑΣ ΣΤΟ ΟΡΥΧΕΙΟ",
@@ -448,6 +496,9 @@ window.LanguageMinerGuidedTutorialLocales=Object.freeze({
   "Nothing will be purchased or installed during this tour.": "Κατά την περιήγηση δεν θα γίνει καμία αγορά ή εγκατάσταση.",
   "Continue": "Συνέχεια",
   "Finish tutorial": "Ολοκλήρωση εισαγωγής",
-  "Close replay": "Κλείσιμο επανάληψης"
+  "Close replay": "Κλείσιμο επανάληψης",
+  "Writing model": "Πρότυπο γραφής",
+  "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question.": "Χρησιμοποιήστε τον ήχο όταν είναι διαθέσιμος. Η Υπόδειξη αφαιρεί μία λανθασμένη επιλογή· η Ασπίδα αποτρέπει την απώλεια καρδιάς από ένα λάθος στην κανονική εξάσκηση. Η προαιρετική βοήθεια και οι επιλογές επανάληψης εξαρτώνται από την τρέχουσα ερώτηση.",
+  "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory.": "Ακολουθήστε το εμφανιζόμενο πρότυπο χαρακτήρα. Όπου υπάρχει επαληθευμένη σειρά γραμμών, ελέγχονται η αρχή, η κατεύθυνση και η διαδρομή κάθε γραμμής. Οι άλλοι χαρακτήρες εξασκούνται ως προς το σχήμα. Κρύψτε τον οδηγό για να γράψετε από μνήμης."
  }
 });

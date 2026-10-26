@@ -46,15 +46,28 @@ const japaneseCode = [
   section('game-6460.js', 'function jlptMasteryId(type,index,stage=academyStage){', 'function advancedCounts('),
   section('game-6460.js', 'const answerV34=answer;', '// Expand placement'),
   '(function(){' + section('game-6460.js', '  const answerV38=answer;', '  function featureShell(){') + '})();',
+  section('v5-6400.js', 'function reviewCurrentLanguage(){', 'function normalizeDailyRefresher('),
+  section('v5-6400.js', 'function reviewLanguage(', 'function restoreReviewItem('),
+  declarationLine('v5-6400.js', 'const BOSSES='),
+  section('v5-6400.js', 'function bossRemainingMs(', 'function recordBossAnswer('),
+  section('v5-6400.js', 'function recordBossAnswer(', 'function clearBossAutoAdvance('),
+  declarationLine('v5-6400.js', 'function companionEffect('),
+  section('v5-6400.js', 'function missionRewardStageFromState(){', 'function ensureV5(){'),
+  declarationLine('v5-6400.js', 'function rewardNuggets('),
+  declarationLine('v5-6400.js', 'function finishBossAttempt('),
+  declarationLine('v5-6400.js', 'function completeBossChallenge('),
+  section('v5-6400.js', 'function answerNativeGuardian(', 'const oldAnswer=answer;'),
   section('v5-6400.js', 'function activeSmartReviewSession(){', 'function smartReviewQuestionForSession('),
   section('v5-6400.js', 'function recordSmartReviewAnswer(question,correct){', 'function checkpointCount('),
   section('v5-6400.js', 'function updateSrs(q,correct){', 'function collectWord('),
   section('v5-6400.js', 'function recordStudySessionQuestion(question,correct,answeredAt=Date.now()){', 'function previousStudySession('),
   '(function(){' + section('v5-6400.js', 'const oldAnswer=answer;', 'const decorateCharactersBase=') + '})();',
+  section('v6.js', 'function v6CourseContext(question){', 'function answerTeachingMarkup(q,chosen,correct){'),
   '(function(){' + section('v6.js', 'const oldAnswer=answer;', 'const oldRender=render;') + '})();',
   section('recovery-6460.js', 'const answerV643=answer;', 'const renderStudyCalendarV643=')
 ].join('\n');
 const multilingualCode = [
+  declarationLine('multilingual-preview.js', '  function coursePurpose('),
   declarationLine('multilingual-preview.js', '  function vocabularyAnswerAccepted('),
   declarationLine('multilingual-preview.js', '  function languageProgress(){'),
   declarationLine('multilingual-preview.js', '  function saveLanguageProgress(progress){'),
@@ -109,6 +122,7 @@ function makeFixture() {
     stages: Array.from({length: 7}, () => ({label: 'Test mine', name: 'Test mine'})),
     STAGE_MASTERY_REQUIREMENTS: [90, 90, 85, 85, 85, 85, 85], GEM_CHECKPOINT_DROPS: [],
     CHEST_CORRECT_INTERVAL: 100, gemTiers: [], DAY: 86400000, STUDY_SESSION_GAP_MS: 120000,
+    BOSS_QUESTION_TARGET:25,BOSS_TIME_LIMIT_MS:300000,
     messages: [], makeNode,
     setMessage(text, type) { get('message').textContent = text; context.messages.push({text, type}); },
     addQuestion(question) { context.questions.push({...question, id: 'kanji-' + context.questions.length}); },
@@ -143,6 +157,7 @@ function makeFixture() {
     applyCompanionCorrectAnswer: spy('applyCompanionCorrectAnswer'),
     recordVocabularyQuestionMastery: spy('recordVocabularyQuestionMastery'),
     recordMistake: spy('recordMistake'), checkAchievements: spy('checkAchievements')};
+  context.renderBossHud=noop;context.scheduleNextBossQuestion=spy('scheduleNextBossQuestion');context.showBossResults=spy('showBossResults');
   context.window.japaneseMinerSmartReview = {enqueue: () => true};
   context.window.LanguageMinerDailyGolem = {practice: spy('dailyGolemPractice')};
   context.window.LanguageMinerEconomy = {recordCourseAnswer: spy('recordCourseAnswer')};
@@ -326,7 +341,7 @@ test('studying a reference card records the visit without granting its former ma
 
 function beginSmartReview(context) {
   const base = kanji(context);
-  context.state.v5.smartReviewSession = {status: 'active', questionIds: [base.id], index: 0, attempts: 0,
+  context.state.v5.smartReviewSession = {status: 'active', learningLanguage: 'ja', questionIds: [base.id], index: 0, attempts: 0,
     remembered: 0, missedQuestionIds: [], startedAt: 1234};
   context.state.v5.srs[base.id] = {interval: 7, ease: 2.6, reps: 3, dueAt: 0, correct: true};
   return selectQuestion(context, {...base, smartReview: true, smartReviewStartedAt: 1234});
@@ -384,7 +399,7 @@ test('independent Smart Review still counts remembered without ordinary course r
 
 function multilingualQuestion(context, helped = false) {
   const question = {id: 'es-word', mode: 'vocabulary', sourceSection: 'vocabulary',
-    item: {id: 'water'}, answer: 'agua', options: ['agua', 'pan', 'casa', 'gato'], spoken: 'agua'};
+    item: {id: 'water',forms:{en:'water',es:'agua'}},meaning:'water',prompt:'Which Spanish expression means “water”?', answer: 'agua', options: ['agua', 'pan', 'casa', 'gato'], spoken: 'agua'};
   const nodes = context.elements.get('multilingualAnswers') || context.makeNode();
   context.elements.set('multilingualAnswers', nodes);
   nodes.children = question.options.map(value => Object.assign(context.makeNode(), {dataset: {lmCourseAnswer: value}}));
@@ -430,6 +445,37 @@ test('fresh multilingual recall still scores and its post-wrong retry earns no e
   courseAnswer(retry, true);
   assert.deepEqual(scoredState(retry), beforeRetry);
   assert.equal(retry.state.assistedPracticeStats, undefined);
+});
+
+function guardianFixture(){
+  const context=makeFixture(),ids=context.questions.slice(0,25).map(q=>q.id),stage=2;
+  context.state.v5.boss={stage,status:'active',questionIds:ids,questions:0,correct:0,missed:[],startedAt:Date.now(),deadline:Date.now()+300000};context.state.v5.bossDefeated=[];context.state.v5.bossFastestTimes={};context.state.v5.bossWins=0;
+  context.wallet=0;context.assessments=[];context.missed=[];
+  context.addStoneChange=amount=>{context.calls.addStoneChange=Number(context.calls.addStoneChange||0)+1;context.wallet+=amount;};
+  context.window.LanguageMinerLearningReport={recordAssessment:value=>context.assessments.push(value)};
+  context.window.japaneseMinerRecordWrongAssessment=(q,selected,source)=>{const missed={key:q.id,selected,source};context.missed.push(missed);return missed;};
+  return context;
+}
+function guardianQuestion(context,index){const q=context.questions[index];return selectQuestion(context,{...q,bossCourseStage:2,silentTesting:true});}
+function ordinaryGuardianState(context){const value=scoredState(context);delete value.rewardCalls.react;return value;}
+test('native Guardian answers bypass ordinary XP, mastery, SRS, items, hearts and quest scoring through the final wrapper chain',()=>{
+  const context=guardianFixture(),before=ordinaryGuardianState(context);guardianQuestion(context,0);const oldButton=clickAnswer(context,false);
+  assert.equal(context.state.v5.boss.questions,1);assert.equal(context.state.v5.boss.correct,0);assert.equal(context.missed.length,1);assert.equal(context.state.active.practiceFirstAnswer,undefined);assert.deepEqual(ordinaryGuardianState(context),before);
+  oldButton.onclick();assert.equal(context.state.v5.boss.questions,1);guardianQuestion(context,1);oldButton.disabled=false;oldButton.onclick();assert.equal(context.state.v5.boss.questions,1,'A detached old answer cannot grade the next Guardian question');
+  clickAnswer(context,true);assert.equal(context.state.v5.boss.questions,2);assert.equal(context.state.v5.boss.correct,1);assert.deepEqual(ordinaryGuardianState(context),before);
+});
+test('a native 25/25 Guardian grants its existing completion bounty exactly once without per-answer rewards',()=>{
+  const context=guardianFixture(),before=ordinaryGuardianState(context);
+  for(let i=0;i<25;i++){guardianQuestion(context,i);clickAnswer(context,true);if(i<24)assert.deepEqual(ordinaryGuardianState(context),before);}
+  assert.equal(context.state.v5.boss.status,'passed');assert.equal(context.state.v5.boss.questions,25);assert.equal(context.state.v5.boss.correct,25);assert.equal(context.wallet,65000);assert.equal(context.calls.addStoneChange,1);assert.equal(context.state.v5.bossWins,1);assert.deepEqual(plain(context.state.v5.bossDefeated),[2]);assert.equal(context.assessments.length,1);
+  const after=ordinaryGuardianState(context);after.rewardCalls.addStoneChange--;assert.deepEqual(after,before);
+  context.answer(context.state.active.a,choices(context)[0]);assert.equal(context.wallet,65000);assert.equal(context.assessments.length,1);
+});
+test('failed and expired native Guardians retain scores and Notebook misses without an ordinary reward',()=>{
+  const context=guardianFixture(),before=ordinaryGuardianState(context);
+  for(let i=0;i<25;i++){guardianQuestion(context,i);clickAnswer(context,i!==0);}
+  assert.equal(context.state.v5.boss.status,'failed');assert.equal(context.state.v5.boss.correct,24);assert.equal(context.wallet,0);assert.equal(context.assessments.length,1);assert.equal(context.missed.length,1);assert.deepEqual(ordinaryGuardianState(context),before);
+  const expired=guardianFixture(),baseline=ordinaryGuardianState(expired);guardianQuestion(expired,0);expired.state.v5.boss.deadline=Date.now()-1;clickAnswer(expired,true);assert.equal(expired.state.v5.boss.status,'failed');assert.equal(expired.state.v5.boss.questions,0);assert.equal(expired.wallet,0);assert.deepEqual(ordinaryGuardianState(expired),baseline);
 });
 
 console.log(`PASS ${passed} assisted-answer regression scenarios using current runtime handlers; isolated VM, no browser or live saves.`);

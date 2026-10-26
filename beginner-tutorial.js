@@ -17,7 +17,7 @@
  },
  "home.help": {
   "title": "Audio · Hint · Use Shield",
-  "body": "Hint removes uncertainty, Shield protects one normal mistake, and “I don’t know this kanji” appears only when the visible prompt contains kanji."
+  "body": "Use audio when available. Hint removes one incorrect choice; Shield prevents heart loss from one normal practice mistake. Optional help and review controls depend on the current question."
  },
  "home.wallet": {
   "title": "Nuggets and hearts",
@@ -120,8 +120,8 @@
   "body": "Choose the script and character you want to practise. Each learning language keeps a separate writing record."
  },
  "writing.model": {
-  "title": "Stroke-order model",
-  "body": "Draw one stroke at a time. A stroke is accepted only when it begins in the required area, follows the shown direction, and stays on the character guide; an incorrect stroke is removed for another try."
+  "title": "Writing model",
+  "body": "Follow the displayed character model. Where verified stroke order is available, each stroke’s start, direction and path are checked. Other characters use shape practice. Hide the guide to practise from memory."
  },
  "writing.hide": {
   "title": "Hide Guide",

@@ -96,9 +96,9 @@ async function fit(page,locator,width){const box=await locator.boundingBox();ass
   }
   for(const width of widths){
    const f=await fixture(browser,'ko',width),{page}=f;
-   await hub(page);const alphabet=await expand(page,'ko',0);await alphabet.locator('[data-lm-course-section="alphabet"][data-lm-course-lesson="0"]').click();await page.locator('#challengeArea .lm-alphabet-question').waitFor();
+   await hub(page);const alphabet=await expand(page,'ko',0);await alphabet.locator('[data-lm-course-section="alphabet"][data-lm-course-lesson="0"]').click();await page.locator('#lmCourseLessonStudy [data-lm-study-action="skip"]').click();await page.locator('#challengeArea .lm-alphabet-question').waitFor();
    assert.equal(await page.locator('#challengeArea .lm-reading-support-hint').count(),0,'Hangul letter recognition cannot reveal the requested letter through a hint');
-   await hub(page);const words=await expand(page,'ko',1);await words.locator('[data-lm-course-section="vocabulary"][data-lm-course-lesson="0"]').click();await page.locator('#challengeArea [data-lm-course-answer]').first().waitFor();
+   await hub(page);const words=await expand(page,'ko',1);await words.locator('[data-lm-course-section="vocabulary"][data-lm-course-lesson="0"]').click();await page.locator('#lmCourseLessonStudy [data-lm-study-action="skip"]').click();await page.locator('#challengeArea [data-lm-course-answer]').first().waitFor();
    const answers=await page.locator('#challengeArea [data-lm-course-answer]').evaluateAll(nodes=>nodes.map(n=>n.dataset.lmCourseAnswer));const rawAnswerTexts=await page.locator('#challengeArea [data-lm-course-answer]').allTextContents();const prompt=await page.locator('#challengeArea .lm-course-prompt').innerText(),initial=await scores(page);
    await page.evaluate(()=>window.readingSupportChoiceNodes=[...document.querySelectorAll('#challengeArea [data-lm-course-answer]')]);
    for(const quiz of ['easy','hard']){

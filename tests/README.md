@@ -1,5 +1,21 @@
 # Daily Mini Golem checks
 
+For the shared-course parity update, run:
+
+`node tests/course-adapter-study.test.cjs`
+`node tests/course-review-state.test.cjs`
+`node tests/course-context-settings.test.cjs`
+`node tests/course-arcade-isolation.test.cjs`
+`node tests/course-language-draft.test.cjs`
+`node tests/course-rewards.test.cjs`
+`node tests/review-storage.test.cjs`
+
+With the server running, `node tests/course-language-parity.test.cjs` checks
+the actual inventories of all 17 courses, Korean lesson study and shared
+controls, source language/audio, review persistence, and course changes.
+All account and save traffic is isolated. New gameplay does not require live
+player access or external content generation.
+
 For course reading support, run `node tests/japanese-hub-mode-controls.test.cjs`,
 `node tests/reading-support-localization.test.cjs`, and
 `node tests/reading-support.test.cjs`. With the local server running,
@@ -24,6 +40,12 @@ failure/retry, and desktop/phone layouts using disposable accounts. Set
 port 8766. The old `beginner-tutorial.test.cjs` and
 `beginner-tutorial-browser.test.cjs` names are compatibility entry points for the
 same suites; run either name once.
+
+`node tests/guided-course-handoff.test.cjs` checks fresh Japanese and Korean
+players from consent and language selection through the guide, placement and
+their first real lesson. It also checks that tutorial navigation adds no study
+time, dates, streaks or gameplay rewards. Set `TUTORIAL_TEST_URL` for the server;
+this handoff suite defaults to port 8765.
 
 For the manual login and menu update, run `node tests/manual-login.test.cjs`.
 With the local server below running, run

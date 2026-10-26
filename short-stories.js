@@ -36,5 +36,6 @@ function open(){
 }
 document.addEventListener('click',e=>{if(e.target.closest('[data-story-open]'))open();});
 window.addEventListener('lm-interface-language-changed',()=>{if(dialog?.open){context=getContext();if(data()[context.learning])render();else dialog.close();}});
+['jm-profile-loaded','jm-profile-logged-out'].forEach(name=>window.addEventListener(name,()=>{if(dialog?.open){returnFocus=null;dialog.close();}}));
 window.LanguageMinerStories=Object.freeze({open});
 })();

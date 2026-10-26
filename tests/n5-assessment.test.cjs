@@ -29,7 +29,7 @@ const bankSource=[
 const integrationSource=[
   section('const LEARNING_REPORT_MAX_ATTEMPTS=','window.LanguageMinerLearningReport='),
   section('function renderAcademy(){','function showVocabLesson('),
-  line('function startAcademyTest('),line('function silentTestingActive('),
+  line('function startAcademyTest('),section('function silentTestingActive(', 'function playFeedbackSound('),
   section('const closeAcademyV6417Review=','// v6.4.126 -')
 ].join('\n');
 assert.ok(html.indexOf('game-6460.js')<html.indexOf('academy-assessment.js'),'assessment loads after shipped game globals');
