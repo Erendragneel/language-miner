@@ -25,6 +25,7 @@ mine=function(){markStudyActivity();return mineV643();};
 const answerV643=answer;
 // Keep retries outside the reward/mastery wrappers: only the first answer is scored.
 answer=function(opt,button){
+ if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
  if(!state.active||state.answered||button?.disabled)return;
  markStudyActivity();
  const q=state.active;

@@ -460,7 +460,7 @@ function openPatreon(){
 };
 window.openJapaneseMinerPatreon=()=>openPatreon();
 const oldShowQuestion=showQuestion;showQuestion=function(q){oldShowQuestion(q);renderCoach('question');};
-const oldAnswer=answer;answer=function(opt,button){const q=state.active,was=state.answered,correct=!!q&&(window.LanguageMinerVocabulary?.japaneseAccepts(q,opt,document.querySelector('#challengeArea .question')?.textContent)||opt===q.a);if(q&&!was&&v6CourseContext(q).learning==='ja'&&/[\u3040-\u30ff\u3400-\u9fff]/.test(stripMarkup(opt)))speakJapanese(opt);oldAnswer(opt,button);if(q&&!was){explanation(q,opt,correct);renderCoach(correct?'correct':'wrong');}createSnapshot();};
+const oldAnswer=answer;answer=function(opt,button){if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;const q=state.active,was=state.answered,correct=!!q&&(window.LanguageMinerVocabulary?.japaneseAccepts(q,opt,document.querySelector('#challengeArea .question')?.textContent)||opt===q.a);if(q&&!was&&v6CourseContext(q).learning==='ja'&&/[\u3040-\u30ff\u3400-\u9fff]/.test(stripMarkup(opt)))speakJapanese(opt);oldAnswer(opt,button);if(q&&!was){explanation(q,opt,correct);renderCoach(correct?'correct':'wrong');}createSnapshot();};
 const oldRender=render;render=function(){ensureV6();oldRender();applySettings();syncReadingSupportControls();syncCourseSettingsControls();renderCoach('refresh');addMenuItems();storyCheck();};
 const oldSave=save;save=function(){const saved=oldSave();if(saved&&state?.v6)createSnapshot();return saved;};
 const oldLoad=loadProfile;loadProfile=function(profile,...args){const result=oldLoad(profile,...args);ensureV6();applySettings();setTimeout(init,0);return result;};

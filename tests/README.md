@@ -1,5 +1,21 @@
 # Daily Mini Golem checks
 
+For connected reading and ordered writing across all 17 courses, run:
+
+`node scripts/build-advanced-reading.cjs --check`
+`node tests/advanced-reading.test.cjs`
+`node tests/writing-script-models.test.cjs`
+`node tests/unicode-repair.test.cjs`
+
+`node tests/writing-memory.test.cjs` uses the rendered writing UI, real pointer
+paths, SVG models and production grader. `node tests/advanced-course-browser.test.cjs`
+uses disposable accounts with mocked cloud requests to check the real game,
+all 17 reader contexts and writing inventories, independent assessment scoring,
+resume and owner boundaries, underlying practice isolation and narrow screens.
+Set `PLAYWRIGHT_MODULE` to an installed Playwright package when necessary.
+The game-browser suite uses `ADVANCED_COURSE_TEST_URL` for the server base URL and
+defaults to `http://127.0.0.1:8765/`.
+
 For the shared-course parity update, run:
 
 `node tests/course-adapter-study.test.cjs`

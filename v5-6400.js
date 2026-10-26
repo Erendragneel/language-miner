@@ -597,6 +597,7 @@ function answerNativeGuardian(opt,button){
 }
 const oldAnswer=answer;
 answer=function(opt,button){
+ if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
  ensureV5();const q=state.active,wasAnswered=state.answered;
  if(q?.bossCourseStage!=null||nativeGuardianCourseActive()&&state.v5.boss?.status==='active')return answerNativeGuardian(opt,button);
  if(q?.dailyRefresher===true&&!wasAnswered){answerDailyRefresher(q,opt,button);window.LanguageMinerDailyGolem?.practice(q);return;}

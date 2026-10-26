@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "language": "en",
+  "passages": [
+    {
+      "id": "bridge-notice", "band": 1, "title": "A different way to the library",
+      "paragraphs": [
+        ["Mina usually crosses the small bridge to reach the library after work.", "On Tuesday, a notice said that the bridge would close from Wednesday morning until Friday evening.", "The notice suggested using the riverside path, which takes fifteen minutes longer."],
+        ["Mina had reserved a book that the library would hold only until Thursday.", "She decided to leave work earlier on Thursday and use the riverside path.", "She also sent the notice to her walking group so that nobody would arrive at the closed bridge."]
+      ],
+      "questions": [
+        {"id":"reason","skill":"cause","question":"Why does Mina need to visit before Friday?","choices":["Her reserved book will not be held after Thursday.","The library closes permanently on Friday.","Her walking group meets at the library on Friday.","The riverside path closes on Thursday."],"answer":0,"evidence":[[1,0]],"explanation":"The reservation ends on Thursday; the passage does not say the library itself is closing."},
+        {"id":"plan","skill":"sequence","question":"How will Mina deal with the longer journey?","choices":["Wait until the bridge reopens.","Ask the library to move the bridge.","Leave work earlier and take the riverside path.","Collect the book on Tuesday morning."],"answer":2,"evidence":[[0,2],[1,1]],"explanation":"Leaving earlier makes time for the suggested path, which adds fifteen minutes."},
+        {"id":"notice","skill":"detail","question":"When is the bridge expected to reopen?","choices":["Wednesday morning","Thursday evening","Friday morning","Friday evening"],"answer":3,"evidence":[[0,1]],"explanation":"The notice gives Friday evening as the end of the closure."},
+        {"id":"share","skill":"purpose","question":"Why did Mina share the notice?","choices":["To invite everyone to reserve her book.","To help other walkers avoid the closed bridge.","To complain that the library is too far away.","To cancel every walk until Friday."],"answer":1,"evidence":[[1,2]],"explanation":"She wants the group to plan around the closure; no cancellation is mentioned."}
+      ]
+    },
+    {
+      "id": "library-corner", "band": 1, "title": "A quiet corner for everyone",
+      "paragraphs": [
+        ["A neighborhood library received several requests for a quiet place to study in the evening.", "Its small meeting room was usually empty after six, but a reading club used it every Thursday.", "The librarian proposed opening the room to students on the other evenings."],
+        ["Because the room had only eight chairs, students would reserve a seat rather than a whole table.", "The library would try the arrangement for one month and ask both students and club members for comments.", "If the trial caused problems for the club, the librarian would adjust the schedule before making the change permanent."]
+      ],
+      "questions": [
+        {"id":"exception","skill":"detail","question":"Why is Thursday treated differently?","choices":["The library has no staff that day.","The reading club already uses the room.","Students do not study on Thursdays.","All eight chairs are being repaired."],"answer":1,"evidence":[[0,1]],"explanation":"The existing reading club is the reason Thursday is excluded from the proposal."},
+        {"id":"reservation","skill":"purpose","question":"What is the purpose of reserving individual seats?","choices":["To give one person every table.","To prevent club members from entering.","To use a room with limited seating fairly.","To replace the librarian."],"answer":2,"evidence":[[1,0]],"explanation":"There are only eight chairs, so reserving seats matches the room's limited capacity."},
+        {"id":"trial","skill":"sequence","question":"What will happen before a permanent decision?","choices":["A one-month trial and feedback from both groups.","The reading club will be removed immediately.","The library will buy a new building.","Only students will vote on the librarian's job."],"answer":0,"evidence":[[1,1],[1,2]],"explanation":"The proposed sequence is a trial, feedback and any necessary adjustment."},
+        {"id":"attitude","skill":"inference","question":"Which description best fits the librarian's approach?","choices":["Reject every new request.","Promise unlimited space.","Ignore the existing users.","Try a change while protecting existing activities."],"answer":3,"evidence":[[0,2],[1,2]],"explanation":"The proposal meets a new need while keeping the reading club's use under review."}
+      ]
+    },
+    {
+      "id": "repair-cafe", "band": 2, "title": "Repairing more than objects",
+      "paragraphs": [
+        ["At the first repair café, volunteers fixed broken lamps while visitors waited for them to finish.", "The organizers were pleased with the number of objects repaired, yet noticed that the same simple faults returned the following month.", "They realized that a quick repair did not necessarily teach the owner how to prevent the problem."],
+        ["At the next event, volunteers explained each step and invited visitors to help when it was safe.", "This approach took longer, so fewer objects were repaired that afternoon.", "However, a later questionnaire found that many visitors could now carry out basic maintenance themselves.", "The organizers decided to report both the number of repairs and what visitors learned, rather than judge success by repairs alone."]
+      ],
+      "questions": [
+        {"id":"problem","skill":"cause","question":"What weakness did the first event reveal?","choices":["No objects could be repaired.","Visitors already knew every repair technique.","Fixing an object did not always prevent the fault from returning.","There were too many questionnaires."],"answer":2,"evidence":[[0,1],[0,2]],"explanation":"Repeated faults led the organizers to distinguish repairing an object from teaching prevention."},
+        {"id":"tradeoff","skill":"contrast","question":"What was the main trade-off in the new approach?","choices":["More learning, but fewer completed repairs that afternoon.","Faster repairs, but no visitor participation.","Less explanation, but more maintenance knowledge.","More broken lamps, but fewer volunteers."],"answer":0,"evidence":[[1,0],[1,1],[1,2]],"explanation":"Participation and explanation required time, while the questionnaire suggested a learning benefit."},
+        {"id":"evidence","skill":"evidence","question":"Which evidence supported keeping the educational approach?","choices":["The first event finished earlier.","The volunteers stopped reporting repair counts.","Every visitor became a professional repairer.","Many respondents said they could perform basic maintenance."],"answer":3,"evidence":[[1,2]],"explanation":"The questionnaire supports basic learning, not professional competence or a claim about every visitor."},
+        {"id":"measure","skill":"main-idea","question":"What is the passage's main point?","choices":["Only speed matters in a community project.","Success can include learning as well as immediate output.","Questionnaires make practical work unnecessary.","An unrepaired object proves that an event failed."],"answer":1,"evidence":[[1,1],[1,2],[1,3]],"explanation":"The organizers broaden their measure of success instead of abandoning repair work."}
+      ]
+    },
+    {
+      "id": "garden-water", "band": 2, "title": "What the garden trial actually showed",
+      "paragraphs": [
+        ["A community garden tested a new watering schedule on two vegetable beds.", "The volunteers watered one bed every morning and the other only when the soil felt dry.", "After four weeks, the second bed had used less water and produced a similar amount of vegetables."],
+        ["Some members wanted to adopt the new schedule immediately throughout the garden.", "However, the trial had taken place during a cool month, and both beds were in the shade.", "The coordinator proposed repeating it during hotter weather and including a sunny bed.", "She considered the first results promising, but not enough to show that the same schedule would work in every condition."]
+      ],
+      "questions": [
+        {"id":"result","skill":"detail","question":"What did the first trial directly show?","choices":["Every garden needs the same watering schedule.","The second bed used less water with a similar harvest.","Sunny beds never need water.","The daily-watered bed produced no vegetables."],"answer":1,"evidence":[[0,2]],"explanation":"The observation concerns two beds in one trial; it is not a universal result."},
+        {"id":"limit","skill":"evaluation","question":"Why should the results be interpreted cautiously?","choices":["No one recorded water use.","The two beds were in different countries.","The test covered only cool weather and shaded beds.","The volunteers changed the vegetable prices."],"answer":2,"evidence":[[1,1]],"explanation":"The limited weather and location leave other growing conditions untested."},
+        {"id":"next","skill":"purpose","question":"Why include a sunny bed in the next trial?","choices":["To test whether the approach works under a different condition.","To make the first harvest disappear.","To prove that shade is always harmful.","To avoid measuring water use."],"answer":0,"evidence":[[1,1],[1,2]],"explanation":"The next trial addresses a condition missing from the original comparison."},
+        {"id":"stance","skill":"inference","question":"What is the coordinator's position?","choices":["The new approach has already been proved everywhere.","The trial should be forgotten.","A larger harvest is the only useful outcome.","The approach deserves more testing before a broad claim."],"answer":3,"evidence":[[1,2],[1,3]],"explanation":"She welcomes the initial results while distinguishing promising evidence from a general conclusion."}
+      ]
+    },
+    {
+      "id": "flexible-hours", "band": 3, "title": "Whose working day was measured?",
+      "paragraphs": [
+        ["A company allowed one office team to choose its starting time for six weeks.", "The team completed as many tasks as before, and most of its members reported that travelling outside rush hour reduced stress.", "A manager described the trial as proof that flexible hours would benefit every employee."],
+        ["The staff representative welcomed the findings but questioned the size of that claim.", "The trial involved employees whose work could be done independently, whereas reception staff had to be available at fixed times.", "It also measured completed tasks without checking whether coordination with other teams had become harder."],
+        ["The representative therefore proposed extending the trial to different roles and collecting information about coordination.", "In her view, a useful policy needed to reflect both individual convenience and the work shared with others."]
+      ],
+      "questions": [
+        {"id":"claim","skill":"evaluation","question":"What is the main weakness in the manager's claim?","choices":["It extends a result from one type of team to all employees.","It admits that the trial lasted six weeks.","It considers staff opinions at all.","It says that no tasks were completed."],"answer":0,"evidence":[[0,0],[0,2],[1,1]],"explanation":"The participants' independent work may not represent roles requiring fixed coverage."},
+        {"id":"missing","skill":"evidence","question":"Which important issue was not measured?","choices":["Whether the team had members.","The name of the company.","Whether coordination with other teams became harder.","Whether rush hour existed before the trial."],"answer":2,"evidence":[[1,2]],"explanation":"Task counts alone did not establish what happened to coordination across teams."},
+        {"id":"position","skill":"inference","question":"How does the representative respond to the findings?","choices":["She rejects any change to working hours.","She supports further study rather than immediate universal adoption.","She demands that reception staff stop working.","She considers personal convenience irrelevant."],"answer":1,"evidence":[[1,0],[2,0],[2,1]],"explanation":"Welcoming the findings and proposing a wider trial is a qualified response, not a rejection."},
+        {"id":"purpose","skill":"main-idea","question":"What distinction organizes the passage?","choices":["Morning work versus work done at night only.","Paid work versus unpaid work.","Written tasks versus spoken tasks.","A promising local result versus a policy suitable for varied roles."],"answer":3,"evidence":[[0,2],[1,1],[2,1]],"explanation":"The argument concerns how far a limited result can justify a policy for different kinds of work."}
+      ]
+    },
+    {
+      "id": "museum-letters", "band": 3, "title": "The letters in the exhibition",
+      "paragraphs": [
+        ["A museum prepared an exhibition about life in a town during the construction of its railway.", "Most of the surviving letters had been written by shop owners who expected new customers.", "An early draft of the exhibition described the railway as a change that everybody welcomed."],
+        ["A researcher then found a petition from residents whose homes stood near the proposed track.", "The petition did not deny that the railway could bring trade, but asked the town to address noise and the loss of housing.", "The curator decided to display the petition beside the letters rather than replace one account with the other."],
+        ["A new label explained that surviving documents reveal particular people's experiences and do not automatically represent the whole town.", "Visitors would be invited to compare the writers' interests and consider whose voices might still be missing."]
+      ],
+      "questions": [
+        {"id":"bias","skill":"evidence","question":"Why could the letters alone give an incomplete picture?","choices":["They were written after the exhibition opened.","They contain no opinions.","They mainly preserve one group's interests.","They prove that every resident owned a shop."],"answer":2,"evidence":[[0,1],[2,0]],"explanation":"Shop owners expecting customers were only one group within the town."},
+        {"id":"petition","skill":"contrast","question":"How does the petition qualify the positive account?","choices":["It raises costs to some residents while recognizing possible trade benefits.","It says trade can never benefit a town.","It proves that the railway was never proposed.","It repeats the letters without adding concerns."],"answer":0,"evidence":[[1,0],[1,1]],"explanation":"The residents' concern is not a blanket rejection: they acknowledge trade while naming specific harms."},
+        {"id":"display","skill":"purpose","question":"Why are both kinds of document displayed together?","choices":["To make visitors memorize the shop owners' names.","To hide disagreement from visitors.","To show that the petition has no historical value.","To let visitors compare perspectives on the same change."],"answer":3,"evidence":[[1,2],[2,1]],"explanation":"Keeping both sources makes their differing interests available for comparison."},
+        {"id":"conclusion","skill":"inference","question":"Which conclusion is best supported?","choices":["Finding one petition reveals every missing voice.","A surviving source must be interpreted in relation to who produced it.","Every personal letter is unreliable.","Museums should show only accounts that agree."],"answer":1,"evidence":[[2,0],[2,1]],"explanation":"The passage asks who is represented and who is absent, rather than dismissing all personal sources."}
+      ]
+    },
+    {
+      "id": "bus-consultation", "band": 4, "title": "Beyond the number of passengers",
+      "paragraphs": [
+        ["A town proposed removing the last evening bus because it carried fewer passengers than daytime services.", "The financial report calculated the cost per journey but did not examine what alternatives those passengers had.", "During the consultation, hospital cleaners and restaurant workers explained that the last bus often determined whether they could accept a shift."],
+        ["Supporters of the proposal argued that a service used by few people was an inefficient use of a limited budget.", "Opponents replied that low demand could not, by itself, establish low public value when the people affected had no practical substitute.", "They proposed a smaller vehicle and a revised route as options worth comparing before cancellation."],
+        ["The transport committee did not promise to retain the existing service unchanged.", "Instead, it requested an assessment of costs, access to employment and the consequences of each alternative.", "Its decision to delay cancellation treated efficiency as an important criterion, but not the only one that required evidence."]
+      ],
+      "questions": [
+        {"id":"omission","skill":"evaluation","question":"What does the passage identify as an omission in the report?","choices":["The number of daytime buses.","The existence of the transport committee.","The color of the hospital uniforms.","The consequences for passengers with no practical alternative."],"answer":3,"evidence":[[0,1],[0,2]],"explanation":"The report measures cost but does not examine the access that the last bus provides."},
+        {"id":"dispute","skill":"contrast","question":"What is the central disagreement?","choices":["Whether the bus has ever carried anyone.","Whether low passenger numbers alone establish low public value.","Whether budgets can be counted.","Whether daytime services should run at night."],"answer":1,"evidence":[[1,0],[1,1]],"explanation":"Both sides discuss limited resources, but disagree about whether passenger counts are a sufficient criterion."},
+        {"id":"alternative","skill":"purpose","question":"What role do the smaller vehicle and revised route play in the argument?","choices":["They are alternatives to compare with cancellation and the existing service.","They prove the present route has no cost.","They guarantee that every worker will travel free.","They are changes the committee has already completed."],"answer":0,"evidence":[[1,2],[2,1]],"explanation":"They are proposals for evaluation, not established solutions or completed changes."},
+        {"id":"stance","skill":"inference","question":"Which statement best expresses the committee's position?","choices":["Financial efficiency is irrelevant.","Every existing bus must be retained forever.","A justified decision needs several kinds of evidence.","Consultation makes further assessment unnecessary."],"answer":2,"evidence":[[2,0],[2,1],[2,2]],"explanation":"The committee keeps costs in view while also requesting evidence about employment access and alternatives."}
+      ]
+    },
+    {
+      "id": "park-lighting", "band": 4, "title": "What a safer park would mean",
+      "paragraphs": [
+        ["After brighter lights were installed along a park's main path, a survey found that more evening visitors reported feeling safe.", "A newspaper headline described this as proof that the lighting had made the whole park safer.", "Yet the survey asked only people already using the main path and collected no information about incidents elsewhere."],
+        ["A residents' group welcomed the improved sense of safety, while noting that people avoiding the park were absent from the sample.", "A conservation group also asked whether lighting unused areas all night would affect wildlife without helping visitors.", "Neither group argued that the positive reports should be ignored; both questioned what conclusions those reports could support."],
+        ["The council proposed combining incident records with interviews beyond the main path and a trial of lights that dimmed when nobody was nearby.", "It would compare access, reported experience and environmental effects before extending the scheme.", "The debate therefore concerned how to define and assess improvement, rather than a simple choice between accepting every new light and removing them all."]
+      ],
+      "questions": [
+        {"id":"headline","skill":"evaluation","question":"Why does the headline go beyond the survey evidence?","choices":["It generalizes from reported feelings on one path to safety throughout the park.","It admits that visitors were surveyed.","It quotes people who never visit any park.","It says that the lights have not been installed."],"answer":0,"evidence":[[0,0],[0,1],[0,2]],"explanation":"A reported sense of safety in a selected sample is not a measurement of all incidents or all areas."},
+        {"id":"missing","skill":"inference","question":"Whose experience is especially missing from the sample?","choices":["People who regularly walk on the main path.","People who avoid visiting the park.","The newspaper's printers.","Every person who answered the survey."],"answer":1,"evidence":[[0,2],[1,0]],"explanation":"The sample includes current main-path users, so it cannot directly represent people who stay away."},
+        {"id":"trial","skill":"purpose","question":"Why test lights that dim when nobody is nearby?","choices":["To guarantee that all wildlife will disappear.","To stop collecting reports about visitors.","To examine an option that might balance access and environmental effects.","To prove the original survey was invented."],"answer":2,"evidence":[[1,1],[2,0],[2,1]],"explanation":"The trial responds to a concern about lighting unused areas while preserving useful access."},
+        {"id":"synthesis","skill":"main-idea","question":"Which summary best captures the passage?","choices":["Any positive survey is enough to settle public debate.","Feeling safer has no value.","The only possible choices are full expansion and complete removal.","A positive finding can matter while still needing wider evidence and clearer criteria."],"answer":3,"evidence":[[1,2],[2,1],[2,2]],"explanation":"The participants acknowledge the benefit but question its scope and the criteria for a wider decision."}
+      ]
+    }
+  ]
+}

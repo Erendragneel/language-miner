@@ -1,0 +1,914 @@
+{
+  "version": 1,
+  "language": "id",
+  "passages": [
+    {
+      "id": "bridge-notice",
+      "band": 1,
+      "title": "Jalan lain menuju perpustakaan",
+      "paragraphs": [
+        [
+          "Mina biasanya menyeberangi jembatan kecil untuk pergi ke perpustakaan setelah bekerja.",
+          "Pada hari Selasa, sebuah pengumuman menyatakan bahwa jembatan akan ditutup mulai Rabu pagi hingga Jumat malam.",
+          "Pengumuman itu menyarankan jalur di tepi sungai, yang membutuhkan waktu lima belas menit lebih lama."
+        ],
+        [
+          "Mina telah memesan sebuah buku yang hanya akan disimpan perpustakaan untuknya sampai hari Kamis.",
+          "Ia memutuskan untuk pulang kerja lebih awal pada hari Kamis dan menggunakan jalur di tepi sungai.",
+          "Ia juga mengirimkan pengumuman itu kepada kelompok jalan kakinya agar tidak ada yang datang ke jembatan yang ditutup."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "reason",
+          "skill": "cause",
+          "question": "Mengapa Mina perlu datang sebelum hari Jumat?",
+          "choices": [
+            "Buku pesanannya tidak akan disimpan lagi setelah hari Kamis.",
+            "Perpustakaan akan tutup permanen pada hari Jumat.",
+            "Kelompok jalan kakinya bertemu di perpustakaan pada hari Jumat.",
+            "Jalur di tepi sungai ditutup pada hari Kamis."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Batas pemesanan berakhir pada hari Kamis; bacaan tidak menyatakan bahwa perpustakaannya akan ditutup."
+        },
+        {
+          "id": "plan",
+          "skill": "sequence",
+          "question": "Bagaimana Mina mengatasi perjalanan yang lebih lama?",
+          "choices": [
+            "Menunggu sampai jembatan dibuka kembali.",
+            "Meminta perpustakaan memindahkan jembatan.",
+            "Pulang kerja lebih awal dan melalui jalur di tepi sungai.",
+            "Mengambil buku pada Selasa pagi."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Dengan berangkat lebih awal, ia memiliki waktu untuk menempuh jalur yang disarankan, yang menambah waktu lima belas menit."
+        },
+        {
+          "id": "notice",
+          "skill": "detail",
+          "question": "Kapan jembatan diperkirakan dibuka kembali?",
+          "choices": [
+            "Rabu pagi",
+            "Kamis malam",
+            "Jumat pagi",
+            "Jumat malam"
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Pengumuman menyebut Jumat malam sebagai akhir masa penutupan."
+        },
+        {
+          "id": "share",
+          "skill": "purpose",
+          "question": "Mengapa Mina membagikan pengumuman itu?",
+          "choices": [
+            "Untuk mengajak semua orang memesan bukunya.",
+            "Untuk membantu pejalan kaki lain menghindari jembatan yang ditutup.",
+            "Untuk mengeluhkan jarak perpustakaan yang terlalu jauh.",
+            "Untuk membatalkan semua kegiatan jalan kaki sampai hari Jumat."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Ia ingin kelompoknya merencanakan perjalanan dengan mempertimbangkan penutupan itu; tidak ada pembatalan yang disebutkan."
+        }
+      ]
+    },
+    {
+      "id": "library-corner",
+      "band": 1,
+      "title": "Sudut tenang untuk semua orang",
+      "paragraphs": [
+        [
+          "Sebuah perpustakaan lingkungan menerima beberapa permintaan akan tempat belajar yang tenang pada malam hari.",
+          "Ruang pertemuannya yang kecil biasanya kosong setelah pukul enam, tetapi digunakan klub membaca setiap hari Kamis.",
+          "Pustakawan mengusulkan agar ruang itu dibuka untuk pelajar pada malam-malam lainnya."
+        ],
+        [
+          "Karena hanya tersedia delapan kursi, pelajar akan memesan satu tempat duduk, bukan satu meja penuh.",
+          "Perpustakaan akan mencoba pengaturan itu selama satu bulan dan meminta masukan dari pelajar maupun anggota klub.",
+          "Jika percobaan itu menimbulkan masalah bagi klub, pustakawan akan menyesuaikan jadwal sebelum menetapkan perubahan secara permanen."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "exception",
+          "skill": "detail",
+          "question": "Mengapa hari Kamis diperlakukan berbeda?",
+          "choices": [
+            "Perpustakaan tidak memiliki petugas pada hari itu.",
+            "Klub membaca sudah menggunakan ruang tersebut.",
+            "Pelajar tidak belajar pada hari Kamis.",
+            "Kedelapan kursi sedang diperbaiki."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Kegiatan klub membaca yang sudah berjalan menjadi alasan hari Kamis tidak termasuk dalam usulan tersebut."
+        },
+        {
+          "id": "reservation",
+          "skill": "purpose",
+          "question": "Apa tujuan pemesanan tempat duduk satu per satu?",
+          "choices": [
+            "Memberikan semua meja kepada satu orang.",
+            "Mencegah anggota klub masuk.",
+            "Membagi penggunaan ruang dengan tempat duduk terbatas secara adil.",
+            "Menggantikan pustakawan."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Hanya ada delapan kursi, sehingga pemesanan per tempat duduk sesuai dengan kapasitas ruang yang terbatas."
+        },
+        {
+          "id": "trial",
+          "skill": "sequence",
+          "question": "Apa yang akan dilakukan sebelum keputusan permanen dibuat?",
+          "choices": [
+            "Percobaan selama satu bulan dan pengumpulan masukan dari kedua kelompok.",
+            "Klub membaca akan segera dibubarkan.",
+            "Perpustakaan akan membeli gedung baru.",
+            "Hanya pelajar yang akan memberikan suara tentang pekerjaan pustakawan."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Urutan yang diusulkan adalah percobaan, masukan, lalu penyesuaian yang diperlukan."
+        },
+        {
+          "id": "attitude",
+          "skill": "inference",
+          "question": "Manakah yang paling tepat menggambarkan pendekatan pustakawan?",
+          "choices": [
+            "Menolak setiap permintaan baru.",
+            "Menjanjikan ruang tanpa batas.",
+            "Mengabaikan pengguna yang sudah ada.",
+            "Mencoba perubahan sambil melindungi kegiatan yang sudah berjalan."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Usulan tersebut memenuhi kebutuhan baru sambil tetap memperhatikan penggunaan ruang oleh klub membaca."
+        }
+      ]
+    },
+    {
+      "id": "repair-cafe",
+      "band": 2,
+      "title": "Memperbaiki lebih dari sekadar barang",
+      "paragraphs": [
+        [
+          "Pada acara kafe reparasi pertama, para sukarelawan memperbaiki lampu rusak sementara pengunjung menunggu pekerjaan mereka selesai.",
+          "Penyelenggara senang dengan jumlah barang yang berhasil diperbaiki, tetapi melihat kerusakan sederhana yang sama muncul kembali pada bulan berikutnya.",
+          "Mereka menyadari bahwa perbaikan yang cepat belum tentu mengajarkan pemilik cara mencegah masalah tersebut."
+        ],
+        [
+          "Pada acara berikutnya, sukarelawan menjelaskan setiap langkah dan mengajak pengunjung membantu jika aman.",
+          "Cara ini memerlukan waktu lebih lama, sehingga lebih sedikit barang yang diperbaiki sore itu.",
+          "Namun, kuesioner setelah acara menunjukkan bahwa banyak pengunjung kini mampu melakukan perawatan dasar sendiri.",
+          "Penyelenggara memutuskan untuk melaporkan jumlah perbaikan sekaligus hal yang dipelajari pengunjung, bukan menilai keberhasilan hanya dari perbaikan."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "problem",
+          "skill": "cause",
+          "question": "Kelemahan apa yang terlihat dalam acara pertama?",
+          "choices": [
+            "Tidak ada barang yang dapat diperbaiki.",
+            "Pengunjung sudah mengetahui semua teknik perbaikan.",
+            "Memperbaiki barang tidak selalu mencegah kerusakan yang sama muncul kembali.",
+            "Terlalu banyak kuesioner dibagikan."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Kerusakan yang berulang membuat penyelenggara membedakan perbaikan barang dari pengajaran cara pencegahannya."
+        },
+        {
+          "id": "tradeoff",
+          "skill": "contrast",
+          "question": "Apa pertukaran utama dalam pendekatan baru itu?",
+          "choices": [
+            "Lebih banyak pembelajaran, tetapi lebih sedikit perbaikan yang selesai sore itu.",
+            "Perbaikan lebih cepat, tetapi tanpa keterlibatan pengunjung.",
+            "Lebih sedikit penjelasan, tetapi lebih banyak pengetahuan perawatan.",
+            "Lebih banyak lampu rusak, tetapi lebih sedikit sukarelawan."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Keterlibatan dan penjelasan memerlukan waktu, sedangkan kuesioner menunjukkan manfaat pembelajaran."
+        },
+        {
+          "id": "evidence",
+          "skill": "evidence",
+          "question": "Bukti apa yang mendukung dipertahankannya pendekatan pendidikan itu?",
+          "choices": [
+            "Acara pertama selesai lebih awal.",
+            "Sukarelawan berhenti melaporkan jumlah perbaikan.",
+            "Setiap pengunjung menjadi tukang reparasi profesional.",
+            "Banyak responden menyatakan mampu melakukan perawatan dasar."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Kuesioner mendukung adanya pembelajaran dasar, bukan keahlian profesional atau pernyataan tentang setiap pengunjung."
+        },
+        {
+          "id": "measure",
+          "skill": "main-idea",
+          "question": "Apa gagasan utama bacaan ini?",
+          "choices": [
+            "Hanya kecepatan yang penting dalam proyek masyarakat.",
+            "Keberhasilan dapat mencakup pembelajaran maupun hasil langsung.",
+            "Kuesioner membuat pekerjaan praktis tidak diperlukan.",
+            "Satu barang yang tidak diperbaiki membuktikan kegagalan acara."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Penyelenggara memperluas ukuran keberhasilan, bukan meninggalkan kegiatan perbaikan."
+        }
+      ]
+    },
+    {
+      "id": "garden-water",
+      "band": 2,
+      "title": "Apa yang sebenarnya ditunjukkan percobaan kebun",
+      "paragraphs": [
+        [
+          "Sebuah kebun komunitas menguji jadwal penyiraman baru pada dua petak sayuran.",
+          "Sukarelawan menyiram satu petak setiap pagi dan petak lainnya hanya ketika tanah terasa kering.",
+          "Setelah empat minggu, petak kedua menggunakan lebih sedikit air dan menghasilkan jumlah sayuran yang serupa."
+        ],
+        [
+          "Beberapa anggota ingin segera menerapkan jadwal baru di seluruh kebun.",
+          "Namun, percobaan berlangsung pada bulan yang sejuk, dan kedua petak berada di tempat teduh.",
+          "Koordinator mengusulkan pengulangan percobaan saat cuaca lebih panas dengan menyertakan petak yang terkena sinar matahari.",
+          "Menurutnya, hasil awal menjanjikan, tetapi belum cukup untuk menunjukkan bahwa jadwal yang sama akan berhasil dalam setiap kondisi."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "result",
+          "skill": "detail",
+          "question": "Apa yang langsung ditunjukkan oleh percobaan pertama?",
+          "choices": [
+            "Setiap kebun membutuhkan jadwal penyiraman yang sama.",
+            "Petak kedua menggunakan lebih sedikit air dengan hasil panen yang serupa.",
+            "Petak yang terkena matahari tidak pernah membutuhkan air.",
+            "Petak yang disiram setiap hari tidak menghasilkan sayuran."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Pengamatan ini menyangkut dua petak dalam satu percobaan; hasilnya bukan kesimpulan universal."
+        },
+        {
+          "id": "limit",
+          "skill": "evaluation",
+          "question": "Mengapa hasilnya harus ditafsirkan dengan hati-hati?",
+          "choices": [
+            "Tidak ada yang mencatat penggunaan air.",
+            "Kedua petak berada di negara berbeda.",
+            "Pengujian hanya mencakup cuaca sejuk dan petak yang teduh.",
+            "Sukarelawan mengubah harga sayuran."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Cuaca dan lokasi yang terbatas membuat kondisi pertumbuhan lain belum teruji."
+        },
+        {
+          "id": "next",
+          "skill": "purpose",
+          "question": "Mengapa petak yang terkena matahari perlu disertakan dalam percobaan berikutnya?",
+          "choices": [
+            "Untuk menguji apakah pendekatan itu berhasil dalam kondisi yang berbeda.",
+            "Untuk membuat panen pertama menghilang.",
+            "Untuk membuktikan bahwa naungan selalu berbahaya.",
+            "Untuk menghindari pengukuran penggunaan air."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Percobaan berikutnya menguji kondisi yang tidak tercakup dalam perbandingan awal."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Bagaimana sikap koordinator?",
+          "choices": [
+            "Pendekatan baru telah terbukti berhasil di mana-mana.",
+            "Percobaan itu sebaiknya dilupakan.",
+            "Panen yang lebih besar adalah satu-satunya hasil yang berguna.",
+            "Pendekatan itu layak diuji lebih lanjut sebelum dibuat klaim yang luas."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Ia menyambut hasil awal sambil membedakan bukti yang menjanjikan dari kesimpulan umum."
+        }
+      ]
+    },
+    {
+      "id": "flexible-hours",
+      "band": 3,
+      "title": "Hari kerja siapa yang diukur?",
+      "paragraphs": [
+        [
+          "Sebuah perusahaan mengizinkan satu tim kantor memilih waktu mulai kerjanya selama enam minggu.",
+          "Tim itu menyelesaikan tugas sebanyak sebelumnya, dan sebagian besar anggotanya melaporkan bahwa perjalanan di luar jam sibuk mengurangi stres.",
+          "Seorang manajer menyebut percobaan itu sebagai bukti bahwa jam kerja fleksibel akan menguntungkan setiap karyawan."
+        ],
+        [
+          "Perwakilan staf menyambut temuan itu, tetapi mempertanyakan luasnya klaim tersebut.",
+          "Percobaan melibatkan karyawan yang dapat bekerja secara mandiri, sedangkan staf resepsionis harus tersedia pada waktu tertentu.",
+          "Percobaan itu juga menghitung tugas yang selesai tanpa memeriksa apakah koordinasi dengan tim lain menjadi lebih sulit."
+        ],
+        [
+          "Karena itu, perwakilan tersebut mengusulkan perluasan percobaan ke berbagai peran serta pengumpulan informasi tentang koordinasi.",
+          "Menurutnya, kebijakan yang berguna perlu mempertimbangkan kenyamanan individu maupun pekerjaan yang dilakukan bersama orang lain."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "claim",
+          "skill": "evaluation",
+          "question": "Apa kelemahan utama klaim manajer?",
+          "choices": [
+            "Klaim itu memperluas hasil dari satu jenis tim kepada semua karyawan.",
+            "Klaim itu mengakui bahwa percobaan berlangsung enam minggu.",
+            "Klaim itu mempertimbangkan pendapat staf.",
+            "Klaim itu menyatakan bahwa tidak ada tugas yang selesai."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Pekerjaan mandiri para peserta belum tentu mewakili peran yang memerlukan petugas pada waktu tetap."
+        },
+        {
+          "id": "missing",
+          "skill": "evidence",
+          "question": "Hal penting apa yang tidak diukur?",
+          "choices": [
+            "Apakah tim itu memiliki anggota.",
+            "Nama perusahaan.",
+            "Apakah koordinasi dengan tim lain menjadi lebih sulit.",
+            "Apakah jam sibuk sudah ada sebelum percobaan."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Jumlah tugas saja tidak menunjukkan apa yang terjadi pada koordinasi antartim."
+        },
+        {
+          "id": "position",
+          "skill": "inference",
+          "question": "Bagaimana perwakilan menanggapi temuan itu?",
+          "choices": [
+            "Ia menolak semua perubahan jam kerja.",
+            "Ia mendukung penelitian lanjutan, bukan penerapan langsung untuk semua orang.",
+            "Ia menuntut staf resepsionis berhenti bekerja.",
+            "Ia menganggap kenyamanan pribadi tidak relevan."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Menyambut temuan dan mengusulkan percobaan yang lebih luas merupakan dukungan bersyarat, bukan penolakan."
+        },
+        {
+          "id": "purpose",
+          "skill": "main-idea",
+          "question": "Perbedaan apa yang menjadi dasar bacaan ini?",
+          "choices": [
+            "Pekerjaan pagi dibandingkan dengan pekerjaan yang hanya dilakukan malam hari.",
+            "Pekerjaan berbayar dibandingkan dengan pekerjaan tanpa bayaran.",
+            "Tugas tertulis dibandingkan dengan tugas lisan.",
+            "Hasil lokal yang menjanjikan dibandingkan dengan kebijakan yang sesuai untuk berbagai peran."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Argumennya membahas sejauh mana hasil yang terbatas dapat membenarkan kebijakan bagi berbagai jenis pekerjaan."
+        }
+      ]
+    },
+    {
+      "id": "museum-letters",
+      "band": 3,
+      "title": "Surat-surat dalam pameran",
+      "paragraphs": [
+        [
+          "Sebuah museum menyiapkan pameran tentang kehidupan di suatu kota selama pembangunan jalur kereta apinya.",
+          "Sebagian besar surat yang masih tersimpan ditulis oleh pemilik toko yang mengharapkan pelanggan baru.",
+          "Rancangan awal pameran menggambarkan jalur kereta api sebagai perubahan yang disambut semua orang."
+        ],
+        [
+          "Seorang peneliti kemudian menemukan petisi dari warga yang rumahnya berada dekat jalur yang diusulkan.",
+          "Petisi itu tidak menyangkal bahwa kereta api dapat meningkatkan perdagangan, tetapi meminta pemerintah kota menangani kebisingan dan hilangnya perumahan.",
+          "Kurator memutuskan untuk memajang petisi di samping surat-surat itu, bukan mengganti satu kisah dengan kisah lainnya."
+        ],
+        [
+          "Keterangan baru menjelaskan bahwa dokumen yang masih ada mengungkap pengalaman orang-orang tertentu dan tidak otomatis mewakili seluruh kota.",
+          "Pengunjung akan diajak membandingkan kepentingan para penulis dan mempertimbangkan suara siapa yang mungkin masih belum terdengar."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "bias",
+          "skill": "evidence",
+          "question": "Mengapa surat-surat itu saja dapat memberikan gambaran yang tidak lengkap?",
+          "choices": [
+            "Surat-surat itu ditulis setelah pameran dibuka.",
+            "Surat-surat itu tidak berisi pendapat.",
+            "Surat-surat itu terutama menyimpan kepentingan satu kelompok.",
+            "Surat-surat itu membuktikan setiap warga memiliki toko."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "explanation": "Pemilik toko yang mengharapkan pelanggan hanyalah satu kelompok dalam masyarakat kota."
+        },
+        {
+          "id": "petition",
+          "skill": "contrast",
+          "question": "Bagaimana petisi itu membatasi gambaran yang positif?",
+          "choices": [
+            "Petisi menyebut kerugian bagi sebagian warga sambil mengakui kemungkinan manfaat perdagangan.",
+            "Petisi menyatakan perdagangan tidak pernah menguntungkan kota.",
+            "Petisi membuktikan jalur kereta api tidak pernah diusulkan.",
+            "Petisi mengulang surat-surat tanpa menambahkan kekhawatiran."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Kekhawatiran warga bukan penolakan menyeluruh: mereka mengakui perdagangan sambil menyebut dampak buruk tertentu."
+        },
+        {
+          "id": "display",
+          "skill": "purpose",
+          "question": "Mengapa kedua jenis dokumen dipajang bersama?",
+          "choices": [
+            "Agar pengunjung menghafal nama pemilik toko.",
+            "Untuk menyembunyikan perbedaan pendapat dari pengunjung.",
+            "Untuk menunjukkan petisi tidak memiliki nilai sejarah.",
+            "Agar pengunjung dapat membandingkan pandangan tentang perubahan yang sama."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Mempertahankan kedua sumber memungkinkan perbandingan kepentingan yang berbeda."
+        },
+        {
+          "id": "conclusion",
+          "skill": "inference",
+          "question": "Kesimpulan mana yang paling didukung bacaan?",
+          "choices": [
+            "Menemukan satu petisi mengungkap semua suara yang hilang.",
+            "Sumber yang masih ada harus ditafsirkan dengan mempertimbangkan pembuatnya.",
+            "Setiap surat pribadi tidak dapat dipercaya.",
+            "Museum hanya boleh menampilkan kisah yang saling sepakat."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Bacaan menanyakan siapa yang terwakili dan siapa yang tidak, bukan menolak semua sumber pribadi."
+        }
+      ]
+    },
+    {
+      "id": "bus-consultation",
+      "band": 4,
+      "title": "Lebih dari sekadar jumlah penumpang",
+      "paragraphs": [
+        [
+          "Sebuah kota mengusulkan penghapusan bus terakhir pada malam hari karena penumpangnya lebih sedikit daripada layanan siang.",
+          "Laporan keuangan menghitung biaya per perjalanan, tetapi tidak meneliti alternatif yang dimiliki para penumpang tersebut.",
+          "Dalam konsultasi publik, petugas kebersihan rumah sakit dan pekerja restoran menjelaskan bahwa bus terakhir sering menentukan apakah mereka dapat menerima giliran kerja."
+        ],
+        [
+          "Pendukung usulan berpendapat bahwa layanan yang digunakan sedikit orang merupakan penggunaan anggaran terbatas yang tidak efisien.",
+          "Penentang menjawab bahwa rendahnya permintaan saja tidak membuktikan rendahnya nilai bagi masyarakat ketika orang yang terdampak tidak memiliki pengganti yang praktis.",
+          "Mereka mengusulkan kendaraan lebih kecil dan perubahan rute sebagai pilihan yang layak dibandingkan sebelum pembatalan."
+        ],
+        [
+          "Komite transportasi tidak berjanji mempertahankan layanan yang ada tanpa perubahan.",
+          "Sebaliknya, komite meminta penilaian tentang biaya, akses terhadap pekerjaan, dan dampak setiap alternatif.",
+          "Keputusan menunda pembatalan memperlakukan efisiensi sebagai kriteria penting, tetapi bukan satu-satunya kriteria yang membutuhkan bukti."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "omission",
+          "skill": "evaluation",
+          "question": "Kekurangan apa dalam laporan yang ditunjukkan bacaan?",
+          "choices": [
+            "Jumlah bus pada siang hari.",
+            "Keberadaan komite transportasi.",
+            "Warna seragam rumah sakit.",
+            "Dampak bagi penumpang yang tidak memiliki alternatif praktis."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Laporan mengukur biaya, tetapi tidak meneliti akses yang disediakan bus terakhir."
+        },
+        {
+          "id": "dispute",
+          "skill": "contrast",
+          "question": "Apa inti perbedaan pendapatnya?",
+          "choices": [
+            "Apakah bus itu pernah mengangkut seseorang.",
+            "Apakah sedikitnya penumpang saja menunjukkan rendahnya nilai bagi masyarakat.",
+            "Apakah anggaran dapat dihitung.",
+            "Apakah layanan siang harus berjalan pada malam hari."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Kedua pihak membahas sumber daya terbatas, tetapi berbeda pendapat tentang kecukupan jumlah penumpang sebagai kriteria."
+        },
+        {
+          "id": "alternative",
+          "skill": "purpose",
+          "question": "Apa peran kendaraan lebih kecil dan perubahan rute dalam argumen ini?",
+          "choices": [
+            "Keduanya alternatif yang dapat dibandingkan dengan pembatalan dan layanan yang ada.",
+            "Keduanya membuktikan rute sekarang tidak memerlukan biaya.",
+            "Keduanya menjamin setiap pekerja bepergian gratis.",
+            "Keduanya perubahan yang sudah diselesaikan komite."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Keduanya usulan untuk dinilai, bukan solusi yang sudah terbukti atau perubahan yang telah selesai."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Pernyataan mana yang paling tepat menggambarkan sikap komite?",
+          "choices": [
+            "Efisiensi keuangan tidak relevan.",
+            "Setiap bus yang ada harus dipertahankan selamanya.",
+            "Keputusan yang beralasan membutuhkan beberapa jenis bukti.",
+            "Konsultasi membuat penilaian lanjutan tidak diperlukan."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Komite tetap memperhatikan biaya sambil meminta bukti tentang akses pekerjaan dan berbagai alternatif."
+        }
+      ]
+    },
+    {
+      "id": "park-lighting",
+      "band": 4,
+      "title": "Arti taman yang lebih aman",
+      "paragraphs": [
+        [
+          "Setelah lampu yang lebih terang dipasang di sepanjang jalur utama sebuah taman, survei menemukan bahwa lebih banyak pengunjung malam melaporkan rasa aman.",
+          "Sebuah judul surat kabar menyebut hal itu sebagai bukti bahwa pencahayaan telah membuat seluruh taman lebih aman.",
+          "Padahal, survei hanya menanyakan orang yang sudah menggunakan jalur utama dan tidak mengumpulkan informasi tentang kejadian di tempat lain."
+        ],
+        [
+          "Kelompok warga menyambut peningkatan rasa aman, tetapi mencatat bahwa orang yang menghindari taman tidak termasuk dalam sampel.",
+          "Kelompok pelestarian juga menanyakan apakah menerangi area yang tidak digunakan sepanjang malam akan memengaruhi satwa liar tanpa membantu pengunjung.",
+          "Tidak satu pun kelompok berpendapat bahwa laporan positif harus diabaikan; keduanya mempertanyakan kesimpulan yang dapat didukung laporan itu."
+        ],
+        [
+          "Dewan kota mengusulkan penggabungan catatan kejadian dengan wawancara di luar jalur utama serta uji coba lampu yang meredup ketika tidak ada orang di dekatnya.",
+          "Dewan akan membandingkan akses, pengalaman yang dilaporkan, dan dampak lingkungan sebelum memperluas program.",
+          "Karena itu, perdebatan menyangkut cara mendefinisikan dan menilai perbaikan, bukan pilihan sederhana antara menerima setiap lampu baru dan menghapus semuanya."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "headline",
+          "skill": "evaluation",
+          "question": "Mengapa judul surat kabar melampaui bukti survei?",
+          "choices": [
+            "Judul itu menggeneralisasi perasaan yang dilaporkan di satu jalur menjadi keamanan di seluruh taman.",
+            "Judul itu mengakui adanya survei pengunjung.",
+            "Judul itu mengutip orang yang tidak pernah mengunjungi taman mana pun.",
+            "Judul itu menyatakan lampu belum dipasang."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Rasa aman yang dilaporkan sampel terpilih bukan pengukuran semua kejadian atau semua wilayah."
+        },
+        {
+          "id": "missing",
+          "skill": "inference",
+          "question": "Pengalaman siapa yang terutama tidak tercakup dalam sampel?",
+          "choices": [
+            "Orang yang rutin berjalan di jalur utama.",
+            "Orang yang menghindari kunjungan ke taman.",
+            "Para pencetak surat kabar.",
+            "Setiap orang yang menjawab survei."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Sampel mencakup pengguna jalur utama saat ini, sehingga tidak dapat langsung mewakili orang yang menjauh."
+        },
+        {
+          "id": "trial",
+          "skill": "purpose",
+          "question": "Mengapa menguji lampu yang meredup ketika tidak ada orang di dekatnya?",
+          "choices": [
+            "Untuk menjamin semua satwa liar menghilang.",
+            "Untuk berhenti mengumpulkan laporan pengunjung.",
+            "Untuk meneliti pilihan yang mungkin menyeimbangkan akses dan dampak lingkungan.",
+            "Untuk membuktikan survei awal dibuat-buat."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Uji coba menanggapi kekhawatiran tentang penerangan area yang tidak digunakan sambil mempertahankan akses yang berguna."
+        },
+        {
+          "id": "synthesis",
+          "skill": "main-idea",
+          "question": "Ringkasan mana yang paling sesuai dengan bacaan?",
+          "choices": [
+            "Setiap survei positif cukup untuk mengakhiri perdebatan publik.",
+            "Merasa lebih aman tidak memiliki nilai.",
+            "Satu-satunya pilihan adalah perluasan penuh atau penghapusan total.",
+            "Temuan positif tetap dapat bernilai meskipun membutuhkan bukti lebih luas dan kriteria lebih jelas."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Para peserta mengakui manfaatnya, tetapi mempertanyakan cakupannya dan kriteria bagi keputusan yang lebih luas."
+        }
+      ]
+    }
+  ]
+}

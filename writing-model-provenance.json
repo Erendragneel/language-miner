@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "modified": "2026-10-26",
+  "scope": "Ordered centerline models for the writing lesson inventory. The grader compares pen movement against the selected lesson model; it does not claim to recognize all valid handwriting styles.",
+  "sources": [
+    {
+      "id": "kanjivg-ja",
+      "name": "KanjiVG",
+      "authors": "Ulrich Apel and contributors",
+      "repository": "https://github.com/KanjiVG/kanjivg",
+      "revision": "422b5538595676da918c288a4230cb5e22a1ee7e",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "asset": "writing-stroke-data.js",
+      "language": "ja",
+      "method": "Extract ordered SVG stroke paths, retain Japanese forms and order, scale uniformly into the practice square. Expanded the existing dataset to cover current single-kanji course vocabulary."
+    },
+    {
+      "id": "makemeahanzi-prc",
+      "name": "Make Me a Hanzi",
+      "authors": "S. Kishore, project contributors, and Arphic Technology Co., Ltd. (underlying font graphics)",
+      "repository": "https://github.com/skishore/makemeahanzi",
+      "revision": "bddc96d41bef78427ed0e034e9f7e31d71fd1b92",
+      "license": "Arphic Public License",
+      "licenseUrl": "writing-licenses/ARPHICPL.txt",
+      "notices": "writing-licenses/MakeMeAHanzi-COPYING.txt",
+      "asset": "writing-hanzi-data.js",
+      "language": "zh",
+      "method": "2026-10-26: Extract ordered stroke medians for 1,041 Hanzi used in course vocabulary. Convert (x,y) to (109*x/1024,109*(900-y)/1024), round to two decimals, and store as SVG polylines. PRC stroke order; no Japanese stroke paths substituted. Modifications are freely available under the same Arphic Public License; no warranty."
+    },
+    {
+      "id": "lm-print-2026",
+      "name": "Language Miner print teaching models",
+      "authors": "Language Miner contributors",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "asset": "writing-script-models.js",
+      "languages": ["en", "es", "ru", "zh", "it", "fr", "de", "pt", "vi", "tr", "id", "pl", "el", "uk"],
+      "method": "Original explicitly authored centerlines for Latin print letters, Cyrillic print letters, Greek capitals, and diacritics. Chinese pinyin is Latin writing, including multi-letter initials and tone marks. Shared shapes are reused only within the same print-letter geometry, not across CJK scripts. The displayed order is the selected classroom model; valid handwriting variants can use a different order. Accents and separate dots are written after the base letter."
+    },
+    {
+      "id": "lm-hangul-2026",
+      "name": "Language Miner Hangul teaching models",
+      "authors": "Language Miner contributors",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "asset": "writing-script-models.js",
+      "language": "ko",
+      "method": "Original explicitly authored jamo centerlines; syllable blocks compose initial consonant, medial vowel, then final consonant. Horizontal/vertical movements follow Sogang's left-to-right and top-to-bottom teaching rules. Tense consonants and final clusters compose the corresponding jamo; actual lesson inventory is verified separately. No Hanja/Kanji paths or font outlines are reused.",
+      "references": ["https://korean.sogang.ac.kr/kkl100/lesson01/l01_10.html", "https://e-edu.nbu.bg/mod/resource/view.php?id=1252393"]
+    },
+    {
+      "id": "lm-thai-2026",
+      "name": "Language Miner looped Thai teaching models",
+      "authors": "Language Miner contributors",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "asset": "writing-script-models.js",
+      "language": "th",
+      "method": "Original explicitly authored looped Thai centerlines for all 44 consonants and the 14 core vowel units offered by the course. Study the head/loop first, with headless ก and ธ exceptions; preserve upper/lower vowel positioning. The school teaching sheets are reference material only: their images and fonts are not redistributed. The displayed model is one classroom print variant, not a claim that every Thai handwriting style has identical pen lifts.",
+      "references": ["https://dltv.ac.th/utils/files/download/155681", "https://bky.ac.th/home/download/bkyfile1657594643_11646.pdf"]
+    }
+  ],
+  "rebuild": "node tools/stroke-models/build-data.cjs",
+  "privacy": "Raw pen coordinates are held in memory for immediate grading and discarded on close/profile change. Saved records contain grades, completion, and selected lesson only."
+}

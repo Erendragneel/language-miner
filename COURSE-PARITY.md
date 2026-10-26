@@ -7,6 +7,7 @@ The Japanese implementation is the reference for shared gameplay behavior. The s
 | Area | Course behavior |
 | --- | --- |
 | Lesson preparation | Source-backed study cards, pronunciation, previous/next, item list, review progress and completion, Start Practice and Skip Lesson Review. Viewing cards earns no XP or mastery. |
+| Advanced reading | Eight connected passages and 32 passage-specific comprehension questions per course, four practice skill bands, evidence and explanations, study translation/audio, independent assessments and band reviews. Results remain separate by learning language. |
 | Practice controls | Easy/Hard, Picture, Listening, Writing and Reading use the active course. Available reading aids follow its script. Reading-answer questions keep answer-revealing hints hidden. |
 | Supplies and hearts | Hint, Shield, ordinary mistakes and assisted retries use the current question. Silent assessments and review-only activities keep their existing protection rules. |
 | Player progression | Independent correct practice can advance the shared player level and earn the reference game's scientific gem rewards. Existing course lesson/Guardian unlocks remain intact. |
@@ -24,9 +25,9 @@ The shared curriculum contains 1,000 vocabulary rows, 80 grammar rows and 260 se
 
 Shared-course scientific Mine XP starts with independent correct practice after this update. It has its own per-course claim ledger; older lesson XP, unlocked routes, Japanese Mine XP and earned gem balances remain intact. Historical assessment totals and placement bonuses are not converted into estimated Mine XP.
 
-Japanese also has separately authored kana families, Kanji and JLPT-oriented lessons and multi-sentence reading assessments. Other courses currently have a different depth of advanced authored material. Matching gameplay mechanics does not establish equal certification coverage.
+Japanese also has separately authored kana families, Kanji and JLPT-oriented lessons, including 28 earlier reading passages. These retain their existing progress. The shared advanced-reading library adds eight longer connected passages of 6-9 sentences in every learning language, including Japanese, with 32 comprehension questions per course and four skill bands. The bands describe practice skills rather than certified CEFR, JLPT, TOPIK or HSK coverage.
 
-Ordered writing models currently cover 188 Japanese-supported characters. Other scripts use the same writing-practice interface with whole-shape, completeness and placement grading, explicitly labeled as shape practice. Japanese stroke-order paths are not reused as unverified Chinese or Korean models.
+Current writing lesson items in every course have language-specific ordered models. Japanese uses an expanded 294-character KanjiVG source subset; Chinese has 1,041 course-vocabulary Hanzi models available to the writing controller, with PRC order. The other scripts use original lesson models, including composed Hangul blocks, looped Thai, compound units and accents. Valid handwriting styles may differ from the displayed teaching model. Whole-shape fallback remains explicit for any future unsupported item. See [advanced lesson coverage](ADVANCED-LESSONS.md) and [model sources](WRITING-DATA-LICENSE.md).
 
 ## Verification
 

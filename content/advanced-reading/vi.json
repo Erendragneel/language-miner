@@ -1,0 +1,914 @@
+{
+  "version": 1,
+  "language": "vi",
+  "passages": [
+    {
+      "id": "bridge-notice",
+      "band": 1,
+      "title": "Một lối khác đến thư viện",
+      "paragraphs": [
+        [
+          "Mina thường đi qua cây cầu nhỏ để đến thư viện sau giờ làm.",
+          "Vào thứ Ba, một thông báo cho biết cầu sẽ đóng từ sáng thứ Tư đến tối thứ Sáu.",
+          "Thông báo đề nghị đi theo lối ven sông, mất thêm mười lăm phút."
+        ],
+        [
+          "Mina đã đặt trước một cuốn sách mà thư viện chỉ giữ cho cô đến hết thứ Năm.",
+          "Cô quyết định tan làm sớm hơn vào thứ Năm và đi theo lối ven sông.",
+          "Cô cũng gửi thông báo cho nhóm đi bộ để không ai đến cây cầu đang đóng."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "reason",
+          "skill": "cause",
+          "question": "Vì sao Mina cần đến trước thứ Sáu?",
+          "choices": [
+            "Sách đặt trước sẽ không được giữ cho cô sau thứ Năm.",
+            "Thư viện sẽ đóng cửa vĩnh viễn vào thứ Sáu.",
+            "Nhóm đi bộ hẹn gặp tại thư viện vào thứ Sáu.",
+            "Lối ven sông đóng vào thứ Năm."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Thời hạn giữ sách kết thúc vào thứ Năm; bài đọc không nói rằng bản thân thư viện sẽ đóng cửa."
+        },
+        {
+          "id": "plan",
+          "skill": "sequence",
+          "question": "Mina sẽ thu xếp thế nào cho quãng đường dài hơn?",
+          "choices": [
+            "Chờ đến khi cầu mở lại.",
+            "Đề nghị thư viện di chuyển cây cầu.",
+            "Tan làm sớm hơn và đi theo lối ven sông.",
+            "Lấy sách vào sáng thứ Ba."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Đi sớm hơn giúp cô có thời gian cho lối đi được đề nghị, vốn mất thêm mười lăm phút."
+        },
+        {
+          "id": "notice",
+          "skill": "detail",
+          "question": "Dự kiến khi nào cây cầu mở lại?",
+          "choices": [
+            "Sáng thứ Tư",
+            "Tối thứ Năm",
+            "Sáng thứ Sáu",
+            "Tối thứ Sáu"
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Thông báo nêu tối thứ Sáu là thời điểm kết thúc việc đóng cầu."
+        },
+        {
+          "id": "share",
+          "skill": "purpose",
+          "question": "Vì sao Mina chia sẻ thông báo?",
+          "choices": [
+            "Để mời mọi người đặt trước cuốn sách của cô.",
+            "Để giúp những người đi bộ khác tránh cây cầu đang đóng.",
+            "Để phàn nàn rằng thư viện quá xa.",
+            "Để hủy mọi buổi đi bộ cho đến thứ Sáu."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Cô muốn cả nhóm tính đến việc đóng cầu khi lên kế hoạch; bài không nói đến việc hủy buổi đi bộ."
+        }
+      ]
+    },
+    {
+      "id": "library-corner",
+      "band": 1,
+      "title": "Một góc yên tĩnh cho mọi người",
+      "paragraphs": [
+        [
+          "Một thư viện khu phố nhận được vài đề nghị về một chỗ học yên tĩnh vào buổi tối.",
+          "Phòng họp nhỏ của thư viện thường trống sau sáu giờ, nhưng câu lạc bộ đọc sách dùng phòng vào mỗi thứ Năm.",
+          "Thủ thư đề nghị mở phòng cho người học vào những buổi tối còn lại."
+        ],
+        [
+          "Vì phòng chỉ có tám ghế, người học sẽ đặt từng chỗ ngồi thay vì cả một bàn.",
+          "Thư viện sẽ thử cách sắp xếp này trong một tháng và xin ý kiến của cả người học lẫn thành viên câu lạc bộ.",
+          "Nếu đợt thử gây khó khăn cho câu lạc bộ, thủ thư sẽ điều chỉnh lịch trước khi áp dụng thay đổi lâu dài."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "exception",
+          "skill": "detail",
+          "question": "Vì sao thứ Năm được xử lý khác?",
+          "choices": [
+            "Thư viện không có nhân viên vào ngày đó.",
+            "Câu lạc bộ đọc sách đã sử dụng phòng.",
+            "Người học không học vào thứ Năm.",
+            "Cả tám ghế đều đang được sửa."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Câu lạc bộ đọc sách đang hoạt động là lý do thứ Năm không nằm trong đề xuất."
+        },
+        {
+          "id": "reservation",
+          "skill": "purpose",
+          "question": "Mục đích của việc đặt từng chỗ ngồi là gì?",
+          "choices": [
+            "Dành mọi bàn cho một người.",
+            "Ngăn thành viên câu lạc bộ vào phòng.",
+            "Sử dụng công bằng căn phòng có ít chỗ ngồi.",
+            "Thay thế thủ thư."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Phòng chỉ có tám ghế, nên đặt từng chỗ phù hợp với sức chứa hạn chế."
+        },
+        {
+          "id": "trial",
+          "skill": "sequence",
+          "question": "Điều gì sẽ diễn ra trước khi có quyết định lâu dài?",
+          "choices": [
+            "Thử trong một tháng và lấy ý kiến của cả hai nhóm.",
+            "Câu lạc bộ đọc sách sẽ bị giải tán ngay.",
+            "Thư viện sẽ mua một tòa nhà mới.",
+            "Chỉ người học được bỏ phiếu về công việc của thủ thư."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Trình tự được đề xuất là thử nghiệm, lấy ý kiến rồi điều chỉnh nếu cần."
+        },
+        {
+          "id": "attitude",
+          "skill": "inference",
+          "question": "Mô tả nào phù hợp nhất với cách làm của thủ thư?",
+          "choices": [
+            "Bác bỏ mọi yêu cầu mới.",
+            "Hứa cung cấp không gian vô hạn.",
+            "Phớt lờ những người đang sử dụng phòng.",
+            "Thử thay đổi nhưng vẫn bảo vệ hoạt động hiện có."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Đề xuất đáp ứng nhu cầu mới đồng thời vẫn theo dõi việc sử dụng phòng của câu lạc bộ đọc sách."
+        }
+      ]
+    },
+    {
+      "id": "repair-cafe",
+      "band": 2,
+      "title": "Sửa chữa nhiều hơn những món đồ",
+      "paragraphs": [
+        [
+          "Tại quán cà phê sửa chữa đầu tiên, các tình nguyện viên sửa đèn hỏng trong khi khách chờ họ làm xong.",
+          "Ban tổ chức hài lòng với số đồ được sửa, nhưng nhận thấy những lỗi đơn giản tương tự lại xuất hiện vào tháng sau.",
+          "Họ hiểu rằng sửa nhanh không nhất thiết giúp chủ đồ biết cách ngăn vấn đề tái diễn."
+        ],
+        [
+          "Ở buổi tiếp theo, tình nguyện viên giải thích từng bước và mời khách cùng làm khi bảo đảm an toàn.",
+          "Cách này mất nhiều thời gian hơn, nên chiều hôm đó sửa được ít đồ hơn.",
+          "Tuy nhiên, một bảng hỏi sau đó cho thấy nhiều khách giờ đã tự thực hiện được việc bảo dưỡng cơ bản.",
+          "Ban tổ chức quyết định báo cáo cả số đồ sửa được lẫn điều khách đã học, thay vì chỉ đánh giá thành công bằng số lần sửa."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "problem",
+          "skill": "cause",
+          "question": "Buổi đầu tiên bộc lộ hạn chế gì?",
+          "choices": [
+            "Không món đồ nào có thể sửa được.",
+            "Khách đã biết mọi kỹ thuật sửa chữa.",
+            "Sửa một món đồ không phải lúc nào cũng ngăn lỗi quay lại.",
+            "Có quá nhiều bảng hỏi."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Các lỗi tái diễn khiến ban tổ chức phân biệt việc sửa đồ với việc dạy cách phòng ngừa."
+        },
+        {
+          "id": "tradeoff",
+          "skill": "contrast",
+          "question": "Sự đánh đổi chính của cách làm mới là gì?",
+          "choices": [
+            "Học được nhiều hơn nhưng sửa xong ít đồ hơn trong chiều hôm đó.",
+            "Sửa nhanh hơn nhưng khách không tham gia.",
+            "Giải thích ít hơn nhưng biết nhiều hơn về bảo dưỡng.",
+            "Có nhiều đèn hỏng hơn nhưng ít tình nguyện viên hơn."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Tham gia và giải thích đòi hỏi thời gian, còn bảng hỏi cho thấy lợi ích về học tập."
+        },
+        {
+          "id": "evidence",
+          "skill": "evidence",
+          "question": "Bằng chứng nào ủng hộ việc giữ cách làm mang tính giáo dục?",
+          "choices": [
+            "Buổi đầu kết thúc sớm hơn.",
+            "Tình nguyện viên ngừng báo cáo số đồ sửa được.",
+            "Mọi khách đều trở thành thợ sửa chuyên nghiệp.",
+            "Nhiều người trả lời nói rằng họ có thể thực hiện bảo dưỡng cơ bản."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Bảng hỏi cho thấy việc học kỹ năng cơ bản, không chứng minh năng lực chuyên nghiệp hay điều đúng với mọi khách."
+        },
+        {
+          "id": "measure",
+          "skill": "main-idea",
+          "question": "Ý chính của bài đọc là gì?",
+          "choices": [
+            "Chỉ tốc độ mới quan trọng trong dự án cộng đồng.",
+            "Thành công có thể bao gồm việc học bên cạnh kết quả tức thời.",
+            "Bảng hỏi khiến công việc thực hành trở nên không cần thiết.",
+            "Một món đồ chưa sửa được chứng tỏ sự kiện thất bại."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Ban tổ chức mở rộng thước đo thành công chứ không từ bỏ công việc sửa chữa."
+        }
+      ]
+    },
+    {
+      "id": "garden-water",
+      "band": 2,
+      "title": "Thử nghiệm ở vườn thực sự cho thấy điều gì?",
+      "paragraphs": [
+        [
+          "Một khu vườn cộng đồng thử lịch tưới mới trên hai luống rau.",
+          "Tình nguyện viên tưới một luống mỗi sáng, còn luống kia chỉ được tưới khi thấy đất khô.",
+          "Sau bốn tuần, luống thứ hai dùng ít nước hơn và cho lượng rau tương đương."
+        ],
+        [
+          "Một số thành viên muốn lập tức áp dụng lịch mới cho cả khu vườn.",
+          "Tuy nhiên, thử nghiệm diễn ra trong một tháng mát mẻ và cả hai luống đều ở chỗ râm.",
+          "Người điều phối đề nghị lặp lại vào thời tiết nóng hơn và thêm một luống có nắng.",
+          "Cô cho rằng kết quả ban đầu hứa hẹn, nhưng chưa đủ để cho thấy cùng lịch tưới đó sẽ hiệu quả trong mọi điều kiện."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "result",
+          "skill": "detail",
+          "question": "Thử nghiệm đầu tiên trực tiếp cho thấy điều gì?",
+          "choices": [
+            "Mọi khu vườn đều cần cùng một lịch tưới.",
+            "Luống thứ hai dùng ít nước hơn mà vẫn cho sản lượng tương đương.",
+            "Luống có nắng không bao giờ cần nước.",
+            "Luống được tưới hằng ngày không cho rau."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Quan sát này liên quan đến hai luống trong một thử nghiệm, không phải kết quả phổ quát."
+        },
+        {
+          "id": "limit",
+          "skill": "evaluation",
+          "question": "Vì sao cần diễn giải kết quả một cách thận trọng?",
+          "choices": [
+            "Không ai ghi lại lượng nước dùng.",
+            "Hai luống nằm ở hai quốc gia khác nhau.",
+            "Thử nghiệm chỉ bao gồm thời tiết mát và các luống có bóng râm.",
+            "Tình nguyện viên thay đổi giá rau."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Giới hạn về thời tiết và vị trí khiến các điều kiện trồng khác chưa được kiểm tra."
+        },
+        {
+          "id": "next",
+          "skill": "purpose",
+          "question": "Vì sao nên thêm luống có nắng trong thử nghiệm tiếp theo?",
+          "choices": [
+            "Để kiểm tra cách làm có hiệu quả trong điều kiện khác hay không.",
+            "Để làm vụ thu hoạch đầu tiên biến mất.",
+            "Để chứng minh bóng râm luôn có hại.",
+            "Để tránh đo lượng nước dùng."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Thử nghiệm tiếp theo bổ sung một điều kiện chưa có trong phép so sánh ban đầu."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Quan điểm của người điều phối là gì?",
+          "choices": [
+            "Cách làm mới đã được chứng minh ở mọi nơi.",
+            "Nên quên thử nghiệm này đi.",
+            "Thu hoạch nhiều hơn là kết quả hữu ích duy nhất.",
+            "Cần thử thêm cách làm này trước khi đưa ra khẳng định rộng."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Cô đón nhận kết quả ban đầu nhưng phân biệt bằng chứng hứa hẹn với kết luận tổng quát."
+        }
+      ]
+    },
+    {
+      "id": "flexible-hours",
+      "band": 3,
+      "title": "Ngày làm việc của ai được đo lường?",
+      "paragraphs": [
+        [
+          "Một công ty cho phép một nhóm văn phòng chọn giờ bắt đầu làm việc trong sáu tuần.",
+          "Nhóm hoàn thành số nhiệm vụ như trước, và đa số thành viên cho biết đi lại ngoài giờ cao điểm giúp giảm căng thẳng.",
+          "Một quản lý gọi thử nghiệm là bằng chứng rằng giờ làm linh hoạt sẽ có lợi cho mọi nhân viên."
+        ],
+        [
+          "Đại diện nhân viên hoan nghênh kết quả nhưng nghi vấn phạm vi của khẳng định đó.",
+          "Thử nghiệm gồm những người có thể làm việc độc lập, trong khi nhân viên lễ tân phải có mặt vào giờ cố định.",
+          "Thử nghiệm cũng đo số nhiệm vụ hoàn thành mà không kiểm tra liệu việc phối hợp với các nhóm khác có khó hơn hay không."
+        ],
+        [
+          "Vì vậy, người đại diện đề nghị mở rộng thử nghiệm sang các vai trò khác và thu thập thông tin về sự phối hợp.",
+          "Theo cô, chính sách hữu ích cần phản ánh cả sự thuận tiện cá nhân lẫn công việc chung với người khác."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "claim",
+          "skill": "evaluation",
+          "question": "Điểm yếu chính trong khẳng định của quản lý là gì?",
+          "choices": [
+            "Mở rộng kết quả của một loại nhóm sang mọi nhân viên.",
+            "Thừa nhận thử nghiệm kéo dài sáu tuần.",
+            "Có xem xét ý kiến của nhân viên.",
+            "Nói rằng không nhiệm vụ nào được hoàn thành."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Công việc độc lập của người tham gia có thể không đại diện cho vai trò cần nhân sự hiện diện vào giờ cố định."
+        },
+        {
+          "id": "missing",
+          "skill": "evidence",
+          "question": "Vấn đề quan trọng nào chưa được đo lường?",
+          "choices": [
+            "Nhóm có thành viên hay không.",
+            "Tên của công ty.",
+            "Việc phối hợp với các nhóm khác có khó hơn hay không.",
+            "Giờ cao điểm có tồn tại trước thử nghiệm hay không."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Chỉ đếm nhiệm vụ chưa xác định được điều gì đã xảy ra với việc phối hợp giữa các nhóm."
+        },
+        {
+          "id": "position",
+          "skill": "inference",
+          "question": "Người đại diện phản ứng thế nào với kết quả?",
+          "choices": [
+            "Cô phản đối mọi thay đổi về giờ làm.",
+            "Cô ủng hộ nghiên cứu tiếp thay vì lập tức áp dụng cho tất cả.",
+            "Cô yêu cầu nhân viên lễ tân ngừng làm việc.",
+            "Cô cho rằng sự thuận tiện cá nhân không liên quan."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Hoan nghênh kết quả và đề xuất thử nghiệm rộng hơn là phản hồi có điều kiện, không phải sự bác bỏ."
+        },
+        {
+          "id": "purpose",
+          "skill": "main-idea",
+          "question": "Sự phân biệt nào tổ chức lập luận của bài đọc?",
+          "choices": [
+            "Làm việc buổi sáng so với chỉ làm việc ban đêm.",
+            "Công việc có lương so với không lương.",
+            "Nhiệm vụ viết so với nhiệm vụ nói.",
+            "Một kết quả cục bộ hứa hẹn so với chính sách phù hợp nhiều vai trò."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Lập luận xét một kết quả hạn chế có thể biện minh đến đâu cho chính sách áp dụng cho các loại công việc khác nhau."
+        }
+      ]
+    },
+    {
+      "id": "museum-letters",
+      "band": 3,
+      "title": "Những lá thư trong cuộc triển lãm",
+      "paragraphs": [
+        [
+          "Một bảo tàng chuẩn bị triển lãm về cuộc sống ở một thị trấn trong thời gian xây dựng đường sắt.",
+          "Phần lớn những lá thư còn lưu lại do chủ cửa hàng mong có khách mới viết.",
+          "Bản thảo đầu tiên của triển lãm mô tả đường sắt như một thay đổi được tất cả mọi người đón nhận."
+        ],
+        [
+          "Sau đó, một nhà nghiên cứu tìm thấy kiến nghị của cư dân có nhà gần tuyến đường ray được đề xuất.",
+          "Kiến nghị không phủ nhận đường sắt có thể đem lại hoạt động thương mại, nhưng yêu cầu thị trấn giải quyết tiếng ồn và tình trạng mất nhà ở.",
+          "Người phụ trách quyết định trưng bày kiến nghị cạnh các lá thư thay vì thay một lời kể bằng lời kể khác."
+        ],
+        [
+          "Một bảng thuyết minh mới giải thích rằng tài liệu còn lưu lại thể hiện trải nghiệm của những người cụ thể và không tự động đại diện cho cả thị trấn.",
+          "Khách tham quan sẽ được mời so sánh lợi ích của người viết và cân nhắc tiếng nói của ai có thể vẫn còn thiếu."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "bias",
+          "skill": "evidence",
+          "question": "Vì sao chỉ những lá thư có thể tạo nên bức tranh chưa đầy đủ?",
+          "choices": [
+            "Chúng được viết sau khi triển lãm mở cửa.",
+            "Chúng không chứa ý kiến.",
+            "Chúng chủ yếu lưu lại lợi ích của một nhóm.",
+            "Chúng chứng minh mọi cư dân đều có cửa hàng."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "explanation": "Chủ cửa hàng mong có khách chỉ là một nhóm trong thị trấn."
+        },
+        {
+          "id": "petition",
+          "skill": "contrast",
+          "question": "Kiến nghị điều chỉnh lời kể tích cực như thế nào?",
+          "choices": [
+            "Nêu tổn thất đối với một số cư dân đồng thời thừa nhận lợi ích thương mại có thể có.",
+            "Nói rằng thương mại không bao giờ có lợi cho thị trấn.",
+            "Chứng minh đường sắt chưa bao giờ được đề xuất.",
+            "Lặp lại các lá thư mà không thêm lo ngại."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Lo ngại của cư dân không phải sự phủ nhận toàn bộ: họ thừa nhận thương mại nhưng nêu rõ những tác hại cụ thể."
+        },
+        {
+          "id": "display",
+          "skill": "purpose",
+          "question": "Vì sao hai loại tài liệu được trưng bày cùng nhau?",
+          "choices": [
+            "Để khách tham quan thuộc tên các chủ cửa hàng.",
+            "Để giấu sự bất đồng trước khách tham quan.",
+            "Để cho thấy kiến nghị không có giá trị lịch sử.",
+            "Để khách tham quan so sánh các góc nhìn về cùng một thay đổi."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Giữ cả hai nguồn cho phép so sánh những lợi ích khác nhau."
+        },
+        {
+          "id": "conclusion",
+          "skill": "inference",
+          "question": "Kết luận nào được ủng hộ rõ nhất?",
+          "choices": [
+            "Tìm thấy một kiến nghị làm lộ rõ mọi tiếng nói còn thiếu.",
+            "Cần diễn giải nguồn tài liệu còn lại trong mối liên hệ với người tạo ra nó.",
+            "Mọi lá thư cá nhân đều không đáng tin.",
+            "Bảo tàng chỉ nên trưng bày những lời kể đồng thuận."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Bài đọc hỏi ai được đại diện và ai vắng mặt, chứ không phủ nhận mọi nguồn cá nhân."
+        }
+      ]
+    },
+    {
+      "id": "bus-consultation",
+      "band": 4,
+      "title": "Không chỉ là số hành khách",
+      "paragraphs": [
+        [
+          "Một thị trấn đề xuất bỏ chuyến xe buýt tối cuối cùng vì chuyến này chở ít hành khách hơn các chuyến ban ngày.",
+          "Báo cáo tài chính tính chi phí mỗi chuyến nhưng không xem xét những lựa chọn khác mà các hành khách đó có.",
+          "Trong đợt tham vấn, nhân viên vệ sinh bệnh viện và người làm nhà hàng giải thích rằng chuyến cuối thường quyết định họ có thể nhận một ca làm hay không."
+        ],
+        [
+          "Những người ủng hộ cho rằng một dịch vụ ít người dùng là cách sử dụng ngân sách hạn chế không hiệu quả.",
+          "Phía phản đối đáp rằng nhu cầu thấp tự nó không chứng minh giá trị công cộng thấp khi người bị ảnh hưởng không có phương án thay thế khả thi.",
+          "Họ đề xuất xe nhỏ hơn và điều chỉnh tuyến như những phương án đáng so sánh trước khi hủy chuyến."
+        ],
+        [
+          "Ủy ban giao thông không hứa giữ nguyên dịch vụ hiện có.",
+          "Thay vào đó, ủy ban yêu cầu đánh giá chi phí, khả năng tiếp cận việc làm và hệ quả của từng phương án.",
+          "Quyết định hoãn hủy chuyến coi hiệu quả là tiêu chí quan trọng, nhưng không phải tiêu chí duy nhất cần bằng chứng."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "omission",
+          "skill": "evaluation",
+          "question": "Bài đọc chỉ ra thiếu sót nào trong báo cáo?",
+          "choices": [
+            "Số xe buýt chạy ban ngày.",
+            "Sự tồn tại của ủy ban giao thông.",
+            "Màu đồng phục bệnh viện.",
+            "Hệ quả đối với hành khách không có phương án thay thế khả thi."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Báo cáo đo chi phí nhưng không xét khả năng tiếp cận mà chuyến xe cuối cung cấp."
+        },
+        {
+          "id": "dispute",
+          "skill": "contrast",
+          "question": "Bất đồng trọng tâm là gì?",
+          "choices": [
+            "Liệu xe buýt đã từng chở ai hay chưa.",
+            "Liệu chỉ số hành khách thấp đã đủ chứng minh giá trị công cộng thấp hay chưa.",
+            "Liệu có thể đếm ngân sách hay không.",
+            "Liệu các chuyến ban ngày có nên chạy ban đêm hay không."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Cả hai phía đều bàn về nguồn lực hạn chế, nhưng bất đồng về việc số hành khách có phải tiêu chí đủ hay không."
+        },
+        {
+          "id": "alternative",
+          "skill": "purpose",
+          "question": "Xe nhỏ hơn và tuyến điều chỉnh có vai trò gì trong lập luận?",
+          "choices": [
+            "Là phương án để so sánh với việc hủy chuyến và dịch vụ hiện có.",
+            "Chứng minh tuyến hiện tại không tốn chi phí.",
+            "Bảo đảm mọi người lao động được đi miễn phí.",
+            "Là thay đổi ủy ban đã hoàn thành."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Đó là đề xuất cần đánh giá, không phải giải pháp đã được xác lập hay thay đổi đã hoàn tất."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Phát biểu nào thể hiện đúng nhất quan điểm của ủy ban?",
+          "choices": [
+            "Hiệu quả tài chính không liên quan.",
+            "Mọi xe buýt hiện có phải được giữ mãi mãi.",
+            "Một quyết định có cơ sở cần nhiều loại bằng chứng.",
+            "Tham vấn khiến việc đánh giá thêm trở nên không cần thiết."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Ủy ban vẫn xét chi phí đồng thời yêu cầu bằng chứng về tiếp cận việc làm và các phương án thay thế."
+        }
+      ]
+    },
+    {
+      "id": "park-lighting",
+      "band": 4,
+      "title": "Một công viên an toàn hơn có nghĩa là gì?",
+      "paragraphs": [
+        [
+          "Sau khi đèn sáng hơn được lắp dọc lối chính của công viên, một khảo sát cho thấy có thêm khách buổi tối báo cáo rằng họ cảm thấy an toàn.",
+          "Một tiêu đề báo mô tả điều này là bằng chứng việc chiếu sáng đã làm cả công viên an toàn hơn.",
+          "Tuy nhiên, khảo sát chỉ hỏi những người vốn đang dùng lối chính và không thu thập thông tin về các sự cố ở nơi khác."
+        ],
+        [
+          "Một nhóm cư dân hoan nghênh cảm giác an toàn được cải thiện, nhưng lưu ý mẫu khảo sát không có những người tránh đến công viên.",
+          "Một nhóm bảo tồn cũng hỏi liệu chiếu sáng các khu không sử dụng suốt đêm có ảnh hưởng đến động vật hoang dã mà không giúp ích cho khách hay không.",
+          "Không nhóm nào cho rằng nên phớt lờ các báo cáo tích cực; cả hai đều chất vấn những kết luận mà các báo cáo đó có thể hỗ trợ."
+        ],
+        [
+          "Hội đồng thành phố đề xuất kết hợp hồ sơ sự cố với phỏng vấn ngoài lối chính và thử đèn tự giảm sáng khi không có ai ở gần.",
+          "Họ sẽ so sánh khả năng tiếp cận, trải nghiệm được báo cáo và tác động môi trường trước khi mở rộng chương trình.",
+          "Vì vậy, cuộc tranh luận nói về cách định nghĩa và đánh giá sự cải thiện, không phải lựa chọn đơn giản giữa chấp nhận mọi đèn mới và tháo bỏ tất cả."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "headline",
+          "skill": "evaluation",
+          "question": "Vì sao tiêu đề vượt quá bằng chứng khảo sát?",
+          "choices": [
+            "Khái quát cảm nhận được báo cáo trên một lối đi thành mức an toàn của cả công viên.",
+            "Thừa nhận khách đã được khảo sát.",
+            "Trích dẫn những người không bao giờ đến bất kỳ công viên nào.",
+            "Nói rằng đèn chưa được lắp."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Cảm giác an toàn của một mẫu được chọn không phải phép đo mọi sự cố hay mọi khu vực."
+        },
+        {
+          "id": "missing",
+          "skill": "inference",
+          "question": "Trải nghiệm của ai đặc biệt bị thiếu trong mẫu?",
+          "choices": [
+            "Những người thường xuyên đi trên lối chính.",
+            "Những người tránh đến công viên.",
+            "Những người in tờ báo.",
+            "Mọi người đã trả lời khảo sát."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Mẫu gồm những người đang dùng lối chính nên không thể trực tiếp đại diện cho người không đến."
+        },
+        {
+          "id": "trial",
+          "skill": "purpose",
+          "question": "Vì sao thử đèn giảm sáng khi không có ai ở gần?",
+          "choices": [
+            "Để bảo đảm mọi động vật hoang dã biến mất.",
+            "Để ngừng thu thập báo cáo về khách.",
+            "Để xem xét một phương án có thể cân bằng tiếp cận và tác động môi trường.",
+            "Để chứng minh khảo sát đầu tiên là bịa đặt."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Thử nghiệm đáp lại lo ngại về chiếu sáng khu không sử dụng mà vẫn duy trì khả năng tiếp cận hữu ích."
+        },
+        {
+          "id": "synthesis",
+          "skill": "main-idea",
+          "question": "Tóm tắt nào thể hiện đầy đủ nhất bài đọc?",
+          "choices": [
+            "Bất kỳ khảo sát tích cực nào cũng đủ chấm dứt tranh luận công cộng.",
+            "Cảm thấy an toàn hơn không có giá trị.",
+            "Chỉ có hai lựa chọn là mở rộng hoàn toàn và tháo bỏ toàn bộ.",
+            "Một kết quả tích cực vẫn có ý nghĩa dù còn cần bằng chứng rộng hơn và tiêu chí rõ hơn."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Các bên thừa nhận lợi ích nhưng chất vấn phạm vi của nó và tiêu chí cho một quyết định rộng hơn."
+        }
+      ]
+    }
+  ]
+}

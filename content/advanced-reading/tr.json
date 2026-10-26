@@ -1,0 +1,914 @@
+{
+  "version": 1,
+  "language": "tr",
+  "passages": [
+    {
+      "id": "bridge-notice",
+      "band": 1,
+      "title": "Kütüphaneye başka bir yoldan gitmek",
+      "paragraphs": [
+        [
+          "Mina, işten sonra kütüphaneye gitmek için genellikle küçük köprüden geçer.",
+          "Salı günü bir duyuruda, köprünün çarşamba sabahından cuma akşamına kadar kapalı olacağı yazıyordu.",
+          "Duyuru, yolculuğu on beş dakika uzatan nehir kıyısındaki yolu kullanmayı öneriyordu."
+        ],
+        [
+          "Mina bir kitap ayırtmıştı ve kütüphane bu kitabı onun için yalnızca perşembe gününe kadar tutacaktı.",
+          "Perşembe günü işten daha erken çıkıp nehir kıyısındaki yolu kullanmaya karar verdi.",
+          "Ayrıca kimsenin kapalı köprüye gelmemesi için duyuruyu yürüyüş grubuna gönderdi."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "reason",
+          "skill": "cause",
+          "question": "Mina neden cuma gününden önce kütüphaneye gitmelidir?",
+          "choices": [
+            "Ayırttığı kitap perşembeden sonra onun için tutulmayacaktır.",
+            "Kütüphane cuma günü kalıcı olarak kapanacaktır.",
+            "Yürüyüş grubu cuma günü kütüphanede buluşacaktır.",
+            "Nehir kıyısındaki yol perşembe günü kapanacaktır."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Kitabı ayırtma süresi perşembe günü sona erer; metin kütüphanenin kendisinin kapanacağını söylemez."
+        },
+        {
+          "id": "plan",
+          "skill": "sequence",
+          "question": "Mina uzayan yolculuğa nasıl zaman ayıracaktır?",
+          "choices": [
+            "Köprünün yeniden açılmasını bekleyerek.",
+            "Kütüphaneden köprüyü taşımasını isteyerek.",
+            "İşten daha erken çıkıp nehir kıyısındaki yoldan giderek.",
+            "Kitabı salı sabahı alarak."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Daha erken çıkması, önerilen yolun gerektirdiği ek on beş dakikayı sağlar."
+        },
+        {
+          "id": "notice",
+          "skill": "detail",
+          "question": "Köprünün ne zaman yeniden açılması bekleniyor?",
+          "choices": [
+            "Çarşamba sabahı",
+            "Perşembe akşamı",
+            "Cuma sabahı",
+            "Cuma akşamı"
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Duyuruya göre kapanma süresi cuma akşamı sona erecektir."
+        },
+        {
+          "id": "share",
+          "skill": "purpose",
+          "question": "Mina duyuruyu neden paylaştı?",
+          "choices": [
+            "Herkesi kendi kitabını ayırtmaya davet etmek için.",
+            "Diğer yürüyüşçülerin kapalı köprüye gitmesini önlemek için.",
+            "Kütüphanenin çok uzakta olmasından şikâyet etmek için.",
+            "Cumaya kadar bütün yürüyüşleri iptal etmek için."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Grubun kapanmayı dikkate alarak plan yapmasını istiyor; herhangi bir iptalden söz edilmiyor."
+        }
+      ]
+    },
+    {
+      "id": "library-corner",
+      "band": 1,
+      "title": "Herkes için sessiz bir köşe",
+      "paragraphs": [
+        [
+          "Bir mahalle kütüphanesine akşamları ders çalışmak için sessiz bir yer isteyen birkaç başvuru geldi.",
+          "Küçük toplantı odası saat altıdan sonra genellikle boştu, ancak her perşembe bir okuma kulübü tarafından kullanılıyordu.",
+          "Kütüphaneci, odanın diğer akşamlarda öğrencilere açılmasını önerdi."
+        ],
+        [
+          "Odada yalnızca sekiz sandalye bulunduğundan öğrenciler bütün bir masa yerine tek bir yer ayırtacaktı.",
+          "Kütüphane bu düzenlemeyi bir ay deneyecek, hem öğrencilerden hem de kulüp üyelerinden görüş isteyecekti.",
+          "Deneme kulüp için sorun yaratırsa kütüphaneci değişikliği kalıcı hâle getirmeden önce programı ayarlayacaktı."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "exception",
+          "skill": "detail",
+          "question": "Perşembe gününe neden farklı davranılıyor?",
+          "choices": [
+            "O gün kütüphanede çalışan bulunmadığı için.",
+            "Okuma kulübü odayı zaten kullandığı için.",
+            "Öğrenciler perşembe günleri ders çalışmadığı için.",
+            "Sekiz sandalyenin tamamı tamir edildiği için."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Perşembenin öneri dışında tutulmasının nedeni, mevcut okuma kulübünün o gün odayı kullanmasıdır."
+        },
+        {
+          "id": "reservation",
+          "skill": "purpose",
+          "question": "Tek tek yer ayırtmanın amacı nedir?",
+          "choices": [
+            "Bütün masaları tek bir kişiye vermek.",
+            "Kulüp üyelerinin içeri girmesini önlemek.",
+            "Oturma yeri sınırlı bir odayı adil biçimde kullanmak.",
+            "Kütüphanecinin yerine geçmek."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Yalnızca sekiz sandalye vardır; yer ayırtma yöntemi odanın sınırlı kapasitesine uygundur."
+        },
+        {
+          "id": "trial",
+          "skill": "sequence",
+          "question": "Kalıcı bir karardan önce ne yapılacaktır?",
+          "choices": [
+            "Bir aylık deneme ve her iki gruptan görüş alınması.",
+            "Okuma kulübünün hemen kaldırılması.",
+            "Kütüphanenin yeni bir bina satın alması.",
+            "Kütüphanecinin işi hakkında yalnızca öğrencilerin oy kullanması."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Önerilen sıra; deneme, görüş toplama ve gerekirse düzenleme yapmadır."
+        },
+        {
+          "id": "attitude",
+          "skill": "inference",
+          "question": "Kütüphanecinin yaklaşımını en iyi hangisi anlatır?",
+          "choices": [
+            "Her yeni isteği reddetmek.",
+            "Sınırsız yer sözü vermek.",
+            "Mevcut kullanıcıları görmezden gelmek.",
+            "Mevcut etkinlikleri koruyarak bir değişikliği denemek."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Öneri yeni bir ihtiyacı karşılarken okuma kulübünün kullanımını da göz önünde tutar."
+        }
+      ]
+    },
+    {
+      "id": "repair-cafe",
+      "band": 2,
+      "title": "Eşyalardan fazlasını onarmak",
+      "paragraphs": [
+        [
+          "İlk tamir kafesinde gönüllüler bozuk lambaları onarırken ziyaretçiler işin bitmesini bekledi.",
+          "Düzenleyiciler onarılan eşya sayısından memnundu, ancak ertesi ay aynı basit arızaların tekrar ortaya çıktığını fark ettiler.",
+          "Hızlı bir onarımın, eşyanın sahibine sorunu nasıl önleyeceğini mutlaka öğretmediğini anladılar."
+        ],
+        [
+          "Bir sonraki etkinlikte gönüllüler her adımı açıkladı ve güvenli olduğunda ziyaretçileri yardım etmeye davet etti.",
+          "Bu yaklaşım daha uzun sürdüğü için o öğleden sonra daha az eşya onarıldı.",
+          "Ancak daha sonra yapılan bir ankette, birçok ziyaretçinin artık temel bakımı kendi başına yapabildiği görüldü.",
+          "Düzenleyiciler başarıyı yalnızca onarım sayısıyla değerlendirmek yerine hem onarım sayısını hem de ziyaretçilerin öğrendiklerini raporlamaya karar verdi."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "problem",
+          "skill": "cause",
+          "question": "İlk etkinlik hangi eksikliği ortaya koydu?",
+          "choices": [
+            "Hiçbir eşya onarılamadı.",
+            "Ziyaretçiler bütün onarım tekniklerini zaten biliyordu.",
+            "Bir eşyayı onarmak, arızanın tekrarlanmasını her zaman önlemiyordu.",
+            "Çok fazla anket vardı."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Tekrarlanan arızalar, düzenleyicileri eşya onarmakla önleyici bakım öğretmeyi birbirinden ayırmaya yöneltti."
+        },
+        {
+          "id": "tradeoff",
+          "skill": "contrast",
+          "question": "Yeni yaklaşımda temel ödünleşim neydi?",
+          "choices": [
+            "Daha fazla öğrenme, fakat o öğleden sonra tamamlanan daha az onarım.",
+            "Daha hızlı onarım, fakat ziyaretçi katılımının olmaması.",
+            "Daha az açıklama, fakat daha fazla bakım bilgisi.",
+            "Daha fazla bozuk lamba, fakat daha az gönüllü."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Katılım ve açıklama zaman gerektirirken anket bir öğrenme yararına işaret ediyordu."
+        },
+        {
+          "id": "evidence",
+          "skill": "evidence",
+          "question": "Eğitici yaklaşımın sürdürülmesini hangi kanıt destekledi?",
+          "choices": [
+            "İlk etkinliğin daha erken bitmesi.",
+            "Gönüllülerin onarım sayılarını raporlamayı bırakması.",
+            "Her ziyaretçinin profesyonel bir tamirci olması.",
+            "Birçok anket katılımcısının temel bakım yapabildiğini söylemesi."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Anket temel öğrenmeyi destekler; profesyonel yeterliliği ya da her ziyaretçi hakkında bir iddiayı değil."
+        },
+        {
+          "id": "measure",
+          "skill": "main-idea",
+          "question": "Metnin ana düşüncesi nedir?",
+          "choices": [
+            "Bir toplum projesinde yalnızca hız önemlidir.",
+            "Başarı, doğrudan çıktının yanında öğrenmeyi de kapsayabilir.",
+            "Anketler uygulamalı çalışmayı gereksiz kılar.",
+            "Onarılmamış bir eşya etkinliğin başarısız olduğunu kanıtlar."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Düzenleyiciler onarım işinden vazgeçmek yerine başarı ölçütlerini genişletir."
+        }
+      ]
+    },
+    {
+      "id": "garden-water",
+      "band": 2,
+      "title": "Bahçe denemesi gerçekte ne gösterdi?",
+      "paragraphs": [
+        [
+          "Bir topluluk bahçesinde iki sebze tarhında yeni bir sulama programı denendi.",
+          "Gönüllüler bir tarhı her sabah, diğerini ise yalnızca toprak kuru hissedildiğinde suladı.",
+          "Dört hafta sonunda ikinci tarh daha az su kullanmış ve benzer miktarda sebze üretmişti."
+        ],
+        [
+          "Bazı üyeler yeni programı hemen bütün bahçede uygulamak istedi.",
+          "Ancak deneme serin bir ayda yapılmıştı ve her iki tarh da gölgedeydi.",
+          "Koordinatör, denemenin daha sıcak havalarda, güneş alan bir tarh da eklenerek tekrarlanmasını önerdi.",
+          "İlk sonuçları umut verici buluyor, fakat aynı programın her koşulda işe yarayacağını göstermeye yeterli görmüyordu."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "result",
+          "skill": "detail",
+          "question": "İlk deneme doğrudan neyi gösterdi?",
+          "choices": [
+            "Her bahçenin aynı sulama programına ihtiyacı olduğunu.",
+            "İkinci tarhın daha az suyla benzer ürün verdiğini.",
+            "Güneş alan tarhların hiç su istemediğini.",
+            "Her gün sulanan tarhın hiç sebze üretmediğini."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Gözlem tek bir denemedeki iki tarhla ilgilidir; evrensel bir sonuç değildir."
+        },
+        {
+          "id": "limit",
+          "skill": "evaluation",
+          "question": "Sonuçlar neden dikkatli yorumlanmalıdır?",
+          "choices": [
+            "Hiç kimse su kullanımını kaydetmediği için.",
+            "İki tarh farklı ülkelerde olduğu için.",
+            "Deneme yalnızca serin havayı ve gölgeli tarhları kapsadığı için.",
+            "Gönüllüler sebze fiyatlarını değiştirdiği için."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Hava ve konumun sınırlı olması, diğer yetiştirme koşullarının denenmemiş kalmasına yol açar."
+        },
+        {
+          "id": "next",
+          "skill": "purpose",
+          "question": "Bir sonraki denemeye neden güneş alan bir tarh eklenmelidir?",
+          "choices": [
+            "Yaklaşımın farklı bir koşulda işe yarayıp yaramadığını denemek için.",
+            "İlk hasadı yok etmek için.",
+            "Gölgenin her zaman zararlı olduğunu kanıtlamak için.",
+            "Su kullanımını ölçmekten kaçınmak için."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Yeni deneme, ilk karşılaştırmada bulunmayan bir koşulu ele alır."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Koordinatörün tutumu nedir?",
+          "choices": [
+            "Yeni yaklaşım her yerde kanıtlanmıştır.",
+            "Deneme unutulmalıdır.",
+            "Daha büyük hasat tek yararlı sonuçtur.",
+            "Geniş bir iddiada bulunmadan önce yaklaşım daha çok denenmelidir."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "İlk sonuçları olumlu karşılar, ancak umut verici kanıtla genel bir sonucu birbirinden ayırır."
+        }
+      ]
+    },
+    {
+      "id": "flexible-hours",
+      "band": 3,
+      "title": "Kimin çalışma günü ölçüldü?",
+      "paragraphs": [
+        [
+          "Bir şirket, bir ofis ekibinin altı hafta boyunca işe başlama saatini seçmesine izin verdi.",
+          "Ekip eskisi kadar iş tamamladı ve üyelerinin çoğu, yoğun saatler dışında yolculuk yapmanın stresi azalttığını bildirdi.",
+          "Bir yönetici bu denemeyi, esnek saatlerin her çalışana yarar sağlayacağının kanıtı olarak nitelendirdi."
+        ],
+        [
+          "Personel temsilcisi bulguları olumlu karşıladı, ancak bu iddianın kapsamını sorguladı.",
+          "Denemeye işleri bağımsız yapılabilen çalışanlar katılmıştı; oysa resepsiyon görevlilerinin belirli saatlerde hazır bulunması gerekiyordu.",
+          "Ayrıca deneme, diğer ekiplerle koordinasyonun zorlaşıp zorlaşmadığını incelemeden tamamlanan işleri ölçmüştü."
+        ],
+        [
+          "Bu nedenle temsilci, denemenin farklı görevlere genişletilmesini ve koordinasyon hakkında bilgi toplanmasını önerdi.",
+          "Ona göre yararlı bir politika, hem bireysel kolaylığı hem de başkalarıyla paylaşılan işleri dikkate almalıydı."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "claim",
+          "skill": "evaluation",
+          "question": "Yöneticinin iddiasındaki temel zayıflık nedir?",
+          "choices": [
+            "Bir tür ekipten elde edilen sonucu bütün çalışanlara genellemesi.",
+            "Denemenin altı hafta sürdüğünü kabul etmesi.",
+            "Çalışanların görüşlerini dikkate alması.",
+            "Hiçbir iş tamamlanmadığını söylemesi."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Katılımcıların bağımsız işleri, belirli saatlerde personel bulunmasını gerektiren görevleri temsil etmeyebilir."
+        },
+        {
+          "id": "missing",
+          "skill": "evidence",
+          "question": "Hangi önemli konu ölçülmedi?",
+          "choices": [
+            "Ekibin üyelerinin olup olmadığı.",
+            "Şirketin adı.",
+            "Diğer ekiplerle koordinasyonun zorlaşıp zorlaşmadığı.",
+            "Yoğun saatlerin denemeden önce var olup olmadığı."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Yalnızca iş sayıları, ekipler arası koordinasyonda ne olduğunu ortaya koymaz."
+        },
+        {
+          "id": "position",
+          "skill": "inference",
+          "question": "Temsilci bulgulara nasıl yanıt veriyor?",
+          "choices": [
+            "Çalışma saatlerindeki her değişikliği reddediyor.",
+            "Hemen herkese uygulamak yerine daha fazla araştırmayı destekliyor.",
+            "Resepsiyon görevlilerinin işi bırakmasını istiyor.",
+            "Kişisel kolaylığı önemsiz buluyor."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Bulguları olumlu karşılayıp daha geniş bir deneme önermek, reddetmek değil koşullu bir yanıttır."
+        },
+        {
+          "id": "purpose",
+          "skill": "main-idea",
+          "question": "Metnin temelini hangi ayrım oluşturur?",
+          "choices": [
+            "Sabah çalışması ile yalnızca gece yapılan çalışma.",
+            "Ücretli iş ile ücretsiz iş.",
+            "Yazılı işler ile sözlü işler.",
+            "Umut verici yerel bir sonuç ile farklı görevlere uygun bir politika."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Tartışma, sınırlı bir sonucun farklı iş türleri için bir politikayı ne ölçüde haklı çıkarabileceğiyle ilgilidir."
+        }
+      ]
+    },
+    {
+      "id": "museum-letters",
+      "band": 3,
+      "title": "Sergideki mektuplar",
+      "paragraphs": [
+        [
+          "Bir müze, demiryolunun yapıldığı dönemde bir kasabadaki yaşam hakkında sergi hazırladı.",
+          "Günümüze ulaşan mektupların çoğu, yeni müşteriler bekleyen dükkân sahipleri tarafından yazılmıştı.",
+          "Serginin ilk taslağı, demiryolunu herkesin memnuniyetle karşıladığı bir değişim olarak anlatıyordu."
+        ],
+        [
+          "Daha sonra bir araştırmacı, evleri önerilen güzergâha yakın olan sakinlerin bir dilekçesini buldu.",
+          "Dilekçe demiryolunun ticaret getirebileceğini inkâr etmiyor, ancak kasaba yönetiminden gürültü ve konut kaybıyla ilgilenmesini istiyordu.",
+          "Küratör bir anlatıyı diğeriyle değiştirmek yerine dilekçeyi mektupların yanında sergilemeye karar verdi."
+        ],
+        [
+          "Yeni bir açıklama, günümüze ulaşan belgelerin belirli insanların deneyimlerini gösterdiğini ve kendiliğinden bütün kasabayı temsil etmediğini belirtiyordu.",
+          "Ziyaretçilerden yazarların çıkarlarını karşılaştırmaları ve hangi seslerin hâlâ eksik olabileceğini düşünmeleri istenecekti."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "bias",
+          "skill": "evidence",
+          "question": "Yalnızca mektuplara bakmak neden eksik bir tablo sunabilir?",
+          "choices": [
+            "Mektuplar sergi açıldıktan sonra yazıldığı için.",
+            "Mektuplarda hiç görüş bulunmadığı için.",
+            "Esas olarak tek bir grubun çıkarlarını korudukları için.",
+            "Her sakinin bir dükkân sahibi olduğunu kanıtladıkları için."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "explanation": "Müşteri bekleyen dükkân sahipleri, kasabadaki gruplardan yalnızca biriydi."
+        },
+        {
+          "id": "petition",
+          "skill": "contrast",
+          "question": "Dilekçe olumlu anlatıyı nasıl sınırlandırıyor?",
+          "choices": [
+            "Olası ticaret yararlarını kabul ederken bazı sakinlere doğacak zararları dile getiriyor.",
+            "Ticaretin bir kasabaya hiçbir zaman yarar sağlayamayacağını söylüyor.",
+            "Demiryolunun hiç önerilmediğini kanıtlıyor.",
+            "Yeni kaygılar eklemeden mektupları tekrarlıyor."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Sakinlerin kaygısı toptan bir ret değildir: ticareti kabul ederken belirli zararları da adlandırırlar."
+        },
+        {
+          "id": "display",
+          "skill": "purpose",
+          "question": "İki tür belge neden birlikte sergileniyor?",
+          "choices": [
+            "Ziyaretçilere dükkân sahiplerinin adlarını ezberletmek için.",
+            "Görüş ayrılığını ziyaretçilerden gizlemek için.",
+            "Dilekçenin tarihsel değeri olmadığını göstermek için.",
+            "Ziyaretçilerin aynı değişim hakkındaki bakış açılarını karşılaştırabilmesi için."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Her iki kaynağı korumak, farklı çıkarların karşılaştırılmasına olanak tanır."
+        },
+        {
+          "id": "conclusion",
+          "skill": "inference",
+          "question": "Hangi sonuç en güçlü biçimde destekleniyor?",
+          "choices": [
+            "Tek bir dilekçeyi bulmak bütün eksik sesleri ortaya çıkarır.",
+            "Günümüze ulaşan bir kaynak, onu kimin oluşturduğu dikkate alınarak yorumlanmalıdır.",
+            "Her kişisel mektup güvenilmezdir.",
+            "Müzeler yalnızca birbiriyle uyuşan anlatıları göstermelidir."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Metin, bütün kişisel kaynakları reddetmek yerine kimin temsil edildiğini ve kimin eksik olduğunu sorgular."
+        }
+      ]
+    },
+    {
+      "id": "bus-consultation",
+      "band": 4,
+      "title": "Yolcu sayısının ötesinde",
+      "paragraphs": [
+        [
+          "Bir kasaba, gündüz seferlerinden daha az yolcu taşıdığı için akşamın son otobüsünü kaldırmayı önerdi.",
+          "Mali rapor sefer başına maliyeti hesaplıyor, ancak bu yolcuların hangi alternatiflere sahip olduğunu incelemiyordu.",
+          "Görüş alma sürecinde hastane temizlikçileri ve restoran çalışanları, son otobüsün bir vardiyayı kabul edip edemeyeceklerini sık sık belirlediğini anlattı."
+        ],
+        [
+          "Öneriyi destekleyenler, az kişinin kullandığı bir hizmetin sınırlı bütçenin verimsiz kullanımı olduğunu savundu.",
+          "Karşı çıkanlar, etkilenenlerin uygulanabilir bir alternatifi yoksa düşük talebin tek başına düşük kamusal değer göstermeyeceğini söyledi.",
+          "Sefer iptal edilmeden önce karşılaştırılmaya değer seçenekler olarak daha küçük bir araç ve yeniden düzenlenmiş bir güzergâh önerdiler."
+        ],
+        [
+          "Ulaşım komitesi mevcut hizmeti hiç değiştirmeden koruma sözü vermedi.",
+          "Bunun yerine maliyetlerin, işe erişimin ve her alternatifin sonuçlarının değerlendirilmesini istedi.",
+          "İptali erteleme kararı, verimliliği önemli bir ölçüt sayıyor, ancak kanıt gerektiren tek ölçüt olarak görmüyordu."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "omission",
+          "skill": "evaluation",
+          "question": "Metne göre raporda ne eksik bırakılmıştır?",
+          "choices": [
+            "Gündüz otobüslerinin sayısı.",
+            "Ulaşım komitesinin varlığı.",
+            "Hastane üniformalarının rengi.",
+            "Uygulanabilir alternatifi olmayan yolcular için doğacak sonuçlar."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Rapor maliyeti ölçer, ancak son otobüsün sağladığı erişimi incelemez."
+        },
+        {
+          "id": "dispute",
+          "skill": "contrast",
+          "question": "Temel anlaşmazlık nedir?",
+          "choices": [
+            "Otobüsün şimdiye kadar yolcu taşıyıp taşımadığı.",
+            "Düşük yolcu sayısının tek başına düşük kamusal değer gösterip göstermediği.",
+            "Bütçelerin sayılıp sayılamayacağı.",
+            "Gündüz seferlerinin gece yapılıp yapılmaması."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Her iki taraf da sınırlı kaynakları ele alır, ancak yolcu sayısının yeterli bir ölçüt olup olmadığı konusunda ayrılır."
+        },
+        {
+          "id": "alternative",
+          "skill": "purpose",
+          "question": "Daha küçük araç ve değiştirilmiş güzergâh, tartışmada ne işlev görüyor?",
+          "choices": [
+            "İptal ve mevcut hizmetle karşılaştırılabilecek alternatiflerdir.",
+            "Mevcut güzergâhın maliyetsiz olduğunu kanıtlarlar.",
+            "Her çalışanın ücretsiz yolculuk yapacağını garanti ederler.",
+            "Komitenin zaten tamamladığı değişikliklerdir."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Bunlar kanıtlanmış çözümler ya da tamamlanmış değişiklikler değil, değerlendirme önerileridir."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Komitenin tutumunu en iyi hangi ifade anlatır?",
+          "choices": [
+            "Mali verimlilik önemsizdir.",
+            "Mevcut her otobüs sonsuza kadar korunmalıdır.",
+            "Gerekçeli bir karar farklı türde kanıtlar gerektirir.",
+            "Görüş alma süreci daha fazla değerlendirmeyi gereksiz kılar."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Komite maliyetleri göz önünde tutarken işe erişim ve alternatifler hakkında da kanıt ister."
+        }
+      ]
+    },
+    {
+      "id": "park-lighting",
+      "band": 4,
+      "title": "Daha güvenli bir park ne anlama gelir?",
+      "paragraphs": [
+        [
+          "Bir parkın ana yolu boyunca daha parlak ışıklar yerleştirildikten sonra yapılan ankette, daha fazla akşam ziyaretçisi kendini güvende hissettiğini bildirdi.",
+          "Bir gazete başlığı, bunu aydınlatmanın bütün parkı daha güvenli hâle getirdiğinin kanıtı olarak sundu.",
+          "Oysa anket yalnızca ana yolu zaten kullanan kişilere sorular yöneltmiş, başka yerlerdeki olaylar hakkında bilgi toplamamıştı."
+        ],
+        [
+          "Bir mahalleli grubu artan güven duygusunu olumlu karşıladı, fakat parka gitmekten kaçınan kişilerin örneklemde olmadığını belirtti.",
+          "Bir doğa koruma grubu da kullanılmayan alanları bütün gece aydınlatmanın, ziyaretçilere yardım etmeden yaban hayatını etkileyip etkilemeyeceğini sordu.",
+          "İki grup da olumlu bildirimlerin yok sayılması gerektiğini savunmadı; ikisi de bu bildirimlerden hangi sonuçların çıkarılabileceğini sorguladı."
+        ],
+        [
+          "Belediye meclisi olay kayıtlarını ana yol dışındaki görüşmelerle birleştirmeyi ve yakınlarda kimse yokken kısılan ışıkları denemeyi önerdi.",
+          "Uygulamayı genişletmeden önce erişimi, bildirilen deneyimleri ve çevresel etkileri karşılaştıracaktı.",
+          "Dolayısıyla tartışma, her yeni ışığı kabul etmekle hepsini kaldırmak arasında basit bir seçimden çok, iyileşmenin nasıl tanımlanıp değerlendirileceğiyle ilgiliydi."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "headline",
+          "skill": "evaluation",
+          "question": "Gazete başlığı neden anketin sunduğu kanıtı aşıyor?",
+          "choices": [
+            "Tek bir yolda bildirilen duyguları bütün parkın güvenliğine genelliyor.",
+            "Ziyaretçilere anket yapıldığını kabul ediyor.",
+            "Hiçbir parka gitmeyen insanlardan alıntı yapıyor.",
+            "Işıkların henüz yerleştirilmediğini söylüyor."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Seçilmiş bir örneklemde bildirilen güven duygusu, bütün olayların ya da bütün alanların ölçümü değildir."
+        },
+        {
+          "id": "missing",
+          "skill": "inference",
+          "question": "Özellikle kimlerin deneyimi örneklemde eksiktir?",
+          "choices": [
+            "Ana yolda düzenli yürüyenlerin.",
+            "Parka gitmekten kaçınanların.",
+            "Gazeteyi basanların.",
+            "Anketi yanıtlayan herkesin."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Örneklem mevcut ana yol kullanıcılarını içerir; bu nedenle uzak duran kişileri doğrudan temsil edemez."
+        },
+        {
+          "id": "trial",
+          "skill": "purpose",
+          "question": "Yakında kimse yokken kısılan ışıklar neden deneniyor?",
+          "choices": [
+            "Bütün yaban hayatının yok olmasını garanti etmek için.",
+            "Ziyaretçi bildirimleri toplamayı bırakmak için.",
+            "Erişimle çevresel etkileri dengeleyebilecek bir seçeneği incelemek için.",
+            "İlk anketin uydurma olduğunu kanıtlamak için."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Deneme, yararlı erişimi korurken kullanılmayan alanların aydınlatılması konusundaki kaygıya yanıt verir."
+        },
+        {
+          "id": "synthesis",
+          "skill": "main-idea",
+          "question": "Hangi özet metni en iyi yansıtır?",
+          "choices": [
+            "Olumlu her anket kamusal tartışmayı bitirmeye yeter.",
+            "Daha güvende hissetmenin hiçbir değeri yoktur.",
+            "Tek seçenekler tam genişletme ve tamamen kaldırmadır.",
+            "Olumlu bir bulgu değerli olabilir, ancak daha geniş kanıta ve daha açık ölçütlere yine de ihtiyaç duyabilir."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Katılımcılar yararı kabul ederken kapsamını ve daha geniş bir kararın ölçütlerini sorgular."
+        }
+      ]
+    }
+  ]
+}

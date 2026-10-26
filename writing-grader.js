@@ -21,21 +21,25 @@
  function gradeStroke(input,model,{memory=false}={}){
    const user=clean(input),target=clean(model),a=resample(user),b=resample(target);
    if(user.length<2||!b.length)return{pass:false,score:0,reason:'short',metrics:{}};
-   const tolerance=memory?.065:.052,near=nearest(a,b),cover=nearest(b,a);
+   // A canvas-wide tolerance can otherwise accept the opposite tone accent:
+   // the entire small stroke fits inside the tolerance. Keep ordinary-stroke
+   // behavior, but scale detail strokes with a floor for pointer imprecision.
+   const detailScale=clamp(length(target)/.22,.4,1);
+   const tolerance=(memory?.065:.052)*detailScale,near=nearest(a,b),cover=nearest(b,a);
    const start=distance(a[0],b[0]),end=distance(a.at(-1),b.at(-1));
    const coverage=cover.filter(d=>d<=tolerance).length/cover.length,precision=near.filter(d=>d<=tolerance).length/near.length;
    const ordered=orderedDistance(a,b),reverse=orderedDistance([...a].reverse(),b),ratio=length(user)/Math.max(.001,length(target));
-   const pathScore=clamp(1-mean(near)/.13),coverageScore=clamp(1-mean(cover)/.13);
-   const endpointScore=clamp(1-(start+end)/.30),directionScore=clamp(1-ordered/.22);
+   const pathScore=clamp(1-mean(near)/(.13*detailScale)),coverageScore=clamp(1-mean(cover)/(.13*detailScale));
+   const endpointScore=clamp(1-(start+end)/(.30*detailScale)),directionScore=clamp(1-ordered/(.22*detailScale));
    const score=Math.round(100*(.40*pathScore+.25*coverageScore+.20*endpointScore+.15*directionScore));
    const metrics={shape:Math.round(pathScore*100),coverage:Math.round(coverageScore*100),placement:Math.round(endpointScore*100),direction:Math.round(directionScore*100),start,end,precision,covered:coverage,lengthRatio:ratio,ordered};
    let reason='';
    if(reverse+.015<ordered&&reverse<ordered*.8)reason='direction';
-   else if(start>(memory?.13:.10))reason='start';
+   else if(start>(memory?.13:.10)*detailScale)reason='start';
    else if(ratio<.62||coverage<.78)reason='short';
    else if(ratio>1.8)reason='extra';
-   else if(end>(memory?.14:.11))reason='end';
-   else if(precision<.80||mean(near)>(memory?.06:.05)||ordered>(memory?.105:.09))reason='path';
+   else if(end>(memory?.14:.11)*detailScale)reason='end';
+   else if(precision<.80||mean(near)>(memory?.06:.05)*detailScale||ordered>(memory?.105:.09)*detailScale)reason='path';
    return{pass:!reason&&score>=65,score,reason:reason||(score<65?'path':''),metrics};
  }
  function gradeCharacter(strokes,models,options={}){

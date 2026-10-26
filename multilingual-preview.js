@@ -626,7 +626,7 @@
     if(engine?.speak)return engine.speak(text,language);
     return false;
   }
-  function speakTarget(text,options={}){return speakLanguage(text,learning,options);}
+  function speakTarget(text,options={}){if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;return speakLanguage(text,learning,options);}
   function targetVoiceAvailability(text){return window.LanguageMinerSpeech?.availability?.((LANGUAGES[learning]||LANGUAGES.en).voice,text)||{status:'missing',selectedVoice:null};}
   // Shared course controls must never enter the Japanese-only academy for another course.
   function openCurrentCourse(){window.closeGameMenu?.();window.openJapaneseMinerV5?.('map');return true;}
@@ -649,7 +649,7 @@
   function coursePracticeStatus(){
     const active=!fullJapaneseCourse(),question=active?activePreviewQuestion:null,testing=!!(question?.mode==='boss'||multilingualBoss?.status==='active'||multilingualReviewQuiz&&!multilingualReviewQuiz.finished);
     const answered=!question||!!question.practiceFirstAnswer||question.answered===true||!!(multilingualBoss?.status==='active'&&multilingualBoss.answered)||!!(multilingualReviewQuiz&&!multilingualReviewQuiz.finished&&multilingualReviewQuiz.answered);
-    const independent=active&&!!question&&!answered&&!testing&&!question.assistedPractice;
+    const independent=active&&!!question&&!answered&&!testing&&!question.assistedPractice&&window.LanguageMinerAdvancedReading?.status?.().assessing!==true;
     return {active,question,answered,testing,canHint:independent&&!question.hintUsed&&Number(state.hints)>0,canShield:independent&&Number(state.shields)>0&&!state.shieldArmed,...currentCourseContext()};
   }
   function useCourseHint(){
@@ -911,6 +911,7 @@
     if(!question?.answer)return false;const itemId=question.item?.id??question.unit?.symbol??question.id??question.answer,id=`multilingual:${learning}:${selectedCourseMine}:${question.sourceSection||question.mode}:${itemId}:${known}`;return window.japaneseMinerSmartReview?.enqueue?.({id,stage:selectedCourseMine,learningLanguage:learning,knownLanguage:known,speechLanguage:learning,q:question.meaning||"🔊",displayChallenge:question.meaning||"🔊",prompt:courseQuestionPrompt(question,LANGUAGES[learning]),a:question.answer,opts:question.options,speechText:question.spoken||question.answer})===true;
   }
   function renderCourseQuestion(section=selectedCourseSection,lesson=selectedCourseLesson){
+    if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
     if(section!=='boss'&&window.LanguageMinerPracticeModes?.current()==='writing'){window.LanguageMinerPracticeModes.openWriting();return false;}
     if(section!=='boss'&&typeof state==='object'&&Number(state.hearts)<=0&&!state.developerInfiniteHearts){window.setMessage?.(`${ui('practiceHealth')}: 0 ♥`,'wrong');return false;}
     if(fullJapaneseCourse())return;selectedCourseSection=section;selectedCourseLesson=Number(lesson)||0;if(section==='boss'){renderCourseBossArena();return;}
@@ -938,6 +939,7 @@
     return played;
   }
   function answerCourseQuestion(button){
+    if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return;
     const question=activePreviewQuestion;
     if(question){question.learningLanguage=learning;question.knownLanguage=known;}
     if(!question||button.disabled)return;

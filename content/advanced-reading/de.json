@@ -1,0 +1,914 @@
+{
+  "version": 1,
+  "language": "de",
+  "passages": [
+    {
+      "id": "bridge-notice",
+      "band": 1,
+      "title": "Ein anderer Weg zur Bibliothek",
+      "paragraphs": [
+        [
+          "Mina überquert normalerweise die kleine Brücke, um nach der Arbeit zur Bibliothek zu kommen.",
+          "Am Dienstag kündigte ein Aushang an, dass die Brücke von Mittwochmorgen bis Freitagabend gesperrt sein würde.",
+          "Der Aushang empfahl den Weg am Fluss entlang, der fünfzehn Minuten länger dauert."
+        ],
+        [
+          "Mina hatte ein Buch reserviert, das die Bibliothek nur bis Donnerstag für sie zurücklegen würde.",
+          "Sie beschloss, am Donnerstag früher Feierabend zu machen und den Weg am Fluss zu nehmen.",
+          "Außerdem schickte sie den Aushang an ihre Wandergruppe, damit niemand vor der gesperrten Brücke stehen würde."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "reason",
+          "skill": "cause",
+          "question": "Warum muss Mina vor Freitag zur Bibliothek gehen?",
+          "choices": [
+            "Ihr reserviertes Buch wird nach Donnerstag nicht mehr für sie zurückgelegt.",
+            "Die Bibliothek schließt am Freitag für immer.",
+            "Ihre Wandergruppe trifft sich am Freitag in der Bibliothek.",
+            "Der Weg am Fluss wird am Donnerstag gesperrt."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Die Reservierung endet am Donnerstag; im Text steht nicht, dass die Bibliothek selbst schließt."
+        },
+        {
+          "id": "plan",
+          "skill": "sequence",
+          "question": "Wie wird Mina den längeren Weg einplanen?",
+          "choices": [
+            "Sie wartet, bis die Brücke wieder geöffnet ist.",
+            "Sie bittet die Bibliothek, die Brücke zu versetzen.",
+            "Sie macht früher Feierabend und nimmt den Weg am Fluss.",
+            "Sie holt das Buch am Dienstagmorgen ab."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Durch den früheren Aufbruch hat sie Zeit für den empfohlenen Weg, der fünfzehn Minuten länger dauert."
+        },
+        {
+          "id": "notice",
+          "skill": "detail",
+          "question": "Wann soll die Brücke wieder geöffnet werden?",
+          "choices": [
+            "Am Mittwochmorgen",
+            "Am Donnerstagabend",
+            "Am Freitagmorgen",
+            "Am Freitagabend"
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Laut Aushang endet die Sperrung am Freitagabend."
+        },
+        {
+          "id": "share",
+          "skill": "purpose",
+          "question": "Warum hat Mina den Aushang weitergegeben?",
+          "choices": [
+            "Damit alle ihr Buch reservieren.",
+            "Damit die anderen Wandernden die gesperrte Brücke umgehen können.",
+            "Um sich über die große Entfernung zur Bibliothek zu beschweren.",
+            "Um alle Wanderungen bis Freitag abzusagen."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Sie möchte, dass die Gruppe die Sperrung einplant; von einer Absage ist nicht die Rede."
+        }
+      ]
+    },
+    {
+      "id": "library-corner",
+      "band": 1,
+      "title": "Eine ruhige Ecke für alle",
+      "paragraphs": [
+        [
+          "Eine Stadtteilbibliothek erhielt mehrere Anfragen nach einem ruhigen Lernort am Abend.",
+          "Ihr kleiner Besprechungsraum war nach sechs Uhr meistens leer, wurde aber jeden Donnerstag von einem Lesekreis genutzt.",
+          "Die Bibliothekarin schlug vor, den Raum an den anderen Abenden für Lernende zu öffnen."
+        ],
+        [
+          "Da es nur acht Stühle gab, sollten die Lernenden einen einzelnen Platz statt eines ganzen Tisches reservieren.",
+          "Die Bibliothek wollte die Regelung einen Monat lang erproben und sowohl die Lernenden als auch die Mitglieder des Lesekreises um Rückmeldungen bitten.",
+          "Falls der Versuch den Lesekreis beeinträchtigte, würde die Bibliothekarin den Zeitplan anpassen, bevor sie die Änderung dauerhaft einführte."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "exception",
+          "skill": "detail",
+          "question": "Warum wird der Donnerstag anders behandelt?",
+          "choices": [
+            "Die Bibliothek hat an diesem Tag kein Personal.",
+            "Der Lesekreis nutzt den Raum bereits.",
+            "Lernende lernen donnerstags nicht.",
+            "Alle acht Stühle werden repariert."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              1
+            ]
+          ],
+          "explanation": "Der bestehende Lesekreis ist der Grund, warum der Donnerstag vom Vorschlag ausgenommen wird."
+        },
+        {
+          "id": "reservation",
+          "skill": "purpose",
+          "question": "Welchen Zweck hat die Reservierung einzelner Plätze?",
+          "choices": [
+            "Einer Person alle Tische zu geben.",
+            "Mitgliedern des Lesekreises den Zutritt zu verwehren.",
+            "Die begrenzte Zahl an Sitzplätzen gerecht zu nutzen.",
+            "Die Bibliothekarin zu ersetzen."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Es gibt nur acht Stühle; die Platzreservierung entspricht daher der begrenzten Raumkapazität."
+        },
+        {
+          "id": "trial",
+          "skill": "sequence",
+          "question": "Was geschieht vor einer endgültigen Entscheidung?",
+          "choices": [
+            "Ein einmonatiger Versuch und Rückmeldungen beider Gruppen.",
+            "Der Lesekreis wird sofort ausgeschlossen.",
+            "Die Bibliothek kauft ein neues Gebäude.",
+            "Nur die Lernenden stimmen über die Stelle der Bibliothekarin ab."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Vorgesehen sind ein Versuch, Rückmeldungen und erforderliche Anpassungen."
+        },
+        {
+          "id": "attitude",
+          "skill": "inference",
+          "question": "Welche Beschreibung passt am besten zum Vorgehen der Bibliothekarin?",
+          "choices": [
+            "Jede neue Anfrage ablehnen.",
+            "Unbegrenzten Raum versprechen.",
+            "Die bisherigen Nutzer ignorieren.",
+            "Eine Änderung erproben und dabei bestehende Aktivitäten schützen."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Der Vorschlag reagiert auf einen neuen Bedarf und berücksichtigt gleichzeitig die Nutzung durch den Lesekreis."
+        }
+      ]
+    },
+    {
+      "id": "repair-cafe",
+      "band": 2,
+      "title": "Mehr als Gegenstände reparieren",
+      "paragraphs": [
+        [
+          "Beim ersten Reparaturcafé reparierten Freiwillige defekte Lampen, während die Besucher auf die Fertigstellung warteten.",
+          "Die Organisatoren freuten sich über die Zahl der reparierten Gegenstände, bemerkten aber im folgenden Monat dieselben einfachen Defekte erneut.",
+          "Ihnen wurde klar, dass eine schnelle Reparatur den Besitzern nicht unbedingt beibrachte, das Problem zu verhindern."
+        ],
+        [
+          "Bei der nächsten Veranstaltung erklärten die Freiwilligen jeden Schritt und ließen die Besucher mithelfen, wenn dies gefahrlos möglich war.",
+          "Dieses Vorgehen dauerte länger, weshalb an jenem Nachmittag weniger Gegenstände repariert wurden.",
+          "Eine spätere Befragung ergab jedoch, dass viele Besucher nun selbst einfache Wartungsarbeiten ausführen konnten.",
+          "Die Organisatoren beschlossen, sowohl über die Reparaturzahl als auch über das Gelernte zu berichten, statt Erfolg allein an Reparaturen zu messen."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "problem",
+          "skill": "cause",
+          "question": "Welche Schwäche wurde bei der ersten Veranstaltung deutlich?",
+          "choices": [
+            "Kein Gegenstand konnte repariert werden.",
+            "Die Besucher kannten bereits alle Reparaturtechniken.",
+            "Eine Reparatur verhinderte nicht immer, dass derselbe Defekt wieder auftrat.",
+            "Es gab zu viele Fragebögen."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Die wiederkehrenden Defekte führten zur Unterscheidung zwischen Reparatur und dem Erlernen von Vorbeugung."
+        },
+        {
+          "id": "tradeoff",
+          "skill": "contrast",
+          "question": "Welcher Zielkonflikt entstand beim neuen Vorgehen?",
+          "choices": [
+            "Mehr Lernen, aber weniger abgeschlossene Reparaturen an jenem Nachmittag.",
+            "Schnellere Reparaturen, aber keine Beteiligung der Besucher.",
+            "Weniger Erklärungen, aber mehr Wartungswissen.",
+            "Mehr defekte Lampen, aber weniger Freiwillige."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Beteiligung und Erklärungen benötigten Zeit, während die Befragung auf einen Lerngewinn hindeutete."
+        },
+        {
+          "id": "evidence",
+          "skill": "evidence",
+          "question": "Welcher Befund sprach für die Beibehaltung des Lernansatzes?",
+          "choices": [
+            "Die erste Veranstaltung endete früher.",
+            "Die Freiwilligen erfassten keine Reparaturzahlen mehr.",
+            "Jeder Besucher wurde zum professionellen Reparateur.",
+            "Viele Befragte sagten, sie könnten einfache Wartungsarbeiten ausführen."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Die Befragung belegt grundlegendes Lernen, nicht berufliche Kompetenz oder eine Aussage über sämtliche Besucher."
+        },
+        {
+          "id": "measure",
+          "skill": "main-idea",
+          "question": "Was ist die Hauptaussage des Textes?",
+          "choices": [
+            "Bei Gemeinschaftsprojekten zählt nur Geschwindigkeit.",
+            "Erfolg kann neben unmittelbaren Ergebnissen auch Lernen umfassen.",
+            "Fragebögen machen praktische Arbeit überflüssig.",
+            "Ein unreparierter Gegenstand beweist das Scheitern einer Veranstaltung."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Die Organisatoren erweitern ihren Erfolgsmaßstab, ohne die Reparaturen aufzugeben."
+        }
+      ]
+    },
+    {
+      "id": "garden-water",
+      "band": 2,
+      "title": "Was der Gartenversuch tatsächlich zeigte",
+      "paragraphs": [
+        [
+          "Ein Gemeinschaftsgarten erprobte einen neuen Bewässerungsplan an zwei Gemüsebeeten.",
+          "Die Freiwilligen gossen ein Beet jeden Morgen und das andere nur dann, wenn sich die Erde trocken anfühlte.",
+          "Nach vier Wochen hatte das zweite Beet weniger Wasser verbraucht und eine ähnliche Menge Gemüse geliefert."
+        ],
+        [
+          "Einige Mitglieder wollten den neuen Plan sofort im gesamten Garten einführen.",
+          "Der Versuch hatte jedoch in einem kühlen Monat stattgefunden, und beide Beete lagen im Schatten.",
+          "Die Koordinatorin schlug vor, ihn bei heißerem Wetter zu wiederholen und ein sonniges Beet einzubeziehen.",
+          "Sie hielt die ersten Ergebnisse für vielversprechend, aber nicht für ausreichend, um die Eignung des Plans unter allen Bedingungen nachzuweisen."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "result",
+          "skill": "detail",
+          "question": "Was zeigte der erste Versuch unmittelbar?",
+          "choices": [
+            "Alle Gärten brauchen denselben Bewässerungsplan.",
+            "Das zweite Beet verbrauchte bei ähnlicher Ernte weniger Wasser.",
+            "Sonnige Beete brauchen nie Wasser.",
+            "Das täglich gegossene Beet brachte kein Gemüse hervor."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Die Beobachtung betrifft zwei Beete in einem Versuch, kein allgemeingültiges Ergebnis."
+        },
+        {
+          "id": "limit",
+          "skill": "evaluation",
+          "question": "Warum sollten die Ergebnisse vorsichtig interpretiert werden?",
+          "choices": [
+            "Niemand zeichnete den Wasserverbrauch auf.",
+            "Die Beete lagen in verschiedenen Ländern.",
+            "Der Versuch erfasste nur kühles Wetter und schattige Beete.",
+            "Die Freiwilligen änderten die Gemüsepreise."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Die begrenzten Wetter- und Standortbedingungen lassen andere Anbaubedingungen ungeprüft."
+        },
+        {
+          "id": "next",
+          "skill": "purpose",
+          "question": "Warum soll der nächste Versuch ein sonniges Beet einbeziehen?",
+          "choices": [
+            "Um die Methode unter einer anderen Bedingung zu prüfen.",
+            "Um die erste Ernte verschwinden zu lassen.",
+            "Um zu beweisen, dass Schatten immer schädlich ist.",
+            "Um keine Wassermengen messen zu müssen."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Der nächste Versuch untersucht eine Bedingung, die im ursprünglichen Vergleich fehlte."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Welche Position vertritt die Koordinatorin?",
+          "choices": [
+            "Die neue Methode ist bereits überall bewiesen.",
+            "Der Versuch sollte vergessen werden.",
+            "Nur eine größere Ernte ist ein nützliches Ergebnis.",
+            "Die Methode sollte weiter erprobt werden, bevor man verallgemeinert."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "explanation": "Sie begrüßt die ersten Ergebnisse, unterscheidet aber vielversprechende Hinweise von einer allgemeinen Schlussfolgerung."
+        }
+      ]
+    },
+    {
+      "id": "flexible-hours",
+      "band": 3,
+      "title": "Wessen Arbeitstag wurde untersucht?",
+      "paragraphs": [
+        [
+          "Ein Unternehmen erlaubte einem Büroteam sechs Wochen lang, seinen Arbeitsbeginn selbst zu wählen.",
+          "Das Team erledigte genauso viele Aufgaben wie zuvor, und die meisten Mitglieder berichteten, dass Fahrten außerhalb der Hauptverkehrszeit ihren Stress verringerten.",
+          "Ein Vorgesetzter bezeichnete den Versuch als Beweis dafür, dass flexible Arbeitszeiten allen Beschäftigten zugutekommen würden."
+        ],
+        [
+          "Die Personalvertreterin begrüßte die Ergebnisse, stellte aber die Reichweite dieser Behauptung infrage.",
+          "Am Versuch nahmen Beschäftigte teil, die unabhängig arbeiten konnten, während der Empfang zu festen Zeiten besetzt sein musste.",
+          "Zudem wurden erledigte Aufgaben gezählt, ohne zu prüfen, ob die Abstimmung mit anderen Teams schwieriger geworden war."
+        ],
+        [
+          "Die Vertreterin schlug deshalb vor, den Versuch auf unterschiedliche Tätigkeiten auszuweiten und Informationen zur Abstimmung zu sammeln.",
+          "Aus ihrer Sicht musste eine sinnvolle Regelung sowohl die persönliche Entlastung als auch die Zusammenarbeit berücksichtigen."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "claim",
+          "skill": "evaluation",
+          "question": "Was ist die größte Schwäche der Behauptung des Vorgesetzten?",
+          "choices": [
+            "Sie überträgt das Ergebnis eines bestimmten Teamtyps auf alle Beschäftigten.",
+            "Sie räumt ein, dass der Versuch sechs Wochen dauerte.",
+            "Sie berücksichtigt überhaupt die Meinung der Beschäftigten.",
+            "Sie behauptet, es seien keine Aufgaben erledigt worden."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Die eigenständige Arbeit der Teilnehmenden steht nicht unbedingt für Tätigkeiten mit festen Anwesenheitszeiten."
+        },
+        {
+          "id": "missing",
+          "skill": "evidence",
+          "question": "Welche wichtige Frage wurde nicht untersucht?",
+          "choices": [
+            "Ob das Team Mitglieder hatte.",
+            "Wie das Unternehmen hieß.",
+            "Ob die Abstimmung mit anderen Teams schwieriger wurde.",
+            "Ob es die Hauptverkehrszeit schon vor dem Versuch gab."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              2
+            ]
+          ],
+          "explanation": "Die Zahl erledigter Aufgaben sagte allein nichts über die Abstimmung zwischen Teams aus."
+        },
+        {
+          "id": "position",
+          "skill": "inference",
+          "question": "Wie reagiert die Vertreterin auf die Ergebnisse?",
+          "choices": [
+            "Sie lehnt jede Änderung der Arbeitszeiten ab.",
+            "Sie befürwortet weitere Untersuchungen statt einer sofortigen Einführung für alle.",
+            "Sie verlangt, dass das Empfangspersonal die Arbeit einstellt.",
+            "Sie hält persönliche Entlastung für bedeutungslos."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Die Ergebnisse zu begrüßen und einen breiteren Versuch vorzuschlagen ist eine abgewogene Reaktion, keine Ablehnung."
+        },
+        {
+          "id": "purpose",
+          "skill": "main-idea",
+          "question": "Welche Unterscheidung strukturiert den Text?",
+          "choices": [
+            "Morgenarbeit gegenüber ausschließlich nächtlicher Arbeit.",
+            "Bezahlte gegenüber unbezahlter Arbeit.",
+            "Schriftliche gegenüber mündlichen Aufgaben.",
+            "Ein vielversprechendes lokales Ergebnis gegenüber einer Regelung für unterschiedliche Tätigkeiten."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Es geht darum, wie weit ein begrenztes Ergebnis eine Regelung für verschiedene Arbeitsbereiche rechtfertigen kann."
+        }
+      ]
+    },
+    {
+      "id": "museum-letters",
+      "band": 3,
+      "title": "Die Briefe in der Ausstellung",
+      "paragraphs": [
+        [
+          "Ein Museum bereitete eine Ausstellung über das Leben einer Stadt während des Eisenbahnbaus vor.",
+          "Die meisten erhaltenen Briefe stammten von Ladenbesitzern, die neue Kundschaft erwarteten.",
+          "Ein früher Ausstellungsentwurf stellte die Eisenbahn als Veränderung dar, die von allen begrüßt worden war."
+        ],
+        [
+          "Eine Forscherin fand dann eine Petition von Menschen, deren Häuser nahe der geplanten Strecke standen.",
+          "Die Petition bestritt nicht, dass die Eisenbahn Handel bringen konnte, forderte die Stadt aber auf, sich mit Lärm und dem Verlust von Wohnraum zu befassen.",
+          "Die Kuratorin beschloss, die Petition neben den Briefen zu zeigen, statt eine Darstellung durch die andere zu ersetzen."
+        ],
+        [
+          "Eine neue Beschriftung erläuterte, dass erhaltene Dokumente die Erfahrungen bestimmter Menschen zeigen und nicht automatisch die gesamte Stadt vertreten.",
+          "Die Besucher sollten die Interessen der Schreibenden vergleichen und überlegen, welche Stimmen weiterhin fehlen könnten."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "bias",
+          "skill": "evidence",
+          "question": "Warum konnten die Briefe allein ein unvollständiges Bild ergeben?",
+          "choices": [
+            "Sie wurden nach Eröffnung der Ausstellung geschrieben.",
+            "Sie enthalten keine Meinungen.",
+            "Sie überliefern vor allem die Interessen einer einzigen Gruppe.",
+            "Sie beweisen, dass alle Einwohner ein Geschäft besaßen."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "explanation": "Die auf Kundschaft hoffenden Ladenbesitzer waren nur eine Gruppe innerhalb der Stadt."
+        },
+        {
+          "id": "petition",
+          "skill": "contrast",
+          "question": "Wie schränkt die Petition die positive Darstellung ein?",
+          "choices": [
+            "Sie benennt Nachteile für einige Bewohner und erkennt mögliche Handelsvorteile an.",
+            "Sie behauptet, Handel könne einer Stadt niemals nutzen.",
+            "Sie beweist, dass nie eine Eisenbahn vorgeschlagen wurde.",
+            "Sie wiederholt die Briefe ohne weitere Bedenken."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Die Bewohner lehnen nicht pauschal alles ab: Sie erkennen den Handel an und nennen konkrete Nachteile."
+        },
+        {
+          "id": "display",
+          "skill": "purpose",
+          "question": "Warum werden beide Dokumentarten gemeinsam gezeigt?",
+          "choices": [
+            "Damit Besucher die Namen der Ladenbesitzer auswendig lernen.",
+            "Damit Meinungsverschiedenheiten verborgen bleiben.",
+            "Um zu zeigen, dass die Petition keinen historischen Wert hat.",
+            "Damit Besucher Perspektiven auf dieselbe Veränderung vergleichen können."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Beide Quellen zu erhalten macht ihre unterschiedlichen Interessen vergleichbar."
+        },
+        {
+          "id": "conclusion",
+          "skill": "inference",
+          "question": "Welche Schlussfolgerung ist am besten belegt?",
+          "choices": [
+            "Eine einzige Petition macht alle fehlenden Stimmen sichtbar.",
+            "Eine erhaltene Quelle muss im Zusammenhang mit ihren Urhebern gedeutet werden.",
+            "Jeder persönliche Brief ist unzuverlässig.",
+            "Museen sollten nur übereinstimmende Darstellungen zeigen."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Der Text fragt nach vertretenen und fehlenden Stimmen, statt sämtliche persönlichen Quellen zu verwerfen."
+        }
+      ]
+    },
+    {
+      "id": "bus-consultation",
+      "band": 4,
+      "title": "Mehr als eine Frage der Fahrgastzahl",
+      "paragraphs": [
+        [
+          "Eine Stadt schlug vor, den letzten Abendbus zu streichen, weil er weniger Fahrgäste als die Tagesverbindungen beförderte.",
+          "Der Finanzbericht berechnete die Kosten pro Fahrt, untersuchte aber nicht, welche Alternativen diese Fahrgäste hatten.",
+          "Bei der öffentlichen Anhörung erklärten Reinigungskräfte eines Krankenhauses und Restaurantangestellte, dass der letzte Bus oft darüber entschied, ob sie eine Schicht annehmen konnten."
+        ],
+        [
+          "Befürworter des Vorschlags hielten einen von wenigen Menschen genutzten Dienst für einen ineffizienten Einsatz eines begrenzten Budgets.",
+          "Gegner erwiderten, dass geringe Nachfrage allein keinen geringen öffentlichen Nutzen beweise, wenn die Betroffenen keinen praktikablen Ersatz hätten.",
+          "Sie schlugen ein kleineres Fahrzeug und eine geänderte Strecke als Optionen vor, die vor einer Streichung verglichen werden sollten."
+        ],
+        [
+          "Der Verkehrsausschuss versprach nicht, die bestehende Verbindung unverändert zu erhalten.",
+          "Stattdessen verlangte er eine Bewertung der Kosten, des Zugangs zu Arbeitsplätzen und der Folgen jeder Alternative.",
+          "Mit der Verschiebung der Streichung behandelte er Effizienz als wichtiges Kriterium, aber nicht als das einzige, das Belege erforderte."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "omission",
+          "skill": "evaluation",
+          "question": "Welche Lücke im Bericht benennt der Text?",
+          "choices": [
+            "Die Zahl der Tagesbusse.",
+            "Die Existenz des Verkehrsausschusses.",
+            "Die Farbe der Krankenhausuniformen.",
+            "Die Folgen für Fahrgäste ohne praktikable Alternative."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Der Bericht misst Kosten, untersucht aber nicht den durch den letzten Bus ermöglichten Zugang."
+        },
+        {
+          "id": "dispute",
+          "skill": "contrast",
+          "question": "Worin besteht die zentrale Meinungsverschiedenheit?",
+          "choices": [
+            "Ob der Bus jemals jemanden befördert hat.",
+            "Ob geringe Fahrgastzahlen allein einen geringen öffentlichen Nutzen belegen.",
+            "Ob man Budgets zählen kann.",
+            "Ob Tagesverbindungen nachts verkehren sollten."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "explanation": "Beide Seiten sprechen über begrenzte Mittel, unterscheiden sich aber darin, ob Fahrgastzahlen als Kriterium ausreichen."
+        },
+        {
+          "id": "alternative",
+          "skill": "purpose",
+          "question": "Welche Rolle spielen das kleinere Fahrzeug und die geänderte Strecke?",
+          "choices": [
+            "Es sind Alternativen zum Vergleich mit der Streichung und dem bestehenden Dienst.",
+            "Sie beweisen, dass die heutige Strecke nichts kostet.",
+            "Sie garantieren allen Beschäftigten kostenlose Fahrten.",
+            "Es sind bereits vom Ausschuss umgesetzte Änderungen."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Es handelt sich um zu prüfende Vorschläge, nicht um erwiesene Lösungen oder fertige Änderungen."
+        },
+        {
+          "id": "stance",
+          "skill": "inference",
+          "question": "Welche Aussage beschreibt die Haltung des Ausschusses am besten?",
+          "choices": [
+            "Finanzielle Effizienz ist unwichtig.",
+            "Jeder heutige Bus muss für immer erhalten bleiben.",
+            "Eine begründete Entscheidung braucht verschiedene Arten von Belegen.",
+            "Die Anhörung macht weitere Bewertungen unnötig."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Der Ausschuss berücksichtigt Kosten und verlangt zugleich Belege zu Arbeitsplatzzugang und Alternativen."
+        }
+      ]
+    },
+    {
+      "id": "park-lighting",
+      "band": 4,
+      "title": "Was ein sichererer Park bedeuten würde",
+      "paragraphs": [
+        [
+          "Nachdem am Hauptweg eines Parks hellere Lampen installiert worden waren, ergab eine Befragung, dass mehr Abendbesucher angaben, sich sicher zu fühlen.",
+          "Eine Zeitungsschlagzeile bezeichnete dies als Beweis dafür, dass die Beleuchtung den gesamten Park sicherer gemacht habe.",
+          "Die Befragung erfasste jedoch nur Personen, die den Hauptweg bereits nutzten, und sammelte keine Informationen über Vorfälle in anderen Bereichen."
+        ],
+        [
+          "Eine Anwohnergruppe begrüßte das gestiegene Sicherheitsgefühl, wies aber darauf hin, dass Menschen, die den Park mieden, in der Stichprobe fehlten.",
+          "Eine Naturschutzgruppe fragte außerdem, ob die nächtliche Beleuchtung ungenutzter Bereiche Wildtiere beeinträchtigen würde, ohne den Besuchern zu helfen.",
+          "Keine Gruppe verlangte, die positiven Berichte zu ignorieren; beide bezweifelten, welche Schlussfolgerungen sich daraus ziehen ließen."
+        ],
+        [
+          "Die Stadtverwaltung schlug vor, Vorfallsberichte mit Befragungen abseits des Hauptwegs und einem Versuch mit Lampen zu verbinden, die sich ohne Menschen in der Nähe dimmen würden.",
+          "Vor einer Ausweitung wollte sie Zugang, berichtete Erfahrungen und Umweltfolgen vergleichen.",
+          "Die Debatte betraf somit die Definition und Bewertung einer Verbesserung, statt sich auf die einfache Wahl zu beschränken, entweder jede neue Lampe zu akzeptieren oder alle Lampen zu entfernen."
+        ]
+      ],
+      "questions": [
+        {
+          "id": "headline",
+          "skill": "evaluation",
+          "question": "Warum geht die Schlagzeile über die Befragungsergebnisse hinaus?",
+          "choices": [
+            "Sie überträgt berichtete Gefühle an einem Weg auf die Sicherheit im gesamten Park.",
+            "Sie räumt ein, dass Besucher befragt wurden.",
+            "Sie zitiert Menschen, die niemals irgendeinen Park besuchen.",
+            "Sie behauptet, die Lampen seien noch nicht installiert."
+          ],
+          "answer": 0,
+          "evidence": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "explanation": "Ein berichtetes Sicherheitsgefühl in einer ausgewählten Stichprobe misst weder sämtliche Vorfälle noch alle Bereiche."
+        },
+        {
+          "id": "missing",
+          "skill": "inference",
+          "question": "Wessen Erfahrungen fehlen in der Stichprobe besonders?",
+          "choices": [
+            "Die von regelmäßigen Nutzern des Hauptwegs.",
+            "Die von Menschen, die den Parkbesuch vermeiden.",
+            "Die der Drucker der Zeitung.",
+            "Die aller Personen, die an der Befragung teilnahmen."
+          ],
+          "answer": 1,
+          "evidence": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "explanation": "Die Stichprobe umfasst aktuelle Hauptwegnutzer und kann nicht unmittelbar für Menschen stehen, die fernbleiben."
+        },
+        {
+          "id": "trial",
+          "skill": "purpose",
+          "question": "Warum sollen Lampen erprobt werden, die sich ohne Menschen in der Nähe dimmen?",
+          "choices": [
+            "Um zu garantieren, dass sämtliche Wildtiere verschwinden.",
+            "Um keine Besucherberichte mehr zu sammeln.",
+            "Um eine Option zu prüfen, die Zugang und Umweltfolgen ausgleichen könnte.",
+            "Um zu beweisen, dass die erste Befragung erfunden war."
+          ],
+          "answer": 2,
+          "evidence": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "explanation": "Der Versuch greift Bedenken zu ungenutzten Bereichen auf und soll zugleich sinnvollen Zugang erhalten."
+        },
+        {
+          "id": "synthesis",
+          "skill": "main-idea",
+          "question": "Welche Zusammenfassung trifft den Text am besten?",
+          "choices": [
+            "Jede positive Befragung reicht aus, eine öffentliche Debatte zu beenden.",
+            "Sich sicherer zu fühlen hat keinen Wert.",
+            "Es gibt nur die vollständige Ausweitung oder den kompletten Abbau.",
+            "Ein positiver Befund kann wichtig sein und dennoch breitere Belege und klarere Kriterien erfordern."
+          ],
+          "answer": 3,
+          "evidence": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "explanation": "Die Beteiligten erkennen den Nutzen an, hinterfragen aber seine Reichweite und die Maßstäbe für eine weitergehende Entscheidung."
+        }
+      ]
+    }
+  ]
+}

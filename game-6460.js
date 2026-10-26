@@ -1693,6 +1693,7 @@ function buyOrEquipMineCosmetic(type,item){
 
 let feedbackAudioContext=null;
 function silentTestingActive(question=state.active){
+  if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return true;
   const native=(window.LanguageMinerI18n?.getContext?.().learning||'ja')==='ja'&&!window.LanguageMinerCourseNavigation?.active?.();
   return question?.silentTesting===true||native&&(window.LanguageMinerAcademyAssessment?.active?.()===true||state.v5?.boss?.status==='active')||!native&&window.LanguageMinerCourseGameplay?.status?.()?.testing===true;
 }
@@ -2123,6 +2124,7 @@ function recordQuestionAttempt(q,correct){
 }
 
 function answer(opt,button){
+  if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
   if(state.answered || !state.active) return;
   const correct=window.LanguageMinerVocabulary?.japaneseAccepts(state.active,opt,document.querySelector("#challengeArea .question")?.textContent)||opt===state.active.a;
   if(window.LanguageMinerPictures?.learningAnswer(state.active,correct,button))return;
@@ -2210,6 +2212,7 @@ function answer(opt,button){
   }
 }
 function useHint(){
+  if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
   if(window.LanguageMinerCourseNavigation?.active()&&!state.active?.smartReview&&!state.active?.dailyRefresher)return window.LanguageMinerCourseGameplay?.useHint?.()||false;
   if(!state.active || state.answered || state.hints<1 || silentTestingActive()) return;
   const wrong=[...document.querySelectorAll("#answers button")].filter(b=>!b.disabled && b.textContent!==state.active.a);
@@ -2222,6 +2225,7 @@ function useHint(){
   }
 }
 function armShield(){
+  if(window.LanguageMinerAdvancedReading?.status?.().assessing===true)return false;
   if(window.LanguageMinerCourseNavigation?.active()&&!state.active?.smartReview&&!state.active?.dailyRefresher)return window.LanguageMinerCourseGameplay?.armShield?.()||false;
   if(!state.active || state.answered || state.shields<1 || state.shieldArmed) return;
   state.shieldArmed=true; render();
