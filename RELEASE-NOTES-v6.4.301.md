@@ -10,4 +10,6 @@ The phone layout keeps the guide panel within the screen and leaves highlighted 
 
 This release preserves the published v6.4.299 reading-support fixes and Japanese practice controls. The website and installed web app use the same responsive release.
 
+A native-voice refresh now reapplies the saved language pair rather than treating the notification event as course settings. This prevents a temporary return to Japanese during a tutorial resume or ordinary practice.
+
 Validation includes the complete 77-action desktop route with saved/cloud resume; the complete 77-action 390×844 touch-emulated phone route; smaller 320-pixel layouts; language-selection handoff for Japanese and Spanish; account isolation; migration/replay; failed completion saves and retry; and release/update identity checks. Browser checks use disposable accounts with mocked cloud responses.

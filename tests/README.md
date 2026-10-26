@@ -9,6 +9,10 @@ question choices/grading, independent Easy/Hard selection and narrow screens.
 It uses disposable accounts with mocked cloud saves; set `READING_SUPPORT_TEST_URL`
 to run against a deployed site.
 
+`node tests/course-voice-refresh.test.cjs` checks that a native-voice refresh
+preserves the selected language pair, current question, assessment clocks and
+map position while refreshing course controls.
+
 For beginner onboarding, run `node tests/guided-beginner-tutorial.test.cjs`,
 `node tests/beginner-tutorial-localization.test.cjs`, and
 `node tests/beginner-tutorial-timers.test.cjs`. With a local server running,
