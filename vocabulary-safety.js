@@ -62,11 +62,12 @@
     q.speechText=entry[1];
     q.help=`${escape(entry[0])} is read ${escape(entry[1])} and means “${escape(entry[2])}.”`;
   }
-  function japaneseDisplay(q,hard=false){
+  function japaneseDisplay(q,support=false){
     if(!isMeaning(q))return null;
     const entry=rows().find(r=>r[0]===q.vocabularyKey);
     if(!entry)return null;
-    return hard||entry[0]===entry[1]?escape(entry[0]):`<ruby>${escape(entry[0])}<rt>${escape(entry[1])}</rt></ruby>`;
+    if(support==='guided')return escape(entry[1]);
+    return support===true||support==='challenge'||entry[0]===entry[1]?escape(entry[0]):`<ruby>${escape(entry[0])}<rt>${escape(entry[1])}</rt></ruby>`;
   }
   function japaneseOptions(q){
     if(q?.vocabularyKey&&/choose the Japanese word/i.test(q.prompt||'')){

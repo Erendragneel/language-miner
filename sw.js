@@ -2,8 +2,8 @@ const RETIRED_ARTWORK=["player-lesson-pose-v1.png","daily-golem-hands-v1.webp","
 const retiredArtwork=url=>RETIRED_ARTWORK.some(path=>url.pathname===new URL('./'+path,self.location.href).pathname);
 async function purgeRetiredArtwork(){for(const name of await caches.keys()){const cache=await caches.open(name);for(const request of await cache.keys()){if(retiredArtwork(new URL(request.url)))await cache.delete(request);}}}
 const CACHE_PREFIX='language-miner-';
-const CACHE_NAME='language-miner-v6.4.298-beginner-tutorial-r131';
-const BUILD_VERSION='6.4.298';
+const CACHE_NAME='language-miner-v6.4.299-reading-support-r132';
+const BUILD_VERSION='6.4.299';
 const REEL_CACHE='lm-reward-reels-art-r293';
 const PICTURE_CACHE='lm-picture-assets-clarity-r120';
 const PRONUNCIATION_CACHE='lm-pronunciation-azure-20261008';

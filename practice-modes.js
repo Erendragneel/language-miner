@@ -52,7 +52,7 @@
    panel.append(replay,reveal,status);
   }
   else {hide('.voice-tools,.lm-question-actions,.lm-hearing-fallback');if(prompt&&options.readingPrompt)prompt.textContent=options.readingPrompt;if(mode==='picture')panel.textContent=tr('No picture is available for this question. Use the written clue.');else if(mode==='listening')panel.textContent=tr('No audio clue is available for this question. Use the written clue.');else panel.textContent=names()[3];}
-  card.prepend(panel);window.LanguageMinerPictures?.applyDifficulty(area);
+  card.prepend(panel);window.LanguageMinerPictures?.applyDifficulty(area);window.LanguageMinerReadingSupport?.apply(area,q,options.language||q.learningLanguage||'ja',options);
  }
  document.addEventListener('click',e=>{const b=e.target.closest?.('button[data-practice-mode]');if(b)select(b.dataset.practiceMode);});
  window.addEventListener('lm-interface-language-changed',sync);

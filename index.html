@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="language-miner-version" content="6.4.298" />
+<meta name="language-miner-version" content="6.4.299" />
 <title>Language Miner</title>
 <meta name="description" content="A multilingual learning adventure with mining, pronunciation, mastery, expeditions, guardian bosses, and collectible rewards." />
 <meta name="language-miner-share-url" content="https://erendragneel.github.io/language-miner/" />
@@ -13,16 +13,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Language Miner" />
-<link rel="icon" href="language-miner-icon-32.png?v=6.4.298" sizes="32x32" type="image/png" />
-<link rel="icon" href="language-miner-icon-192.png?v=6.4.298" sizes="192x192" type="image/png" />
-<link rel="apple-touch-icon" sizes="180x180" href="language-miner-icon-180.png?v=6.4.298" />
+<link rel="icon" href="language-miner-icon-32.png?v=6.4.299" sizes="32x32" type="image/png" />
+<link rel="icon" href="language-miner-icon-192.png?v=6.4.299" sizes="192x192" type="image/png" />
+<link rel="apple-touch-icon" sizes="180x180" href="language-miner-icon-180.png?v=6.4.299" />
 <link rel="canonical" href="https://erendragneel.github.io/language-miner/" />
-<link rel="manifest" href="manifest.webmanifest?v=6.4.298" />
+<link rel="manifest" href="manifest.webmanifest?v=6.4.299" />
 <link rel="preload" href="language-miner-logo.png" as="image" type="image/png" />
 <link rel="stylesheet" href="styles.css?v=menu-login-r130" />
 <link rel="stylesheet" href="v5.css?v=menu-login-r130" />
 <link rel="stylesheet" href="v6-6460.css?v=web-content-r123" />
-<link rel="stylesheet" href="multilingual-preview.css?v=web-content-r123" />
+<link rel="stylesheet" href="multilingual-preview.css?v=reading-support-r132" />
 <link rel="stylesheet" href="parent-teacher-center.css?v=web-content-r123" />
 <link rel="stylesheet" href="writing-practice.css?v=web-content-r123" />
 <link rel="stylesheet" href="companion-wardrobe.css?v=web-content-r123" />
@@ -35,7 +35,7 @@
 <link rel="stylesheet" href="legal-compliance.css?v=web-content-r123" />
 <link rel="stylesheet" href="update-guardian.css?v=web-content-r123" />
 <link rel="stylesheet" href="owner-admin-controls.css?v=web-content-r123" />
-<script src="update-guardian.js?v=web-content-r123"></script>
+<script src="update-guardian.js?v=reading-support-r132"></script>
 <style>[data-admin-permission][hidden]{display:none!important}</style>
 
 <link rel="stylesheet" href="background-music.css?v=web-content-r123">
@@ -137,13 +137,13 @@
   </div>
   <div class="learning-settings">
     <label for="supportMode">Reading support
-      <select id="supportMode">
-        <option value="guided">Guided â€” readings and furigana</option>
-        <option value="standard">Standard â€” normal furigana</option>
-        <option value="challenge">Challenge â€” reduced furigana</option>
+      <select id="supportMode" aria-describedby="readingSupportHelp">
+        <option value="guided">Guided — letter hints</option>
+        <option value="standard">Standard — course text</option>
+        <option value="challenge">Challenge — fewer hints</option>
       </select>
     </label>
-    <div class="small">Changing reading support starts a fresh question. Recent-question memory reduces repetition.</div>
+    <div class="small" id="readingSupportHelp">Guided adds reading help where available. Questions that test a reading keep that answer hidden.</div>
   </div>
   <div class="voice-session-settings" aria-label="Voice and smart review settings">
     <label class="form-check form-switch sound-toggle"><input id="soundToggle" class="form-check-input" type="checkbox" checked><span class="form-check-label">Answer sounds</span></label>
@@ -430,7 +430,7 @@
   </section>
 </div>
 
-<div class="footer">Language Miner v6.4.298 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
+<div class="footer">Language Miner v6.4.299 <a href="privacy.html" target="_blank" rel="noopener">Privacy</a> <a href="terms.html" target="_blank" rel="noopener">Terms</a> <a href="THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Third-party notices</a></div>
 </div>
 
 <script src="patreon-config.js?v=web-content-r123" defer></script>
@@ -443,7 +443,7 @@
 <script src="pronunciation-pack.js?v=web-content-r123" defer></script>
 <script src="picture-pronunciation.js?v=web-content-r123" defer></script>
 <script src="native-pronunciation.js?v=web-content-r123" defer></script>
-<script src="vocabulary-safety.js?v=language-quality-r129" defer></script>
+<script src="vocabulary-safety.js?v=reading-support-r132" defer></script>
 <script src="vocabulary-sense-fixes.js?v=web-content-r123" defer></script>
 <script src="wording-resolutions.js?v=web-content-r123" defer></script>
 <script src="audio-form-corrections.js?v=web-content-r123" defer></script>
@@ -453,16 +453,16 @@
 <script src="gem-buttons.js?v=web-content-r123" defer></script>
 <script src="patreon-previews.js?v=web-content-r123" defer></script>
 <link rel="stylesheet" href="practice-modes.css?v=web-content-r123">
-<script src="practice-modes.js?v=web-content-r123" defer></script>
-<script src="game-6460.js?v=beginner-tutorial-r131" defer></script>
+<script src="practice-modes.js?v=reading-support-r132" defer></script>
+<script src="game-6460.js?v=reading-support-r132" defer></script>
 <script src="academy-assessment.js?v=web-content-r123" defer></script>
 <script src="cultural-event-localization.js?v=web-content-r123" defer></script>
 <script src="cultural-events.js?v=web-content-r123" defer></script>
-<script src="v5-6400.js?v=menu-login-r130" defer></script>
+<script src="v5-6400.js?v=reading-support-r132" defer></script>
 <script src="qr-code.js?v=web-content-r123" defer></script>
 <script src="background-music.js?v=web-content-r123" defer></script>
 <script src="teaching-notes.js?v=language-quality-r129" defer></script>
-<script src="v6.js?v=beginner-tutorial-r131" defer></script>
+<script src="v6.js?v=reading-support-r132" defer></script>
 <script src="arcade-games.js?v=web-content-r123" defer></script>
 <script src="patreon-reel-locales.js?v=caption-art-r293" defer></script>
 <script src="patreon-heart-videos.js?v=caption-art-r293" defer></script>
@@ -474,8 +474,8 @@
 <script src="patreon-copy-localization.js?v=web-content-r123" defer></script>
 <script src="parent-teacher-localization.js?v=web-content-r123" defer></script>
 <script src="generated-interface-localization.js?v=web-content-r123" defer></script>
-<script src="interface-localization.js?v=web-content-r123" defer></script>
-<script src="multilingual-preview.js?v=beginner-tutorial-r131" defer></script>
+<script src="interface-localization.js?v=reading-support-r132" defer></script>
+<script src="multilingual-preview.js?v=reading-support-r132" defer></script>
 <script src="parent-teacher-center.js?v=web-content-r123" defer></script>
 <script src="game-guide.js?v=web-content-r123" defer></script>
 <script src="writing-stroke-data.js?v=web-content-r123" defer></script>

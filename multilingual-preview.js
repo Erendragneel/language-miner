@@ -784,6 +784,73 @@
     if(question.mode==='alphabet'||question.sourceSection==='alphabet')return (ALPHABET_PROMPTS[known]||ALPHABET_PROMPTS.en)(question.label,targetName());
     return (QUESTION_PROMPTS[known]||QUESTION_PROMPTS.en)(question.meaning,targetName());
   }
+  // Reading aids describe every target-language choice equally. They never add
+  // the answer to a recognition prompt or change the value used for grading.
+  const readingSupportMode=()=>typeof state==='object'&&['guided','standard','challenge'].includes(state.supportMode)?state.supportMode:'guided';
+  function courseOptionReadingHint(value,language=learning){
+    const text=String(value||'');
+    if(language==='ja'){
+      const entry=window.N5_VOCABULARY_1000?.find(row=>row[0]===text);
+      return entry&&entry[0]!==entry[1]?entry[1]:'';
+    }
+    const units=ALPHABET_SYSTEMS[language]?.units||[],names=new Map(units.map(unit=>[unit.symbol.toLocaleLowerCase(language),unit.name]));
+    if(language==='ko'){
+      const initials=Array.from('ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'),vowels=Array.from('ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ'),finals=['','ㄱ','ㄲ','ㄱㅅ','ㄴ','ㄴㅈ','ㄴㅎ','ㄷ','ㄹ','ㄹㄱ','ㄹㅁ','ㄹㅂ','ㄹㅅ','ㄹㅌ','ㄹㅍ','ㄹㅎ','ㅁ','ㅂ','ㅂㅅ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+      Object.entries({'ㄲ':'쌍기역','ㄸ':'쌍디귿','ㅃ':'쌍비읍','ㅆ':'쌍시옷','ㅉ':'쌍지읒','ㅐ':'애','ㅒ':'얘','ㅔ':'에','ㅖ':'예','ㅘ':'와','ㅙ':'왜','ㅚ':'외','ㅝ':'워','ㅞ':'웨','ㅟ':'위','ㅢ':'의'}).forEach(([key,name])=>names.set(key,name));
+      if(Array.from(text).length>28)return '';
+      return Array.from(text).filter(ch=>/[\uac00-\ud7a3\u3131-\u3163]/u.test(ch)).map(ch=>{
+        const index=ch.codePointAt(0)-0xac00,parts=index>=0&&index<11172?[initials[Math.floor(index/588)],vowels[Math.floor(index%588/28)],...Array.from(finals[index%28])]:[ch];
+        return parts.map(part=>`${part} (${names.get(part)||part})`).join(' · ');
+      }).join(' / ');
+    }
+    if(Array.from(text).length>40)return '';
+    const hints=Array.from(text).map(ch=>names.get(ch.toLocaleLowerCase(language))).filter(Boolean);
+    return hints.length?hints.join(' · '):'';
+  }
+  function applyReadingSupport(area,question,language=learning,options={}){
+    const card=area?.querySelector('.question-card,.lm-course-question');if(!card)return false;
+    card.querySelectorAll('.lm-reading-support-hint,.lm-reading-support-tools').forEach(node=>node.remove());
+    card.dataset.readingSupport=readingSupportMode();
+    const alphabet=question?.sourceSection==='alphabet'||question?.mode==='alphabet'||question?.kana||question?.kind==='reading';
+    const targetChoices=question?.answer!=null||/choose (?:the )?(?:Japanese|pictured) word/i.test(question?.prompt||'');
+    if(options.silent||question?.silentTesting||question?.smartReview||['boss','review','placement'].includes(question?.mode)||alphabet||!targetChoices||readingSupportMode()==='challenge'||window.LanguageMinerPracticeModes?.current?.()==='listening')return false;
+    const buttons=[...card.querySelectorAll('[data-lm-course-answer],#answers>button')];
+    const aid=document.createElement('div');aid.className='lm-reading-support-tools';aid.setAttribute('data-lm-no-interface-translate','');
+    const supportCopy={en:['Show reading support','Hear pronunciation'],es:['Mostrar ayuda de lectura','Escuchar pronunciación'],ru:['Показать помощь при чтении','Послушать произношение'],ja:['読み方のサポートを表示','発音を聞く'],ko:['읽기 도움말 표시','발음 듣기'],zh:['显示阅读辅助','听发音'],it:['Mostra gli aiuti alla lettura','Ascolta la pronuncia'],fr:['Afficher les aides à la lecture','Écouter la prononciation'],de:['Lesehilfen anzeigen','Aussprache anhören'],pt:['Mostrar apoio à leitura','Ouvir pronúncia'],vi:['Hiện hỗ trợ đọc','Nghe phát âm'],th:['แสดงตัวช่วยการอ่าน','ฟังการออกเสียง'],tr:['Okuma desteğini göster','Telaffuzu dinle'],id:['Tampilkan bantuan membaca','Dengarkan pelafalan'],pl:['Pokaż pomoc w czytaniu','Posłuchaj wymowy'],el:['Εμφάνιση βοήθειας ανάγνωσης','Ακούστε την προφορά'],uk:['Показати допомогу з читанням','Послухати вимову']};
+    const copy=supportCopy[window.LanguageMinerI18n?.getLocale?.()?.split('-')[0]||known]||supportCopy.en,details=document.createElement('div');details.className='lm-reading-support-details';
+    const hints=[];
+    for(const button of buttons){
+      const value=button.dataset.lmCourseAnswer??button.firstChild?.textContent??button.textContent,hint=courseOptionReadingHint(value,language);
+      const row=document.createElement('div');row.className='lm-reading-choice-aid';const label=document.createElement('strong');label.lang=language;label.textContent=value;row.append(label);
+      if(hint){const note=document.createElement('small');note.className='lm-reading-support-hint';note.lang=language;note.textContent=hint;note.setAttribute('data-lm-no-interface-translate','');row.append(note);hints.push(note);}
+      const available=window.LanguageMinerSpeech?.availability?.(LANGUAGES[language]?.voice||language,value);
+      if(available?.status==='ready'){
+        const hear=document.createElement('button');hear.type='button';hear.className='lm-choice-pronunciation';hear.textContent=`🔊 ${value}`;hear.lang=language;hear.setAttribute('aria-label',`${copy[1]}: ${value}`);
+        hear.addEventListener('click',()=>window.LanguageMinerSpeech?.replay?.(value,language));row.append(hear);
+      }
+      if(hint||row.childElementCount>1)details.append(row);
+    }
+    if(!hints.length&&!details.childElementCount)return false;
+    const heading=document.createElement('h4');heading.className='lm-reading-support-heading';heading.textContent=window.LanguageMinerI18n?.translate?.('Reading support')||'Reading support';aid.append(heading);
+    const show=()=>{hints.forEach(note=>note.hidden=false);details.hidden=false;};
+    if(readingSupportMode()==='standard'){
+      hints.forEach(note=>note.hidden=true);details.hidden=true;
+      const reveal=document.createElement('button');reveal.type='button';reveal.className='lm-reading-support-reveal';reveal.textContent=copy[0];reveal.addEventListener('click',()=>{show();reveal.remove();});aid.append(reveal);
+    }
+    aid.append(details);card.querySelector('.lm-answer-grid,#answers')?.after(aid);return true;
+  }
+  function refreshReadingSupport(){
+    const area=document.getElementById('challengeArea');
+    if(fullJapaneseCourse()){
+      if(typeof state!=='object'||!state.active||state.answered||silentTestingActive(state.active)||!area?.querySelector('.question-card'))return false;
+      const question=state.active,display=area.querySelector('.question');if(display){display.innerHTML=questionDisplay(question);if(typeof syncJapaneseQuestionReadingHelp==='function')syncJapaneseQuestionReadingHelp(area,question,display.innerHTML);}
+      // Preserve the exact live choices and grading callbacks while updating aids.
+      applyReadingSupport(area,question,question.learningLanguage||'ja');return true;
+    }
+    if(!activePreviewQuestion||activePreviewQuestion.answered||multilingualBoss?.status==='active'||multilingualReviewQuiz&&!multilingualReviewQuiz.finished||!area?.querySelector('.lm-course-question')||area.querySelector('[data-lm-course-answer]:disabled'))return false;
+    return applyReadingSupport(area,activePreviewQuestion,learning);
+  }
+  window.LanguageMinerReadingSupport=Object.freeze({mode:readingSupportMode,optionHint:courseOptionReadingHint,apply:applyReadingSupport,refresh:refreshReadingSupport});
   function syncMultilingualQuickMineButton(){
     if(fullJapaneseCourse()||window.japaneseMinerSmartReview?.status?.().active)return;
     const button=document.getElementById('quickMineBtn'),label=document.getElementById('quickMineLabel');
@@ -807,6 +874,7 @@
     area.innerHTML=`<section class="lm-course-question ${alphabetQuestion?'lm-alphabet-question':''}" aria-label="${escapeHtml(targetName())} ${escapeHtml(translatedSection)}"><div class="lm-question-kicker">${target.flag} ${escapeHtml(alphabetQuestion?system.name:`${targetName()} ${translatedSection} ${ui('mine')}`)} · ${escapeHtml(ui('lesson',{number:selectedCourseLesson+1}))}/${lessonTotal}${bossStatus}</div><h3 class="lm-course-prompt" data-lm-no-interface-translate>${escapeHtml(courseQuestionPrompt(question,target))}</h3>${optionalAudio}<button id="lmUnknownCourseItem" class="lm-unknown-course-item" type="button">📖 I don’t know this yet — add to review</button><div class="lm-answer-grid ${alphabetQuestion?'lm-alphabet-answers':''}" data-lm-no-interface-translate>${question.options.map(option=>`<button type="button" data-lm-course-answer="${escapeHtml(option)}">${escapeHtml(option)}</button>`).join('')}</div><div id="lmCourseFeedback" class="lm-course-feedback" aria-live="polite"></div></section>`;
     window.LanguageMinerPictures?.decorateQuestion(area,question,learning,known);
     window.LanguageMinerPracticeModes?.apply(area,question,{language:learning,knownLanguage:known,spoken:targetVoiceAvailability(question.spoken||question.answer).status==='missing'?'':question.spoken||question.answer,originalPrompt:courseQuestionPrompt(question,target),readingPrompt:alphabetQuestion?(ALPHABET_PROMPTS[known]||ALPHABET_PROMPTS.en)(question.label,targetName()):courseQuestionPrompt(question,target)});
+    if(!window.LanguageMinerPracticeModes)applyReadingSupport(area,question,learning);
     if(message)message.textContent='';document.getElementById('lmUnknownCourseItem')?.addEventListener('click',event=>{if(enqueueCurrentCourseQuestion(question)){event.currentTarget.disabled=true;event.currentTarget.textContent='✓ Added to Smart Review';const feedback=document.getElementById('lmCourseFeedback');if(feedback){feedback.className='lm-course-feedback correct';feedback.textContent='Added to unlimited Smart Review. No hearts, rewards, or penalties are used there.';}}});document.querySelectorAll('[data-lm-course-answer]').forEach(button=>button.addEventListener('click',()=>answerCourseQuestion(button)));
     syncMultilingualQuickMineButton();updateFoundationProgress();area.scrollIntoView({behavior:'smooth',block:'center'});if(hearingQuestion&&!window.LanguageMinerPracticeModes)setTimeout(()=>{if(activePreviewQuestion===question)speakTarget(question.spoken);},80);
   }

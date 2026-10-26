@@ -1,5 +1,14 @@
 # Daily Mini Golem checks
 
+For course reading support, run `node tests/japanese-hub-mode-controls.test.cjs`,
+`node tests/reading-support-localization.test.cjs`, and
+`node tests/reading-support.test.cjs`. With the local server running,
+`node tests/reading-support-browser.test.cjs` checks Japanese map controls,
+real Settings changes, Japanese/Korean reading aids, answer secrecy, retained
+question choices/grading, independent Easy/Hard selection and narrow screens.
+It uses disposable accounts with mocked cloud saves; set `READING_SUPPORT_TEST_URL`
+to run against a deployed site.
+
 For beginner onboarding, run `node tests/beginner-tutorial.test.cjs` and
 `node tests/beginner-tutorial-localization.test.cjs`, followed by
 `node tests/beginner-tutorial-timers.test.cjs`. With the local server

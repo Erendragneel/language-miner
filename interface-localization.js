@@ -228,6 +228,214 @@
     uk:['Гра з вирівнюванням на час','Перемістіть стрілку під правильним випадаючим словом, щоб отримати бал.','ГРА НА ВСТАНОВЛЕННЯ ЗА ЧАСОМ','Перемістіть стрілку під відповідним значенням, перш ніж слова досягнуть цільового рядка.','Поле вирівнювання Word Defender зі зіркою','Перемістіть стрілку вліво','Перемістіть стрілку вправо','ВИРІВНЯТИ ТУТ']
   };
   Object.entries(ARCADE_ALIGNMENT_TRANSLATIONS).forEach(([languageId,phrases])=>phrases.forEach((phrase,index)=>{const key=`arcadeAlignment${index}`;if(languageId==='en')EN[key]=phrase;else if(T[languageId])T[languageId][key]=phrase;}));
+  // Reading support follows the learning course; interface labels follow the known language.
+  const READING_SUPPORT_COPY={
+  "en": [
+    "Guided — letter hints",
+    "Standard — course text",
+    "Challenge — fewer hints",
+    "Guided — kana readings",
+    "Standard — furigana",
+    "Challenge — no furigana",
+    "Guided — Hangul letter hints",
+    "Guided — pronunciation support",
+    "Guided adds reading help where available. Questions that test a reading keep that answer hidden.",
+    "Reading support updated."
+  ],
+  "es": [
+    "Guiado — pistas de letras",
+    "Estándar — texto del curso",
+    "Desafío — menos pistas",
+    "Guiado — lecturas en kana",
+    "Estándar — furigana",
+    "Desafío — sin furigana",
+    "Guiado — pistas de letras hangul",
+    "Guiado — ayuda de pronunciación",
+    "El modo guiado añade ayuda de lectura cuando está disponible. Las preguntas que evalúan una lectura mantienen oculta esa respuesta.",
+    "Ayuda de lectura actualizada."
+  ],
+  "ja": [
+    "ガイド — 文字のヒント",
+    "標準 — コースの本文",
+    "チャレンジ — ヒントを減らす",
+    "ガイド — かなの読み",
+    "標準 — ふりがな",
+    "チャレンジ — ふりがななし",
+    "ガイド — ハングル文字のヒント",
+    "ガイド — 発音サポート",
+    "ガイドでは、用意されている読みのヒントを表示します。読みを答える問題では、正解の読みは表示しません。",
+    "読みのサポートを更新しました。"
+  ],
+  "ko": [
+    "안내 — 글자 힌트",
+    "표준 — 과정 본문",
+    "도전 — 힌트 줄이기",
+    "안내 — 가나 읽기",
+    "표준 — 후리가나",
+    "도전 — 후리가나 없음",
+    "안내 — 한글 글자 힌트",
+    "안내 — 발음 지원",
+    "안내 모드에서는 제공되는 읽기 힌트를 보여 줍니다. 읽기를 묻는 문제에서는 정답에 해당하는 힌트를 숨깁니다.",
+    "읽기 지원을 변경했습니다."
+  ],
+  "zh": [
+    "引导 — 字母提示",
+    "标准 — 课程文本",
+    "挑战 — 减少提示",
+    "引导 — 假名读音",
+    "标准 — 振假名",
+    "挑战 — 无振假名",
+    "引导 — 韩文字母提示",
+    "引导 — 发音辅助",
+    "引导模式会显示已有的读音提示。考查读音的题目不会显示答案提示。",
+    "已更新阅读辅助。"
+  ],
+  "ru": [
+    "С подсказками — названия букв",
+    "Стандарт — текст курса",
+    "Испытание — меньше подсказок",
+    "С подсказками — чтение каной",
+    "Стандарт — фуригана",
+    "Испытание — без фуриганы",
+    "С подсказками — буквы хангыля",
+    "С подсказками — помощь с произношением",
+    "Режим с подсказками показывает доступную помощь при чтении. В заданиях на чтение подсказка с ответом скрыта.",
+    "Помощь при чтении обновлена."
+  ],
+  "uk": [
+    "З підказками — назви літер",
+    "Стандарт — текст курсу",
+    "Виклик — менше підказок",
+    "З підказками — читання каною",
+    "Стандарт — фуріґана",
+    "Виклик — без фуріґани",
+    "З підказками — літери хангилю",
+    "З підказками — допомога з вимовою",
+    "Режим із підказками показує доступну допомогу з читання. У завданнях на читання підказку з відповіддю приховано.",
+    "Допомогу з читання оновлено."
+  ],
+  "fr": [
+    "Guidé — indices sur les lettres",
+    "Standard — texte du cours",
+    "Défi — moins d’indices",
+    "Guidé — lectures en kana",
+    "Standard — furigana",
+    "Défi — sans furigana",
+    "Guidé — indices sur le hangeul",
+    "Guidé — aide à la prononciation",
+    "Le mode guidé ajoute les aides à la lecture disponibles. Les questions qui évaluent une lecture ne révèlent pas cette réponse.",
+    "Aide à la lecture mise à jour."
+  ],
+  "de": [
+    "Geführt — Buchstabenhilfen",
+    "Standard — Kurstext",
+    "Herausforderung — weniger Hilfen",
+    "Geführt — Kana-Lesungen",
+    "Standard — Furigana",
+    "Herausforderung — ohne Furigana",
+    "Geführt — Hangul-Buchstabenhilfen",
+    "Geführt — Aussprachehilfen",
+    "Der geführte Modus zeigt verfügbare Lesehilfen. Bei Fragen zur Lesung bleibt die gesuchte Antwort verborgen.",
+    "Lesehilfe aktualisiert."
+  ],
+  "it": [
+    "Guidato — aiuti per le lettere",
+    "Standard — testo del corso",
+    "Sfida — meno aiuti",
+    "Guidato — letture in kana",
+    "Standard — furigana",
+    "Sfida — senza furigana",
+    "Guidato — aiuti per le lettere hangul",
+    "Guidato — aiuti per la pronuncia",
+    "La modalità guidata mostra gli aiuti alla lettura disponibili. Le domande che verificano una lettura non ne rivelano la risposta.",
+    "Supporto alla lettura aggiornato."
+  ],
+  "pt": [
+    "Guiado — dicas de letras",
+    "Padrão — texto do curso",
+    "Desafio — menos dicas",
+    "Guiado — leituras em kana",
+    "Padrão — furigana",
+    "Desafio — sem furigana",
+    "Guiado — dicas de letras hangul",
+    "Guiado — apoio à pronúncia",
+    "O modo guiado mostra as ajudas de leitura disponíveis. Questões que avaliam uma leitura mantêm essa resposta oculta.",
+    "Apoio à leitura atualizado."
+  ],
+  "vi": [
+    "Có hướng dẫn — gợi ý chữ cái",
+    "Tiêu chuẩn — văn bản khóa học",
+    "Thử thách — ít gợi ý hơn",
+    "Có hướng dẫn — cách đọc bằng kana",
+    "Tiêu chuẩn — furigana",
+    "Thử thách — không có furigana",
+    "Có hướng dẫn — gợi ý chữ hangul",
+    "Có hướng dẫn — hỗ trợ phát âm",
+    "Chế độ có hướng dẫn hiển thị gợi ý cách đọc khi có sẵn. Câu hỏi kiểm tra cách đọc sẽ không tiết lộ đáp án đó.",
+    "Đã cập nhật hỗ trợ đọc."
+  ],
+  "th": [
+    "มีคำแนะนำ — คำใบ้ตัวอักษร",
+    "มาตรฐาน — ข้อความในหลักสูตร",
+    "ท้าทาย — ลดคำใบ้",
+    "มีคำแนะนำ — คำอ่านคานะ",
+    "มาตรฐาน — ฟุริงานะ",
+    "ท้าทาย — ไม่มีฟุริงานะ",
+    "มีคำแนะนำ — คำใบ้อักษรฮันกึล",
+    "มีคำแนะนำ — ตัวช่วยออกเสียง",
+    "โหมดมีคำแนะนำจะแสดงตัวช่วยอ่านเมื่อมีให้ คำถามที่ทดสอบการอ่านจะไม่แสดงคำใบ้ที่เป็นคำตอบ",
+    "อัปเดตตัวช่วยการอ่านแล้ว"
+  ],
+  "tr": [
+    "Rehberli — harf ipuçları",
+    "Standart — kurs metni",
+    "Zorlu — daha az ipucu",
+    "Rehberli — kana okumaları",
+    "Standart — furigana",
+    "Zorlu — furigana yok",
+    "Rehberli — Hangıl harf ipuçları",
+    "Rehberli — telaffuz desteği",
+    "Rehberli mod, mevcut okuma ipuçlarını gösterir. Okumayı sınayan sorularda yanıtı açığa çıkaran ipuçları gizlenir.",
+    "Okuma desteği güncellendi."
+  ],
+  "id": [
+    "Terpandu — petunjuk huruf",
+    "Standar — teks kursus",
+    "Tantangan — lebih sedikit petunjuk",
+    "Terpandu — bacaan kana",
+    "Standar — furigana",
+    "Tantangan — tanpa furigana",
+    "Terpandu — petunjuk huruf Hangul",
+    "Terpandu — bantuan pelafalan",
+    "Mode terpandu menampilkan bantuan membaca yang tersedia. Soal yang menguji bacaan tidak menampilkan petunjuk jawabannya.",
+    "Bantuan membaca diperbarui."
+  ],
+  "pl": [
+    "Z pomocą — wskazówki liter",
+    "Standard — tekst kursu",
+    "Wyzwanie — mniej wskazówek",
+    "Z pomocą — odczyt w kanie",
+    "Standard — furigana",
+    "Wyzwanie — bez furigany",
+    "Z pomocą — wskazówki liter hangulu",
+    "Z pomocą — pomoc w wymowie",
+    "Tryb z pomocą pokazuje dostępne wskazówki do czytania. Pytania sprawdzające odczyt nie ujawniają tej odpowiedzi.",
+    "Pomoc w czytaniu zaktualizowana."
+  ],
+  "el": [
+    "Με καθοδήγηση — βοήθεια γραμμάτων",
+    "Τυπικό — κείμενο μαθήματος",
+    "Πρόκληση — λιγότερη βοήθεια",
+    "Με καθοδήγηση — ανάγνωση κάνα",
+    "Τυπικό — φουριγκάνα",
+    "Πρόκληση — χωρίς φουριγκάνα",
+    "Με καθοδήγηση — βοήθεια γραμμάτων χάνγκουλ",
+    "Με καθοδήγηση — βοήθεια προφοράς",
+    "Η καθοδήγηση εμφανίζει τη διαθέσιμη βοήθεια ανάγνωσης. Οι ερωτήσεις που εξετάζουν την ανάγνωση δεν αποκαλύπτουν την απάντηση.",
+    "Η βοήθεια ανάγνωσης ενημερώθηκε."
+  ]
+};
+  Object.entries(READING_SUPPORT_COPY).forEach(([languageId,phrases])=>phrases.forEach((phrase,index)=>{const key=`readingSupportCopy${index}`;if(languageId==='en')EN[key]=phrase;else if(T[languageId])T[languageId][key]=phrase;}));
   const HTML_LANG={en:'en',es:'es',ru:'ru',ja:'ja',ko:'ko',zh:'zh-CN',it:'it',fr:'fr',de:'de',...(ADDITIONAL_PACKS.htmlLang||{})};
   const EXACT_SOURCE=new Map(Object.entries(EN).filter(([,source])=>!source.includes('{')).map(([key,source])=>[source,key]));
   const ENDING_SOURCES=[...EXACT_SOURCE.entries()].sort((a,b)=>b[0].length-a[0].length);

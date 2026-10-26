@@ -877,7 +877,7 @@ function syncSelectedStageUI(){
   const supportMode=document.getElementById("supportMode");
   if(supportMode) supportMode.value=state.supportMode||"guided";
   document.querySelectorAll('[data-quiz-difficulty]').forEach(button=>{const selected=button.dataset.quizDifficulty===(state.quizDifficulty||'easy');button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));});
-  const difficultyHint=document.getElementById('quizDifficultyHint');if(difficultyHint)difficultyHint.textContent=state.quizDifficulty==='hard'?'Hard · pictures after answering; reduced reading aids':'Easy · picture clues and reading support';
+  const difficultyHint=document.getElementById('quizDifficultyHint');if(difficultyHint)difficultyHint.textContent=state.quizDifficulty==='hard'?'Hard · pictures after answering':'Easy · pictures before answering';
   window.LanguageMinerPracticeModes?.sync();
   syncOwnerTutorControls(idx);
 }
@@ -887,13 +887,13 @@ function quizDifficultyMarkup(){
 }
 function setQuizDifficultyMode(mode){
   if(!['easy','hard'].includes(mode))return false;
-  const changed=mode!==state.quizDifficulty;state.quizDifficulty=mode;state.supportMode=mode==='easy'?'guided':'challenge';
+  const changed=mode!==state.quizDifficulty;state.quizDifficulty=mode;
   if(changed){
     save();render();
     const display=document.querySelector('#challengeArea .question-card .question');
     if(display&&state.active&&!silentTestingActive(state.active))display.innerHTML=questionDisplay(state.active);
     window.LanguageMinerPictures?.applyDifficulty(document.getElementById('challengeArea'));
-    setMessage(`${mode==='easy'?'Easy: picture clues and reading support.':'Hard: picture clues appear after answering; reduced reading support.'} Four answer choices in both modes.`,"correct");
+    setMessage(`${mode==='easy'?'Easy: picture clues appear before answering.':'Hard: picture clues appear after answering.'} Four answer choices in both modes.`,"correct");
   }
   syncSelectedStageUI();return changed;
 }
@@ -1970,31 +1970,39 @@ function mine(){
 
 function questionDisplay(q){
   window.LanguageMinerVocabulary?.refreshJapanese(q);
-  const preciseVocabulary=window.LanguageMinerVocabulary?.japaneseDisplay(q,state.quizDifficulty==='hard');
+  const mode=state.supportMode||"guided";
+  const preciseVocabulary=window.LanguageMinerVocabulary?.japaneseDisplay(q,mode);
   if(preciseVocabulary!=null)return preciseVocabulary;
   const vocabularyMeaningQuestion=Boolean(q?.vocabularyKey&&/meaning/i.test(String(q.prompt||'')));
   if(vocabularyMeaningQuestion){
-    if(state.quizDifficulty==='hard')return stripMarkup(q.vocabularyKey||q.displayChallenge||q.q);
-    const reading=readingSpeechText(q.speechText||q.displayGuided||'');if(reading)return reading;
+    const written=stripMarkup(q.vocabularyKey||q.displayChallenge||q.q),reading=readingSpeechText(q.speechText||q.displayGuided||'');
+    if(mode==='guided'&&reading)return reading;
+    if(mode==='standard'&&reading&&written!==reading)return `<ruby>${v3Esc(written)}<rt>${v3Esc(reading)}</rt></ruby>`;
+    return written;
   }
   // Reading and meaning questions must never reveal their own answer.
   if(q.concealedPrompt) return q.concealedPrompt;
   if(q.kind==="reading" && q.displayChallenge) return q.displayChallenge;
   if(q.hideReadingInPrompt && q.displayChallenge) return q.displayChallenge;
-  const mode=state.supportMode||"guided";
   if(mode==="guided" && q.displayGuided) return q.displayGuided;
   if(mode==="challenge" && q.displayChallenge) return q.displayChallenge;
   return q.displayStandard||q.q;
 }
 function textContainsKanji(value){return /[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\u{20000}-\u{2FA1F}]/u.test(String(value??"").replace(/<[^>]*>/g," "));}
 function questionShowsKanji(q,displayedQuestion=questionDisplay(q)){return textContainsKanji(displayedQuestion)||textContainsKanji(q?.prompt);}
+function syncJapaneseQuestionReadingHelp(area,q,displayedQuestion){
+  const button=area?.querySelector('#kanjiHelpBtn'),box=area?.querySelector('#kanjiHelpBox');if(!button)return;
+  const show=Boolean(!silentTestingActive(q)&&q.help&&questionShowsKanji(q,displayedQuestion));button.hidden=!show;
+  if(!show&&box){if(!box.hidden)box.dataset.readingSupportHidden='true';box.hidden=true;}
+  else if(box?.dataset.readingSupportHidden==='true'){box.hidden=false;delete box.dataset.readingSupportHidden;}
+}
 function showQuestion(q){
   window.LanguageMinerPracticeModes?.prepareQuestion(q);
   const area=document.getElementById("challengeArea");
   const displayedQuestion=questionDisplay(q);
-  const showKanjiHelp=Boolean(!silentTestingActive(q)&&q.help&&questionShowsKanji(q,displayedQuestion));
-  const helpButton=showKanjiHelp?'<button id="kanjiHelpBtn" class="kanji-help-btn" type="button">📖 I don’t know this yet — add to review</button>':'';
-  const helpBox=showKanjiHelp?'<div id="kanjiHelpBox" class="kanji-help-box" hidden></div>':'';
+  const hasKanjiHelp=Boolean(!silentTestingActive(q)&&q.help&&questionShowsKanji(q,q.displayChallenge||q.vocabularyKey||q.concealedPrompt||q.q||displayedQuestion));
+  const helpButton=hasKanjiHelp?'<button id="kanjiHelpBtn" class="kanji-help-btn" type="button">📖 I don’t know this yet — add to review</button>':'';
+  const helpBox=hasKanjiHelp?'<div id="kanjiHelpBox" class="kanji-help-box" hidden></div>':'';
   const spoken=japaneseSpeechText(q);
   const silentTest=silentTestingActive(q);
   const voiceTools=silentTest?'<div class="silent-test-note">🔇 Silent testing — question and answer sounds are disabled.</div>':spoken?`<div class="voice-tools"><button id="speakQuestionBtn" type="button">🔊 Hear question</button><button id="slowSpeakQuestionBtn" type="button">🐢 Slow</button><span>Question audio only</span></div>`:'';
@@ -2002,7 +2010,7 @@ function showQuestion(q){
   window.LanguageMinerPictures?.decorateQuestion(area,q,q.learningLanguage||'ja');
   document.getElementById('speakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(state.voiceRate,{manual:true}));
   document.getElementById('slowSpeakQuestionBtn')?.addEventListener('click',()=>speakActiveQuestion(.58,{manual:true}));
-  if(showKanjiHelp){
+  if(hasKanjiHelp){
     document.getElementById("kanjiHelpBtn").addEventListener("click",()=>{
       const box=document.getElementById("kanjiHelpBox");
       markQuestionAssisted(q,'answer-help');
@@ -2012,6 +2020,7 @@ function showQuestion(q){
       if(window.japaneseMinerSmartReview?.enqueue?.(q)){setMessage('Added to Smart Review. You can review it without heart loss, rewards, or a queue limit.','correct');}
     });
   }
+  syncJapaneseQuestionReadingHelp(area,q,displayedQuestion);
   const a=document.getElementById("answers");
   quizOptionsForDifficulty(window.LanguageMinerVocabulary?.japaneseOptions(q)||q.opts,q.a).forEach(opt=>{
     const b=document.createElement("button");
@@ -2021,6 +2030,7 @@ function showQuestion(q){
   });
   window.LanguageMinerPictures?.beginLearning(area,q);
   window.LanguageMinerPracticeModes?.apply(area,q,{language:q.learningLanguage||'ja',spoken,silent:silentTest});
+  if(!window.LanguageMinerPracticeModes)window.LanguageMinerReadingSupport?.apply(area,q,q.learningLanguage||'ja',{silent:silentTest});
 }
 
 function quizOptionsForDifficulty(options,answer){
@@ -2245,7 +2255,7 @@ function jumpToSection(id){
 }
 document.getElementById("quickMineBtn").onclick=quickMineAction;
 document.getElementById("soundToggle").addEventListener("change",e=>{state.soundEnabled=e.target.checked;save();if(state.soundEnabled)playFeedbackSound(true);});
-document.getElementById("supportMode").addEventListener("change",e=>{state.supportMode=e.target.value;state.active=null;state.answered=false;save();render();setMessage(`Support mode changed to ${e.target.options[e.target.selectedIndex].text}. Start a new question.`,"correct");});
+document.getElementById("supportMode").addEventListener("change",e=>{state.supportMode=e.target.value;save();window.LanguageMinerReadingSupport?.refresh?.();render();setMessage('Reading support updated.',"correct");});
 document.addEventListener('click',event=>{const button=event.target.closest?.('[data-quiz-difficulty]');if(button)setQuizDifficultyMode(button.dataset.quizDifficulty);});
 document.getElementById("quickStatsBtn")?.addEventListener("click",()=>setStatsDrawer(true));
 document.getElementById("headerStatsBtn").onclick=()=>window.openLanguageMinerStats?.();

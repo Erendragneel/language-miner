@@ -1,4 +1,6 @@
-# Language Miner v6.4.298
+# Language Miner v6.4.299
+
+Current learning fix: [course-aware reading support and Japanese practice controls](RELEASE-NOTES-v6.4.299.md). Reading assistance follows the selected language, stays independent of Easy/Hard, and updates the current question. Hiragana and Katakana now show the same six practice controls as the other Hub mines.
 
 Current interface update: [required beginner tutorial](RELEASE-NOTES-v6.4.298.md), immediately after language selection, with clickable menu previews and saved progress. The searchable Game Guide stays available in Settings, and tutorial replay is available from Help & Community.
 
