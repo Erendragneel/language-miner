@@ -1,10 +1,8 @@
-# Language Miner v6.4.299
+# Language Miner v6.4.301
 
 Current learning fix: [course-aware reading support and Japanese practice controls](RELEASE-NOTES-v6.4.299.md). Reading assistance follows the selected language, stays independent of Easy/Hard, and updates the current question. Hiragana and Katakana now show the same six practice controls as the other Hub mines.
 
-Current published interface update: [required beginner tutorial](RELEASE-NOTES-v6.4.298.md), immediately after language selection. The searchable Game Guide stays available in Settings, and tutorial replay is available from Help & Community.
-
-Unreleased tutorial revision: Kōji guides players through the actual game controls using a gold spotlight and pointing hand. Menu actions advance automatically after the requested screen opens. Progress resumes after interruption; completed tutorials and existing-player exemptions remain honored. This revision is awaiting review and approval before publication.
+Current interface update: [guided beginner tutorial](RELEASE-NOTES-v6.4.301.md), immediately after language selection, for desktop and phone browsers. Kōji points to real controls, and the tutorial advances after the requested menu action. The searchable Game Guide remains in Settings; replay is available from Help & Community.
 
 Also included: [clearer menu categories, visible app installation, and manual login](RELEASE-NOTES-v6.4.297.md). Returning players choose when to log in; the remembered account and browser password autofill remain available.
 
