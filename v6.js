@@ -274,7 +274,8 @@ function openSettings(){
  box.insertAdjacentHTML('afterbegin',`<section id="v6SettingsHelp" class="v6-help-community" style="margin-bottom:14px" aria-labelledby="v6SettingsGuideTitle"><article><span aria-hidden="true">❔</span><div><h3 id="v6SettingsGuideTitle">${guideText('Game Guide')}</h3><p>${guideText('Choose a topic or search for anything you cannot find. Every topic shows the exact path through the game and explains what each control does.')}</p></div><button id="v6SettingsGuide" type="button">${guideText('Search the guide')}</button></article></section>`);
  document.getElementById('v6SettingsGuide').onclick=()=>{
   const tutorial=window.LanguageMinerBeginnerTutorial;
-  if(tutorial?.request?.()){closeOverlay('settings');return;}
+  const guidedVisit=tutorial?.status?.().active&&tutorial.status().stepId==='settings-guide';
+  if(!guidedVisit&&tutorial?.request?.()){closeOverlay('settings');return;}
   closeOverlay('settings');
   if(typeof window.LanguageMinerGameGuide?.open==='function')window.LanguageMinerGameGuide.open();else openTour();
  };

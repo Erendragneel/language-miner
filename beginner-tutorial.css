@@ -1,24 +1,31 @@
-/* The orientation is a native modal, separate from actual player controls. */
-.beginner-tutorial{width:min(900px,calc(100vw - 32px));max-width:none;max-height:none;height:min(860px,calc(100dvh - 32px));padding:0;border:1px solid #6e9bad;border-radius:24px;background:#102333;color:#f4f8fb;box-shadow:0 24px 100px #000a;overflow:hidden}
-.beginner-tutorial::backdrop{background:#03101de8;backdrop-filter:blur(6px)}
-.beginner-tutorial-panel{height:100%;display:grid;grid-template-rows:auto 5px minmax(0,1fr) auto}
-.beginner-tutorial-head{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:12px;margin:0;padding:18px 22px;background:#182f41;border:0;border-radius:0;text-align:left}
-.beginner-tutorial-compass{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:#274657;font-size:27px;flex:0 0 auto}
-.beginner-tutorial-head>div{flex:1;min-width:0}.beginner-tutorial-head>div>span{color:#99eee0;font-size:13px;font-weight:800;letter-spacing:.03em}.beginner-tutorial-head p{margin:4px 0 0;color:#c1d5e3;font-size:13px}
-#beginnerTutorialClose{min-width:44px;min-height:44px;padding:4px;font-size:25px}#beginnerTutorialClose[hidden]{display:none!important}
-.beginner-tutorial-progress{background:#294454}.beginner-tutorial-progress i{display:block;height:100%;background:linear-gradient(90deg,#61d5ca,#f7d270)}
-#beginnerTutorialContent{min-height:0;overflow:auto;overscroll-behavior:contain;padding:24px;scrollbar-gutter:stable;outline:none}
-.beginner-tutorial-topic>span{color:#9dbccc;font-size:12px;font-weight:700}.beginner-tutorial-topic h2{margin:6px 0 12px;font-size:clamp(22px,3vw,30px);line-height:1.2}.beginner-tutorial-topic p{margin:0 0 12px;color:#d2e1e9;line-height:1.55;font-size:15px}
-.beginner-tutorial-topic .beginner-tutorial-route{padding:9px 12px;border-radius:9px;background:#203c4b;color:#a5eadf;font-size:13px;overflow-wrap:anywhere}
-.beginner-tutorial-preview{margin-top:20px;padding:16px;border:1px solid #456a7d;border-radius:16px;background:#0b1c2b}
-.beginner-tutorial-preview>header{display:grid;gap:5px;margin:0 0 14px;padding:0;background:none;border:0}.beginner-tutorial-preview>header>strong{color:#ffdc91;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.beginner-tutorial-preview>header>span{color:#e7eff5;font-size:15px;line-height:1.5}
-.beginner-tutorial-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.beginner-tutorial-options button{display:grid;gap:7px;align-content:start;min-width:0;min-height:98px;padding:13px;border:1px solid #3e6177;border-radius:12px;background:#183347;color:#eff7fb;text-align:left;line-height:1.45;overflow-wrap:anywhere}
-.beginner-tutorial-options button>strong{font-size:15px;font-weight:800}.beginner-tutorial-options button>span{font-size:13px;font-weight:400;color:#c1d5e4}
-.beginner-tutorial-options button.tutorial-target{border:2px solid #f8ce71;box-shadow:inset 0 0 0 1px #f8ce7120;background:#223c4d}
-.beginner-tutorial-options button:hover{background:#25485c;border-color:#8ae1db}.beginner-tutorial-options button[aria-pressed=true]{background:#13554f;border-color:#9debd6}
-.beginner-tutorial button:focus-visible{outline:3px solid #fff0ba;outline-offset:3px}
-.beginner-tutorial-preview-note,.beginner-tutorial-note,.beginner-tutorial-requirement{font-size:12px;line-height:1.55;color:#b5ccd9}.beginner-tutorial-preview-note{margin:13px 0 0}.beginner-tutorial-note{margin-top:15px;padding-left:12px;border-left:3px solid #7cb7c8}.beginner-tutorial-requirement{margin-bottom:0}
-.beginner-tutorial-footer{padding:14px 24px 18px;border-top:1px solid #3e6073;background:#172d3e}.beginner-tutorial-footer p{margin:0 0 10px;font-size:13px;line-height:1.4;color:#9fe8d3}.beginner-tutorial-footer p.save-error{color:#ffd090}.beginner-tutorial-footer nav{display:flex;justify-content:space-between;gap:12px}.beginner-tutorial-footer button{min-height:46px;min-width:110px;padding:11px 18px;font-size:15px;border-radius:11px}.beginner-tutorial-footer button:disabled{opacity:.5;cursor:default}
-@media(max-width:600px){.beginner-tutorial{width:calc(100vw - 12px);height:calc(100dvh - 12px);border-radius:15px}.beginner-tutorial-head{padding:12px 14px;gap:10px}.beginner-tutorial-compass{width:38px;height:38px;font-size:23px}#beginnerTutorialContent{padding:16px 12px}.beginner-tutorial-topic p{font-size:14px}.beginner-tutorial-preview{padding:12px;margin-top:14px}.beginner-tutorial-options{grid-template-columns:1fr}.beginner-tutorial-options button{min-height:76px;padding:12px}.beginner-tutorial-footer{padding:12px 14px}.beginner-tutorial-footer button{min-width:95px}.beginner-tutorial-footer p{font-size:12px}}
-@media(prefers-reduced-motion:reduce){.beginner-tutorial,.beginner-tutorial *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* Live spotlight. The cutout exposes the real control; the guide never clones it. */
+.beginner-tutorial{position:fixed;inset:0;z-index:2147483000;pointer-events:none;color:#f9f2df;font:14px/1.45 system-ui,sans-serif}
+.beginner-tutorial[hidden],.beginner-tutorial [hidden]{display:none!important}
+.beginner-tutorial-shade{position:fixed;background:rgba(3,9,16,.76);pointer-events:auto;touch-action:none}
+#beginnerTutorialRing{position:fixed;border:3px solid #f8ca65;border-radius:12px;box-shadow:0 0 0 2px #3c290d,0 0 22px #ffcc6780,inset 0 0 12px #ffd58035;pointer-events:none;animation:beginnerTutorialGlow 1.5s ease-in-out infinite;box-sizing:border-box}
+.beginner-tutorial-hand{position:absolute;right:9px;bottom:-42px;font-size:42px;line-height:1;color:#ffdb8a;text-shadow:0 3px 4px #000,0 0 6px #462d08;animation:beginnerTutorialPoint 1s ease-in-out infinite;transform-origin:50% 100%}
+#beginnerTutorialRing[data-hand=above] .beginner-tutorial-hand{bottom:auto;top:-42px;transform:rotate(180deg);animation-name:beginnerTutorialPointDown}
+#beginnerTutorialRing.informational .beginner-tutorial-hand{display:none}
+#beginnerTutorialCoach{position:fixed;width:430px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);display:flex;align-items:flex-end;gap:0;margin:0;padding:0;box-sizing:border-box;border:0;background:none;pointer-events:auto;filter:drop-shadow(0 12px 22px #0009);text-align:left;isolation:isolate}
+.beginner-tutorial-portrait{width:94px;height:133px;object-fit:cover;object-position:50% 20%;border:2px solid #c89942;border-radius:44px 44px 14px 14px;background:#102d2f;flex:0 0 auto;position:relative;z-index:1;margin:0 -12px 12px 0;box-shadow:0 0 16px #e6bc5833}
+.beginner-tutorial-speech{min-width:0;flex:1;padding:16px 17px 13px 24px;border:1px solid #d8b16b;border-radius:16px;background:linear-gradient(135deg,#20323c,#101e2a 80%);overflow:auto;max-height:calc(100dvh - 34px);box-sizing:border-box}
+.beginner-tutorial-speech header{display:flex;align-items:center;gap:8px;margin:0;padding:0;border:0;background:none;border-radius:0}
+#beginnerTutorialKind{flex:1;color:#f0c777;letter-spacing:.055em;font-size:10px;font-weight:800}
+#beginnerTutorialClose{flex:0 0 auto;margin:-8px -9px -6px 0;padding:1px;width:32px;min-width:32px;min-height:32px;border:1px solid #6c7880;border-radius:8px;background:#1e3340;color:#fff;font-size:23px;line-height:1;cursor:pointer}
+#beginnerTutorialCount{margin:3px 0 7px;color:#a5bcc7;font-size:11px}
+#beginnerTutorialTitle{margin:0 0 7px;color:#fff9ec;font-size:19px;line-height:1.2;letter-spacing:0;text-wrap:balance}
+#beginnerTutorialIntro{margin:0;color:#e1ebef;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+#beginnerTutorialStatus{margin:10px 0 8px;color:#f5cf87;font-size:12px;line-height:1.4}
+.beginner-tutorial-progress{height:3px;border-radius:3px;background:#43515b;overflow:hidden}.beginner-tutorial-progress i{display:block;height:100%;background:linear-gradient(90deg,#c99842,#ffe3a4);transition:width .2s ease}
+.beginner-tutorial-speech footer{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:10px 0 0;padding:0;border:0;background:none;border-radius:0;flex-wrap:wrap}
+#beginnerTutorialSaved{color:#91adb8;font-size:10px;line-height:1.35;flex:1;min-width:80px}
+#beginnerTutorialNext,#beginnerTutorialRetry{min-height:40px;max-width:100%;padding:9px 14px;border:1px solid #ffe0a0;border-radius:9px;background:linear-gradient(#d9af58,#b58433);color:#191c22;font:700 13px/1.2 system-ui,sans-serif;cursor:pointer;white-space:normal;overflow-wrap:anywhere;box-shadow:0 2px 0 #5f421e}
+.beginner-tutorial button:focus-visible,[data-beginner-tutorial-target]:focus-visible{outline:3px solid #fff4be!important;outline-offset:4px}
+.beginner-tutorial button:disabled{opacity:.55;cursor:wait}
+@keyframes beginnerTutorialGlow{50%{box-shadow:0 0 0 2px #3c290d,0 0 32px #ffd47dcc,inset 0 0 16px #ffd58050}}
+@keyframes beginnerTutorialPoint{50%{translate:0 -8px}}
+@keyframes beginnerTutorialPointDown{50%{translate:0 8px}}
+@media(max-width:600px){.beginner-tutorial-portrait{width:64px;height:98px;border-radius:30px 30px 10px 10px;margin-right:-10px;margin-bottom:11px}.beginner-tutorial-speech{padding:12px 12px 11px 19px;border-radius:13px}#beginnerTutorialKind{font-size:9px}#beginnerTutorialCount{font-size:10px;margin-bottom:5px}#beginnerTutorialTitle{font-size:17px;margin-bottom:6px}#beginnerTutorialIntro{font-size:12px;line-height:1.45}#beginnerTutorialStatus{font-size:11px;margin:7px 0}#beginnerTutorialSaved{font-size:9px}#beginnerTutorialNext,#beginnerTutorialRetry{min-height:38px;padding:8px 11px;font-size:12px}.beginner-tutorial-hand{font-size:36px;bottom:-36px}#beginnerTutorialRing[data-hand=above] .beginner-tutorial-hand{top:-36px}}
+@media(prefers-reduced-motion:reduce){#beginnerTutorialRing,.beginner-tutorial-hand,.beginner-tutorial-progress i{animation:none!important;transition:none!important}}
+
+body[data-reduced-motion=true] #beginnerTutorialRing,body[data-reduced-motion=true] .beginner-tutorial-hand,body[data-reduced-motion=true] .beginner-tutorial-progress i{animation:none!important;transition:none!important}
