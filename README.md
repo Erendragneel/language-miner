@@ -1,6 +1,8 @@
-# Language Miner v6.4.303
+# Language Miner v6.4.304
 
-Current lesson update: [advanced reading and ordered writing in all 17 courses](RELEASE-NOTES-v6.4.303.md). See [lesson coverage](ADVANCED-LESSONS.md) for the connected-reading library and current writing inventory.
+Current fix: [Next stays visible and advances practice after an answer](RELEASE-NOTES-v6.4.304.md).
+
+Previous lesson update: [advanced reading and ordered writing in all 17 courses](RELEASE-NOTES-v6.4.303.md). See [lesson coverage](ADVANCED-LESSONS.md) for the connected-reading library and current writing inventory.
 
 Current shared-course update: [selected-language gameplay and teaching](RELEASE-NOTES-v6.4.302.md), with source-backed study cards, active-course supplies, player XP and gems, saved reviews and Notebook, and course/account isolation. See [behavior and coverage](COURSE-PARITY.md) for the audit scope and script-specific source coverage.
 

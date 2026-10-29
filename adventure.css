@@ -23,6 +23,9 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;background:#07131a50}
 #answers button.correct{background:#cfebdf!important;border-color:#388e70!important}#answers button.wrong{background:#f5ddd9!important;border-color:#bc6865!important}
 .controls{margin-top:14px!important;gap:10px!important}.controls button{min-height:44px!important;padding:10px 16px!important;background:#f0eee6!important;border:1px solid #d1d1c8!important;color:#243c49!important;box-shadow:none!important;font-size:14px!important}.controls #nextBtn{display:none!important}
 #adventureContinue{display:block;width:100%;min-height:48px;background:#167d89;color:#fff;border:0;border-radius:12px;margin-top:14px}#adventureContinue[hidden]{display:none}
+#adventureContinue:disabled{opacity:.65;cursor:not-allowed}
+#adventureContinueHint{margin:8px 0 0;color:#3b5262;font-size:13px;line-height:1.4;text-align:center}
+#adventureContinueHint[hidden],body.lm-course-study-active #adventureContinueHint{display:none}
 #message{font-size:15px!important;line-height:1.5}.message.correct{color:#176447!important}.message.wrong{color:#9b4035!important}
 #quickMineBtn,#gameMenuBtn,#v6CoachButton{display:none!important}.footer{color:#dce5e6!important;padding:25px 0;font-size:11px!important}.footer a{color:#dce5e6!important}
 .adventure-nav{position:fixed;inset:0 auto 0 0;width:210px;box-sizing:border-box;background:#0e202eeb;border-right:1px solid #7792a533;padding:22px 16px;z-index:30;overflow:auto}

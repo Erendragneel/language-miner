@@ -1,5 +1,11 @@
 # Daily Mini Golem checks
 
+For the practice Next button, run `node tests/practice-next-browser.test.cjs`
+with the local server running. It uses disposable accounts and mocked cloud
+saves to check Japanese Listening, incorrect/correct/assisted responses,
+saved-question recovery, Korean/Spanish practice, protected review flows,
+and phone layouts. Set `PRACTICE_NEXT_TEST_URL` to verify a deployed build.
+
 For connected reading and ordered writing across all 17 courses, run:
 
 `node scripts/build-advanced-reading.cjs --check`

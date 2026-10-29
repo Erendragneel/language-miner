@@ -16,15 +16,60 @@
  const today=document.createElement('aside');today.className='adventure-today';today.innerHTML='<h2>Today’s journey</h2><div id="adventureMetrics"></div><div class="adventure-next"><span>YOUR NEXT STOP</span><h3>Explore the mine</h3><p>A little practice opens a new path.</p><button data-adventure="explore">Visit Expedition Hub →</button></div><div class="adventure-guide"><span>✦</span><h3>A little help?</h3><p>Your study guide is here whenever you need it.</p><button data-adventure="guide">Ask your guide</button></div><button data-adventure="progress">View my progress →</button>';document.body.append(today);
  const mobile=document.createElement('nav');mobile.className='adventure-mobile';mobile.setAttribute('aria-label','Mobile navigation');mobile.innerHTML=[['notebook','▤','Notebook'],['explore','◇','Explore'],['progress','▥','Progress'],['menu','☰','Menu']].map(([id,icon,label])=>`<button data-adventure="${id}"><span aria-hidden="true">${navIcon(id,icon)}</span>${label}</button>`).join('');document.body.append(mobile);
  document.addEventListener('click',e=>{const b=e.target.closest('[data-adventure]');if(!b)return;setTimeout(()=>{if(b.dataset.adventure!=='menu')window.closeGameMenu?.();actions[b.dataset.adventure]?.();},0);});
- const next=document.createElement('button');next.id='adventureContinue';next.textContent='Next question →';next.onclick=()=>{document.getElementById('quickMineBtn')?.click();update();};document.querySelector('#challengeArea').parentElement.append(next);
- function updateContinue(){
-  const profile=window.japaneseMinerActiveProfile?.(),native=document.querySelector('#challengeArea .question-card');
-  next.hidden=!profile;
-  next.textContent=native&&typeof state==='object'?(state.active&&!state.answered?'Resume':state.active?.smartReview?'Next Review':'Next'):(document.getElementById('quickMineLabel')?.textContent?.trim()||'Start or return to question');
+ const continueCopy={
+  en:['Next','Next Review','Choose an answer to enable Next.'],
+  ja:['次へ','次の復習へ','答えを選ぶと「次へ」が使えます。'],
+  ko:['다음','다음 복습','답을 선택하면 다음으로 갈 수 있어요.'],
+  zh:['下一题','下一道复习题','选择答案后即可进入下一题。'],
+  es:['Siguiente','Siguiente repaso','Elige una respuesta para continuar.'],
+  fr:['Suivant','Révision suivante','Choisissez une réponse pour continuer.'],
+  de:['Weiter','Nächste Wiederholung','Wähle eine Antwort, um fortzufahren.'],
+  it:['Avanti','Prossimo ripasso','Scegli una risposta per continuare.'],
+  pt:['Próxima','Próxima revisão','Escolha uma resposta para continuar.'],
+  ru:['Далее','Следующий повтор','Выберите ответ, чтобы продолжить.'],
+  vi:['Tiếp','Ôn tập tiếp','Chọn một đáp án để tiếp tục.'],
+  th:['ถัดไป','ทบทวนข้อถัดไป','เลือกคำตอบเพื่อไปต่อ'],
+  tr:['İleri','Sonraki tekrar','Devam etmek için bir yanıt seç.'],
+  id:['Berikutnya','Tinjauan berikutnya','Pilih jawaban untuk melanjutkan.'],
+  pl:['Dalej','Następna powtórka','Wybierz odpowiedź, aby kontynuować.'],
+  el:['Επόμενο','Επόμενη επανάληψη','Επιλέξτε μια απάντηση για να συνεχίσετε.'],
+  uk:['Далі','Наступне повторення','Виберіть відповідь, щоб продовжити.']
+ };
+ const reviewContinueCopy={en:'Choose the correct answer to continue.',ja:'正しい答えを選ぶと次へ進めます。',ko:'정답을 선택하면 다음으로 갈 수 있어요.',zh:'选择正确答案后即可继续。',es:'Elige la respuesta correcta para continuar.',fr:'Choisissez la bonne réponse pour continuer.',de:'Wähle die richtige Antwort, um fortzufahren.',it:'Scegli la risposta corretta per continuare.',pt:'Escolha a resposta correta para continuar.',ru:'Выберите правильный ответ, чтобы продолжить.',vi:'Chọn đáp án đúng để tiếp tục.',th:'เลือกคำตอบที่ถูกต้องเพื่อไปต่อ',tr:'Devam etmek için doğru yanıtı seç.',id:'Pilih jawaban yang benar untuk melanjutkan.',pl:'Wybierz poprawną odpowiedź, aby kontynuować.',el:'Επιλέξτε τη σωστή απάντηση για να συνεχίσετε.',uk:'Виберіть правильну відповідь, щоб продовжити.'};
+ const next=document.createElement('button');next.id='adventureContinue';next.type='button';next.setAttribute('data-lm-no-interface-translate','');
+ const nextHint=document.createElement('p');nextHint.id='adventureContinueHint';nextHint.setAttribute('data-lm-no-interface-translate','');next.setAttribute('aria-describedby',nextHint.id);
+ document.querySelector('#challengeArea').parentElement.append(next,nextHint);
+ function continueState(){
+  const native=document.querySelector('#challengeArea .question-card'),q=native&&typeof state==='object'?state.active:null,course=window.LanguageMinerCourseGameplay?.status?.();
+  const testing=window.LanguageMinerAdvancedReading?.status?.().assessing===true||course?.testing===true||!!(typeof silentTestingActive==='function'&&silentTestingActive(q));
+  const automatic=q?.dailyRefresher===true;
+  const ordinary=q&&!testing&&!q.smartReview&&!automatic;
+  const recorded=ordinary&&!!q.practiceFirstAnswer;
+  const waiting=native?!!q&&!state.answered&&!recorded:!!course?.active&&!!course.question&&!course.answered;
+  return {q,ordinary,recorded,blocked:testing||automatic,waiting,review:q?.smartReview===true};
  }
+ function updateContinue(){
+  const profile=window.japaneseMinerActiveProfile?.(),status=continueState(),known=window.LanguageMinerI18n?.getContext?.().known||'en',copy=continueCopy[known]||continueCopy.en,label=copy[status.review?1:0];
+  next.hidden=!profile;next.disabled=status.blocked||status.waiting;
+  if(next.textContent!==label)next.textContent=label;
+  nextHint.hidden=!profile||!status.waiting||status.blocked||!!document.getElementById('lmCourseLessonStudy');
+  if(nextHint.hidden)next.removeAttribute('aria-describedby');else next.setAttribute('aria-describedby',nextHint.id);
+  const hint=status.review?(reviewContinueCopy[known]||reviewContinueCopy.en):copy[2];
+  if(nextHint.textContent!==hint)nextHint.textContent=hint;
+ }
+ next.onclick=()=>{
+  updateContinue();if(next.hidden||next.disabled)return;
+  const status=continueState(),courseNext=document.getElementById('lmNextCourseQuestion');
+  if(status.ordinary&&status.recorded){mine();document.getElementById('challengeArea')?.scrollIntoView({behavior:'smooth',block:'start'});}
+  else if(!status.q&&courseNext)courseNext.click();
+  else document.getElementById('quickMineBtn')?.click();
+  update();
+ };
  const continueObserver=new MutationObserver(updateContinue);
  continueObserver.observe(document.getElementById('challengeArea'),{childList:true,subtree:true,attributes:true,attributeFilter:['disabled']});
  if(document.getElementById('quickMineLabel'))continueObserver.observe(document.getElementById('quickMineLabel'),{childList:true,subtree:true,characterData:true});
+ if(document.getElementById('nextBtn'))continueObserver.observe(document.getElementById('nextBtn'),{attributes:true,attributeFilter:['disabled']});
+ window.addEventListener('lm-course-context-changed',updateContinue);
  let avatarAppearanceKey="";
  function update(){
   const profile=window.japaneseMinerActiveProfile?.();document.body.classList.toggle('adventure-signed-in',!!profile);
